@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Emoji Animation: The Absurd Epic</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #050505;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            aspect-ratio: 4 / 3;
+            border-radius: 24px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            background: #0f172a;
+            position: relative;
+            /* Reality warps and screen shakes during the impact phase */
+            animation: screenShake 24s infinite, realityWarp 24s infinite;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Utility classes for emojis to ensure exact centering */
+        text {
+            dominant-baseline: central;
+            text-anchor: middle;
+        }
+
+        
+        .bg-rect { animation: bgShift 24s infinite; }
+        
+        /* Elements are positioned at (0,0) of their group, we move them via transform */
+        .hero-group { animation: heroFloat 24s infinite; }
+        .shield { stroke-dasharray: 10 10; animation: shieldRotate 20s linear infinite, shieldPulse 24s infinite; }
+        
+        .villain { animation: villainAttack 24s infinite ease-in-out; }
+        .defender { animation: defenderLaunch 24s infinite ease-in-out; }
+        
+        .blackhole { animation: blackholeVortex 24s infinite ease-in; }
+        .turtle { animation: turtleVibe 24s infinite linear; }
+        .rebirth { animation: rebirthFloat 24s infinite ease-out; }
+
+        /* Subtle floating animations for secondary elements */
+        .boba { animation: floatItem 3s ease-in-out infinite alternate; }
+        .sweetpotato { animation: floatItem 4s ease-in-out infinite alternate-reverse; }
+
+
+        @keyframes realityWarp {
+            0%, 48% { filter: hue-rotate(0deg) invert(0) contrast(1); }
+            49%, 55% { filter: hue-rotate(720deg) invert(1) contrast(3); } /* Extreme color disruption */
+            56%, 100% { filter: hue-rotate(0deg) invert(0) contrast(1); }
+        }
+
+        @keyframes bgShift {
+            0%, 45% { fill: #0f172a; } /* Calm deep blue */
+            46%, 48% { fill: #7f1d1d; } /* Warning red, crisis approaching */
+            49%, 60% { fill: #ffffff; } /* Flash into blinding void */
+            61%, 85% { fill: #000000; } /* The silent black void */
+            86%, 100% { fill: #0f172a; } /* Return to normal */
+        }
+
+        @keyframes screenShake {
+            0%, 46% { transform: translate(0, 0) rotate(0deg); }
+            47% { transform: translate(-25px, 25px) rotate(-4deg) scale(1.1); }
+            49% { transform: translate(25px, -25px) rotate(4deg) scale(1.2); }
+            51% { transform: translate(-20px, -20px) rotate(-2deg) scale(1.1); }
+            53% { transform: translate(20px, 20px) rotate(2deg) scale(1.1); }
+            55% { transform: translate(-10px, 10px) rotate(-1deg) scale(1); }
+            56%, 100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+
+        @keyframes heroFloat {
+            0%, 42% { transform: translate(400px, 300px) scale(1) rotate(0deg); opacity: 1; }
+            45% { transform: translate(400px, 300px) scale(1.2) rotate(0deg); opacity: 1; } /* Swell before disaster */
+            48%, 100% { transform: translate(400px, 300px) scale(0) rotate(720deg); opacity: 0; } /* Sucked into void */
+        }
+
+        @keyframes shieldRotate {
+            to { stroke-dashoffset: -200; transform: rotate(360deg); }
+        }
+
+        @keyframes shieldPulse {
+            0%, 40% { opacity: 0.5; stroke: #4ade80; stroke-width: 4px; }
+            41%, 47% { opacity: 1; stroke: #ef4444; stroke-width: 12px; } /* Red alert! */
+            48%, 100% { opacity: 0; }
+        }
+
+        @keyframes floatItem {
+            from { transform: translateY(-10px) rotate(-5deg); }
+            to { transform: translateY(10px) rotate(5deg); }
+        }
+
+
+        @keyframes villainAttack {
+            /* Start way off-screen top-right */
+            0%, 15% { transform: translate(900px, -200px) scale(0) rotate(45deg); opacity: 0; }
+            /* Swoop in, hovering menacingly */
+            20%, 35% { transform: translate(600px, 100px) scale(4) rotate(-10deg); opacity: 1; } 
+            /* Prepare to strike */
+            45% { transform: translate(500px, 200px) scale(5) rotate(15deg); opacity: 1; } 
+            /* The clash at center! */
+            48%, 100% { transform: translate(400px, 300px) scale(0) rotate(1080deg); opacity: 0; } 
+        }
+
+        @keyframes defenderLaunch {
+            /* Start way off-screen bottom-left */
+            0%, 30% { transform: translate(-100px, 800px) scale(0) rotate(-45deg); opacity: 0; }
+            /* Launching up with baguette ready */
+            35%, 42% { transform: translate(200px, 500px) scale(3.5) rotate(15deg); opacity: 1; } 
+            /* Accelerating to intercept */
+            45% { transform: translate(300px, 400px) scale(4.5) rotate(-15deg); opacity: 1; } 
+            /* The clash at center! */
+            48%, 100% { transform: translate(400px, 300px) scale(0) rotate(-1080deg); opacity: 0; } 
+        }
+
+
+        @keyframes blackholeVortex {
+            /* Dormant */
+            0%, 46% { transform: translate(400px, 300px) scale(0) rotate(0deg); opacity: 0; }
+            /* Expand rapidly upon impact */
+            48% { transform: translate(400px, 300px) scale(10) rotate(360deg); opacity: 1; }
+            /* Consume everything */
+            55% { transform: translate(400px, 300px) scale(30) rotate(1080deg); opacity: 1; }
+            /* Collapse */
+            56%, 100% { transform: translate(400px, 300px) scale(0) rotate(0deg); opacity: 0; }
+        }
+
+        @keyframes turtleVibe {
+            /* Hidden during chaos */
+            0%, 60% { transform: translate(-100px, 300px) scale(0); opacity: 0; }
+            /* Slowly drifting through the black void left to right */
+            61% { transform: translate(-100px, 300px) scale(3) rotate(-10deg); opacity: 1; }
+            80% { transform: translate(900px, 300px) scale(3) rotate(10deg); opacity: 1; }
+            /* Exits stage right */
+            81%, 100% { transform: translate(900px, 300px) scale(0); opacity: 0; }
+        }
+
+        @keyframes rebirthFloat {
+            /* Hidden until the end */
+            0%, 82% { transform: translate(400px, 350px) scale(0); opacity: 0; }
+            /* Majestic rise */
+            86% { transform: translate(400px, 280px) scale(1.5); opacity: 1; }
+            /* Settle into pose */
+            90%, 98% { transform: translate(400px, 300px) scale(1.3); opacity: 1; }
+            /* Fade out for loop */
+            99%, 100% { transform: translate(400px, 300px) scale(0); opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+        <defs>
+            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="15" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+            <filter id="dropShadow">
+                <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000" flood-opacity="0.5" />
+            </filter>
+        </defs>
+
+        <!-- Background layer -->
+        <rect class="bg-rect" width="100%" height="100%" />
+
+        <!-- Ambient Stars -->
+        <g fill="#ffffff" opacity="0.3">
+            <circle cx="100" cy="150" r="2" />
+            <circle cx="700" cy="80" r="1.5" />
+            <circle cx="650" cy="450" r="2.5" />
+            <circle cx="200" cy="500" r="1" />
+            <circle cx="400" cy="100" r="2" />
+        </g>
+
+        <g class="hero-group" filter="url(#dropShadow)">
+            <!-- Protective Shield -->
+            <circle class="shield" cx="0" cy="0" r="90" fill="rgba(255,255,255,0.05)" stroke="#4ade80" stroke-width="4" />
+            
+            <!-- Core Elements -->
+            <text x="0" y="5" font-size="80">🇹🇼</text>
+            
+            <!-- Secondary floating items relative to the center (0,0) -->
+            <g transform="translate(-60, -50)">
+                <text class="boba" x="0" y="0" font-size="40">🧋</text>
+            </g>
+            <g transform="translate(60, 50)">
+                <text class="sweetpotato" x="0" y="0" font-size="40">🍠</text>
+            </g>
+        </g>
+
+        
+        <!-- The Villain (Moai riding a UFO) -->
+        <!-- All coordinates are 0, movement is handled purely by keyframes -->
+        <g class="villain" filter="url(#dropShadow)">
+            <text x="0" y="0" font-size="80">🛸</text>
+            <text x="0" y="-30" font-size="60">🗿</text>
+        </g>
+
+        <!-- The Absurd Defender (Shark wielding Baguette) -->
+        <g class="defender" filter="url(#dropShadow)">
+            <text x="0" y="0" font-size="80">🦈</text>
+            <!-- Positioning the baguette in the shark's mouth/fin area -->
+            <text x="35" y="-15" font-size="60" transform="rotate(45 35 -15)">🥖</text>
+            <text x="-40" y="30" font-size="40">💦</text>
+        </g>
+
+
+        <!-- The Black Hole Vortex that consumes the clash -->
+        <g class="blackhole">
+            <circle cx="0" cy="0" r="50" fill="#000" filter="url(#glow)" />
+            <text x="0" y="0" font-size="80">🕳️</text>
+            <text x="0" y="0" font-size="120" opacity="0.5">🌀</text>
+        </g>
+
+        <!-- The Post-apocalyptic Turtle drifting through space -->
+        <g class="turtle" filter="url(#glow)">
+            <text x="0" y="0" font-size="40">🐢</text>
+            <text x="-30" y="-10" font-size="20">🫧</text>
+        </g>
+
+        <!-- Rebirth of the Flag riding a Unicorn -->
+        <g class="rebirth" filter="url(#dropShadow)">
+            <text x="0" y="20" font-size="100">🦄</text>
+            <text x="-20" y="-40" font-size="70">🇹🇼</text>
+            <text x="40" y="-20" font-size="40">✨</text>
+        </g>
+
+    </svg>
+</div>
+
+</body>
+</html>

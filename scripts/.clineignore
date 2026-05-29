@@ -1,0 +1,27 @@
+
+# 1. 忽略 Godot 核心引擎缓存目录
+.godot/
+.import/
+
+# 2. 忽略截图里看到的资源唯一标识与导入依赖文件
+*.uid
+*.import
+
+# 3. 忽略多媒体和美术资产文件夹（防止 Cline 尝试读取二进制数据导致卡死）
+audio/
+textures/
+
+# 4. 忽略常见媒体格式文件（双重保险）
+*.svg
+*.png
+*.jpg
+*.jpeg
+*.wav
+*.mp3
+*.ogg
+*.pck
+
+# 5. 忽略导出配置与本地临时文件
+export_presets.cfg
+.history/
+*.tmp

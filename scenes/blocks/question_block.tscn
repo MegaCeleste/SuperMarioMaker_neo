@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://bubprsglac4jm"]
+
+[ext_resource type="PackedScene" uid="uid://do2ho8mnrjxmc" path="res://scenes/interactable_block.tscn" id="1_ahiik"]
+[ext_resource type="Script" uid="uid://bhfhxy88mhjxl" path="res://question_block.gd" id="2_y28qk"]
+[ext_resource type="Texture2D" uid="uid://qacwjfywv21u" path="res://textures/tiles/empty_block.png" id="3_suyba"]
+[ext_resource type="Texture2D" uid="uid://dm510dlk0st0r" path="res://textures/tiles/question_block.png" id="4_4yr73"]
+[ext_resource type="AudioStream" uid="uid://7ec5u6l30bgt" path="res://audio/smw/player/bump.wav" id="5_4yr73"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxru7"]
+atlas = ExtResource("3_suyba")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bm6ia"]
+atlas = ExtResource("4_4yr73")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ampy6"]
+atlas = ExtResource("4_4yr73")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bqvd7"]
+atlas = ExtResource("4_4yr73")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3df1w"]
+atlas = ExtResource("4_4yr73")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tgs42"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxru7")
+}],
+"loop": true,
+"name": &"empty",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bm6ia")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ampy6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqvd7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3df1w")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="QuestionBlock" unique_id=674435154 instance=ExtResource("1_ahiik")]
+z_index = 3
+script = ExtResource("2_y28qk")
+
+[node name="Sprite" parent="." index="0" unique_id=1178299911]
+sprite_frames = SubResource("SpriteFrames_tgs42")
+autoplay = "idle"
+frame_progress = 0.0
+
+[node name="Bump" type="AudioStreamPlayer2D" parent="." index="2" unique_id=702814431]
+stream = ExtResource("5_4yr73")

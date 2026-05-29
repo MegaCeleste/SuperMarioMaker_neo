@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://416j3ilr0cp8"]
+
+[ext_resource type="Texture2D" uid="uid://4sw6u3236hdo" path="res://textures/smw/background/background4.png" id="1_jougr"]
+[ext_resource type="Texture2D" uid="uid://dta33rcpg5qnt" path="res://textures/smw/background/background2.png" id="2_cbsqf"]
+[ext_resource type="Texture2D" uid="uid://b4pi1uh5qgim6" path="res://textures/smw/background/background3.png" id="3_jougr"]
+
+[node name="Background" type="Node2D" unique_id=466038264]
+
+[node name="Clouds" type="Parallax2D" parent="." unique_id=1411964169]
+scroll_scale = Vector2(0.2, 0.1)
+repeat_size = Vector2(512, 0)
+autoscroll = Vector2(10, 0)
+repeat_times = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="Clouds" unique_id=1278780409]
+texture_repeat = 3
+position = Vector2(0, 50)
+texture = ExtResource("1_jougr")
+centered = false
+
+[node name="Mountains" type="Parallax2D" parent="." unique_id=1266878458]
+scroll_scale = Vector2(0.25, 0.1)
+repeat_size = Vector2(512, 0)
+repeat_times = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="Mountains" unique_id=880402268]
+position = Vector2(0, 50)
+texture = ExtResource("2_cbsqf")
+centered = false
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=1228827807]
+scroll_scale = Vector2(0.3, 0.1)
+repeat_size = Vector2(512, 0)
+repeat_times = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1298068840]
+position = Vector2(0, 50)
+texture = ExtResource("3_jougr")
+centered = false
