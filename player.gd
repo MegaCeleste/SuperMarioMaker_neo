@@ -1,9 +1,8 @@
 class_name Player
 extends CharacterBody2D
-@onready var ray_cast_2d: RayCast2D = $RayCast2D
+
 @onready var state_machine: Node = $StateMachine
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var duck_shape: CollisionShape2D = $DuckShape
 @onready var standing_shape: CollisionShape2D = $StandingShape
 @onready var skid_sound: AudioStreamPlayer2D = $SkidSound
 @onready var jump_sound: AudioStreamPlayer2D = $JumpSound
@@ -45,9 +44,10 @@ func _ready() -> void:
 
 func _physics_process(delta: float)-> void:
 	state_machine.process_physics(delta)
-	move_and_slide()
-
-	if is_on_ceiling():
+	# self.move_and_collide(self.velocity*delta)
+	self.move_and_slide()
+	
+	if is_on_ceiling() and state_machine.current_state.name == "Air":
 		print("1.马里奥撞到了天花板")
 		for i in get_slide_collision_count():
 			var col = get_slide_collision(i)
@@ -59,3 +59,12 @@ func _physics_process(delta: float)-> void:
 
 					collider.hit_by_player(self)
 					break
+	
+	if is_on_wall():
+		print("撞墙了")
+	
+	if is_on_wall():
+		self.position.x = roundf(position.x)
+	
+	if is_on_floor_only() and get_floor_normal().y == Vector2.UP.y:
+		self.position.y = round(position.y)
