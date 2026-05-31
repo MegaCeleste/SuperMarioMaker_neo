@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://fh0qo8ecxtv2"]
 
+[ext_resource type="PackedScene" uid="uid://xux1ukoual24" path="res://scenes/entities/coin.tscn" id="1_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://dn5ud4dperl5d" path="res://scenes/player.tscn" id="1_lnu2h"]
 [ext_resource type="Texture2D" uid="uid://dwibitb2pfns" path="res://textures/tiles/fart.png" id="2_lbhrr"]
 [ext_resource type="Texture2D" uid="uid://bd32bdg1hr5al" path="res://textures/tiles/test.png" id="3_iywne"]
@@ -1112,7 +1113,10 @@ sources/1 = SubResource("TileSetAtlasSource_u5sy4")
 [node name="Background" parent="." unique_id=466038264 instance=ExtResource("5_iywne")]
 position = Vector2(40, 0)
 
-[node name="Player" parent="." unique_id=1676506089 instance=ExtResource("1_lnu2h")]
+[node name="coin" parent="." unique_id=84200015 instance=ExtResource("1_0tnpc")]
+position = Vector2(93, -153)
+
+[node name="Player" parent="." unique_id=1644461019 instance=ExtResource("1_lnu2h")]
 position = Vector2(112, -63)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1272948064]

@@ -1,12 +1,38 @@
 extends State
 
+# 土狼时间持续时间（秒），可在编辑器调整
+@export var coyote_time_duration: float = 2
+# 土狼时间内重力的百分比（例如：0.50 = 正常重力的50%）
+@export var coyote_gravity_percent: float = 0.2
+
+# 记录离开地面的时间（用于土狼时间）
+@export_storage var coyote_timer: float = 0.0
+
+
+
+
+
 func enter() -> void:
-	pass
+	coyote_timer = coyote_time_duration
+
+
 
 func physics_update(delta: float) -> void:
-	if not player.is_on_floor():
-		state_machine.change_state($"../Air")
-		return
+	
+	coyote_timer -= delta
+	
+	if not owner.is_on_floor():
+		if coyote_timer <= 0:
+			state_machine.change_state($"../Air")
+			return
+		else:
+			#var floor_line
+				# player.get_floor_normal().rotated(PI/2)
+				# Vector2.from_angle(player.get_floor_angle())
+			#player.velocity = player.velocity.project(floor_line)
+			owner.velocity = owner.velocity.slide(owner.last_floor_normal)
+			print(player.last_floor_normal)
+
 
 	if Input.is_action_just_pressed("player_jump"):
 		player.is_priming_jump = (abs(player.velocity.x) >= 160.0)  # 如果水平速度足够快，准备超级跳跃动画
@@ -43,3 +69,6 @@ func physics_update(delta: float) -> void:
 	else:
 		player.animated_sprite.play("walk")
 		player.animated_sprite.speed_scale = lerp(0.6, 2.0, abs(player.velocity.x) / player.max_walk_speed)
+
+	
+	player.velocity.y += player.GRAVITY * delta * coyote_gravity_percent

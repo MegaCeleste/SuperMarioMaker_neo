@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://xux1ukoual24"]
+
+[ext_resource type="Texture2D" uid="uid://dwfdg8tvtkrwu" path="res://textures/tiles/coin.png" id="1_sao8m"]
+[ext_resource type="Script" uid="uid://b80g0j8kg15q6" path="res://scripts/component/加金币.gd" id="2_14ges"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14ges"]
+atlas = ExtResource("1_sao8m")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6b0am"]
+atlas = ExtResource("1_sao8m")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_83qlk"]
+atlas = ExtResource("1_sao8m")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_okj2o"]
+atlas = ExtResource("1_sao8m")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2owr0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_14ges")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6b0am")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_83qlk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_okj2o")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6b0am"]
+size = Vector2(16, 16)
+
+[node name="Node2D" type="AnimatableBody2D" unique_id=84200015]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1759455286]
+sprite_frames = SubResource("SpriteFrames_2owr0")
+autoplay = "default"
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="." unique_id=1260813758]
+shape = SubResource("RectangleShape2D_6b0am")
+
+[node name="CollisionShape2D" type="Area2D" parent="." unique_id=417303716]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CollisionShape2D" unique_id=119218138]
+shape = SubResource("RectangleShape2D_6b0am")
+
+[node name="C_AddCoin" type="Node" parent="CollisionShape2D" unique_id=561236540]
+script = ExtResource("2_14ges")
+metadata/_custom_type_script = "uid://b80g0j8kg15q6"
