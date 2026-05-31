@@ -13,6 +13,11 @@ func enter() -> void:
 	if bgm_node:
 		bgm_node.set_deferred("stream_paused", true)
 
+
+	var q := PhysicsShapeQueryParameters2D.new()
+	
+
+
 	player.dead_sound.play()
 	is_hovering = true
 	player.animated_sprite.play("dead")

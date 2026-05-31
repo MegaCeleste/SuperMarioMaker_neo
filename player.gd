@@ -28,6 +28,10 @@ var skid_timer := 0.0
 var skid_charge_time := 0.0
 const skid_threshold := 0.05
 
+
+
+@export_storage var last_floor_normal: Vector2
+
 func die() -> void:
 	velocity = Vector2.ZERO
 	state_machine.change_state($"StateMachine/Dead")
@@ -44,10 +48,21 @@ func _ready() -> void:
 	state_machine.init(self)
 
 func _physics_process(delta: float)-> void:
+	self.floor_snap_length = self.get_gravity().y*delta
+	
+	if is_on_floor() and get_floor_normal():
+		last_floor_normal = get_floor_normal()
+	
 	state_machine.process_physics(delta)
-	move_and_slide()
-
-	if is_on_ceiling():
+	
+	_attempt_correction(delta, 2)
+	
+	# self.move_and_collide(self.velocity*delta)
+	self.move_and_slide()
+	
+	
+	
+	if is_on_ceiling() and state_machine.current_state.name == "Air":
 		print("1.马里奥撞到了天花板")
 		for i in get_slide_collision_count():
 			var col = get_slide_collision(i)
@@ -59,3 +74,37 @@ func _physics_process(delta: float)-> void:
 
 					collider.hit_by_player(self)
 					break
+	
+	if is_on_wall():
+		print("撞墙了")
+		self.velocity.x = 0
+	
+	if is_on_wall():
+		self.position.x = snapped(position.x, 0.01)
+	
+	if is_on_floor_only() and get_floor_normal().y == Vector2.UP.y:
+		self.position.y = round(position.y)
+	
+	#$"身体（圆形）".disabled = is_on_floor()
+	
+	#$"分离射线 下".disabled = is_on_floor()
+	#$"分离射线 下2".disabled = is_on_floor()
+	#$"身体（点）".disabled = not is_on_floor()
+
+
+
+func _attempt_correction(delta: float, amount: int) -> void:
+	if (
+			velocity.y < 0
+			and test_move(global_transform, Vector2(0, velocity.y * delta))
+	):
+		for i in range(1, amount * 2 + 1):
+			for j in [-1.0, 1.0]:
+				if not test_move(
+						global_transform.translated(Vector2(i * j / 2, 0)),
+						Vector2(0, velocity.y * delta)
+				):
+					translate(Vector2(i * j / 2, 0))
+					if velocity.x * j / 2 < 0:
+						velocity.x = 0
+					return

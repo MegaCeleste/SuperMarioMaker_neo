@@ -1,91 +1,91 @@
-[gd_scene format=3 uid="uid://dn5ud4dperl5d"]
+[gd_scene format=3 uid="uid://2o5bmjh3so68"]
 
-[ext_resource type="Script" uid="uid://cou60ypt1a6cn" path="res://player.gd" id="1_d2wvv"]
-[ext_resource type="Texture2D" uid="uid://c2ghbdcbsyk30" path="res://textures/player/mario/dead.png" id="2_3v2ag"]
-[ext_resource type="Script" uid="uid://cclt0k4v27nnc" path="res://scripts/tools/坐标显示器.gd" id="2_4ni07"]
-[ext_resource type="Texture2D" uid="uid://p3po536g3vlu" path="res://textures/player/mario/small/duck.png" id="3_jej6c"]
-[ext_resource type="Texture2D" uid="uid://geq1roewmv1k" path="res://textures/player/mario/small/fall.png" id="4_f1ej7"]
-[ext_resource type="Texture2D" uid="uid://i1hdwfv63uvg" path="res://textures/player/mario/small/idle.png" id="5_oprun"]
-[ext_resource type="Texture2D" uid="uid://cv5q4gi6k8oi1" path="res://textures/player/mario/small/jump.png" id="6_a8ls1"]
-[ext_resource type="Texture2D" uid="uid://dsbpgg6geewwj" path="res://textures/player/mario/small/p_jump.png" id="7_qfm1y"]
-[ext_resource type="Texture2D" uid="uid://ckyxmkostqpdd" path="res://textures/player/mario/small/run.png" id="8_fulsm"]
-[ext_resource type="Texture2D" uid="uid://cmr57i1et5gyy" path="res://textures/player/mario/small/skid.png" id="9_4r5pv"]
-[ext_resource type="Texture2D" uid="uid://d4gyuxu12h8wy" path="res://textures/player/mario/small/spin_jump.png" id="10_60mlk"]
-[ext_resource type="Texture2D" uid="uid://du3cmcu5y6hsm" path="res://textures/player/mario/small/walk.png" id="11_i4ail"]
-[ext_resource type="AudioStream" uid="uid://bhxmp70u556sv" path="res://audio/smw/player/jump.wav" id="12_3v2ag"]
-[ext_resource type="AudioStream" uid="uid://vxfegf1r2emq" path="res://audio/smw/player/skid.wav" id="13_jej6c"]
-[ext_resource type="Script" uid="uid://3tmrcltmxqg4" path="res://scripts/state_machine.gd" id="14_a8ls1"]
-[ext_resource type="Script" uid="uid://dhoh3e6fodvpv" path="res://scripts/dead.gd" id="15_i4ail"]
-[ext_resource type="Script" uid="uid://cplgnvd7cxo0d" path="res://scripts/idle.gd" id="15_qfm1y"]
-[ext_resource type="Script" uid="uid://b015ongubhblb" path="res://scripts/run.gd" id="16_qfm1y"]
-[ext_resource type="Script" uid="uid://dihbmdi2b6iu8" path="res://scripts/air.gd" id="17_4r5pv"]
-[ext_resource type="Script" uid="uid://nnfxleaxrsc8" path="res://scripts/duck.gd" id="18_4r5pv"]
-[ext_resource type="Script" uid="uid://7qunqnci5cyl" path="res://scripts/skid.gd" id="18_fulsm"]
-[ext_resource type="AudioStream" uid="uid://c345xnns7om3m" path="res://audio/smw/player/klock.ogg" id="20_60mlk"]
-[ext_resource type="AudioStream" uid="uid://cpvqy2k0d2cju" path="res://audio/smw/player/dead.ogg" id="22_a38lo"]
+[ext_resource type="Script" uid="uid://cou60ypt1a6cn" path="res://player.gd" id="1_kfwe8"]
+[ext_resource type="Script" uid="uid://cclt0k4v27nnc" path="res://scripts/tools/坐标显示器.gd" id="2_jl4d4"]
+[ext_resource type="Texture2D" uid="uid://c2ghbdcbsyk30" path="res://textures/player/mario/dead.png" id="3_bx0xt"]
+[ext_resource type="Texture2D" uid="uid://p3po536g3vlu" path="res://textures/player/mario/small/duck.png" id="4_cvyp2"]
+[ext_resource type="Texture2D" uid="uid://geq1roewmv1k" path="res://textures/player/mario/small/fall.png" id="5_k8a40"]
+[ext_resource type="Texture2D" uid="uid://i1hdwfv63uvg" path="res://textures/player/mario/small/idle.png" id="6_4fli6"]
+[ext_resource type="Texture2D" uid="uid://cv5q4gi6k8oi1" path="res://textures/player/mario/small/jump.png" id="7_frr58"]
+[ext_resource type="Texture2D" uid="uid://dsbpgg6geewwj" path="res://textures/player/mario/small/p_jump.png" id="8_vktmb"]
+[ext_resource type="Texture2D" uid="uid://ckyxmkostqpdd" path="res://textures/player/mario/small/run.png" id="9_wb0o4"]
+[ext_resource type="Texture2D" uid="uid://cmr57i1et5gyy" path="res://textures/player/mario/small/skid.png" id="10_ld0dp"]
+[ext_resource type="Texture2D" uid="uid://d4gyuxu12h8wy" path="res://textures/player/mario/small/spin_jump.png" id="11_2qv0p"]
+[ext_resource type="Texture2D" uid="uid://du3cmcu5y6hsm" path="res://textures/player/mario/small/walk.png" id="12_eqtsf"]
+[ext_resource type="Script" uid="uid://3tmrcltmxqg4" path="res://scripts/state_machine.gd" id="13_lc5b8"]
+[ext_resource type="Script" uid="uid://dhoh3e6fodvpv" path="res://scripts/dead.gd" id="14_cps2i"]
+[ext_resource type="Script" uid="uid://cplgnvd7cxo0d" path="res://scripts/idle.gd" id="15_3eubj"]
+[ext_resource type="Script" uid="uid://b015ongubhblb" path="res://scripts/run.gd" id="16_d7jij"]
+[ext_resource type="Script" uid="uid://dihbmdi2b6iu8" path="res://scripts/air.gd" id="17_b0w53"]
+[ext_resource type="Script" uid="uid://nnfxleaxrsc8" path="res://scripts/duck.gd" id="18_sdrwd"]
+[ext_resource type="Script" uid="uid://7qunqnci5cyl" path="res://scripts/skid.gd" id="19_d1p46"]
+[ext_resource type="AudioStream" uid="uid://c345xnns7om3m" path="res://audio/smw/player/klock.ogg" id="20_3nb4v"]
+[ext_resource type="AudioStream" uid="uid://bhxmp70u556sv" path="res://audio/smw/player/jump.wav" id="21_7ntam"]
+[ext_resource type="AudioStream" uid="uid://vxfegf1r2emq" path="res://audio/smw/player/skid.wav" id="22_k4hv5"]
+[ext_resource type="AudioStream" uid="uid://cpvqy2k0d2cju" path="res://audio/smw/player/dead.ogg" id="23_aj7xm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lungf"]
-atlas = ExtResource("2_3v2ag")
+atlas = ExtResource("3_bx0xt")
 region = Rect2(0, 0, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ouou7"]
-atlas = ExtResource("2_3v2ag")
+atlas = ExtResource("3_bx0xt")
 region = Rect2(16, 0, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b6tgf"]
-atlas = ExtResource("3_jej6c")
+atlas = ExtResource("4_cvyp2")
 region = Rect2(0, 0, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dnykm"]
-atlas = ExtResource("4_f1ej7")
+atlas = ExtResource("5_k8a40")
 region = Rect2(0, 0, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5u6hq"]
-atlas = ExtResource("5_oprun")
+atlas = ExtResource("6_4fli6")
 region = Rect2(0, 0, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c5rqy"]
-atlas = ExtResource("6_a8ls1")
+atlas = ExtResource("7_frr58")
 region = Rect2(0, 0, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n5sgd"]
-atlas = ExtResource("7_qfm1y")
+atlas = ExtResource("8_vktmb")
 region = Rect2(0, 0, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5ki56"]
-atlas = ExtResource("8_fulsm")
+atlas = ExtResource("9_wb0o4")
 region = Rect2(0, 0, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_saib0"]
-atlas = ExtResource("8_fulsm")
+atlas = ExtResource("9_wb0o4")
 region = Rect2(16, 0, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_73kkf"]
-atlas = ExtResource("9_4r5pv")
+atlas = ExtResource("10_ld0dp")
 region = Rect2(0, 0, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ogpgs"]
-atlas = ExtResource("10_60mlk")
+atlas = ExtResource("11_2qv0p")
 region = Rect2(0, 0, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_spk56"]
-atlas = ExtResource("10_60mlk")
+atlas = ExtResource("11_2qv0p")
 region = Rect2(32, 0, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1yk18"]
-atlas = ExtResource("10_60mlk")
+atlas = ExtResource("11_2qv0p")
 region = Rect2(48, 0, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b4o2o"]
-atlas = ExtResource("10_60mlk")
+atlas = ExtResource("11_2qv0p")
 region = Rect2(16, 0, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d4qa6"]
-atlas = ExtResource("11_i4ail")
+atlas = ExtResource("12_eqtsf")
 region = Rect2(0, 0, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ss7kx"]
-atlas = ExtResource("11_i4ail")
+atlas = ExtResource("12_eqtsf")
 region = Rect2(16, 0, 16, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_a38lo"]
@@ -190,19 +190,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a38lo"]
-size = Vector2(4, 10.875)
-
-[sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_4ni07"]
-length = 16.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_a38lo"]
-radius = 6.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_4ni07"]
-radius = 1.0
-
-[sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_a38lo"]
-length = 7.89
+size = Vector2(15.8, 15)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4r5pv"]
 lifetime_randomness = 0.29
@@ -222,8 +210,7 @@ z_index = 2
 collision_priority = -1.0
 floor_constant_speed = true
 floor_snap_length = 6.0
-safe_margin = 0.001
-script = ExtResource("1_d2wvv")
+script = ExtResource("1_kfwe8")
 
 [node name="坐标显示器" type="Node2D" parent="." unique_id=1776659721]
 
@@ -234,7 +221,7 @@ offset_left = -16.0
 offset_top = -16.0
 offset_right = 48.0
 offset_bottom = 48.0
-script = ExtResource("2_4ni07")
+script = ExtResource("2_jl4d4")
 target_node = NodePath("../..")
 
 [node name="ColorRect" type="ColorRect" parent="坐标显示器/Control" unique_id=1540367717]
@@ -268,105 +255,38 @@ sprite_frames = SubResource("SpriteFrames_a38lo")
 animation = &"idle"
 
 [node name="头" type="CollisionShape2D" parent="." unique_id=308446339]
-visible = false
-position = Vector2(2.1705645e-07, 6.5625)
+position = Vector2(0, 8)
 rotation = -3.1415925
 shape = SubResource("RectangleShape2D_a38lo")
 one_way_collision = true
 one_way_collision_margin = 8.0
 
-[node name="身体（线）" type="CollisionShape2D" parent="." unique_id=768338238]
-position = Vector2(-2.842171e-14, 16)
-rotation = -3.1415925
-shape = SubResource("SeparationRayShape2D_4ni07")
-disabled = true
-one_way_collision = true
-one_way_collision_margin = 0.0
-
-[node name="身体（圆形）" type="CollisionShape2D" parent="." unique_id=1650396379]
-process_priority = 2
-process_physics_priority = 2
-visible = false
-position = Vector2(0, 10)
-shape = SubResource("CircleShape2D_a38lo")
-disabled = true
-
-[node name="身体（点）" type="CollisionShape2D" parent="." unique_id=1629760173]
-process_priority = 2
-process_physics_priority = 2
-visible = false
-position = Vector2(0, 15)
-shape = SubResource("CircleShape2D_4ni07")
-
-[node name="分离射线 左" type="CollisionShape2D" parent="." unique_id=327116521]
-position = Vector2(0, 5)
-rotation = 1.5707964
-shape = SubResource("SeparationRayShape2D_a38lo")
-one_way_collision = true
-
-[node name="分离射线 左2" type="CollisionShape2D" parent="." unique_id=1727546840]
-position = Vector2(0, 8)
-rotation = 1.5707964
-shape = SubResource("SeparationRayShape2D_a38lo")
-one_way_collision = true
-one_way_collision_margin = 0.0
-
-[node name="分离射线 右" type="CollisionShape2D" parent="." unique_id=767477051]
-process_priority = -1
-position = Vector2(0, 5)
-rotation = -1.5707964
-shape = SubResource("SeparationRayShape2D_a38lo")
-one_way_collision = true
-one_way_collision_margin = 0.0
-
-[node name="分离射线 右2" type="CollisionShape2D" parent="." unique_id=1157579754]
-process_priority = -1
-position = Vector2(0, 8)
-rotation = -1.5707964
-shape = SubResource("SeparationRayShape2D_a38lo")
-one_way_collision = true
-one_way_collision_margin = 0.0
-
-[node name="分离射线 下" type="CollisionShape2D" parent="." unique_id=1250317308]
-process_priority = -1
-position = Vector2(-2, 8)
-shape = SubResource("SeparationRayShape2D_a38lo")
-one_way_collision = true
-one_way_collision_margin = 0.0
-
-[node name="分离射线 下2" type="CollisionShape2D" parent="." unique_id=230083803]
-process_priority = -1
-position = Vector2(2, 8)
-shape = SubResource("SeparationRayShape2D_a38lo")
-one_way_collision = true
-one_way_collision_margin = 0.0
-
 [node name="StateMachine" type="Node" parent="." unique_id=607788924 node_paths=PackedStringArray("initial_state")]
-script = ExtResource("14_a8ls1")
+script = ExtResource("13_lc5b8")
 initial_state = NodePath("Idle")
 
 [node name="Dead" type="Node" parent="StateMachine" unique_id=1847004304]
-script = ExtResource("15_i4ail")
+script = ExtResource("14_cps2i")
 metadata/_custom_type_script = "uid://dehduwtrwu8ar"
 
 [node name="Idle" type="Node" parent="StateMachine" unique_id=952419744]
-script = ExtResource("15_qfm1y")
+script = ExtResource("15_3eubj")
 metadata/_custom_type_script = "uid://dehduwtrwu8ar"
 
 [node name="Run" type="Node" parent="StateMachine" unique_id=1706831631]
-script = ExtResource("16_qfm1y")
+script = ExtResource("16_d7jij")
 metadata/_custom_type_script = "uid://dehduwtrwu8ar"
 
 [node name="Air" type="Node" parent="StateMachine" unique_id=1606500851]
-script = ExtResource("17_4r5pv")
+script = ExtResource("17_b0w53")
 metadata/_custom_type_script = "uid://dehduwtrwu8ar"
 
 [node name="Duck" type="Node" parent="StateMachine" unique_id=1229003991]
-script = ExtResource("18_4r5pv")
+script = ExtResource("18_sdrwd")
 metadata/_custom_type_script = "uid://dehduwtrwu8ar"
 
 [node name="Skid" type="Node" parent="StateMachine" unique_id=977606854]
-script = ExtResource("18_fulsm")
+script = ExtResource("19_d1p46")
 metadata/_custom_type_script = "uid://dehduwtrwu8ar"
 
 [node name="SkidParticles" type="GPUParticles2D" parent="." unique_id=1163110529]
@@ -378,16 +298,14 @@ process_material = SubResource("ParticleProcessMaterial_4r5pv")
 
 [node name="KlockSound" type="AudioStreamPlayer2D" parent="." unique_id=178645246]
 visible = false
-stream = ExtResource("20_60mlk")
+stream = ExtResource("20_3nb4v")
 
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="." unique_id=1395186686]
 visible = false
-stream = ExtResource("12_3v2ag")
+stream = ExtResource("21_7ntam")
 
 [node name="SkidSound" type="AudioStreamPlayer2D" parent="." unique_id=692839975]
-visible = false
-stream = ExtResource("13_jej6c")
+stream = ExtResource("22_k4hv5")
 
 [node name="DeadSound" type="AudioStreamPlayer2D" parent="." unique_id=342724576]
-visible = false
-stream = ExtResource("22_a38lo")
+stream = ExtResource("23_aj7xm")

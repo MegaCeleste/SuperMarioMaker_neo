@@ -190,19 +190,13 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a38lo"]
-size = Vector2(4, 10.875)
-
-[sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_4ni07"]
-length = 16.0
+size = Vector2(4, 13.75)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a38lo"]
-radius = 6.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_4ni07"]
-radius = 1.0
+radius = 5.0
 
 [sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_a38lo"]
-length = 7.89
+length = 7.9
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4r5pv"]
 lifetime_randomness = 0.29
@@ -220,9 +214,7 @@ scale_max = 1.5
 [node name="Player" type="CharacterBody2D" unique_id=1676506089]
 z_index = 2
 collision_priority = -1.0
-floor_constant_speed = true
 floor_snap_length = 6.0
-safe_margin = 0.001
 script = ExtResource("1_d2wvv")
 
 [node name="坐标显示器" type="Node2D" parent="." unique_id=1776659721]
@@ -268,41 +260,25 @@ sprite_frames = SubResource("SpriteFrames_a38lo")
 animation = &"idle"
 
 [node name="头" type="CollisionShape2D" parent="." unique_id=308446339]
-visible = false
-position = Vector2(2.1705645e-07, 6.5625)
+position = Vector2(0, 8)
 rotation = -3.1415925
 shape = SubResource("RectangleShape2D_a38lo")
 one_way_collision = true
 one_way_collision_margin = 8.0
 
-[node name="身体（线）" type="CollisionShape2D" parent="." unique_id=768338238]
-position = Vector2(-2.842171e-14, 16)
-rotation = -3.1415925
-shape = SubResource("SeparationRayShape2D_4ni07")
-disabled = true
-one_way_collision = true
-one_way_collision_margin = 0.0
-
 [node name="身体（圆形）" type="CollisionShape2D" parent="." unique_id=1650396379]
 process_priority = 2
 process_physics_priority = 2
-visible = false
-position = Vector2(0, 10)
+position = Vector2(0, 11)
 shape = SubResource("CircleShape2D_a38lo")
 disabled = true
 
-[node name="身体（点）" type="CollisionShape2D" parent="." unique_id=1629760173]
-process_priority = 2
-process_physics_priority = 2
-visible = false
-position = Vector2(0, 15)
-shape = SubResource("CircleShape2D_4ni07")
-
 [node name="分离射线 左" type="CollisionShape2D" parent="." unique_id=327116521]
-position = Vector2(0, 5)
+position = Vector2(0, 1)
 rotation = 1.5707964
 shape = SubResource("SeparationRayShape2D_a38lo")
 one_way_collision = true
+one_way_collision_margin = 0.0
 
 [node name="分离射线 左2" type="CollisionShape2D" parent="." unique_id=1727546840]
 position = Vector2(0, 8)
@@ -313,7 +289,7 @@ one_way_collision_margin = 0.0
 
 [node name="分离射线 右" type="CollisionShape2D" parent="." unique_id=767477051]
 process_priority = -1
-position = Vector2(0, 5)
+position = Vector2(0, 1)
 rotation = -1.5707964
 shape = SubResource("SeparationRayShape2D_a38lo")
 one_way_collision = true
@@ -385,9 +361,7 @@ visible = false
 stream = ExtResource("12_3v2ag")
 
 [node name="SkidSound" type="AudioStreamPlayer2D" parent="." unique_id=692839975]
-visible = false
 stream = ExtResource("13_jej6c")
 
 [node name="DeadSound" type="AudioStreamPlayer2D" parent="." unique_id=342724576]
-visible = false
 stream = ExtResource("22_a38lo")

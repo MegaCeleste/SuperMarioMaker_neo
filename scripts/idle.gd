@@ -1,14 +1,20 @@
 extends State
 
+
+
+
 func enter() -> void:
 	player.animated_sprite.play("idle")
 
 func physics_update(delta: float) -> void:
 
 	player.velocity.x = move_toward(player.velocity.x, 0, player.ground_acceleration * delta)
+
+	
 	if not player.is_on_floor():
-		player.state_machine.change_state($"../Air")
-		return
+
+			player.state_machine.change_state($"../Air")
+			return
 
 	if Input.is_action_just_pressed("player_jump"):
 		player.velocity.y = player.JUMP_VELOCITY
