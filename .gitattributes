@@ -1,2 +1,65 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# ==============================================================================
+# Git 换行符与属性规范配置 (.gitattributes)
+# 强制全平台 (Windows / macOS / Linux / Android) 统一使用 LF (Line Feed)
+# ==============================================================================
+
+# 默认全局配置：所有文本文件检出和提交时均强制使用 LF 换行符
+* text=auto eol=lf
+
+# ------------------------------------------------------------------------------
+# Godot 核心脚本与场景资源 (强制 LF)
+# ------------------------------------------------------------------------------
+*.gd text eol=lf
+*.tscn text eol=lf
+*.tres text eol=lf
+*.godot text eol=lf
+*.uid text eol=lf
+*.cfg text eol=lf
+*.shader text eol=lf
+*.gdshader text eol=lf
+
+# ------------------------------------------------------------------------------
+# 数据与文档文件 (强制 LF)
+# ------------------------------------------------------------------------------
+*.json text eol=lf
+*.spec text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.csv text eol=lf
+*.po text eol=lf
+*.pot text eol=lf
+*.xml text eol=lf
+*.svg text eol=lf
+*.html text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.sh text eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# ------------------------------------------------------------------------------
+# 二进制资产与媒体文件 (保持二进制完整性，禁止任何换行符转换)
+# ------------------------------------------------------------------------------
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary
+*.bmp binary
+*.ase binary
+*.aseprite binary
+
+*.wav binary
+*.ogg binary
+*.mp3 binary
+*.flac binary
+
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
+
+*.import binary
+*.pck binary
+*.zip binary
+*.tar.gz binary
