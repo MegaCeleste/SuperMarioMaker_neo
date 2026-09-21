@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dwxnesijrvk6c"]
+
+[ext_resource type="Script" uid="uid://53rnge8qx6ex" path="res://logo.gd" id="1_c4rma"]
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1145838522]
+
+[node name="Logo" type="Control" parent="." unique_id=780205211]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 627.0
+offset_bottom = 252.0
+script = ExtResource("1_c4rma")
+metadata/_custom_type_script = "uid://53rnge8qx6ex"

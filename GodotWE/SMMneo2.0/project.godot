@@ -1,0 +1,226 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
+[application]
+
+config/name="GodotWE"
+config/description="SMM:WE in Godot"
+config/version="0.1.0"
+run/main_scene="uid://cbc3kaegk4jn3"
+config/use_custom_user_dir=true
+config/features=PackedStringArray("4.6", "Mobile")
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/show_image=false
+boot_splash/stretch_mode=0
+boot_splash/use_filter=false
+config/icon="uid://god0ayqmlgrj"
+config/windows_native_icon="res://icon.ico"
+
+[audio]
+
+buses/default_bus_layout="res://resources/default_bus_layout.tres"
+
+[autoload]
+
+Utility="*res://scripts/singletons/utility.gd"
+UISoundPlayer="*res://scripts/singletons/ui_sound_player.gd"
+SceneManager="*res://scripts/singletons/scene_manager.gd"
+GameSettings="*res://scripts/singletons/game_settings.gd"
+MainMenu="*uid://cqa781bc5m3v7"
+MusicPlayer="*uid://b57y74tgiebkd"
+
+[debug]
+
+file_logging/enable_file_logging=true
+file_logging/log_path="user://game.log"
+
+[display]
+
+window/size/initial_position_type=4
+window/subwindows/embed_subwindows=false
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_height"
+mouse_cursor/custom_image_hotspot=Vector2(15, 18)
+
+[dotnet]
+
+project/assembly_name="GodotWE"
+
+[editor]
+
+movie_writer/video_quality=1.0
+movie_writer/audio_bit_depth=32
+movie_writer/ogv/audio_quality=1.0
+movie_writer/ogv/encoding_speed=1
+movie_writer/movie_file="C:/Users/NCubs/Code/Godot/Super Secret/dist/movie.ogv"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/terrain_icon_gen/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://audio/": "red",
+"res://extra/": "pink",
+"res://resources/": "orange",
+"res://scenes/": "yellow",
+"res://scripts/": "green",
+"res://shaders/": "teal",
+"res://textures/": "blue",
+"res://textures/player/mario/": "red",
+"res://translations/": "purple"
+}
+
+[game]
+
+levels/protocol_version=0
+levels/allow_swe=true
+user/session_token=""
+user/username="Player"
+
+[global_group]
+
+map=""
+player=""
+shadows=""
+camera=""
+editor="The Editor control node"
+editor_map=""
+level=""
+
+[gui]
+
+theme/custom="uid://cpr7p83ljnpes"
+theme/custom_font="uid://bk3vwucreh07k"
+
+[importer_defaults]
+
+texture={
+&"svg/scale": 3.0
+}
+svg={
+"base_scale": 3.0,
+"color_map": {},
+"compress": true,
+"saturation": 1.0
+}
+
+[input]
+
+player_left={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":65,"key_label":0,"unicode":97,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":0,"axis_value":-1.0,"script":null)
+]
+}
+player_right={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":68,"key_label":0,"unicode":100,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":0,"axis_value":1.0,"script":null)
+]
+}
+player_jump={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194320,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
+]
+}
+player_duck={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":83,"key_label":0,"unicode":115,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":1,"axis_value":1.0,"script":null)
+]
+}
+player_run={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194319,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":2,"pressure":0.0,"pressed":false,"script":null)
+]
+}
+player_spin_jump={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194322,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":1,"pressure":0.0,"pressed":false,"script":null)
+]
+}
+player_up={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":87,"key_label":0,"unicode":119,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":1,"axis_value":-1.0,"script":null)
+]
+}
+player_down={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":83,"key_label":0,"unicode":115,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":1,"axis_value":1.0,"script":null)
+]
+}
+mb_left={
+"deadzone": 0.2,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
+]
+}
+player_run_toggle={
+"deadzone": 0.2,
+"events": []
+}
+pause={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194309,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":6,"pressure":0.0,"pressed":false,"script":null)
+]
+}
+palette_left={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194319,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":65,"key_label":0,"unicode":97,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":9,"pressure":0.0,"pressed":false,"script":null)
+]
+}
+palette_right={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194321,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":68,"key_label":0,"unicode":100,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":10,"pressure":0.0,"pressed":false,"script":null)
+]
+}
+
+[internationalization]
+
+locale/translation_remaps={
+"res://textures/ui/coursebot/tag_stamps/sheet.png": PackedStringArray("res://textures/ui/coursebot/tag_stamps/sheet_es.png:es", "res://textures/ui/coursebot/tag_stamps/sheet_it.png:it", "res://textures/ui/coursebot/tag_stamps/sheet_pt.png:pt", "res://textures/ui/coursebot/tag_stamps/sheet_ru.png:ru", "res://textures/ui/coursebot/tag_stamps/sheet_zh.png:zh"),
+"res://textures/ui/main_menu/title.svg": PackedStringArray("res://textures/ui/main_menu/title_es.svg:es", "res://textures/ui/main_menu/title_it.svg:it", "res://textures/ui/main_menu/title_pt.svg:pt", "res://textures/ui/main_menu/title_ru.svg:ru", "res://textures/ui/main_menu/title_zh.svg:zh"),
+"res://textures/ui/title/start_btn.svg": PackedStringArray("res://textures/ui/title/start_btn_es.svg:es", "res://textures/ui/title/start_btn_it.svg:it", "res://textures/ui/title/start_btn_pt.svg:pt", "res://textures/ui/title/start_btn_ru.svg:ru", "res://textures/ui/title/start_btn_zh.svg:zh")
+}
+locale/translations=PackedStringArray("res://translations/translations.en.translation", "res://translations/translations.es.translation")
+
+[layer_names]
+
+2d_physics/layer_1="Solids"
+2d_physics/layer_2="Enemies"
+2d_physics/layer_3="Player"
+2d_physics/layer_4="Other entities"
+2d_physics/layer_9="Parts"
+
+[physics]
+
+2d/default_gravity=18.0
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true
+anti_aliasing/quality/msaa_2d=1

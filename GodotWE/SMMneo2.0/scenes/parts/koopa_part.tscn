@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://wealcaqs27tb"]
+
+[ext_resource type="PackedScene" uid="uid://jr7c4ykh8awq" path="res://scenes/parts/part.tscn" id="1_65i8y"]
+[ext_resource type="Script" uid="uid://cwc61k32i4jyl" path="res://scripts/level/parts/koopa_part.gd" id="2_kqap7"]
+[ext_resource type="Texture2D" uid="uid://ck2hq503k5en1" path="res://textures/smw/entities/koopa.png" id="3_5wlbt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uak1x"]
+atlas = ExtResource("3_5wlbt")
+region = Rect2(0, 0, 16, 27.5)
+
+[node name="KoopaPart" unique_id=1018608002 instance=ExtResource("1_65i8y")]
+script = ExtResource("2_kqap7")
+
+[node name="Sprite2D" type="Sprite2D" parent="Graphics" parent_id_path=PackedInt32Array(1571586840) index="0" unique_id=947042959]
+texture_filter = 1
+position = Vector2(-0.08148132, -5.8875003)
+scale = Vector2(1.0101851, 1.0287037)
+texture = SubResource("AtlasTexture_uak1x")
+flip_h = true

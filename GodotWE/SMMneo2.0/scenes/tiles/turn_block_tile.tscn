@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://d1pyovyuwelpw"]
+
+[ext_resource type="Script" uid="uid://cij4fce4dx1vh" path="res://scripts/level/tiles/turn_block_tile.gd" id="1_jh353"]
+[ext_resource type="Texture2D" uid="uid://3gg35twlis0l" path="res://textures/tiles/turn_block.png" id="2_idixh"]
+[ext_resource type="Script" uid="uid://vedwoxfxibus" path="res://scripts/ext/animated_sprite_ext.gd" id="3_o4nxb"]
+[ext_resource type="Script" uid="uid://dedgj7iu2ix2b" path="res://scripts/components/block_component.gd" id="4_6rsai"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_idixh"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ximpl"]
+size = Vector2(16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y8t2u"]
+atlas = ExtResource("2_idixh")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o0vnd"]
+atlas = ExtResource("2_idixh")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6r6ll"]
+atlas = ExtResource("2_idixh")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i0q8u"]
+atlas = ExtResource("2_idixh")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sqs7m"]
+atlas = ExtResource("2_idixh")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u7ide"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y8t2u")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o0vnd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6r6ll")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i0q8u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sqs7m")
+}],
+"loop": true,
+"name": &"turning",
+"speed": 9.0
+}]
+
+[node name="TurnBlockTile" type="StaticBody2D" unique_id=2001682486]
+z_index = 20
+z_as_relative = false
+script = ExtResource("1_jh353")
+metadata/_custom_type_script = "uid://bvwombbno8x7s"
+
+[node name="CollShape" type="CollisionShape2D" parent="." unique_id=2055066858]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_idixh")
+
+[node name="PlayerCheckArea" type="Area2D" parent="." unique_id=1315782614]
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollShape" type="CollisionShape2D" parent="PlayerCheckArea" unique_id=1235167247]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_ximpl")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=144360478]
+position = Vector2(8, 8)
+sprite_frames = SubResource("SpriteFrames_u7ide")
+animation = &"idle"
+autoplay = "idle"
+script = ExtResource("3_o4nxb")
+metadata/_custom_type_script = "uid://vedwoxfxibus"
+
+[node name="BlockComponent" type="Node" parent="." unique_id=978985610 node_paths=PackedStringArray("sprite")]
+script = ExtResource("4_6rsai")
+sprite = NodePath("../Sprite")
+metadata/_custom_type_script = "uid://dedgj7iu2ix2b"
+
+[connection signal="animation_looped" from="Sprite" to="." method="_sprite_animation_looped"]
+[connection signal="sprout_end" from="BlockComponent" to="." method="_sprout_end"]

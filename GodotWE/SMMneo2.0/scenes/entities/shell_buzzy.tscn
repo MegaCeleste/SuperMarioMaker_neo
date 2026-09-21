@@ -1,0 +1,91 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" uid="uid://b3u76y42a8e2d" path="res://textures/smw/enemies/shell_buzzy_Strip4.png" id="1_shell"]
+[ext_resource type="Script" uid="uid://vedwoxfxibus" path="res://scripts/ext/animated_sprite_ext.gd" id="3_s0lek"]
+[ext_resource type="Script" uid="uid://nhyxn7n2fqbr" path="res://scripts/components/gravity_component.gd" id="4_p6kv4"]
+[ext_resource type="Script" uid="uid://bpy2tvh67k4oh" path="res://scripts/components/pickup_component.gd" id="5_pickup"]
+[ext_resource type="Script" path="res://scripts/level/entities/shell.gd" id="6_shell"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_shell"]
+size = Vector2(14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_frame0"]
+atlas = ExtResource("1_shell")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_frame1"]
+atlas = ExtResource("1_shell")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_frame2"]
+atlas = ExtResource("1_shell")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_frame3"]
+atlas = ExtResource("1_shell")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_buzzy_shell"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_frame0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_frame1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_frame2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_frame3")
+}],
+"loop": true,
+"name": &"spin",
+"speed": 12.0
+}]
+
+[node name="ShellBuzzy" type="CharacterBody2D"]
+z_index = 30
+z_as_relative = false
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("6_shell")
+
+[node name="CollShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_shell")
+
+[node name="CheckArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollShape" type="CollisionShape2D" parent="CheckArea"]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_shell")
+
+[node name="HurtArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollShape" type="CollisionShape2D" parent="HurtArea"]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_shell")
+
+[node name="Graphics" type="Node2D" parent="."]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Graphics"]
+position = Vector2(0, -8)
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_buzzy_shell")
+animation = &"spin"
+script = ExtResource("3_s0lek")
+
+[node name="GravityComponent" type="Node" parent="."]
+script = ExtResource("4_p6kv4")
+gravity = Vector2(0, 10)
+max_fall_speed = 249.0
+
+[node name="PickupComponent" type="Node" parent="." node_paths=PackedStringArray("check_area")]
+script = ExtResource("5_pickup")
+check_area = NodePath("../CheckArea")

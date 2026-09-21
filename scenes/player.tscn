@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://dn5ud4dperl5d"]
+[gd_scene load_steps=47 format=3 uid="uid://dn5ud4dperl5d"]
 
-[ext_resource type="Script" uid="uid://cou60ypt1a6cn" path="res://player.gd" id="1_d2wvv"]
+[ext_resource type="Script" uid="uid://cou60ypt1a6cn" path="res://scripts/player/state/player.gd" id="1_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://c2ghbdcbsyk30" path="res://textures/player/mario/dead.png" id="2_3v2ag"]
 [ext_resource type="Texture2D" uid="uid://p3po536g3vlu" path="res://textures/player/mario/small/duck.png" id="3_jej6c"]
 [ext_resource type="Texture2D" uid="uid://geq1roewmv1k" path="res://textures/player/mario/small/fall.png" id="4_f1ej7"]
@@ -12,16 +12,20 @@
 [ext_resource type="Texture2D" uid="uid://d4gyuxu12h8wy" path="res://textures/player/mario/small/spin_jump.png" id="10_60mlk"]
 [ext_resource type="Texture2D" uid="uid://du3cmcu5y6hsm" path="res://textures/player/mario/small/walk.png" id="11_i4ail"]
 [ext_resource type="AudioStream" uid="uid://bhxmp70u556sv" path="res://audio/smw/player/jump.wav" id="12_3v2ag"]
+[ext_resource type="Script" uid="uid://3tmrcltmxqg4" path="res://scripts/player/state_machine.gd" id="12_a38lo"]
 [ext_resource type="AudioStream" uid="uid://vxfegf1r2emq" path="res://audio/smw/player/skid.wav" id="13_jej6c"]
-[ext_resource type="Script" uid="uid://3tmrcltmxqg4" path="res://scripts/state_machine.gd" id="14_a8ls1"]
-[ext_resource type="Script" uid="uid://dhoh3e6fodvpv" path="res://scripts/dead.gd" id="15_i4ail"]
-[ext_resource type="Script" uid="uid://cplgnvd7cxo0d" path="res://scripts/idle.gd" id="15_qfm1y"]
-[ext_resource type="Script" uid="uid://b015ongubhblb" path="res://scripts/run.gd" id="16_qfm1y"]
-[ext_resource type="Script" uid="uid://dihbmdi2b6iu8" path="res://scripts/air.gd" id="17_4r5pv"]
-[ext_resource type="Script" uid="uid://nnfxleaxrsc8" path="res://scripts/duck.gd" id="18_4r5pv"]
-[ext_resource type="Script" uid="uid://7qunqnci5cyl" path="res://scripts/skid.gd" id="18_fulsm"]
+[ext_resource type="Script" uid="uid://dhoh3e6fodvpv" path="res://scripts/player/state/dead.gd" id="15_i4ail"]
+[ext_resource type="Script" uid="uid://cplgnvd7cxo0d" path="res://scripts/player/state/idle.gd" id="15_qfm1y"]
+[ext_resource type="Script" uid="uid://b015ongubhblb" path="res://scripts/player/state/run.gd" id="16_qfm1y"]
+[ext_resource type="Script" uid="uid://dihbmdi2b6iu8" path="res://scripts/player/state/air.gd" id="17_4r5pv"]
+[ext_resource type="Script" uid="uid://nnfxleaxrsc8" path="res://scripts/player/state/duck.gd" id="18_4r5pv"]
+[ext_resource type="Script" uid="uid://7qunqnci5cyl" path="res://scripts/player/state/skid.gd" id="18_fulsm"]
+[ext_resource type="Script" uid="uid://ckk3i27le3koa" path="res://scripts/player/state/spin_jump.gd" id="19_spinj"]
 [ext_resource type="AudioStream" uid="uid://c345xnns7om3m" path="res://audio/smw/player/klock.ogg" id="20_60mlk"]
+[ext_resource type="AudioStream" uid="uid://dt7f4s3d4u5k6" path="res://audio/smw/player/spin_jump.wav" id="21_spinj"]
 [ext_resource type="AudioStream" uid="uid://cpvqy2k0d2cju" path="res://audio/smw/player/dead.ogg" id="22_a38lo"]
+[ext_resource type="AudioStream" uid="uid://b20440v3vqlik" path="res://audio/smw/player/powerup.wav" id="23_pwrup"]
+[ext_resource type="SpriteFrames" uid="uid://b1p8m6j6up5pm" path="res://textures/player/mario/super.tres" id="24_sprfm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lungf"]
 atlas = ExtResource("2_3v2ag")
@@ -185,14 +189,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk",
-"speed": 6.0
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d2wvv"]
-size = Vector2(10, 13)
+size = Vector2(12, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jej6c"]
-size = Vector2(10, 10)
+size = Vector2(12, 10)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4r5pv"]
 lifetime_randomness = 0.29
@@ -207,71 +211,80 @@ gravity = Vector3(0, 98, 0)
 scale_min = 1.1
 scale_max = 1.5
 
-[node name="Player" type="CharacterBody2D" unique_id=1676506089]
+[node name="Player" type="CharacterBody2D"]
 z_index = 2
 script = ExtResource("1_d2wvv")
+super_sprite_frames = ExtResource("24_sprfm")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=622107600]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_a38lo")
-animation = &"dead"
-frame_progress = 0.13934538
+animation = &"run"
+autoplay = "idle"
+frame_progress = 0.19640934
 
-[node name="StandingShape" type="CollisionShape2D" parent="." unique_id=515500201]
-position = Vector2(0, 8.5)
+[node name="StandingShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7.5)
 shape = SubResource("RectangleShape2D_d2wvv")
 
-[node name="DuckShape" type="CollisionShape2D" parent="." unique_id=465681608]
+[node name="DuckShape" type="CollisionShape2D" parent="."]
 position = Vector2(0, 10)
 shape = SubResource("RectangleShape2D_jej6c")
 disabled = true
 
-[node name="StateMachine" type="Node" parent="." unique_id=607788924 node_paths=PackedStringArray("initial_state")]
-script = ExtResource("14_a8ls1")
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("12_a38lo")
 initial_state = NodePath("Idle")
 
-[node name="Dead" type="Node" parent="StateMachine" unique_id=1847004304]
+[node name="Dead" type="Node" parent="StateMachine"]
 script = ExtResource("15_i4ail")
 metadata/_custom_type_script = "uid://dehduwtrwu8ar"
 
-[node name="Idle" type="Node" parent="StateMachine" unique_id=952419744]
+[node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("15_qfm1y")
 metadata/_custom_type_script = "uid://dehduwtrwu8ar"
 
-[node name="Run" type="Node" parent="StateMachine" unique_id=1706831631]
+[node name="Run" type="Node" parent="StateMachine"]
 script = ExtResource("16_qfm1y")
 metadata/_custom_type_script = "uid://dehduwtrwu8ar"
 
-[node name="Air" type="Node" parent="StateMachine" unique_id=1606500851]
+[node name="Air" type="Node" parent="StateMachine"]
 script = ExtResource("17_4r5pv")
 metadata/_custom_type_script = "uid://dehduwtrwu8ar"
 
-[node name="Duck" type="Node" parent="StateMachine" unique_id=1229003991]
+[node name="Duck" type="Node" parent="StateMachine"]
 script = ExtResource("18_4r5pv")
 metadata/_custom_type_script = "uid://dehduwtrwu8ar"
 
-[node name="Skid" type="Node" parent="StateMachine" unique_id=977606854]
+[node name="Skid" type="Node" parent="StateMachine"]
 script = ExtResource("18_fulsm")
 metadata/_custom_type_script = "uid://dehduwtrwu8ar"
 
-[node name="SkidParticles" type="GPUParticles2D" parent="." unique_id=1163110529]
+[node name="SpinJump" type="Node" parent="StateMachine"]
+script = ExtResource("19_spinj")
+metadata/_custom_type_script = "uid://dehduwtrwu8ar"
+
+[node name="SkidParticles" type="GPUParticles2D" parent="."]
 position = Vector2(0, 14)
 emitting = false
 visibility_rect = Rect2(-100, -100.39, 200, 200)
 process_material = SubResource("ParticleProcessMaterial_4r5pv")
 
-[node name="RayCast2D" type="RayCast2D" parent="." unique_id=1180375093]
-z_index = 1
-position = Vector2(0, 9)
-target_position = Vector2(0, 11)
+[node name="Sound" type="Node" parent="."]
 
-[node name="KlockSound" type="AudioStreamPlayer2D" parent="." unique_id=178645246]
+[node name="KlockSound" type="AudioStreamPlayer2D" parent="Sound"]
 stream = ExtResource("20_60mlk")
 
-[node name="JumpSound" type="AudioStreamPlayer2D" parent="." unique_id=1395186686]
+[node name="JumpSound" type="AudioStreamPlayer2D" parent="Sound"]
 stream = ExtResource("12_3v2ag")
 
-[node name="SkidSound" type="AudioStreamPlayer2D" parent="." unique_id=692839975]
+[node name="SkidSound" type="AudioStreamPlayer2D" parent="Sound"]
 stream = ExtResource("13_jej6c")
 
-[node name="DeadSound" type="AudioStreamPlayer2D" parent="." unique_id=342724576]
+[node name="DeadSound" type="AudioStreamPlayer2D" parent="Sound"]
 stream = ExtResource("22_a38lo")
+
+[node name="SpinJumpSound" type="AudioStreamPlayer2D" parent="Sound"]
+stream = ExtResource("21_spinj")
+
+[node name="PowerupSound" type="AudioStreamPlayer2D" parent="Sound"]
+stream = ExtResource("23_pwrup")

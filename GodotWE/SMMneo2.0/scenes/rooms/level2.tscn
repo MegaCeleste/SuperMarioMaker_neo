@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://c704x3g2fkbci"]
+
+[ext_resource type="PackedScene" uid="uid://b16kyjui2n3qv" path="res://scenes/templates/level_template.tscn" id="1_7rdxc"]
+
+[node name="Level" unique_id=981213055 instance=ExtResource("1_7rdxc")]
+
+[editable path="SubArea0"]

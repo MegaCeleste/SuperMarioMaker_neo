@@ -1,0 +1,48 @@
+key,en,es
+DISCLAIMER_TITLE,DISCLAIMER,¡ADVERTENCIA!
+DISCLAIMER_DESCRIPTION,"This is a fangame (by fans for fans),
+which is not endorsed by Nintendo.
+All images, music and resources used in
+this game are owned by Nintendo.","Esto es un 'fangame' (de fans para fans),
+por lo cual no está respaldado por Nintendo.
+Todas las imágenes, músicas y recursos utilizados
+en este son propiedad de Nintendo."
+DISCLAIMER_SCAM_WARNING,"If you paid for this game, you've been scammed.
+This project is free and always will be.","Si has pagado por este juego, fuiste estafado.
+Este proyecto es gratuito y siempre lo será."
+CALENDAR_MONDAY,Monday,Lunes
+CALENDAR_TUESDAY,Tuesday,Martes
+CALENDAR_WEDNESDAY,Wednesday,Miércoles
+CALENDAR_THURSDAY,Thursday,Jueves
+CALENDAR_FRIDAY,Friday,Viernes
+CALENDAR_SATURDAY,Saturday,Sábado
+CALENDAR_SUNDAY,"Happy Sunday, let's get making!","¡Ya es domingo, a crear se ha dicho!"
+TITLE_PLAY,Play,Jugar
+PAGE_EDITOR,Course Maker,Crear un nivel
+PAGE_COURSEBOT,Coursebot,Guardabot
+PAGE_ENDLESS,Endless Challenge,Desafío Super Mario
+PAGE_ONLINE,Course World,Niveles Mundiales
+EDITOR_POPOUT_COURSEBOT,Save | Load,Guardar | Cargar
+EDITOR_POPOUT_GAME_STYLE,Game Style,Apariencia
+CLAPPERBOARD_PLAY,Play,Jugar
+CLAPPERBOARD_EDIT,Make,Editar
+TITLE_CLAPPERBOARD_EDIT,Make,Crear
+TITLE_CLAPPERBOARD_PLAY,Play,Jugar
+EDITOR_COURSEBOT_SAVE_NEW,Save as,Guardar nuevo nivel
+EDITOR_COURSEBOT_SAVE_CHANGES,Save changes,Guardar cambios
+EDITOR_COURSEBOT_LOAD,Load,Cargar
+CREDITS_PROGRAMMERS,Programmers,Programadores
+CREDITS_SOUNDS_MUSIC,Sounds and Music,Sonido y Música
+CREDITS_SPRITERS,Sprites,Sprites
+CREDITS_TRANSLATIONS,Translations,Traducciones
+CREDITS_ANIMATION_EFFECTS,Animation and Effects,Animación y Efectos
+CREDITS_TYPOGRAPHY,Typography,Tipografía
+CREDITS_ADDITIONAL,Additional Contributions,Contribuciones Adicionales
+CREDITS_SPECIAL_THANKS,Special Thanks,Agradecimientos Especiales
+CREDITS_POWERED_BY,Powered by / Resources,Hecho con / Recursos
+CREDITS_EK_CONTRIBUTIONS,Engine Kingdom contributions,Contribuciones de Engine Kingdom
+CREDITS_AND_YOU,"And you, %s ❤️","Y a tí, %s ❤️"
+CATEGORY_TERRAIN,Terrain,Superfícies
+CATEGORY_ITEMS,Items,Objetos
+CATEGORY_ENEMIES,Enemies,Enemigos
+CATEGORY_GIZMOS,Gizmos,Artilugios

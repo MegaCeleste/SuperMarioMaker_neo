@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://daj3721n2kyor"]
+
+[ext_resource type="Script" path="res://scripts/level/entities/enemies/koopa.gd" id="1_bs2gg"]
+[ext_resource type="Texture2D" uid="uid://ck2hq503k5en1" path="res://textures/smw/entities/koopa.png" id="2_koopa"]
+[ext_resource type="Script" uid="uid://vedwoxfxibus" path="res://scripts/ext/animated_sprite_ext.gd" id="3_jq00e"]
+[ext_resource type="Script" uid="uid://nhyxn7n2fqbr" path="res://scripts/components/gravity_component.gd" id="4_jq00e"]
+[ext_resource type="Script" uid="uid://sv7f6f65t1eb" path="res://scripts/components/slide_component.gd" id="5_cotiu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_koopa"]
+size = Vector2(12, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_frame0"]
+atlas = ExtResource("2_koopa")
+region = Rect2(0, 0, 16, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_frame1"]
+atlas = ExtResource("2_koopa")
+region = Rect2(16, 0, 16, 27)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_koopa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_frame0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_frame1")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
+}]
+
+[sub_resource type="CanvasItemMaterial" id="Material_koopa"]
+transparency = 1
+
+[node name="Koopa" type="CharacterBody2D" unique_id=613749102 node_paths=PackedStringArray("hitbox")]
+z_index = 30
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_bs2gg")
+hitbox = NodePath("KillArea")
+
+[node name="CollShape" type="CollisionShape2D" parent="." unique_id=1398988409]
+position = Vector2(0, -12.5)
+shape = SubResource("RectangleShape2D_koopa")
+
+[node name="KillArea" type="Area2D" parent="." unique_id=503760396]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollShape" type="CollisionShape2D" parent="KillArea" unique_id=1644129476]
+position = Vector2(0, -12.5)
+shape = SubResource("RectangleShape2D_koopa")
+
+[node name="Graphics" type="Node2D" parent="." unique_id=1775943561]
+position = Vector2(0, -14)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Graphics" unique_id=170177693]
+material = SubResource("Material_koopa")
+texture_filter = 1
+position = Vector2(0, 0.5)
+sprite_frames = SubResource("SpriteFrames_koopa")
+animation = &"walk"
+autoplay = "walk"
+frame_progress = 0.9846127
+flip_h = true
+script = ExtResource("3_jq00e")
+cast_shadow = true
+
+[node name="GravityComponent" type="Node" parent="." unique_id=1796555174]
+script = ExtResource("4_jq00e")
+
+[node name="SlideComponent" type="Node" parent="." unique_id=151797213]
+script = ExtResource("5_cotiu")
+speed = 30.0

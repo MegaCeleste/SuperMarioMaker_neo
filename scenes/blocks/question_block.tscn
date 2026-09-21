@@ -57,6 +57,7 @@ animations = [{
 [node name="QuestionBlock" unique_id=674435154 instance=ExtResource("1_ahiik")]
 z_index = 3
 script = ExtResource("2_y28qk")
+item_scene = null
 
 [node name="Sprite" parent="." index="0" unique_id=1178299911]
 sprite_frames = SubResource("SpriteFrames_tgs42")

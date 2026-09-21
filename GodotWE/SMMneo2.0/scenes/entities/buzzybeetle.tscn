@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://c5yc1o1lhqqh3"]
+
+[ext_resource type="Script" uid="uid://d1l88a627fyiy" path="res://scripts/level/entities/enemies/buzzybeetle.gd" id="1_jpnxj"]
+[ext_resource type="Texture2D" uid="uid://mribwkk1flda" path="res://textures/smw/enemies/buzzybeetle_Strip2.png" id="2_5aqw8"]
+[ext_resource type="Script" uid="uid://vedwoxfxibus" path="res://scripts/ext/animated_sprite_ext.gd" id="3_jq00e"]
+[ext_resource type="Script" uid="uid://nhyxn7n2fqbr" path="res://scripts/components/gravity_component.gd" id="4_jq00e"]
+[ext_resource type="Script" uid="uid://sv7f6f65t1eb" path="res://scripts/components/slide_component.gd" id="5_cotiu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(12, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mvx7t"]
+atlas = ExtResource("2_5aqw8")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4m5dd"]
+atlas = ExtResource("2_5aqw8")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_buzzy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mvx7t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4m5dd")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="BuzzyBeetle" type="CharacterBody2D" node_paths=PackedStringArray("hitbox")]
+z_index = 30
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_jpnxj")
+hitbox = NodePath("KillArea")
+
+[node name="CollShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7.5)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="KillArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollShape" type="CollisionShape2D" parent="KillArea"]
+position = Vector2(0, -7.5)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Graphics" type="Node2D" parent="."]
+position = Vector2(0, -8)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Graphics"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_buzzy")
+animation = &"walk"
+autoplay = "walk"
+flip_h = true
+script = ExtResource("3_jq00e")
+cast_shadow = true
+
+[node name="GravityComponent" type="Node" parent="."]
+script = ExtResource("4_jq00e")
+
+[node name="SlideComponent" type="Node" parent="."]
+script = ExtResource("5_cotiu")
+speed = 30.0

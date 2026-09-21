@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://cqo10r41q78of"]
+
+[ext_resource type="Script" uid="uid://crwqnug1voqua" path="res://scripts/level/entities/1_up.gd" id="1_wccp4"]
+[ext_resource type="Texture2D" uid="uid://cr6887vfs1lbk" path="res://textures/smw/entities/1up.png" id="2_nc1xv"]
+[ext_resource type="Script" uid="uid://ct8v8svsomclf" path="res://scripts/ext/sprite_ext.gd" id="3_qaoti"]
+[ext_resource type="Script" uid="uid://nhyxn7n2fqbr" path="res://scripts/components/gravity_component.gd" id="3_wccp4"]
+[ext_resource type="Script" uid="uid://sv7f6f65t1eb" path="res://scripts/components/slide_component.gd" id="4_qaoti"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wccp4"]
+size = Vector2(10, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qaoti"]
+size = Vector2(10, 15)
+
+[node name="1up" type="CharacterBody2D" unique_id=1124272296]
+collision_layer = 8
+collision_mask = 9
+script = ExtResource("1_wccp4")
+
+[node name="CollShape" type="CollisionShape2D" parent="." unique_id=1221777825]
+position = Vector2(0, -7.5)
+shape = SubResource("RectangleShape2D_wccp4")
+
+[node name="PlayerCheckArea" type="Area2D" parent="." unique_id=464194902]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollShape" type="CollisionShape2D" parent="PlayerCheckArea" unique_id=1160143203]
+position = Vector2(0, -7.5)
+shape = SubResource("RectangleShape2D_qaoti")
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=183507787]
+position = Vector2(0, -8)
+texture = ExtResource("2_nc1xv")
+script = ExtResource("3_qaoti")
+cast_shadow = true
+metadata/_custom_type_script = "uid://ct8v8svsomclf"
+
+[node name="GravityComponent" type="Node" parent="." unique_id=1643364396]
+script = ExtResource("3_wccp4")
+metadata/_custom_type_script = "uid://nhyxn7n2fqbr"
+
+[node name="SlideComponent" type="Node" parent="." unique_id=1932222802]
+script = ExtResource("4_qaoti")
+metadata/_custom_type_script = "uid://sv7f6f65t1eb"
+
+[connection signal="body_entered" from="PlayerCheckArea" to="." method="_body_entered"]

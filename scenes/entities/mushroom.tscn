@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://breuq34qljrjv"]
+[gd_scene load_steps=7 format=3 uid="uid://breuq34qljrjv"]
 
 [ext_resource type="Script" uid="uid://cgy3tno1pg60o" path="res://scripts/entities/mushroom.gd" id="1_d60rn"]
 [ext_resource type="Texture2D" uid="uid://b757gbkr1a7j0" path="res://textures/smw/entities/mushroom.png" id="2_u7jc2"]
@@ -21,13 +21,23 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Mushroom" type="CharacterBody2D" unique_id=315929093]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pickup"]
+size = Vector2(16, 16)
+
+[node name="Mushroom" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_d60rn")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=104287559]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_til3n")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=447940431]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ohtko")
 animation = &"idle"
 frame_progress = 0.8581786
+
+[node name="PickupArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+shape = SubResource("RectangleShape2D_pickup")

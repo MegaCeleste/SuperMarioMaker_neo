@@ -1,0 +1,110 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" uid="uid://bj1ol1t3uvq53" path="res://textures/smw/entities/beachkoopa_red_Strip.png" id="1_slide"]
+[ext_resource type="Texture2D" uid="uid://cd8w6ahyfq42s" path="res://textures/smw/entities/beachkoopa_walk_red_Strip2.png" id="2_walk"]
+[ext_resource type="Texture2D" uid="uid://bed6wq7epntl8" path="res://textures/smw/entities/koopa_sq_red.png" id="3_squish"]
+[ext_resource type="Script" uid="uid://vedwoxfxibus" path="res://scripts/ext/animated_sprite_ext.gd" id="3_jq00e"]
+[ext_resource type="Script" uid="uid://nhyxn7n2fqbr" path="res://scripts/components/gravity_component.gd" id="4_p6kv4"]
+[ext_resource type="Script" uid="uid://sv7f6f65t1eb" path="res://scripts/components/slide_component.gd" id="5_cotiu"]
+[ext_resource type="Script" path="res://scripts/level/entities/enemies/red_beach_koopa.gd" id="6_red_beach"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(12, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_slide0"]
+atlas = ExtResource("1_slide")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_slide1"]
+atlas = ExtResource("1_slide")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk0"]
+atlas = ExtResource("2_walk")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk1"]
+atlas = ExtResource("2_walk")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_squish"]
+atlas = ExtResource("3_squish")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_red_beach"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_slide0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_slide1")
+}],
+"loop": true,
+"name": &"slide",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk1")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_squish")
+}],
+"loop": false,
+"name": &"squish",
+"speed": 0.0
+}]
+
+[node name="RedBeachKoopa" type="CharacterBody2D" node_paths=PackedStringArray("hitbox")]
+z_index = 30
+z_as_relative = false
+collision_layer = 2
+collision_mask = 3
+hitbox = NodePath("KillArea")
+script = ExtResource("6_red_beach")
+
+[node name="CollShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7.5)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="KillArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollShape" type="CollisionShape2D" parent="KillArea"]
+position = Vector2(0, -7.5)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Graphics" type="Node2D" parent="."]
+position = Vector2(0, -8)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Graphics"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_red_beach")
+animation = &"slide"
+autoplay = "slide"
+script = ExtResource("3_jq00e")
+
+[node name="GravityComponent" type="Node" parent="."]
+script = ExtResource("4_p6kv4")
+
+[node name="SlideComponent" type="Node" parent="."]
+script = ExtResource("5_cotiu")
+speed = 30.0
+
+[node name="ShellSensor" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollShape" type="CollisionShape2D" parent="ShellSensor"]
+position = Vector2(0, -7.5)
+shape = SubResource("RectangleShape2D_body")

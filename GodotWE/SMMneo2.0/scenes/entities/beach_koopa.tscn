@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://exdoomhu8cfh"]
+
+[ext_resource type="Texture2D" uid="uid://b1srgdu4oi3wu" path="res://textures/smw/entities/beachkoopa_Strip.png" id="1_slide"]
+[ext_resource type="Texture2D" uid="uid://bjqhqxykyj012" path="res://textures/smw/entities/beachkoopa_walk_Strip2.png" id="2_walk"]
+[ext_resource type="Script" uid="uid://vedwoxfxibus" path="res://scripts/ext/animated_sprite_ext.gd" id="3_jq00e"]
+[ext_resource type="Texture2D" uid="uid://dsayv88ol5v2m" path="res://textures/smw/entities/koopa_sq_Strip.png" id="3_squish"]
+[ext_resource type="Script" uid="uid://nhyxn7n2fqbr" path="res://scripts/components/gravity_component.gd" id="4_p6kv4"]
+[ext_resource type="Script" uid="uid://sv7f6f65t1eb" path="res://scripts/components/slide_component.gd" id="5_cotiu"]
+[ext_resource type="Script" uid="uid://bd4l8otv7owjs" path="res://scripts/level/entities/enemies/beach_koopa.gd" id="6_beach_koopa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(12, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hsl33"]
+atlas = ExtResource("1_slide")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3sglr"]
+atlas = ExtResource("1_slide")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_squish"]
+atlas = ExtResource("3_squish")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk0"]
+atlas = ExtResource("2_walk")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk1"]
+atlas = ExtResource("2_walk")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_beach_koopa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hsl33")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3sglr")
+}],
+"loop": true,
+"name": &"slide",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_squish")
+}],
+"loop": false,
+"name": &"squish",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk1")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]
+
+[node name="BeachKoopa" type="CharacterBody2D" unique_id=888621874 node_paths=PackedStringArray("hitbox")]
+z_index = 30
+z_as_relative = false
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("6_beach_koopa")
+hitbox = NodePath("KillArea")
+
+[node name="CollShape" type="CollisionShape2D" parent="." unique_id=243924311]
+position = Vector2(0, -7.5)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="KillArea" type="Area2D" parent="." unique_id=1941864552]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollShape" type="CollisionShape2D" parent="KillArea" unique_id=1473709857]
+position = Vector2(0, -7.5)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="ShellSensor" type="Area2D" parent="." unique_id=484112804]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollShape" type="CollisionShape2D" parent="ShellSensor" unique_id=773766805]
+position = Vector2(0, -7.5)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Graphics" type="Node2D" parent="." unique_id=2124136711]
+position = Vector2(0, -8)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Graphics" unique_id=795434200]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_beach_koopa")
+animation = &"slide"
+autoplay = "slide"
+frame_progress = 0.4600406
+script = ExtResource("3_jq00e")
+cast_shadow = true
+
+[node name="GravityComponent" type="Node" parent="." unique_id=110687501]
+script = ExtResource("4_p6kv4")
+
+[node name="SlideComponent" type="Node" parent="." unique_id=1480823412]
+script = ExtResource("5_cotiu")
+speed = 30.0

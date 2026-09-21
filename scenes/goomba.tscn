@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dm4506a0g6pcc"]
+[gd_scene load_steps=9 format=3 uid="uid://dm4506a0g6pcc"]
 
 [ext_resource type="Texture2D" uid="uid://d3s6tog37hohi" path="res://textures/smw/entities/galoomba.png" id="1_21hcc"]
 [ext_resource type="Script" uid="uid://bydb6sts5pt4v" path="res://scripts/enemy/goomba.gd" id="1_s1jgw"]
@@ -34,28 +34,29 @@ size = Vector2(12, 0.99999976)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6xltp"]
 size = Vector2(15, 13)
 
-[node name="Goomba" type="CharacterBody2D" unique_id=285974186]
+[node name="Goomba" type="CharacterBody2D"]
+collision_mask = 3
 script = ExtResource("1_s1jgw")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=711012459]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_l0j8n")
 animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.12779371
 
-[node name="PhysicsShape" type="CollisionShape2D" parent="." unique_id=820344861]
+[node name="PhysicsShape" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_s1jgw")
 
-[node name="StompArea" type="Area2D" parent="." unique_id=351297438]
+[node name="StompArea" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StompArea" unique_id=827391211]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StompArea"]
 position = Vector2(2.3841858e-07, -7.500001)
 rotation = -3.1415925
 shape = SubResource("RectangleShape2D_3hfl1")
 
-[node name="HurtArea" type="Area2D" parent="." unique_id=1002750005]
+[node name="HurtArea" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtArea" unique_id=1064875500]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtArea"]
 position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_6xltp")
