@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://cubtl8pkh22es"]
-
-[ext_resource type="Script" uid="uid://cxkfed5ltcp7y" path="res://scripts/level/level.gd" id="1_0whoa"]
-
-[node name="Level2" type="Node2D" unique_id=1761637244]
-script = ExtResource("1_0whoa")
-metadata/_custom_type_script = "uid://cxkfed5ltcp7y"

@@ -1,5 +1,0 @@
-[gd_scene format=3 uid="uid://crig8wlwk57ny"]
-
-[node name="NinePatchRect" type="NinePatchRect" unique_id=1380679017]
-offset_right = 40.0
-offset_bottom = 40.0
