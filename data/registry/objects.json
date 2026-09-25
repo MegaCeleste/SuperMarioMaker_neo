@@ -1,0 +1,69 @@
+[
+  {
+    "id": "smm.block.question",
+    "category": "block",
+    "palette_category": "blocks",
+    "display_name_key": "OBJ_QUESTION_BLOCK",
+    "styles": ["smb1", "smb3", "smw"],
+    "scenes": {
+      "play": "res://src/gameplay/blocks/question_block.tscn",
+      "editor_preview": "res://src/gameplay/blocks/question_block.tscn"
+    },
+    "components": ["BumpableComponent", "ContainerComponent"],
+    "properties_schema": {
+      "contained_item": { "type": "object_id", "default": "smm.item.coin" }
+    }
+  },
+  {
+    "id": "smm.enemy.goomba",
+    "category": "enemy",
+    "palette_category": "enemies",
+    "display_name_key": "OBJ_GOOMBA",
+    "styles": ["smb1", "smb3", "smw"],
+    "scenes": {
+      "play": "res://src/gameplay/enemies/goomba.tscn",
+      "editor_preview": "res://src/gameplay/enemies/goomba.tscn"
+    },
+    "components": ["GravityMovementComponent", "HitboxComponent"],
+    "properties_schema": {}
+  },
+  {
+    "id": "smm.item.super_mushroom",
+    "category": "item",
+    "palette_category": "items",
+    "display_name_key": "OBJ_SUPER_MUSHROOM",
+    "styles": ["smb1", "smb3", "smw"],
+    "scenes": {
+      "play": "res://src/gameplay/entities/mushroom.tscn",
+      "editor_preview": "res://src/gameplay/entities/mushroom.tscn"
+    },
+    "components": ["GravityMovementComponent", "HitboxComponent"],
+    "properties_schema": {}
+  },
+  {
+    "id": "smm.item.coin",
+    "category": "item",
+    "palette_category": "items",
+    "display_name_key": "OBJ_COIN",
+    "styles": ["smb1", "smb3", "smw"],
+    "scenes": {
+      "play": "res://src/gameplay/entities/coin.tscn",
+      "editor_preview": "res://src/gameplay/entities/coin.tscn"
+    },
+    "components": ["HitboxComponent"],
+    "properties_schema": {}
+  },
+  {
+    "id": "smm.terrain.ground",
+    "category": "terrain",
+    "palette_category": "terrain",
+    "display_name_key": "OBJ_GROUND",
+    "styles": ["smb1", "smb3", "smw"],
+    "scenes": {
+      "play": "",
+      "editor_preview": ""
+    },
+    "components": [],
+    "properties_schema": {}
+  }
+]

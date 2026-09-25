@@ -11,6 +11,12 @@ var is_dead = false
 @onready var hurt_area: Area2D = $HurtArea
 
 func _ready() -> void:
+	collision_layer = CollisionConfig.layer("enemies")
+	collision_mask = CollisionConfig.mask(["solids", "player"])
+	stomp_area.collision_layer = CollisionConfig.layer("sensors")
+	stomp_area.collision_mask = CollisionConfig.layer("player")
+	hurt_area.collision_layer = CollisionConfig.layer("sensors")
+	hurt_area.collision_mask = CollisionConfig.layer("player")
 	sprite.play("idle")
 	stomp_area.body_entered.connect(_on_stomp_area_entered)
 	hurt_area.body_entered.connect(_on_hurt_area_entered)

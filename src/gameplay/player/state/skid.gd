@@ -1,6 +1,6 @@
 extends State
 
-const DUST_VFX = preload("res://scenes/vfx/skid_smoke.tscn")
+const DUST_VFX = preload("res://src/vfx/skid_smoke.tscn")
 
 var skid_timer: float = 0.0
 var vfx_timer := 0.0
@@ -35,7 +35,7 @@ func physics_update(delta: float) -> void:
 
 		player.get_tree().current_scene.add_child(dust)
 
-	var dir := Input.get_axis("player_left", "player_right")
+	var dir := Input.get_axis("move_left", "move_right")
 
 	if dir != 0 and sign(dir) == sign(player.velocity.x): # 如果玩家输入的方向与当前滑行方向相同，提前结束滑行状态
 		state_machine.change_state(state_machine.run)
@@ -45,14 +45,14 @@ func physics_update(delta: float) -> void:
 		state_machine.change_state(state_machine.air)
 		return
 
-	if Input.is_action_just_pressed("player_jump"):
+	if Input.is_action_just_pressed("jump"):
 		player.velocity.y = player.JUMP_VELOCITY
 		player.jump_sound.play()
 		state_machine.change_state(state_machine.air)
 		return
 
 	if skid_timer >= 0.5 or abs(player.velocity.x) == 0:
-		if Input.is_action_just_pressed("player_duck"):
+		if Input.is_action_just_pressed("move_down"):
 			state_machine.change_state(state_machine.duck)
 		elif dir != 0:
 			state_machine.change_state(state_machine.run)

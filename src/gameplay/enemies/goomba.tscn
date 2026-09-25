@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dm4506a0g6pcc"]
 
 [ext_resource type="Texture2D" uid="uid://d3s6tog37hohi" path="res://textures/smw/entities/galoomba.png" id="1_21hcc"]
-[ext_resource type="Script" uid="uid://bydb6sts5pt4v" path="res://scripts/enemy/goomba.gd" id="1_s1jgw"]
+[ext_resource type="Script" uid="uid://bydb6sts5pt4v" path="res://src/gameplay/enemies/goomba.gd" id="1_s1jgw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s1jgw"]
 atlas = ExtResource("1_21hcc")

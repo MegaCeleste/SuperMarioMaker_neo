@@ -9,22 +9,22 @@ func physics_update(delta: float) -> void:
 		return
 
 	# 单独按↓方向键 → 旋转跳
-	if Input.is_action_just_pressed("player_spin_jump"):
+	if Input.is_action_just_pressed("spin_jump"):
 		state_machine.change_state(state_machine.spin_jump)
 		return
 
-	if Input.is_action_just_pressed("player_jump"):
+	if Input.is_action_just_pressed("jump"):
 		player.is_priming_jump = (abs(player.velocity.x) >= 160.0)
 		player.velocity.y = player.SUPER_JUMP_VELOCITY if player.is_priming_jump else player.JUMP_VELOCITY
 		player.jump_sound.play()
 		state_machine.change_state(state_machine.air)
 		return
 
-	if Input.is_action_pressed("player_duck"):
+	if Input.is_action_pressed("move_down"):
 		state_machine.change_state(state_machine.duck)
 		return
 
-	var dir := Input.get_axis("player_left", "player_right")
+	var dir := Input.get_axis("move_left", "move_right")
 
 	if player.velocity.x == 0 and dir == 0:
 		state_machine.change_state(state_machine.idle)
@@ -34,7 +34,7 @@ func physics_update(delta: float) -> void:
 		state_machine.change_state(state_machine.skid)
 		return
 
-	var max_speed = player.max_run_speed if Input.is_action_pressed("player_run") else player.max_walk_speed
+	var max_speed = player.max_run_speed if Input.is_action_pressed("run") else player.max_walk_speed
 	player.velocity.x = move_toward(player.velocity.x, dir * max_speed, player.ground_acceleration * delta)
 
 	if dir < 0:

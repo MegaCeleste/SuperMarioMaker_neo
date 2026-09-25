@@ -1,0 +1,10 @@
+keys,en_US,zh_CN
+DASH_TITLE,Player physics dashboard,玩家物理仪表盘
+DASH_STATS,"Velocity: (%.1f, %.1f) px/s\nPosition: (%.1f, %.1f) px\nState: %s\nJump apex: %.1f px","速度: (%.1f, %.1f) px/s\n位置: (%.1f, %.1f) px\n状态: %s\n跳跃高度: %.1f px"
+DASH_METER_STATS,P-Meter: %d/%d (%s) · candidate,P-Meter：%d/%d（%s）· 候选值
+DASH_P_READY,P-Run ready,P-Run 已就绪
+DASH_P_CHARGING,charging,蓄力中
+DASH_P_UNAVAILABLE,unavailable,当前风格无此能力
+DASH_ANIMATION,Animation: %s · %.1f fps,动画：%s · %.1f 帧/秒
+DASH_CONTROLS,A/D move · ← run · ↑ jump · ↓ spin · S crouch,A/D 移动 · ← 跑 · ↑ 跳 · ↓ 旋转跳 · S 下蹲
+DASH_GRAPH,Horizontal speed · last 5 seconds,水平速度 · 最近 5 秒

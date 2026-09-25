@@ -1,0 +1,9 @@
+{
+  "solids": 1,
+  "player": 2,
+  "enemies": 3,
+  "pickups": 4,
+  "projectiles": 5,
+  "semisolids": 6,
+  "sensors": 7
+}

@@ -1,14 +1,14 @@
 [gd_scene format=4 uid="uid://fh0qo8ecxtv2"]
 
-[ext_resource type="PackedScene" uid="uid://dn5ud4dperl5d" path="res://scenes/player.tscn" id="1_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://dn5ud4dperl5d" path="res://src/gameplay/player/player.tscn" id="1_lnu2h"]
 [ext_resource type="Texture2D" uid="uid://dwibitb2pfns" path="res://textures/tiles/fart.png" id="2_lbhrr"]
 [ext_resource type="Texture2D" uid="uid://bd32bdg1hr5al" path="res://textures/tiles/test.png" id="3_iywne"]
 [ext_resource type="AudioStream" uid="uid://c7xx82tvew4nu" path="res://audio/smw/music/overworld/play.ogg" id="4_lbhrr"]
-[ext_resource type="PackedScene" uid="uid://416j3ilr0cp8" path="res://scenes/background.tscn" id="5_iywne"]
-[ext_resource type="PackedScene" uid="uid://dm4506a0g6pcc" path="res://scenes/goomba.tscn" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://416j3ilr0cp8" path="res://src/ui/background.tscn" id="5_iywne"]
+[ext_resource type="PackedScene" uid="uid://dm4506a0g6pcc" path="res://src/gameplay/enemies/goomba.tscn" id="6_p57ef"]
 [ext_resource type="Texture2D" uid="uid://clwe7seivxsur" path="res://textures/tiles/ground.png" id="6_vtaks"]
-[ext_resource type="PackedScene" uid="uid://breuq34qljrjv" path="res://scenes/entities/mushroom.tscn" id="7_gee14"]
-[ext_resource type="PackedScene" uid="uid://bubprsglac4jm" path="res://scenes/blocks/question_block.tscn" id="7_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://breuq34qljrjv" path="res://src/gameplay/entities/mushroom.tscn" id="7_gee14"]
+[ext_resource type="PackedScene" uid="uid://bubprsglac4jm" path="res://src/gameplay/blocks/question_block.tscn" id="7_u5sy4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p57ef"]
 texture = ExtResource("2_lbhrr")

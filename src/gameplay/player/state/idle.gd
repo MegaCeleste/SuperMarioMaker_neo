@@ -11,21 +11,21 @@ func physics_update(delta: float) -> void:
 		return
 
 	# 单独按↓方向键 → 旋转跳
-	if Input.is_action_just_pressed("player_spin_jump"):
+	if Input.is_action_just_pressed("spin_jump"):
 		player.state_machine.change_state(player.state_machine.spin_jump)
 		return
 
-	if Input.is_action_just_pressed("player_jump"):
+	if Input.is_action_just_pressed("jump"):
 		player.velocity.y = player.JUMP_VELOCITY
 		player.jump_sound.play()
 		player.state_machine.change_state(player.state_machine.air)
 		return
 
-	if Input.is_action_pressed("player_duck"):
+	if Input.is_action_pressed("move_down"):
 		player.state_machine.change_state(player.state_machine.duck)
 		return
 
-	var direction = Input.get_axis("player_left", "player_right")
+	var direction = Input.get_axis("move_left", "move_right")
 	if direction != 0:
 		player.state_machine.change_state(player.state_machine.run)
 		return

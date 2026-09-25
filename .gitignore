@@ -14,3 +14,13 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# agent
+.kimi
+
+# 参考
+GodotWE
+
+# 游戏媒体资产不入库（REQ-AST-001），本地保留
+textures/
+audio/

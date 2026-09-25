@@ -1,0 +1,37 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/player/player_physics_profile.gd" id="1_profile"]
+
+[resource]
+script = ExtResource("1_profile")
+walk_max = 84.0
+run_max = 180.0
+p_speed = 216.0
+ground_accel = 225.0
+skid_decel = 400.0
+friction_normal = 225.0
+skid_threshold = 100.0
+jump_initial = -360.0
+super_jump_initial = -430.0
+spin_jump_initial = -280.0
+gravity_rise = 900.0
+gravity_fall = 1800.0
+max_fall = 270.0
+air_accel_factor = 0.65
+coyote_frames = 6
+jump_buffer_frames = 5
+corner_correction_max = 3.0
+head_bump_speed = 10.0
+hitbox_width = 12.0
+small_height = 14.0
+super_height = 28.0
+crouch_height = 14.0
+feet_y = 16.0
+p_meter_max = 112
+p_meter_charge_per_frame = 2
+p_meter_decay_per_frame = 1
+anim_low_speed = 30.0
+anim_low_fps = 3.3
+anim_walk_fps = 7.5
+anim_run_fps = 15.0
+anim_p_fps = 18.0

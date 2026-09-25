@@ -10,7 +10,7 @@ func exit() -> void:
 	player.duck_shape.disabled = true
 
 func physics_update(delta: float) -> void:
-	var dir := Input.get_axis("player_left", "player_right")
+	var dir := Input.get_axis("move_left", "move_right")
 	
 	if dir < 0:
 		player.animated_sprite.flip_h = true
@@ -20,10 +20,10 @@ func physics_update(delta: float) -> void:
 	if not player.is_on_floor():
 		# 重力已在 Player._physics_process 统一处理
 
-		if Input.is_action_just_released("player_jump") and player.velocity.y < 0:
+		if Input.is_action_just_released("jump") and player.velocity.y < 0:
 			player.velocity.y *= 0.6
 
-		var max_speed = player.max_run_speed if Input.is_action_pressed("player_run") else player.max_walk_speed
+		var max_speed = player.max_run_speed if Input.is_action_pressed("run") else player.max_walk_speed
 		
 		if dir != 0:
 			player.velocity.x = move_toward(player.velocity.x, dir * max_speed, player.air_acceleration * delta)
@@ -32,11 +32,11 @@ func physics_update(delta: float) -> void:
 	else:
 		player.velocity.x = move_toward(player.velocity.x, 0, player.ground_acceleration * delta)
 
-		if Input.is_action_just_pressed("player_jump"):
+		if Input.is_action_just_pressed("jump"):
 			player.velocity.y = player.SUPER_JUMP_VELOCITY if player.is_priming_jump else player.JUMP_VELOCITY
 			player.jump_sound.play()
 
-	if not Input.is_action_pressed("player_duck") and player.is_on_floor():
+	if not Input.is_action_pressed("move_down") and player.is_on_floor():
 		if abs(player.velocity.x) > 10:
 			state_machine.change_state(state_machine.run)
 		else:

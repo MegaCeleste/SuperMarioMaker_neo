@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://do2ho8mnrjxmc"]
 
-[ext_resource type="Script" uid="uid://dq8b5vanmbkhi" path="res://scripts/block/interactable_block.gd" id="1_16a27"]
+[ext_resource type="Script" uid="uid://dq8b5vanmbkhi" path="res://src/gameplay/blocks/interactable_block.gd" id="1_16a27"]
 [ext_resource type="Texture2D" uid="uid://dm510dlk0st0r" path="res://textures/tiles/question_block.png" id="2_1mkh3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lp58i"]

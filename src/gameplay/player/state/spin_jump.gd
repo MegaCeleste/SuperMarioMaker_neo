@@ -8,11 +8,11 @@ func enter() -> void:
 
 func physics_update(delta: float) -> void:
 	# 松开跳跃键时提前结束上升（类似普通跳跃的短跳机制）
-	if Input.is_action_just_released("player_jump") and player.velocity.y < 0:
+	if Input.is_action_just_released("jump") and player.velocity.y < 0:
 		player.velocity.y *= 0.6
 
-	var dir := Input.get_axis("player_left", "player_right")
-	var max_speed = player.max_run_speed if Input.is_action_pressed("player_run") else player.max_walk_speed
+	var dir := Input.get_axis("move_left", "move_right")
+	var max_speed = player.max_run_speed if Input.is_action_pressed("run") else player.max_walk_speed
 
 	if dir != 0:
 		player.velocity.x = move_toward(player.velocity.x, dir * max_speed, player.air_acceleration * delta)
@@ -27,7 +27,7 @@ func physics_update(delta: float) -> void:
 	# 落地时退出
 	if player.is_on_floor():
 		player.is_priming_jump = false
-		if Input.is_action_pressed("player_duck"):
+		if Input.is_action_pressed("move_down"):
 			state_machine.change_state(state_machine.duck)
 		elif dir != 0:
 			state_machine.change_state(state_machine.run)

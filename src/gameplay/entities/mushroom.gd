@@ -10,6 +10,10 @@ var gravity = 900
 var dir = -1
 
 func _ready() -> void:
+	collision_layer = CollisionConfig.layer("pickups")
+	collision_mask = CollisionConfig.layer("solids")
+	pickup_area.collision_layer = CollisionConfig.layer("sensors")
+	pickup_area.collision_mask = CollisionConfig.layer("player")
 	pickup_area.body_entered.connect(_on_pickup_area_body_entered)
 
 

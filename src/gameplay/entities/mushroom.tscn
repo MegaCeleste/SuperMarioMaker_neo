@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://breuq34qljrjv"]
 
-[ext_resource type="Script" uid="uid://cgy3tno1pg60o" path="res://scripts/entities/mushroom.gd" id="1_d60rn"]
+[ext_resource type="Script" uid="uid://cgy3tno1pg60o" path="res://src/gameplay/entities/mushroom.gd" id="1_d60rn"]
 [ext_resource type="Texture2D" uid="uid://b757gbkr1a7j0" path="res://textures/smw/entities/mushroom.png" id="2_u7jc2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_til3n"]

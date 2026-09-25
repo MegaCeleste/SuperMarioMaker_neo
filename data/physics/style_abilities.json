@@ -1,0 +1,23 @@
+{
+  "smb1": {
+    "spin_jump": false,
+    "carry": false,
+    "p_meter": false,
+    "wall_kick": false,
+    "yoshi": false
+  },
+  "smb3": {
+    "spin_jump": false,
+    "carry": true,
+    "p_meter": true,
+    "wall_kick": false,
+    "yoshi": false
+  },
+  "smw": {
+    "spin_jump": true,
+    "carry": true,
+    "p_meter": true,
+    "wall_kick": false,
+    "yoshi": true
+  }
+}
