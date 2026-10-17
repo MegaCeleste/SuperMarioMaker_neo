@@ -9,8 +9,9 @@
 ## 决定
 
 1. **文本统一 LF**：保留 `* text=auto eol=lf`，补充 `*.smmlevel`、`*.py`；`*.import` 从 `binary` 改为 `text eol=lf`。二进制媒体仍显式标记 `binary`。
-2. **忽略规则分层**：Godot 缓存与导出配置、Mono、本地媒体（`textures/`、`audio/`）、本地日志（`local_debug_output/`）、参考工程（`GodotWE/`）、代理目录（`.kimi/`）、系统临时文件（`**/.DS_Store`、`Thumbs.db`、`*.swp`）。
+2. **忽略规则分层**：Godot 缓存与导出配置、Mono、本地媒体（`textures/`、`audio/`）、本地日志（`local_debug_output/`）、代理目录（`.kimi/`）、系统临时文件（`**/.DS_Store`、`Thumbs.db`、`*.swp`）。参考工程不再需要忽略规则，因为它已移出工程目录（见第 4 条）。
 3. **清理无引用旧实现**：删除 `src/vfx/skid_smoke.*`。它已被 `src/gameplay/effects/player_skid_dust.gd` 取代，且没有任何场景引用；备份保存在本地 `local_debug_output/normalize-backup-2026-10-17/`，不入库。
+4. **参考工程移出工程目录**：本地旧工程 `GodotWE/` 从 `SuperMarioMaker_neo/` 移到工作区级的 `../references/GodotWE/`，并补一个 `references/README.md` 说明用途。它本来就被忽略，但留在工程内会让 Godot 每次扫描都提示存在嵌套 `project.godot`。
 
 ## 原因与取舍
 

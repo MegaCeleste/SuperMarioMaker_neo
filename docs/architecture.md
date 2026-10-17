@@ -26,7 +26,7 @@ local_debug_output/       本地编译/启动日志，Git 忽略
 
 仓库统一按 LF 入库（`.gitattributes`），Godot 的 `*.import` 作为文本参与 diff；`.DS_Store`、日志与临时文件由 `.gitignore` 排除。约定见[决策 0002](decisions/0002-repository-normalization.md)。
 
-编辑器第一轮位于 `src/editor/`，已有界面与交互骨架，尚无实际物件编辑或创作/试玩闭环。`GodotWE/` 为本地参考旧工程，不作为当前实现来源直接运行或迁移。
+编辑器第一轮位于 `src/editor/`，已有界面与交互骨架，尚无实际物件编辑或创作/试玩闭环。本地参考旧工程 `GodotWE/` 已移出本工程目录，位于工作区级的 `../references/GodotWE/`，不再参与 Godot 导入扫描，也不作为当前实现来源直接运行或迁移。
 
 ## 编辑器界面与状态
 

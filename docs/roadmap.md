@@ -45,11 +45,11 @@
 
 本轮目标：把长期只存在于本地工作区的改动整理成可维护的仓库并推送到 `origin/main`，不改游戏行为、不调参数。
 
-已整理：删除被跟踪的根目录 `.DS_Store` 与残留空目录；移除无引用、已被 `player_skid_dust.gd` 取代的 `src/vfx/skid_smoke.*`（备份在本地 `local_debug_output/normalize-backup-2026-10-17/`）；`.gitignore` 按 Godot 缓存 / Mono / 本地媒体 / 日志 / 参考工程 / 代理目录 / 系统临时文件分层；`.gitattributes` 把 `*.import` 由二进制改为文本，补 `*.smmlevel` 与 `*.py`，全仓库文本按 LF 入库。约定记入[决策 0002](decisions/0002-repository-normalization.md)。
+已整理：删除被跟踪的根目录 `.DS_Store` 与残留空目录；移除无引用、已被 `player_skid_dust.gd` 取代的 `src/vfx/skid_smoke.*`（备份在本地 `local_debug_output/normalize-backup-2026-10-17/`）；`.gitignore` 按 Godot 缓存 / Mono / 本地媒体 / 日志 / 参考工程 / 代理目录 / 系统临时文件分层；`.gitattributes` 把 `*.import` 由二进制改为文本，补 `*.smmlevel` 与 `*.py`，全仓库文本按 LF 入库。约定记入[决策 0002](decisions/0002-repository-normalization.md)。本地参考旧工程 `GodotWE/` 移出工程目录，放到工作区级的 `../references/GodotWE/`。
 
 未改动：玩家参数与代码、实体逻辑、编辑器界面与关卡数据格式。`src/main/game.tscn` 保持负责人 2026-10-17 16:19 手动保存的内容（地形重画，新增火之花、火焰花问号块、已用块、硬块与板栗仔，玩家出生点移到 (30,-72)，BGM 由 `AudioStreamPlayer2D` 改为普通 `AudioStreamPlayer`），本轮只提交、不修改。
 
-检查：Godot 4.7.2 `--headless --import --quit` 退出码 0，无新增 gameplay 脚本/资源解析错误；日志中只有既有的 MCP 插件 `listen` 空调用、退出时 3 个 ObjectDB 实例与 1 个资源未释放，以及 `GodotWE/` 嵌套 `project.godot` 被忽略的提示。`git diff --check` 通过，跟踪文件按 LF 重新入库。本轮 9 个提交已推送到 `origin/main`。未进行交互试玩。
+检查：Godot 4.7.2 `--headless --import --quit` 退出码 0，无新增 gameplay 脚本/资源解析错误；日志中只剩既有的 MCP 插件 `listen` 空调用、退出时 3 个 ObjectDB 实例与 1 个资源未释放，`GodotWE/` 移出后嵌套 `project.godot` 警告消失。`git diff --check` 通过，跟踪文件按 LF 重新入库。规范化提交（含参考工程搬迁）已推送到 `origin/main`。未进行交互试玩。
 
 遗留：`project.godot` 中新增的 `debug_reset/debug_pause/debug_step` 三个输入动作带 `device=16`，在键盘上可能不触发，待负责人试玩 R/F6/F7 时确认。编辑器真实放置/擦除仍未开始。
 
