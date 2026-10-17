@@ -1,0 +1,10 @@
+{
+  "schema_version": 2,
+  "visual_style": "smw",
+  "visual_alignment": "Existing SMW SpriteFrames use a centered canvas with the Player foot line at local y=16; no cropping or inferred pivot changes.",
+  "fire_placeholder_tint": [1.0, 0.72, 0.35, 1.0],
+  "fire_sprite_frames": "res://data/visuals/basic_smw_fire.tres",
+  "fire_shoot_frames": 6,
+  "fire_shoot_timing_state": "CANDIDATE",
+  "fire_placeholder_note": "Fallback tint only applies to custom scenes without Fire SpriteFrames; the shipped Player uses reviewed local Fire strips."
+}

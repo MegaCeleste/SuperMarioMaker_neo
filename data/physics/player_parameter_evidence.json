@@ -1,0 +1,944 @@
+{
+  "schema_version": 1,
+  "researched_at": "2026-09-29",
+  "implementation_updated_at": "2026-10-08",
+  "reference_game": "Super Mario Maker 2",
+  "scope": "Ordinary dry ground and air; SMB1/SMB3/SMW; single player",
+  "profile": "res://data/physics/base_physics.tres",
+  "report": "../TBDtoVERIFIED/smm2_player_physics_codex_research.md",
+  "report_path_base": "project_directory",
+  "tuned": false,
+  "sources": [
+    {
+      "id": "S1",
+      "locator": "地上の移動速度徹底分析",
+      "url": "https://w.atwiki.jp/smm2l_documents/pages/167.html",
+      "kind": "SMM2 first-hand measurement"
+    },
+    {
+      "id": "S2",
+      "locator": "q9c0tB14_kB8 / Black60Dragon experimental replies",
+      "url": "https://www.reddit.com/r/MarioMaker/comments/fdavlj/questions_about_momentum_and_speed/",
+      "kind": "SMM2 first-hand experiment"
+    },
+    {
+      "id": "S3",
+      "url": "https://www.reddit.com/r/MarioMaker/comments/he4q1b/super_mario_maker_2_full_speed_jump_arc/",
+      "kind": "SMM2 first-hand trajectory; linked Imgur chart inaccessible"
+    },
+    {
+      "id": "S4",
+      "url": "https://discussions.unity.com/t/framerate-independent-movement-with-changes-at-specific-times/820482",
+      "kind": "Author-recorded SMM2 data; spatial calibration incomplete"
+    },
+    {
+      "id": "S5",
+      "url": "https://www.reddit.com/r/MarioMaker/comments/jhvwqs/",
+      "kind": "Author-created SMM2 freeze detector"
+    },
+    {
+      "id": "M1-004",
+      "path": "docs/archive/tasks/M1-004-player-rebuild-research.md",
+      "kind": "Project design decision"
+    },
+    {
+      "id": "WE-4.0.0",
+      "url": "https://github.com/arichornlover/SMMWE-SourceCode",
+      "path": "docs/research/2026-10-08-smmwe-physics.md",
+      "kind": "Fangame source reference; not official SMM2 measurement",
+      "archive_sha256": "ce2b957af1e1efe68c678d0c38895d325a61a5852212e1feb52e43abdeb9c528"
+    }
+  ],
+  "behaviors": {
+    "dual_gravity": {
+      "note": "SMMWE reference: held rise 360; release or vy > -30 locks 1080. Launch integrates gravity immediately; fall threshold 240 is applied before gravity.",
+      "status": "CANDIDATE",
+      "evidence": [
+        "WE-4.0.0"
+      ]
+    },
+    "small_crouch": {
+      "styles": [
+        "smb1",
+        "smb3",
+        "smw"
+      ],
+      "exact_boxes": "TBD",
+      "status": "OWNER_OBSERVED"
+    },
+    "running_pose": {
+      "condition": "abs(vx) reaches run_max",
+      "p_meter_gate": false,
+      "observed_at": "2026-09-29",
+      "status": "OWNER_OBSERVED"
+    },
+    "running_jump_pose": {
+      "condition": "full-speed takeoff; p_jump latched through descent until landing",
+      "observed_at": "2026-09-29",
+      "status": "OWNER_OBSERVED"
+    },
+    "motion_model": {
+      "note": "Default SMMWE branch-threshold caps, reverse step crossing zero and pre-horizontal jump tiers. Previous profile keeps legacy algorithms. Owner pose locks, source-key release and jump assists retained.",
+      "status": "CANDIDATE",
+      "evidence": [
+        "WE-4.0.0"
+      ]
+    }
+  },
+  "parameters": {
+    "walk_max": {
+      "baseline_literal": "78.0",
+      "status": "CANDIDATE",
+      "source_kind": "SMMWE_SOURCE_REFERENCE",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "WE-4.0.0"
+      ],
+      "note": "Converted fangame source reference for owner playtest; not owner-tuned or verified against GameMaker runtime.",
+      "previous_baseline": {
+        "baseline_literal": "84.0",
+        "status": "CANDIDATE",
+        "source_kind": "LEGACY_PREVIEW",
+        "smm2_original_value": "TBD",
+        "evidence": [
+          "M1-004"
+        ],
+        "note": "Retained engineering model; former VERIFIED was unsupported and revoked."
+      }
+    },
+    "run_max": {
+      "baseline_literal": "180.0",
+      "status": "VERIFIED",
+      "source_kind": "SMM2_DIRECT_MEASUREMENT",
+      "smm2_original_value": "11.25 tiles/s",
+      "evidence": [
+        "S1",
+        "WE-4.0.0"
+      ],
+      "note": "Flat ordinary top speed; 16 px/tile project conversion. No 216 px/s tier."
+    },
+    "ground_accel": {
+      "baseline_literal": "216.0",
+      "status": "CANDIDATE",
+      "source_kind": "SMMWE_SOURCE_REFERENCE",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "WE-4.0.0"
+      ],
+      "note": "Converted fangame source reference for owner playtest; not owner-tuned or verified against GameMaker runtime.",
+      "previous_baseline": {
+        "baseline_literal": "225.0",
+        "status": "CANDIDATE",
+        "source_kind": "LEGACY_PREVIEW",
+        "smm2_original_value": "TBD",
+        "evidence": [
+          "M1-004"
+        ],
+        "note": "Retained engineering model; former VERIFIED was unsupported and revoked."
+      }
+    },
+    "skid_decel": {
+      "baseline_literal": "468.0",
+      "status": "CANDIDATE",
+      "source_kind": "SMMWE_SOURCE_REFERENCE",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "WE-4.0.0"
+      ],
+      "note": "Converted fangame source reference for owner playtest; not owner-tuned or verified against GameMaker runtime.",
+      "previous_baseline": {
+        "baseline_literal": "540.0",
+        "status": "CANDIDATE",
+        "source_kind": "PROJECT_DESIGN",
+        "smm2_original_value": "TBD",
+        "evidence": [
+          "M1-004"
+        ],
+        "note": "540 is a project candidate targeting 20 ticks from 180 to zero; 400 felt weak. 800 is NSMBU comparison only."
+      }
+    },
+    "friction_normal": {
+      "baseline_literal": "180.0",
+      "status": "CANDIDATE",
+      "source_kind": "SMMWE_SOURCE_REFERENCE",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "WE-4.0.0"
+      ],
+      "note": "Converted fangame source reference for owner playtest; not owner-tuned or verified against GameMaker runtime.",
+      "previous_baseline": {
+        "baseline_literal": "225.0",
+        "status": "CANDIDATE",
+        "source_kind": "LEGACY_PREVIEW",
+        "smm2_original_value": "TBD",
+        "evidence": [
+          "M1-004"
+        ],
+        "note": "Retained engineering model; former VERIFIED was unsupported and revoked."
+      }
+    },
+    "skid_threshold": {
+      "baseline_literal": "100.0",
+      "status": "CANDIDATE",
+      "source_kind": "LEGACY_PREVIEW",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Retained engineering model; former VERIFIED was unsupported and revoked."
+    },
+    "jump_initial": {
+      "baseline_literal": "-237.0",
+      "status": "CANDIDATE",
+      "source_kind": "SMMWE_SOURCE_REFERENCE",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "WE-4.0.0"
+      ],
+      "note": "Converted fangame source reference for owner playtest; not owner-tuned or verified against GameMaker runtime.",
+      "previous_baseline": {
+        "baseline_literal": "-360.0",
+        "status": "CANDIDATE",
+        "source_kind": "LEGACY_PREVIEW",
+        "smm2_original_value": "TBD",
+        "evidence": [
+          "M1-004"
+        ],
+        "note": "Retained engineering model; former VERIFIED was unsupported and revoked."
+      }
+    },
+    "run_jump_initial": {
+      "baseline_literal": "-258.0",
+      "status": "CANDIDATE",
+      "source_kind": "SMMWE_SOURCE_REFERENCE",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "WE-4.0.0"
+      ],
+      "note": "Converted fangame source reference for owner playtest; not owner-tuned or verified against GameMaker runtime.",
+      "previous_baseline": {
+        "baseline_literal": "-430.0",
+        "status": "CANDIDATE",
+        "source_kind": "LEGACY_PREVIEW",
+        "smm2_original_value": "TBD",
+        "evidence": [
+          "M1-004"
+        ],
+        "note": "Retained engineering model; former VERIFIED was unsupported and revoked."
+      }
+    },
+    "spin_jump_initial": {
+      "baseline_literal": "-198.0",
+      "status": "CANDIDATE",
+      "source_kind": "SMMWE_SOURCE_REFERENCE",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "WE-4.0.0"
+      ],
+      "note": "Converted fangame source reference for owner playtest; not owner-tuned or verified against GameMaker runtime.",
+      "previous_baseline": {
+        "baseline_literal": "-280.0",
+        "status": "CANDIDATE",
+        "source_kind": "LEGACY_PREVIEW",
+        "smm2_original_value": "TBD",
+        "evidence": [
+          "M1-004"
+        ],
+        "note": "Retained engineering model; former VERIFIED was unsupported and revoked."
+      }
+    },
+    "gravity_rise": {
+      "baseline_literal": "360.0",
+      "status": "CANDIDATE",
+      "source_kind": "SMMWE_SOURCE_REFERENCE",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "WE-4.0.0"
+      ],
+      "note": "Converted fangame source reference for owner playtest; not owner-tuned or verified against GameMaker runtime.",
+      "previous_baseline": {
+        "baseline_literal": "900.0",
+        "status": "CANDIDATE",
+        "source_kind": "LEGACY_PREVIEW",
+        "smm2_original_value": "TBD",
+        "evidence": [
+          "M1-004"
+        ],
+        "note": "Retained engineering model; former VERIFIED was unsupported and revoked."
+      }
+    },
+    "gravity_fall": {
+      "baseline_literal": "1080.0",
+      "status": "CANDIDATE",
+      "source_kind": "SMMWE_SOURCE_REFERENCE",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "WE-4.0.0"
+      ],
+      "note": "Converted fangame source reference for owner playtest; not owner-tuned or verified against GameMaker runtime.",
+      "previous_baseline": {
+        "baseline_literal": "1800.0",
+        "status": "CANDIDATE",
+        "source_kind": "LEGACY_PREVIEW",
+        "smm2_original_value": "TBD",
+        "evidence": [
+          "M1-004"
+        ],
+        "note": "Retained engineering model; former VERIFIED was unsupported and revoked."
+      }
+    },
+    "max_fall": {
+      "baseline_literal": "240.0",
+      "status": "CANDIDATE",
+      "source_kind": "SMMWE_SOURCE_REFERENCE",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "WE-4.0.0"
+      ],
+      "note": "Converted fangame source reference for owner playtest; not owner-tuned or verified against GameMaker runtime. Pre-integration limit: at 60 Hz ordinary falling displacement uses up to 258 px/s.",
+      "previous_baseline": {
+        "baseline_literal": "270.0",
+        "status": "CANDIDATE",
+        "source_kind": "LEGACY_PREVIEW",
+        "smm2_original_value": "TBD",
+        "evidence": [
+          "M1-004"
+        ],
+        "note": "Retained engineering model; former VERIFIED was unsupported and revoked."
+      }
+    },
+    "air_accel_factor": {
+      "baseline_literal": "1.0",
+      "status": "CANDIDATE",
+      "source_kind": "SMMWE_SOURCE_REFERENCE",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "WE-4.0.0"
+      ],
+      "note": "Converted fangame source reference for owner playtest; not owner-tuned or verified against GameMaker runtime.",
+      "previous_baseline": {
+        "baseline_literal": "0.65",
+        "status": "CANDIDATE",
+        "source_kind": "LEGACY_PREVIEW",
+        "smm2_original_value": "TBD",
+        "evidence": [
+          "M1-004"
+        ],
+        "note": "Retained engineering model; former VERIFIED was unsupported and revoked."
+      }
+    },
+    "coyote_frames": {
+      "baseline_literal": "6",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "jump_buffer_frames": {
+      "baseline_literal": "5",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "corner_correction_max": {
+      "baseline_literal": "3.0",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "head_bump_speed": {
+      "baseline_literal": "0.0",
+      "status": "CANDIDATE",
+      "source_kind": "SMMWE_SOURCE_REFERENCE",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "WE-4.0.0"
+      ],
+      "note": "Converted fangame source reference for owner playtest; not owner-tuned or verified against GameMaker runtime.",
+      "previous_baseline": {
+        "baseline_literal": "10.0",
+        "status": "CANDIDATE",
+        "source_kind": "PROJECT_DESIGN",
+        "smm2_original_value": "TBD",
+        "evidence": [
+          "M1-004"
+        ],
+        "note": "Engineering preview; owner tuning required."
+      }
+    },
+    "hitbox_width": {
+      "baseline_literal": "12.0",
+      "status": "CANDIDATE",
+      "source_kind": "LEGACY_PREVIEW",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Retained engineering model; former VERIFIED was unsupported and revoked."
+    },
+    "small_height": {
+      "baseline_literal": "14.0",
+      "status": "CANDIDATE",
+      "source_kind": "LEGACY_PREVIEW",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Retained engineering model; former VERIFIED was unsupported and revoked."
+    },
+    "super_height": {
+      "baseline_literal": "28.0",
+      "status": "CANDIDATE",
+      "source_kind": "LEGACY_PREVIEW",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Retained engineering model; former VERIFIED was unsupported and revoked."
+    },
+    "crouch_height": {
+      "baseline_literal": "14.0",
+      "status": "CANDIDATE",
+      "source_kind": "LEGACY_PREVIEW",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Retained engineering model; former VERIFIED was unsupported and revoked."
+    },
+    "feet_y": {
+      "baseline_literal": "16.0",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "p_meter_max": {
+      "baseline_literal": "112",
+      "status": "CANDIDATE",
+      "source_kind": "ORIGINAL_GAME_COMPARISON",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Experimental counter only. Does not affect run cap, running pose or jump height."
+    },
+    "p_meter_charge_per_frame": {
+      "baseline_literal": "2",
+      "status": "CANDIDATE",
+      "source_kind": "ORIGINAL_GAME_COMPARISON",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Experimental counter only. Does not affect run cap, running pose or jump height."
+    },
+    "p_meter_decay_per_frame": {
+      "baseline_literal": "1",
+      "status": "CANDIDATE",
+      "source_kind": "ORIGINAL_GAME_COMPARISON",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Experimental counter only. Does not affect run cap, running pose or jump height."
+    },
+    "speed_epsilon": {
+      "baseline_literal": "0.01",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "small_crouch_height": {
+      "baseline_literal": "14.0",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "collision_margin": {
+      "baseline_literal": "0.01",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "clearance_epsilon": {
+      "baseline_literal": "0.02",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "floor_snap": {
+      "baseline_literal": "2.0",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "floor_angle_degrees": {
+      "baseline_literal": "46.0",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "small_hurt_height": {
+      "baseline_literal": "14.0",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "small_crouch_hurt_height": {
+      "baseline_literal": "14.0",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "super_hurt_height": {
+      "baseline_literal": "28.0",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "crouch_hurt_height": {
+      "baseline_literal": "14.0",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "stomp_tolerance": {
+      "baseline_literal": "4.0",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "bounce_initial": {
+      "baseline_literal": "-253.5",
+      "status": "CANDIDATE",
+      "source_kind": "SMMWE_SOURCE_REFERENCE",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "WE-4.0.0"
+      ],
+      "note": "Converted fangame source reference for owner playtest; not owner-tuned or verified against GameMaker runtime.",
+      "previous_baseline": {
+        "baseline_literal": "-180.0",
+        "status": "CANDIDATE",
+        "source_kind": "PROJECT_DESIGN",
+        "smm2_original_value": "TBD",
+        "evidence": [
+          "M1-004"
+        ],
+        "note": "Engineering preview; owner tuning required."
+      }
+    },
+    "bounce_held_initial": {
+      "baseline_literal": "-253.5",
+      "status": "CANDIDATE",
+      "source_kind": "SMMWE_SOURCE_REFERENCE",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "WE-4.0.0"
+      ],
+      "note": "Converted fangame source reference for owner playtest; not owner-tuned or verified against GameMaker runtime.",
+      "previous_baseline": {
+        "baseline_literal": "-360.0",
+        "status": "CANDIDATE",
+        "source_kind": "PROJECT_DESIGN",
+        "smm2_original_value": "TBD",
+        "evidence": [
+          "M1-004"
+        ],
+        "note": "Engineering preview; owner tuning required."
+      }
+    },
+    "spin_bounce_initial": {
+      "baseline_literal": "-253.5",
+      "status": "CANDIDATE",
+      "source_kind": "SMMWE_SOURCE_REFERENCE",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "WE-4.0.0"
+      ],
+      "note": "Converted fangame source reference for owner playtest; not owner-tuned or verified against GameMaker runtime.",
+      "previous_baseline": {
+        "baseline_literal": "-120.0",
+        "status": "CANDIDATE",
+        "source_kind": "PROJECT_DESIGN",
+        "smm2_original_value": "TBD",
+        "evidence": [
+          "M1-004"
+        ],
+        "note": "Engineering preview; owner tuning required."
+      }
+    },
+    "animation_stride": {
+      "baseline_literal": "12.0",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "spin_animation_fps": {
+      "baseline_literal": "18.0",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "death_animation_fps": {
+      "baseline_literal": "4.0",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "powerup_freeze_frames": {
+      "baseline_literal": "44",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "damage_freeze_frames": {
+      "baseline_literal": "36",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "invulnerability_frames": {
+      "baseline_literal": "120",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "flash_interval_frames": {
+      "baseline_literal": "4",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "death_initial": {
+      "baseline_literal": "-240.0",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "death_gravity": {
+      "baseline_literal": "900.0",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "death_delay_frames": {
+      "baseline_literal": "30",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "death_duration_frames": {
+      "baseline_literal": "120",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "hold_offset_small": {
+      "baseline_literal": "Vector2(12, 8)",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "hold_offset_super": {
+      "baseline_literal": "Vector2(14, 0)",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "throw_speed": {
+      "baseline_literal": "180.0",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "throw_lift": {
+      "baseline_literal": "-80.0",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "throw_up_speed": {
+      "baseline_literal": "-360.0",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "fireball_speed": {
+      "baseline_literal": "240.0",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "fireball_gravity": {
+      "baseline_literal": "900.0",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "fireball_bounce": {
+      "baseline_literal": "-120.0",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "fireball_radius": {
+      "baseline_literal": "3.0",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "fireball_lifetime_frames": {
+      "baseline_literal": "180",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "fireball_cooldown_frames": {
+      "baseline_literal": "12",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "fireball_limit": {
+      "baseline_literal": "2",
+      "status": "CANDIDATE",
+      "source_kind": "PROJECT_DESIGN",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "M1-004"
+      ],
+      "note": "Engineering preview; owner tuning required."
+    },
+    "motion_model": {
+      "baseline_literal": "1",
+      "status": "CANDIDATE",
+      "source_kind": "SMMWE_SOURCE_REFERENCE",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "WE-4.0.0"
+      ],
+      "note": "Converted fangame source reference for owner playtest; not owner-tuned or verified against GameMaker runtime."
+    },
+    "air_reverse_accel": {
+      "baseline_literal": "468.0",
+      "status": "CANDIDATE",
+      "source_kind": "SMMWE_SOURCE_REFERENCE",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "WE-4.0.0"
+      ],
+      "note": "Converted fangame source reference for owner playtest; not owner-tuned or verified against GameMaker runtime."
+    },
+    "ground_overspeed_decel": {
+      "baseline_literal": "90.0",
+      "status": "CANDIDATE",
+      "source_kind": "SMMWE_SOURCE_REFERENCE",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "WE-4.0.0"
+      ],
+      "note": "Converted fangame source reference for owner playtest; not owner-tuned or verified against GameMaker runtime."
+    },
+    "moving_jump_initial": {
+      "baseline_literal": "-243.0",
+      "status": "CANDIDATE",
+      "source_kind": "SMMWE_SOURCE_REFERENCE",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "WE-4.0.0"
+      ],
+      "note": "Converted fangame source reference for owner playtest; not owner-tuned or verified against GameMaker runtime."
+    },
+    "moving_jump_threshold": {
+      "baseline_literal": "30.0",
+      "status": "CANDIDATE",
+      "source_kind": "SMMWE_SOURCE_REFERENCE",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "WE-4.0.0"
+      ],
+      "note": "Converted fangame source reference for owner playtest; not owner-tuned or verified against GameMaker runtime. abs(vx) < 30 selects the standing tier; |vx| >= 30 selects moving. GML half-integer round boundary has not been runtime-verified."
+    },
+    "run_jump_threshold": {
+      "baseline_literal": "168.0",
+      "status": "CANDIDATE",
+      "source_kind": "SMMWE_SOURCE_REFERENCE",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "WE-4.0.0"
+      ],
+      "note": "Converted fangame source reference for owner playtest; not owner-tuned or verified against GameMaker runtime."
+    },
+    "apex_gravity_threshold": {
+      "baseline_literal": "-30.0",
+      "status": "CANDIDATE",
+      "source_kind": "SMMWE_SOURCE_REFERENCE",
+      "smm2_original_value": "TBD",
+      "evidence": [
+        "WE-4.0.0"
+      ],
+      "note": "Converted fangame source reference for owner playtest; not owner-tuned or verified against GameMaker runtime."
+    }
+  },
+  "active_reference": "SMMWE 4.0.0 ordinary daytime SMW, converted from 32px/60Hz to 16px/60Hz",
+  "active_reference_report": "docs/research/2026-10-08-smmwe-physics.md",
+  "previous_profile": "res://data/physics/pre_smmwe_physics.tres",
+  "owner_feedback": [
+    {
+      "date": "2026-10-09",
+      "profile": "res://data/physics/base_physics.tres",
+      "observation": "轻飘飘，像在月球上。",
+      "accepted": false,
+      "audit": "docs/research/2026-10-09-smmwe-float-audit.md",
+      "runtime_parameters_changed": false
+    }
+  ]
+}
