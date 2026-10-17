@@ -1,0 +1,595 @@
+{
+  "schema_version": 1,
+  "ground_y": 192.0,
+  "camera_height": 56.0,
+  "camera_lead": 96.0,
+  "camera_zoom": 2.0,
+  "solids": [
+    {
+      "center": [
+        736,
+        200
+      ],
+      "size": [
+        1600,
+        16
+      ]
+    },
+    {
+      "center": [
+        -56,
+        136
+      ],
+      "size": [
+        16,
+        112
+      ]
+    },
+    {
+      "center": [
+        960,
+        176
+      ],
+      "size": [
+        32,
+        32
+      ]
+    },
+    {
+      "center": [
+        992,
+        160
+      ],
+      "size": [
+        32,
+        64
+      ]
+    },
+    {
+      "center": [
+        1024,
+        144
+      ],
+      "size": [
+        32,
+        96
+      ]
+    },
+    {
+      "center": [
+        1744,
+        200
+      ],
+      "size": [
+        256,
+        16
+      ]
+    },
+    {
+      "center": [
+        2192,
+        200
+      ],
+      "size": [
+        512,
+        16
+      ]
+    },
+    {
+      "center": [
+        2752,
+        200
+      ],
+      "size": [
+        512,
+        16
+      ]
+    },
+    {
+      "center": [
+        3312,
+        200
+      ],
+      "size": [
+        512,
+        16
+      ]
+    },
+    {
+      "center": [
+        3904,
+        200
+      ],
+      "size": [
+        512,
+        16
+      ]
+    },
+    {
+      "center": [
+        3224,
+        184
+      ],
+      "size": [
+        32,
+        32
+      ]
+    },
+    {
+      "center": [
+        3392,
+        184
+      ],
+      "size": [
+        32,
+        32
+      ]
+    },
+    {
+      "center": [
+        3504,
+        160
+      ],
+      "size": [
+        32,
+        64
+      ]
+    },
+    {
+      "center": [
+        1576,
+        200
+      ],
+      "size": [
+        80,
+        16
+      ]
+    }
+  ],
+  "spawns": [
+    {
+      "label": "PLAY_START",
+      "feet_position": [
+        48,
+        192
+      ]
+    },
+    {
+      "label": "PLAY_BLOCKS",
+      "feet_position": [
+        160,
+        192
+      ]
+    },
+    {
+      "label": "PLAY_FLOWER",
+      "feet_position": [
+        432,
+        192
+      ]
+    },
+    {
+      "label": "PLAY_ENEMIES",
+      "feet_position": [
+        560,
+        192
+      ]
+    },
+    {
+      "label": "PLAY_TURN",
+      "feet_position": [
+        912,
+        192
+      ]
+    },
+    {
+      "label": "PLAY_KOOPAS",
+      "feet_position": [
+        1648,
+        192
+      ]
+    },
+    {
+      "label": "PLAY_SPIKY",
+      "feet_position": [
+        1984,
+        192
+      ]
+    },
+    {
+      "label": "PLAY_BOMBS",
+      "feet_position": [
+        2544,
+        192
+      ]
+    },
+    {
+      "label": "PLAY_PLANTS",
+      "feet_position": [
+        3104,
+        192
+      ]
+    },
+    {
+      "label": "PLAY_ITEMS",
+      "feet_position": [
+        3680,
+        192
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "smm.item.coin",
+      "position": [
+        112,
+        168
+      ]
+    },
+    {
+      "id": "smm.item.coin",
+      "position": [
+        128,
+        168
+      ]
+    },
+    {
+      "id": "smm.block.question",
+      "position": [
+        192,
+        136
+      ],
+      "label": "OBJ_COIN"
+    },
+    {
+      "id": "smm.block.question",
+      "position": [
+        240,
+        136
+      ],
+      "properties": {
+        "contained_item": "smm.item.super_mushroom"
+      },
+      "label": "OBJ_SUPER_MUSHROOM"
+    },
+    {
+      "id": "smm.block.question",
+      "position": [
+        288,
+        136
+      ],
+      "properties": {
+        "contained_item": "smm.item.fire_flower"
+      },
+      "label": "OBJ_FIRE_FLOWER"
+    },
+    {
+      "id": "smm.block.empty",
+      "position": [
+        352,
+        136
+      ]
+    },
+    {
+      "id": "smm.block.hard",
+      "position": [
+        384,
+        136
+      ]
+    },
+    {
+      "id": "smm.block.turn",
+      "position": [
+        416,
+        136
+      ]
+    },
+    {
+      "id": "smm.item.fire_flower",
+      "position": [
+        480,
+        184
+      ]
+    },
+    {
+      "id": "smm.enemy.galoomba",
+      "position": [
+        672,
+        184
+      ],
+      "properties": {
+        "start_direction": -1
+      }
+    },
+    {
+      "id": "smm.enemy.goomba",
+      "position": [
+        768,
+        184
+      ],
+      "properties": {
+        "start_direction": -1
+      }
+    },
+    {
+      "id": "smm.enemy.goomba",
+      "position": [
+        832,
+        184
+      ],
+      "properties": {
+        "start_direction": -1
+      }
+    },
+    {
+      "id": "smm.block.turn",
+      "position": [
+        1064,
+        136
+      ]
+    },
+    {
+      "id": "smm.block.turn",
+      "position": [
+        1080,
+        136
+      ]
+    },
+    {
+      "id": "smm.block.turn",
+      "position": [
+        1096,
+        136
+      ]
+    },
+    {
+      "id": "smm.block.hard",
+      "position": [
+        1112,
+        136
+      ]
+    },
+    {
+      "id": "smm.item.coin",
+      "position": [
+        1080,
+        104
+      ]
+    },
+    {
+      "id": "smm.enemy.koopa_green",
+      "position": [
+        1744,
+        184
+      ],
+      "properties": {
+        "start_direction": 1
+      }
+    },
+    {
+      "id": "smm.enemy.koopa_red",
+      "position": [
+        1840,
+        184
+      ],
+      "properties": {}
+    },
+    {
+      "id": "smm.enemy.koopa_shell",
+      "position": [
+        1700,
+        184
+      ],
+      "properties": {}
+    },
+    {
+      "id": "smm.enemy.buzzy_beetle",
+      "position": [
+        2096,
+        184
+      ],
+      "properties": {}
+    },
+    {
+      "id": "smm.enemy.spiny",
+      "position": [
+        2256,
+        184
+      ],
+      "properties": {}
+    },
+    {
+      "id": "smm.enemy.bob_omb",
+      "position": [
+        2664,
+        184
+      ],
+      "properties": {}
+    },
+    {
+      "id": "smm.enemy.bob_omb",
+      "position": [
+        2816,
+        184
+      ],
+      "properties": {}
+    },
+    {
+      "id": "smm.block.hard",
+      "position": [
+        2720,
+        184
+      ],
+      "properties": {}
+    },
+    {
+      "id": "smm.block.turn",
+      "position": [
+        2736,
+        184
+      ],
+      "properties": {}
+    },
+    {
+      "id": "smm.block.question",
+      "position": [
+        2752,
+        184
+      ],
+      "properties": {
+        "contained_item": "smm.item.one_up"
+      }
+    },
+    {
+      "id": "smm.enemy.piranha_plant",
+      "position": [
+        3224,
+        168
+      ],
+      "properties": {}
+    },
+    {
+      "id": "smm.enemy.piranha_plant",
+      "position": [
+        3392,
+        168
+      ],
+      "properties": {
+        "orientation": "up"
+      }
+    },
+    {
+      "id": "smm.enemy.piranha_plant",
+      "position": [
+        3488,
+        160
+      ],
+      "properties": {
+        "orientation": "left"
+      }
+    },
+    {
+      "id": "smm.item.one_up",
+      "position": [
+        3744,
+        184
+      ],
+      "properties": {
+        "start_direction": 1
+      }
+    },
+    {
+      "id": "smm.item.coin_10",
+      "position": [
+        3808,
+        152
+      ],
+      "properties": {}
+    },
+    {
+      "id": "smm.item.coin_30",
+      "position": [
+        3856,
+        152
+      ],
+      "properties": {}
+    },
+    {
+      "id": "smm.item.coin_50",
+      "position": [
+        3904,
+        152
+      ],
+      "properties": {}
+    },
+    {
+      "id": "smm.item.super_star",
+      "position": [
+        3952,
+        184
+      ],
+      "properties": {
+        "start_direction": 1
+      }
+    },
+    {
+      "id": "smm.block.question",
+      "position": [
+        4000,
+        136
+      ],
+      "properties": {
+        "contained_item": "smm.item.super_star"
+      }
+    },
+    {
+      "id": "smm.block.question",
+      "position": [
+        4048,
+        136
+      ],
+      "properties": {
+        "contained_item": "smm.item.one_up"
+      }
+    },
+    {
+      "id": "smm.enemy.goomba",
+      "position": [
+        4096,
+        184
+      ],
+      "properties": {}
+    }
+  ],
+  "captions": [
+    {
+      "position": [
+        640,
+        216
+      ],
+      "key": "PLAY_ENEMIES"
+    },
+    {
+      "position": [
+        1008,
+        216
+      ],
+      "key": "PLAY_TURN"
+    },
+    {
+      "position": [
+        1744,
+        216
+      ],
+      "key": "PLAY_KOOPAS"
+    },
+    {
+      "position": [
+        2080,
+        216
+      ],
+      "key": "PLAY_SPIKY"
+    },
+    {
+      "position": [
+        2640,
+        216
+      ],
+      "key": "PLAY_BOMBS"
+    },
+    {
+      "position": [
+        3200,
+        216
+      ],
+      "key": "PLAY_PLANTS"
+    },
+    {
+      "position": [
+        3776,
+        216
+      ],
+      "key": "PLAY_ITEMS"
+    }
+  ]
+}

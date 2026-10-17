@@ -1,0 +1,383 @@
+{
+  "schema_version": 2,
+  "ground_y": 192.0,
+  "track_width": 4096.0,
+  "camera_lead": 32.0,
+  "camera_height": 48.0,
+  "camera_zoom": 2.0,
+  "solids": [
+    {
+      "center": [
+        -128,
+        128
+      ],
+      "size": [
+        16,
+        128
+      ]
+    },
+    {
+      "center": [
+        1216,
+        168
+      ],
+      "size": [
+        128,
+        16
+      ]
+    },
+    {
+      "center": [
+        1696,
+        160
+      ],
+      "size": [
+        16,
+        64
+      ]
+    },
+    {
+      "center": [
+        1792,
+        136
+      ],
+      "size": [
+        64,
+        16
+      ]
+    },
+    {
+      "center": [
+        2112,
+        112
+      ],
+      "size": [
+        96,
+        16
+      ]
+    },
+    {
+      "center": [
+        2384,
+        144
+      ],
+      "size": [
+        16,
+        16
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "runway",
+      "label": "TRIAL_RUNWAY",
+      "hint": "TRIAL_RUNWAY_HINT",
+      "feet_position": [
+        80,
+        192
+      ],
+      "pause_on_start": false
+    },
+    {
+      "id": "mushroom",
+      "label": "TRIAL_MUSHROOM",
+      "hint": "TRIAL_MUSHROOM_HINT",
+      "feet_position": [
+        1000,
+        192
+      ],
+      "pause_on_start": false
+    },
+    {
+      "id": "tunnel",
+      "label": "TRIAL_TUNNEL",
+      "hint": "TRIAL_TUNNEL_HINT",
+      "feet_position": [
+        1216,
+        192
+      ],
+      "pause_on_start": true,
+      "initial_form": "super"
+    },
+    {
+      "id": "enemy",
+      "label": "TRIAL_ENEMY",
+      "hint": "TRIAL_ENEMY_HINT",
+      "feet_position": [
+        1408,
+        192
+      ],
+      "pause_on_start": false
+    },
+    {
+      "id": "coyote",
+      "label": "TRIAL_COYOTE",
+      "hint": "TRIAL_COYOTE_HINT",
+      "feet_position": [
+        1776,
+        128
+      ],
+      "pause_on_start": true
+    },
+    {
+      "id": "buffer",
+      "label": "TRIAL_BUFFER",
+      "hint": "TRIAL_BUFFER_HINT",
+      "feet_position": [
+        1984,
+        96
+      ],
+      "pause_on_start": true
+    },
+    {
+      "id": "corner",
+      "label": "TRIAL_CORNER",
+      "hint": "TRIAL_CORNER_HINT",
+      "feet_position": [
+        2373,
+        192
+      ],
+      "pause_on_start": true
+    }
+  ],
+  "parameters": [
+    {
+      "field": "ground_accel",
+      "label": "PARAM_ACCEL",
+      "min": 30,
+      "max": 1200,
+      "step": 1
+    },
+    {
+      "field": "skid_decel",
+      "label": "PARAM_SKID",
+      "min": 60,
+      "max": 1800,
+      "step": 1
+    },
+    {
+      "field": "friction_normal",
+      "label": "PARAM_FRICTION",
+      "min": 30,
+      "max": 1800,
+      "step": 1
+    },
+    {
+      "field": "skid_threshold",
+      "label": "PARAM_SKID_THRESHOLD",
+      "min": 1,
+      "max": 180,
+      "step": 1
+    },
+    {
+      "field": "walk_max",
+      "label": "PARAM_WALK",
+      "min": 30,
+      "max": 179,
+      "step": 1
+    },
+    {
+      "field": "run_max",
+      "label": "PARAM_RUN",
+      "min": 85,
+      "max": 300,
+      "step": 1
+    },
+    {
+      "field": "air_accel_factor",
+      "label": "PARAM_AIR",
+      "min": 0.05,
+      "max": 2.0,
+      "step": 0.05
+    },
+    {
+      "field": "air_reverse_accel",
+      "label": "PARAM_AIR_REVERSE",
+      "min": 30,
+      "max": 1800,
+      "step": 1
+    },
+    {
+      "field": "ground_overspeed_decel",
+      "label": "PARAM_OVERSPEED",
+      "min": 1,
+      "max": 900,
+      "step": 1
+    },
+    {
+      "field": "moving_jump_initial",
+      "label": "PARAM_MOVING_JUMP",
+      "min": -600,
+      "max": -60,
+      "step": 0.5
+    },
+    {
+      "field": "moving_jump_threshold",
+      "label": "PARAM_MOVING_THRESHOLD",
+      "min": 0,
+      "max": 120,
+      "step": 1
+    },
+    {
+      "field": "run_jump_threshold",
+      "label": "PARAM_RUN_THRESHOLD",
+      "min": 31,
+      "max": 300,
+      "step": 1
+    },
+    {
+      "field": "apex_gravity_threshold",
+      "label": "PARAM_APEX_THRESHOLD",
+      "min": -120,
+      "max": -1,
+      "step": 1
+    },
+    {
+      "field": "jump_initial",
+      "label": "PARAM_JUMP",
+      "min": -600,
+      "max": -60,
+      "step": 0.5
+    },
+    {
+      "field": "run_jump_initial",
+      "label": "PARAM_RUN_JUMP",
+      "min": -600,
+      "max": -60,
+      "step": 0.5
+    },
+    {
+      "field": "spin_jump_initial",
+      "label": "PARAM_SPIN",
+      "min": -600,
+      "max": -60,
+      "step": 0.5
+    },
+    {
+      "field": "gravity_rise",
+      "label": "PARAM_RISE",
+      "min": 100,
+      "max": 3600,
+      "step": 1
+    },
+    {
+      "field": "gravity_fall",
+      "label": "PARAM_FALL",
+      "min": 100,
+      "max": 3600,
+      "step": 1
+    },
+    {
+      "field": "max_fall",
+      "label": "PARAM_TERMINAL",
+      "min": 60,
+      "max": 900,
+      "step": 1
+    },
+    {
+      "field": "animation_stride",
+      "label": "PARAM_STRIDE",
+      "min": 1,
+      "max": 48,
+      "step": 0.5
+    },
+    {
+      "field": "coyote_frames",
+      "label": "PARAM_COYOTE",
+      "min": 1,
+      "max": 12,
+      "step": 1
+    },
+    {
+      "field": "jump_buffer_frames",
+      "label": "PARAM_BUFFER",
+      "min": 1,
+      "max": 12,
+      "step": 1
+    },
+    {
+      "field": "corner_correction_max",
+      "label": "PARAM_CORNER",
+      "min": 1,
+      "max": 8,
+      "step": 1
+    },
+    {
+      "field": "small_crouch_height",
+      "label": "PARAM_SMALL_DUCK",
+      "min": 4,
+      "max": 14,
+      "step": 1
+    },
+    {
+      "field": "small_crouch_hurt_height",
+      "label": "PARAM_SMALL_HURT",
+      "min": 4,
+      "max": 14,
+      "step": 1
+    },
+    {
+      "field": "crouch_height",
+      "label": "PARAM_SUPER_DUCK",
+      "min": 4,
+      "max": 28,
+      "step": 1
+    },
+    {
+      "field": "bounce_initial",
+      "label": "PARAM_BOUNCE",
+      "min": -600,
+      "max": -30,
+      "step": 0.5
+    },
+    {
+      "field": "bounce_held_initial",
+      "label": "PARAM_BOUNCE_HELD",
+      "min": -600,
+      "max": -30,
+      "step": 0.5
+    },
+    {
+      "field": "powerup_freeze_frames",
+      "label": "PARAM_POWER_FREEZE",
+      "min": 0,
+      "max": 90,
+      "step": 1
+    },
+    {
+      "field": "damage_freeze_frames",
+      "label": "PARAM_DAMAGE_FREEZE",
+      "min": 0,
+      "max": 90,
+      "step": 1
+    },
+    {
+      "field": "invulnerability_frames",
+      "label": "PARAM_IFRAMES",
+      "min": 1,
+      "max": 240,
+      "step": 1
+    },
+    {
+      "field": "p_meter_max",
+      "label": "PARAM_METER",
+      "min": 1,
+      "max": 240,
+      "step": 1
+    },
+    {
+      "field": "p_meter_charge_per_frame",
+      "label": "PARAM_CHARGE",
+      "min": 1,
+      "max": 16,
+      "step": 1
+    },
+    {
+      "field": "p_meter_decay_per_frame",
+      "label": "PARAM_DECAY",
+      "min": 1,
+      "max": 16,
+      "step": 1
+    }
+  ]
+}
