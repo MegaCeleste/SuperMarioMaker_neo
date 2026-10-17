@@ -6,4 +6,3 @@
 script = ExtResource("2_script")
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = ExtResource("3_frames")
-
