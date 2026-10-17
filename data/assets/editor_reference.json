@@ -1,0 +1,18 @@
+{
+  "reference": "Owner-provided SMM2 screenshot, 1920x1080, 2026-10-09",
+  "frames": [
+    {"source":"editor/editor_icons_smw.png","region":[517,1425,128,128],"remove_sheet_background":true,"destination":"textures/ui/editor/part_icons/smw/bowser.png"},
+    {"source":"editor/editor_icons_smw.png","region":[775,1554,128,128],"remove_sheet_background":true,"destination":"textures/ui/editor/part_icons/smw/clown_car.png"},
+    {"source":"editor/editor_icons_smw.png","region":[259,1167,128,128],"remove_sheet_background":true,"destination":"textures/ui/editor/part_icons/smw/hammer_bro.png"},
+    {"source":"editor/editor_icons_smw.png","region":[646,1425,128,128],"remove_sheet_background":true,"destination":"textures/ui/editor/part_icons/smw/bowser_jr.png"},
+    {"source":"editor/editor_icons_smw.png","region":[646,2070,128,128],"remove_sheet_background":true,"destination":"textures/ui/editor/part_icons/smw/arrow_sign.png"},
+    {"source":"editor/editor_icons_smw.png","region":[130,909,128,128],"remove_sheet_background":true,"destination":"textures/ui/editor/part_icons/smw/fire_red_koopa.png"},
+    {"source":"editor/theme_icons.png","region":[582,18,82,82],"destination":"textures/ui/editor/reference/ground_theme.png"},
+    {"source":"editor/course_clear_icons.png","region":[129,185,118,116],"destination":"textures/ui/editor/reference/finger_cursor.png"},
+    {"source":"cursor_grab.svg","destination":"textures/ui/cursor_grab.svg"},
+    {"source":"cursor_pointer.svg","destination":"textures/ui/cursor_pointer.svg"},
+    {"source":"icon_flag_16bit.svg","destination":"textures/ui/icon_flag_16bit.svg"}
+  ],
+  "missing_art": ["draw_brick_frog", "autoscroll_camera", "timer_clock", "clear_condition_route", "multiplayer_coop", "main_area_scroll"],
+  "missing_art_policy": "Leave icon space blank as requested by owner; keep hit area and tooltip."
+}

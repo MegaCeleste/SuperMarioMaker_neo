@@ -1,6 +1,6 @@
 class_name IEditorCommand
 extends RefCounted
-## 编辑器命令接口（M0 命令栈，见 specs/backlog-draft.md §6 与 REQ-STD-001）
+## 编辑器命令接口；当前架构与开发进度见 docs/architecture.md、docs/roadmap.md。
 
 func execute() -> void:
 	pass

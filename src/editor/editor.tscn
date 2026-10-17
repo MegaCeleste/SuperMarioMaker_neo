@@ -1,0 +1,1727 @@
+[gd_scene format=3 uid="uid://blgot0j6u37ph"]
+
+[ext_resource type="Texture2D" uid="uid://cggl3n8fesqry" path="res://textures/ui/editor/part_icons/smw/bowser.png" id="6_01fwc"]
+[ext_resource type="Texture2D" uid="uid://cc5qqy5omw4xe" path="res://textures/ui/editor/part_icons/smw/clown_car.png" id="10_6lpld"]
+[ext_resource type="Texture2D" uid="uid://0lhfvm6tqm2a" path="res://textures/ui/editor/part_icons/smw/hammer_bro.png" id="11_e277e"]
+[ext_resource type="Texture2D" uid="uid://cjuqthhe8eq86" path="res://textures/ui/editor/part_icons/smw/green_pipe.png" id="12_b2cht"]
+[ext_resource type="Texture2D" uid="uid://k7wqgiej4hbp" path="res://textures/ui/editor/part_icons/smw/bowser_jr.png" id="13_53v44"]
+[ext_resource type="Texture2D" uid="uid://ih0ox8aky6pd" path="res://textures/ui/editor/part_icons/smw/hard_block.png" id="14_hojjs"]
+[ext_resource type="Texture2D" uid="uid://b302yuqmdh36d" path="res://textures/ui/editor/part_icons/smw/arrow_sign.png" id="15_7fvdy"]
+[ext_resource type="Texture2D" uid="uid://dsdlgw67a2elr" path="res://textures/ui/editor/part_icons/smw/fire_flower.png" id="16_54716"]
+[ext_resource type="Texture2D" uid="uid://gjyyk5m1ftc" path="res://textures/ui/editor/part_icons/smw/slope.png" id="17_5fby7"]
+[ext_resource type="Texture2D" uid="uid://bqp4x08juhvob" path="res://textures/ui/editor/part_icons/smw/fire_red_koopa.png" id="18_ibk1q"]
+[ext_resource type="Texture2D" uid="uid://du8vtxsylbi78" path="res://textures/ui/editor/part_icons/smw/ground.png" id="19_o73so"]
+[ext_resource type="Texture2D" uid="uid://c7m37apuxw0qu" path="res://textures/ui/editor/part_icons/smw/coin.png" id="20_f1mx8"]
+[ext_resource type="Shader" uid="uid://bsn5ckaoff7ey" path="res://src/editor/rounded_art_mask.gdshader" id="26_5fby7"]
+[ext_resource type="Script" uid="uid://b5vyp3yi3cnuv" path="res://src/editor/maker_art_button.gd" id="art"]
+[ext_resource type="Texture2D" uid="uid://ciqrifuodxf7m" path="res://textures/ui/editor/btn_coursebot_icon.svg" id="bot"]
+[ext_resource type="Texture2D" uid="uid://bcyyrpipyld5c" path="res://textures/ui/editor/card_top.svg" id="cap"]
+[ext_resource type="Texture2D" uid="uid://5mh6wpqqoc7e" path="res://textures/ui/editor/btn_card.svg" id="card"]
+[ext_resource type="Texture2D" uid="uid://c5s72xcashr6u" path="res://textures/ui/editor/btn_card_pressed.svg" id="card_pressed"]
+[ext_resource type="Texture2D" uid="uid://dsoyyq5op8pov" path="res://textures/ui/editor/palette/category_enemies.svg" id="category_enemies"]
+[ext_resource type="Texture2D" uid="uid://b8qu7f3bt0r25" path="res://textures/ui/editor/palette/category_gizmos.svg" id="category_gizmos"]
+[ext_resource type="Texture2D" uid="uid://fhqyng8jt8k1" path="res://textures/ui/editor/palette/category_items.svg" id="category_items"]
+[ext_resource type="Script" uid="uid://bns33gb5f43bv" path="res://src/editor/palette_category_button.gd" id="category_script"]
+[ext_resource type="Texture2D" uid="uid://cmf3y1dlfbpb" path="res://textures/ui/editor/palette/category_terrain.svg" id="category_terrain"]
+[ext_resource type="Texture2D" uid="uid://djr8pstm3pggh" path="res://textures/ui/editor/clapperboard/top.svg" id="clap"]
+[ext_resource type="Texture2D" uid="uid://b0tiwkw7ublhx" path="res://textures/ui/btn_close.svg" id="close_art"]
+[ext_resource type="Script" uid="uid://cpg3143l3jpd0" path="res://src/editor/editor.gd" id="controller"]
+[ext_resource type="Texture2D" uid="uid://cgy3nbg46tgq7" path="res://textures/ui/editor/btn_dog.svg" id="dog"]
+[ext_resource type="Texture2D" uid="uid://ckascx1aanog8" path="res://textures/ui/editor/btn_eraser.svg" id="eraser"]
+[ext_resource type="Texture2D" uid="uid://cut4bi5c8mc6e" path="res://textures/ui/editor/grabber.svg" id="grabber"]
+[ext_resource type="Texture2D" uid="uid://dbjalw3t62b7" path="res://textures/ui/editor/reference/ground_theme.png" id="hill"]
+[ext_resource type="Texture2D" uid="uid://d2a3nvs4we076" path="res://textures/ui/btn_menu.svg" id="menu"]
+[ext_resource type="Script" uid="uid://ckjob62mm3nke" path="res://src/editor/palette_page_button.gd" id="page_arrow"]
+[ext_resource type="Texture2D" uid="uid://cuspcruqbtpj4" path="res://textures/ui/editor/clapperboard/play.svg" id="play"]
+[ext_resource type="Texture2D" uid="uid://c5ghklhl8yxor" path="res://textures/ui/editor/btn_rocket.svg" id="rocket"]
+[ext_resource type="Texture2D" uid="uid://g3vf8dudbk2v" path="res://textures/ui/editor/btn_palette.svg" id="search"]
+[ext_resource type="Texture2D" uid="uid://bg4fnwdmq7h00" path="res://textures/ui/editor/btn_square.svg" id="square"]
+[ext_resource type="Texture2D" uid="uid://b548gpt5xh0v2" path="res://textures/ui/editor/style_cards/smw.svg" id="style"]
+[ext_resource type="Theme" uid="uid://bcv3je1ld2oxc" path="res://src/editor/editor_theme.tres" id="theme"]
+[ext_resource type="Script" uid="uid://c3oi37lc2yjbo" path="res://src/editor/maker_viewport.gd" id="view"]
+[ext_resource type="Script" uid="uid://d3v2mi7ta5osc" path="res://src/editor/palette_wheel.gd" id="wheel"]
+[ext_resource type="Texture2D" uid="uid://xivud6voxkjm" path="res://textures/ui/editor/style_cards/btn.svg" id="wide"]
+[ext_resource type="Script" uid="uid://dcavytjw6u81t" path="res://src/editor/maker_world.gd" id="world"]
+
+[ext_resource type="Script" path="res://src/editor/maker_button_feedback.gd" id="button_feedback"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y1s25"]
+shader = ExtResource("26_5fby7")
+shader_parameter/radius = 0.08
+shader_parameter/feather = 0.003
+
+[node name="Editor" type="Control" unique_id=1941540621]
+texture_filter = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("theme")
+script = ExtResource("controller")
+
+[node name="MakerViewport" type="SubViewportContainer" parent="." unique_id=616730074]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+script = ExtResource("view")
+
+[node name="SubViewport" type="SubViewport" parent="MakerViewport" unique_id=1986825998]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="World" type="Node2D" parent="MakerViewport/SubViewport" unique_id=1846205207]
+texture_filter = 1
+script = ExtResource("world")
+
+[node name="Camera2D" type="Camera2D" parent="MakerViewport/SubViewport/World" unique_id=1268062579]
+position = Vector2(192, 324)
+zoom = Vector2(5, 5)
+
+[node name="ReferenceUI" type="Control" parent="." unique_id=855343513]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+
+[node name="TopBar" type="Panel" parent="ReferenceUI" unique_id=1509751428]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 174.0
+grow_horizontal = 2
+theme_type_variation = &"MakerTopBand"
+
+[node name="PaletteItems" type="HBoxContainer" parent="ReferenceUI/TopBar" unique_id=179197016]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -773.0
+offset_top = 38.0
+offset_right = 783.0
+offset_bottom = 154.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/separation = 26
+
+[node name="bowser" type="Button" parent="ReferenceUI/TopBar/PaletteItems" unique_id=2042460908]
+texture_filter = 2
+custom_minimum_size = Vector2(106, 116)
+layout_mode = 2
+mouse_force_pass_scroll_events = false
+theme_type_variation = &"MakerArt"
+disabled = true
+toggle_mode = true
+script = ExtResource("art")
+art = ExtResource("6_01fwc")
+art_path = "res://textures/ui/editor/part_icons/smw/bowser.png"
+plate = ExtResource("card")
+pressed_plate = ExtResource("card_pressed")
+selected_pin = true
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteItems/bowser"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 14.905138
+offset_top = 14.636364
+offset_right = 91.094862
+offset_bottom = 90.826087
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("6_01fwc")
+
+
+[node name="CapView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteItems/bowser"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 0.000000
+offset_top = -8.000000
+offset_right = 106.000000
+offset_bottom = 1.636364
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("cap")
+self_modulate = Color(0.431, 0.863, 0.149, 1)
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/TopBar/PaletteItems/bowser"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="clown_car" type="Button" parent="ReferenceUI/TopBar/PaletteItems" unique_id=252960355]
+texture_filter = 2
+custom_minimum_size = Vector2(106, 116)
+layout_mode = 2
+mouse_force_pass_scroll_events = false
+theme_type_variation = &"MakerArt"
+disabled = true
+toggle_mode = true
+script = ExtResource("art")
+art = ExtResource("10_6lpld")
+art_path = "res://textures/ui/editor/part_icons/smw/clown_car.png"
+plate = ExtResource("card")
+pressed_plate = ExtResource("card_pressed")
+selected_pin = true
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteItems/clown_car"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 14.905138
+offset_top = 14.636364
+offset_right = 91.094862
+offset_bottom = 90.826087
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("10_6lpld")
+
+
+[node name="CapView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteItems/clown_car"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 0.000000
+offset_top = -8.000000
+offset_right = 106.000000
+offset_bottom = 1.636364
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("cap")
+self_modulate = Color(0.431, 0.863, 0.149, 1)
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/TopBar/PaletteItems/clown_car"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="hammer_bro" type="Button" parent="ReferenceUI/TopBar/PaletteItems" unique_id=407204950]
+texture_filter = 2
+custom_minimum_size = Vector2(106, 116)
+layout_mode = 2
+mouse_force_pass_scroll_events = false
+theme_type_variation = &"MakerArt"
+disabled = true
+toggle_mode = true
+script = ExtResource("art")
+art = ExtResource("11_e277e")
+art_path = "res://textures/ui/editor/part_icons/smw/hammer_bro.png"
+plate = ExtResource("card")
+pressed_plate = ExtResource("card_pressed")
+selected_pin = true
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteItems/hammer_bro"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 14.905138
+offset_top = 14.636364
+offset_right = 91.094862
+offset_bottom = 90.826087
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("11_e277e")
+
+
+[node name="CapView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteItems/hammer_bro"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 0.000000
+offset_top = -8.000000
+offset_right = 106.000000
+offset_bottom = 1.636364
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("cap")
+self_modulate = Color(0.431, 0.863, 0.149, 1)
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/TopBar/PaletteItems/hammer_bro"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="green_pipe" type="Button" parent="ReferenceUI/TopBar/PaletteItems" unique_id=698493272]
+texture_filter = 2
+custom_minimum_size = Vector2(106, 116)
+layout_mode = 2
+mouse_force_pass_scroll_events = false
+theme_type_variation = &"MakerArt"
+disabled = true
+toggle_mode = true
+script = ExtResource("art")
+art = ExtResource("12_b2cht")
+art_path = "res://textures/ui/editor/part_icons/smw/green_pipe.png"
+plate = ExtResource("card")
+pressed_plate = ExtResource("card_pressed")
+selected_pin = true
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteItems/green_pipe"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 14.905138
+offset_top = 14.636364
+offset_right = 91.094862
+offset_bottom = 90.826087
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("12_b2cht")
+
+
+[node name="CapView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteItems/green_pipe"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 0.000000
+offset_top = -8.000000
+offset_right = 106.000000
+offset_bottom = 1.636364
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("cap")
+self_modulate = Color(0.063, 0.749, 0.847, 1)
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/TopBar/PaletteItems/green_pipe"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="bowser_jr" type="Button" parent="ReferenceUI/TopBar/PaletteItems" unique_id=1332259182]
+texture_filter = 2
+custom_minimum_size = Vector2(106, 116)
+layout_mode = 2
+mouse_force_pass_scroll_events = false
+theme_type_variation = &"MakerArt"
+disabled = true
+toggle_mode = true
+script = ExtResource("art")
+art = ExtResource("13_53v44")
+art_path = "res://textures/ui/editor/part_icons/smw/bowser_jr.png"
+plate = ExtResource("card")
+pressed_plate = ExtResource("card_pressed")
+selected_pin = true
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteItems/bowser_jr"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 14.905138
+offset_top = 14.636364
+offset_right = 91.094862
+offset_bottom = 90.826087
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("13_53v44")
+
+
+[node name="CapView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteItems/bowser_jr"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 0.000000
+offset_top = -8.000000
+offset_right = 106.000000
+offset_bottom = 1.636364
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("cap")
+self_modulate = Color(0.431, 0.863, 0.149, 1)
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/TopBar/PaletteItems/bowser_jr"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="hard_block" type="Button" parent="ReferenceUI/TopBar/PaletteItems" unique_id=1724050419]
+texture_filter = 2
+custom_minimum_size = Vector2(106, 116)
+layout_mode = 2
+mouse_force_pass_scroll_events = false
+theme_type_variation = &"MakerArt"
+toggle_mode = true
+script = ExtResource("art")
+art = ExtResource("14_hojjs")
+art_path = "res://textures/ui/editor/part_icons/smw/hard_block.png"
+plate = ExtResource("card")
+pressed_plate = ExtResource("card_pressed")
+selected_pin = true
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteItems/hard_block"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 14.905138
+offset_top = 14.636364
+offset_right = 91.094862
+offset_bottom = 90.826087
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("14_hojjs")
+
+
+[node name="CapView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteItems/hard_block"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 0.000000
+offset_top = -8.000000
+offset_right = 106.000000
+offset_bottom = 1.636364
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("cap")
+self_modulate = Color(0.063, 0.749, 0.847, 1)
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/TopBar/PaletteItems/hard_block"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="arrow_sign" type="Button" parent="ReferenceUI/TopBar/PaletteItems" unique_id=557426034]
+texture_filter = 2
+custom_minimum_size = Vector2(106, 116)
+layout_mode = 2
+mouse_force_pass_scroll_events = false
+theme_type_variation = &"MakerArt"
+disabled = true
+toggle_mode = true
+script = ExtResource("art")
+art = ExtResource("15_7fvdy")
+art_path = "res://textures/ui/editor/part_icons/smw/arrow_sign.png"
+plate = ExtResource("card")
+pressed_plate = ExtResource("card_pressed")
+selected_pin = true
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteItems/arrow_sign"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 14.905138
+offset_top = 14.636364
+offset_right = 91.094862
+offset_bottom = 90.826087
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("15_7fvdy")
+
+
+[node name="CapView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteItems/arrow_sign"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 0.000000
+offset_top = -8.000000
+offset_right = 106.000000
+offset_bottom = 1.636364
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("cap")
+self_modulate = Color(1, 0.914, 0.157, 1)
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/TopBar/PaletteItems/arrow_sign"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="fire_flower" type="Button" parent="ReferenceUI/TopBar/PaletteItems" unique_id=1723403707]
+texture_filter = 2
+custom_minimum_size = Vector2(106, 116)
+layout_mode = 2
+mouse_force_pass_scroll_events = false
+theme_type_variation = &"MakerArt"
+toggle_mode = true
+script = ExtResource("art")
+art = ExtResource("16_54716")
+art_path = "res://textures/ui/editor/part_icons/smw/fire_flower.png"
+plate = ExtResource("card")
+pressed_plate = ExtResource("card_pressed")
+selected_pin = true
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteItems/fire_flower"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 14.905138
+offset_top = 14.636364
+offset_right = 91.094862
+offset_bottom = 90.826087
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("16_54716")
+
+
+[node name="CapView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteItems/fire_flower"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 0.000000
+offset_top = -8.000000
+offset_right = 106.000000
+offset_bottom = 1.636364
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("cap")
+self_modulate = Color(0.859, 0.361, 0.859, 1)
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/TopBar/PaletteItems/fire_flower"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="slope" type="Button" parent="ReferenceUI/TopBar/PaletteItems" unique_id=323490658]
+texture_filter = 2
+custom_minimum_size = Vector2(106, 116)
+layout_mode = 2
+mouse_force_pass_scroll_events = false
+theme_type_variation = &"MakerArt"
+disabled = true
+toggle_mode = true
+script = ExtResource("art")
+art = ExtResource("17_5fby7")
+art_path = "res://textures/ui/editor/part_icons/smw/slope.png"
+plate = ExtResource("card")
+pressed_plate = ExtResource("card_pressed")
+selected_pin = true
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteItems/slope"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 14.905138
+offset_top = 14.636364
+offset_right = 91.094862
+offset_bottom = 90.826087
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("17_5fby7")
+
+
+[node name="CapView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteItems/slope"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 0.000000
+offset_top = -8.000000
+offset_right = 106.000000
+offset_bottom = 1.636364
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("cap")
+self_modulate = Color(0.063, 0.749, 0.847, 1)
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/TopBar/PaletteItems/slope"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="fire_red_koopa" type="Button" parent="ReferenceUI/TopBar/PaletteItems" unique_id=1845885749]
+texture_filter = 2
+custom_minimum_size = Vector2(106, 116)
+layout_mode = 2
+mouse_force_pass_scroll_events = false
+theme_type_variation = &"MakerArt"
+disabled = true
+toggle_mode = true
+script = ExtResource("art")
+art = ExtResource("18_ibk1q")
+art_path = "res://textures/ui/editor/part_icons/smw/fire_red_koopa.png"
+plate = ExtResource("card")
+pressed_plate = ExtResource("card_pressed")
+selected_pin = true
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteItems/fire_red_koopa"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 14.905138
+offset_top = 14.636364
+offset_right = 91.094862
+offset_bottom = 90.826087
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("18_ibk1q")
+
+
+[node name="CapView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteItems/fire_red_koopa"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 0.000000
+offset_top = -8.000000
+offset_right = 106.000000
+offset_bottom = 1.636364
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("cap")
+self_modulate = Color(0.431, 0.863, 0.149, 1)
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/TopBar/PaletteItems/fire_red_koopa"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="ground" type="Button" parent="ReferenceUI/TopBar/PaletteItems" unique_id=1504957434]
+texture_filter = 2
+custom_minimum_size = Vector2(106, 116)
+layout_mode = 2
+mouse_force_pass_scroll_events = false
+theme_type_variation = &"MakerArt"
+toggle_mode = true
+button_pressed = true
+script = ExtResource("art")
+art = ExtResource("19_o73so")
+art_path = "res://textures/ui/editor/part_icons/smw/ground.png"
+plate = ExtResource("card")
+pressed_plate = ExtResource("card_pressed")
+selected_pin = true
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteItems/ground"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 14.905138
+offset_top = 14.636364
+offset_right = 91.094862
+offset_bottom = 90.826087
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("19_o73so")
+
+
+[node name="CapView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteItems/ground"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 0.000000
+offset_top = -8.000000
+offset_right = 106.000000
+offset_bottom = 1.636364
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("cap")
+self_modulate = Color(0.063, 0.749, 0.847, 1)
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/TopBar/PaletteItems/ground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="coin" type="Button" parent="ReferenceUI/TopBar/PaletteItems" unique_id=1984387791]
+texture_filter = 2
+custom_minimum_size = Vector2(106, 116)
+layout_mode = 2
+mouse_force_pass_scroll_events = false
+theme_type_variation = &"MakerArt"
+toggle_mode = true
+script = ExtResource("art")
+art = ExtResource("20_f1mx8")
+art_path = "res://textures/ui/editor/part_icons/smw/coin.png"
+plate = ExtResource("card")
+pressed_plate = ExtResource("card_pressed")
+selected_pin = true
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteItems/coin"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 14.905138
+offset_top = 14.636364
+offset_right = 91.094862
+offset_bottom = 90.826087
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("20_f1mx8")
+
+
+[node name="CapView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteItems/coin"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 0.000000
+offset_top = -8.000000
+offset_right = 106.000000
+offset_bottom = 1.636364
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("cap")
+self_modulate = Color(0.859, 0.361, 0.859, 1)
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/TopBar/PaletteItems/coin"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="DrawButton" type="Button" parent="ReferenceUI/TopBar" unique_id=1380216983]
+texture_filter = 2
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 30.0
+offset_top = 34.0
+offset_right = 146.0
+offset_bottom = 154.0
+mouse_force_pass_scroll_events = false
+theme_type_variation = &"MakerRound"
+toggle_mode = true
+script = ExtResource("art")
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/TopBar/DrawButton"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 0.000000
+offset_top = 0.000000
+offset_right = 116.000000
+offset_bottom = 120.000000
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/TopBar/DrawButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="PaletteButton" type="Button" parent="ReferenceUI/TopBar" unique_id=1042235628]
+texture_filter = 2
+unique_name_in_owner = true
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -140.0
+offset_top = 34.0
+offset_right = -24.0
+offset_bottom = 154.0
+mouse_force_pass_scroll_events = false
+theme_type_variation = &"MakerArt"
+script = ExtResource("art")
+art = ExtResource("search")
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/TopBar/PaletteButton"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 2.800000
+offset_top = 0.000000
+offset_right = 113.200000
+offset_bottom = 120.000000
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("search")
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/TopBar/PaletteButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="LeftBar" type="Panel" parent="ReferenceUI" unique_id=721049831]
+layout_mode = 0
+offset_top = 180.0
+offset_right = 274.0
+offset_bottom = 896.0
+theme_type_variation = &"MakerLeftTray"
+
+[node name="Column" type="VBoxContainer" parent="ReferenceUI/LeftBar" unique_id=1891648752]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 20.0
+offset_right = 246.0
+offset_bottom = 700.0
+mouse_filter = 2
+theme_override_constants/separation = 11
+
+[node name="StyleButton" type="Button" parent="ReferenceUI/LeftBar/Column" unique_id=1319933224]
+texture_filter = 2
+unique_name_in_owner = true
+custom_minimum_size = Vector2(208, 110)
+layout_mode = 2
+theme_type_variation = &"MakerArt"
+script = ExtResource("art")
+art = ExtResource("style")
+plate = ExtResource("wide")
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/LeftBar/Column/StyleButton"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 5.200000
+offset_top = 3.247619
+offset_right = 202.800000
+offset_bottom = 106.752381
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("style")
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/LeftBar/Column/StyleButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="ThemeRow" type="HBoxContainer" parent="ReferenceUI/LeftBar/Column" unique_id=1392266876]
+custom_minimum_size = Vector2(208, 96)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 26
+
+[node name="ThemeButton" type="Button" parent="ReferenceUI/LeftBar/Column/ThemeRow" unique_id=1799430709]
+texture_filter = 2
+unique_name_in_owner = true
+custom_minimum_size = Vector2(94, 96)
+layout_mode = 2
+theme_type_variation = &"MakerArt"
+script = ExtResource("art")
+art = ExtResource("hill")
+plate = ExtResource("square")
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/LeftBar/Column/ThemeRow/ThemeButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/LeftBar/Column/ThemeRow/ThemeButton" unique_id=1160041665]
+texture_filter = 1
+material = SubResource("ShaderMaterial_y1s25")
+layout_mode = 0
+offset_left = 5.745
+offset_top = 2.57
+offset_right = 87.745
+offset_bottom = 84.57
+texture = ExtResource("hill")
+
+mouse_filter = 2
+[node name="WaterButton" type="Button" parent="ReferenceUI/LeftBar/Column/ThemeRow" unique_id=2083717564]
+custom_minimum_size = Vector2(86, 86)
+layout_mode = 2
+size_flags_vertical = 4
+theme_type_variation = &"MakerGhostRound"
+disabled = true
+
+[node name="ScrollRow" type="HBoxContainer" parent="ReferenceUI/LeftBar/Column" unique_id=463747486]
+custom_minimum_size = Vector2(208, 96)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 26
+
+[node name="ScrollButton" type="Button" parent="ReferenceUI/LeftBar/Column/ScrollRow" unique_id=1288367710]
+texture_filter = 2
+unique_name_in_owner = true
+custom_minimum_size = Vector2(94, 96)
+layout_mode = 2
+theme_type_variation = &"MakerArt"
+script = ExtResource("art")
+plate = ExtResource("square")
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/LeftBar/Column/ScrollRow/ScrollButton"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 0.000000
+offset_top = 0.000000
+offset_right = 94.000000
+offset_bottom = 96.000000
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/LeftBar/Column/ScrollRow/ScrollButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="NightButton" type="Button" parent="ReferenceUI/LeftBar/Column/ScrollRow" unique_id=245106807]
+custom_minimum_size = Vector2(86, 86)
+layout_mode = 2
+size_flags_vertical = 4
+theme_type_variation = &"MakerGhostRound"
+disabled = true
+
+[node name="TimeButton" type="Button" parent="ReferenceUI/LeftBar/Column" unique_id=513949701]
+texture_filter = 2
+unique_name_in_owner = true
+custom_minimum_size = Vector2(208, 108)
+layout_mode = 2
+theme_type_variation = &"MakerArt"
+script = ExtResource("art")
+plate = ExtResource("wide")
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/LeftBar/Column/TimeButton"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 0.000000
+offset_top = 0.000000
+offset_right = 208.000000
+offset_bottom = 108.000000
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/LeftBar/Column/TimeButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="Value" type="Label" parent="ReferenceUI/LeftBar/Column/TimeButton" unique_id=8029184]
+layout_mode = 0
+offset_left = 78.0
+offset_right = 204.0
+offset_bottom = 100.0
+theme_type_variation = &"MakerTimer"
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 60
+text = "300"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ClearButton" type="Button" parent="ReferenceUI/LeftBar/Column" unique_id=1328416541]
+texture_filter = 2
+unique_name_in_owner = true
+custom_minimum_size = Vector2(208, 108)
+layout_mode = 2
+theme_type_variation = &"MakerArt"
+script = ExtResource("art")
+plate = ExtResource("wide")
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/LeftBar/Column/ClearButton"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 0.000000
+offset_top = 0.000000
+offset_right = 208.000000
+offset_bottom = 108.000000
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/LeftBar/Column/ClearButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="Value" type="Label" parent="ReferenceUI/LeftBar/Column/ClearButton" unique_id=1094509221]
+layout_mode = 0
+offset_left = 100.0
+offset_right = 200.0
+offset_bottom = 100.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 34
+text = "---"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ModeRow" type="HBoxContainer" parent="ReferenceUI/LeftBar/Column" unique_id=1261919959]
+custom_minimum_size = Vector2(208, 110)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 28
+
+[node name="CoopButton" type="Button" parent="ReferenceUI/LeftBar/Column/ModeRow" unique_id=1942531609]
+custom_minimum_size = Vector2(94, 94)
+layout_mode = 2
+size_flags_vertical = 4
+theme_type_variation = &"MakerRound"
+disabled = true
+
+[node name="CharacterButton" type="Button" parent="ReferenceUI/LeftBar/Column/ModeRow" unique_id=1907404719]
+texture_filter = 2
+custom_minimum_size = Vector2(86, 94)
+layout_mode = 2
+size_flags_vertical = 4
+theme_type_variation = &"MakerArt"
+disabled = true
+script = ExtResource("art")
+plate = ExtResource("square")
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/LeftBar/Column/ModeRow/CharacterButton"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 0.000000
+offset_top = 0.000000
+offset_right = 86.000000
+offset_bottom = 94.000000
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/LeftBar/Column/ModeRow/CharacterButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="LeftHandle" type="ColorRect" parent="ReferenceUI" unique_id=162947891]
+layout_mode = 0
+offset_left = 273.0
+offset_top = 492.0
+offset_right = 280.0
+offset_bottom = 600.0
+mouse_filter = 2
+color = Color(1, 0.84, 0, 1)
+
+[node name="RightBar" type="Panel" parent="ReferenceUI" unique_id=1610850958]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -164.0
+offset_top = 180.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_type_variation = &"MakerRightTray"
+
+[node name="MenuButton" type="Button" parent="ReferenceUI/RightBar" unique_id=436811856]
+texture_filter = 2
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 31.0
+offset_top = 28.0
+offset_right = 125.0
+offset_bottom = 132.0
+mouse_force_pass_scroll_events = false
+theme_type_variation = &"MakerArt"
+script = ExtResource("art")
+art = ExtResource("menu")
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/RightBar/MenuButton"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 0.000000
+offset_top = 0.300000
+offset_right = 94.000000
+offset_bottom = 103.700000
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("menu")
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/RightBar/MenuButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="CoursebotButton" type="Button" parent="ReferenceUI/RightBar" unique_id=243091899]
+texture_filter = 2
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 31.0
+offset_top = 154.0
+offset_right = 125.0
+offset_bottom = 258.0
+mouse_force_pass_scroll_events = false
+theme_type_variation = &"MakerArt"
+script = ExtResource("art")
+art = ExtResource("bot")
+plate = ExtResource("square")
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/RightBar/CoursebotButton"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 0.000000
+offset_top = 0.300000
+offset_right = 94.000000
+offset_bottom = 103.700000
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("bot")
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/RightBar/CoursebotButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="EraseButton" type="Button" parent="ReferenceUI/RightBar" unique_id=1748174210]
+texture_filter = 2
+unique_name_in_owner = true
+layout_mode = 0
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -434.0
+offset_right = 136.0
+offset_bottom = -314.0
+mouse_force_pass_scroll_events = false
+theme_type_variation = &"MakerEraser"
+toggle_mode = true
+script = ExtResource("art")
+art = ExtResource("eraser")
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/RightBar/EraseButton"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 1.217391
+offset_top = 0.000000
+offset_right = 110.782609
+offset_bottom = 120.000000
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("eraser")
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/RightBar/EraseButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="UndoButton" type="Button" parent="ReferenceUI/RightBar" unique_id=572553153]
+texture_filter = 2
+unique_name_in_owner = true
+layout_mode = 0
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 31.0
+offset_top = -284.0
+offset_right = 125.0
+offset_bottom = -180.0
+mouse_force_pass_scroll_events = false
+theme_type_variation = &"MakerArt"
+disabled = true
+script = ExtResource("art")
+art = ExtResource("dog")
+plate = ExtResource("square")
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/RightBar/UndoButton"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 0.000000
+offset_top = 0.300000
+offset_right = 94.000000
+offset_bottom = 103.700000
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("dog")
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/RightBar/UndoButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="ResetButton" type="Button" parent="ReferenceUI/RightBar" unique_id=1144601959]
+texture_filter = 2
+unique_name_in_owner = true
+layout_mode = 0
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 31.0
+offset_top = -148.0
+offset_right = 125.0
+offset_bottom = -44.0
+mouse_force_pass_scroll_events = false
+theme_type_variation = &"MakerArt"
+disabled = true
+script = ExtResource("art")
+art = ExtResource("rocket")
+plate = ExtResource("square")
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/RightBar/ResetButton"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 0.000000
+offset_top = 0.300000
+offset_right = 94.000000
+offset_bottom = 103.700000
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("rocket")
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/RightBar/ResetButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="RightHandle" type="ColorRect" parent="ReferenceUI" unique_id=586081116]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -171.0
+offset_top = 492.0
+offset_right = -164.0
+offset_bottom = 600.0
+grow_horizontal = 0
+mouse_filter = 2
+color = Color(1, 0.84, 0, 1)
+
+[node name="SelectTray" type="Panel" parent="ReferenceUI" unique_id=1007194149]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -499.0
+offset_top = 180.0
+offset_right = -174.0
+offset_bottom = 250.0
+grow_horizontal = 0
+mouse_filter = 2
+theme_type_variation = &"MakerBubble"
+
+[node name="SelectButton" type="Button" parent="ReferenceUI/SelectTray" unique_id=1720298206]
+texture_filter = 2
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 325.0
+offset_bottom = 70.0
+mouse_force_pass_scroll_events = false
+theme_type_variation = &"MakerBubbleButton"
+toggle_mode = true
+script = ExtResource("art")
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/SelectTray/SelectButton"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 0.000000
+offset_top = 0.000000
+offset_right = 325.000000
+offset_bottom = 70.000000
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/SelectTray/SelectButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="Caption" type="Label" parent="ReferenceUI/SelectTray/SelectButton" unique_id=1534272575]
+layout_mode = 0
+offset_left = 16.0
+offset_right = 267.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "Finger cursor"
+vertical_alignment = 1
+
+[node name="PlayButton" type="Button" parent="ReferenceUI" unique_id=61788348]
+texture_filter = 2
+unique_name_in_owner = true
+layout_mode = 0
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -178.0
+offset_right = 219.0
+offset_bottom = -23.0
+mouse_force_pass_scroll_events = false
+theme_type_variation = &"MakerArt"
+disabled = true
+script = ExtResource("art")
+art = ExtResource("play")
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/PlayButton"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 0.000000
+offset_top = 0.000535
+offset_right = 195.000000
+offset_bottom = 154.999465
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("play")
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/PlayButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="Caption" type="Label" parent="ReferenceUI/PlayButton" unique_id=1535116783]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 99.0
+offset_right = 195.0
+offset_bottom = 153.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "Play"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Clapper" type="TextureRect" parent="ReferenceUI/PlayButton" unique_id=719642937]
+texture_filter = 2
+layout_mode = 0
+offset_right = 195.0
+offset_bottom = 30.0
+mouse_filter = 2
+texture = ExtResource("clap")
+expand_mode = 1
+
+[node name="Grabber" type="TextureRect" parent="ReferenceUI" unique_id=1187034136]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 482.0
+offset_top = -158.0
+offset_right = 557.0
+offset_bottom = -83.0
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("grabber")
+expand_mode = 1
+
+[node name="AreaButton" type="Button" parent="ReferenceUI" unique_id=1327397006]
+texture_filter = 2
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.55)
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -355.0
+offset_top = -121.0
+offset_right = -201.0
+offset_bottom = -13.0
+mouse_force_pass_scroll_events = false
+theme_type_variation = &"MakerArt"
+disabled = true
+script = ExtResource("art")
+plate = ExtResource("wide")
+
+
+[node name="ArtView" type="TextureRect" parent="ReferenceUI/AreaButton"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 0.000000
+offset_top = 0.000000
+offset_right = 154.000000
+offset_bottom = 108.000000
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+
+[node name="Feedback" type="Control" parent="ReferenceUI/AreaButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="Value" type="Label" parent="ReferenceUI/AreaButton" unique_id=1676551933]
+layout_mode = 0
+offset_right = 154.0
+offset_bottom = 100.0
+theme_override_colors/font_color = Color(0.38, 0.1, 0.1, 1)
+theme_override_font_sizes/font_size = 52
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ModalOverlay" type="Control" parent="." unique_id=69361752]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Shade" type="ColorRect" parent="ModalOverlay" unique_id=2063422892]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.6)
+
+[node name="PalettePanel" type="Control" parent="ModalOverlay" unique_id=257051609]
+unique_name_in_owner = true
+texture_filter = 2
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+
+[node name="Categories" type="HBoxContainer" parent="ModalOverlay/PalettePanel" unique_id=70306595]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 520.0
+offset_top = 84.0
+offset_right = 1552.0
+offset_bottom = 192.0
+mouse_filter = 2
+theme_override_constants/separation = 28
+
+[node name="TerrainCategory" type="Button" parent="ModalOverlay/PalettePanel/Categories" unique_id=1549879279]
+texture_filter = 2
+unique_name_in_owner = true
+custom_minimum_size = Vector2(108, 108)
+layout_mode = 2
+theme_type_variation = &"MakerArt"
+toggle_mode = true
+script = ExtResource("category_script")
+category_color = Color(0.0627451, 0.7882353, 0.8745098, 1)
+label_key = "MAKER_TERRAIN"
+art = ExtResource("category_terrain")
+
+
+[node name="ArtView" type="TextureRect" parent="ModalOverlay/PalettePanel/Categories/TerrainCategory"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 0.000000
+offset_top = 0.000000
+offset_right = 108.000000
+offset_bottom = 108.000000
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("category_terrain")
+
+[node name="ItemCategory" type="Button" parent="ModalOverlay/PalettePanel/Categories" unique_id=292573120]
+texture_filter = 2
+unique_name_in_owner = true
+custom_minimum_size = Vector2(108, 108)
+layout_mode = 2
+theme_type_variation = &"MakerArt"
+toggle_mode = true
+script = ExtResource("category_script")
+art = ExtResource("category_items")
+
+
+[node name="ArtView" type="TextureRect" parent="ModalOverlay/PalettePanel/Categories/ItemCategory"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 0.000000
+offset_top = 0.000000
+offset_right = 108.000000
+offset_bottom = 108.000000
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("category_items")
+
+[node name="EnemyCategory" type="Button" parent="ModalOverlay/PalettePanel/Categories" unique_id=867144635]
+texture_filter = 2
+unique_name_in_owner = true
+custom_minimum_size = Vector2(108, 108)
+layout_mode = 2
+theme_type_variation = &"MakerArt"
+toggle_mode = true
+script = ExtResource("category_script")
+category_color = Color(0.41960785, 0.98039216, 0.07058824, 1)
+label_key = "MAKER_ENEMIES"
+art = ExtResource("category_enemies")
+
+
+[node name="ArtView" type="TextureRect" parent="ModalOverlay/PalettePanel/Categories/EnemyCategory"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 0.000000
+offset_top = 0.000000
+offset_right = 108.000000
+offset_bottom = 108.000000
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("category_enemies")
+
+[node name="GizmoCategory" type="Button" parent="ModalOverlay/PalettePanel/Categories" unique_id=987100126]
+texture_filter = 2
+unique_name_in_owner = true
+custom_minimum_size = Vector2(108, 108)
+layout_mode = 2
+theme_type_variation = &"MakerArt"
+toggle_mode = true
+script = ExtResource("category_script")
+category_color = Color(0.9607843, 0.9098039, 0, 1)
+label_key = "MAKER_GIZMOS"
+art = ExtResource("category_gizmos")
+
+
+[node name="ArtView" type="TextureRect" parent="ModalOverlay/PalettePanel/Categories/GizmoCategory"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 0.000000
+offset_top = 0.000000
+offset_right = 108.000000
+offset_bottom = 108.000000
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("category_gizmos")
+
+[node name="CloseButton" type="Button" parent="ModalOverlay/PalettePanel" unique_id=1915340923]
+texture_filter = 2
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1750.0
+offset_top = 105.0
+offset_right = 1825.0
+offset_bottom = 180.0
+theme_type_variation = &"MakerArt"
+script = ExtResource("art")
+art = ExtResource("close_art")
+
+
+[node name="ArtView" type="TextureRect" parent="ModalOverlay/PalettePanel/CloseButton"]
+texture_filter = 2
+layout_mode = 0
+offset_left = 0.000000
+offset_top = 0.000000
+offset_right = 75.000000
+offset_bottom = 75.000000
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("close_art")
+
+
+[node name="Feedback" type="Control" parent="ModalOverlay/PalettePanel/CloseButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+z_index = 1
+script = ExtResource("button_feedback")
+
+[node name="Wheel" type="Control" parent="ModalOverlay/PalettePanel" unique_id=547171062]
+unique_name_in_owner = true
+texture_filter = 1
+anchors_preset = 0
+offset_left = 620.0
+offset_top = 290.0
+offset_right = 1300.0
+offset_bottom = 970.0
+mouse_force_pass_scroll_events = false
+script = ExtResource("wheel")
+
+[node name="PreviousPage" type="Button" parent="ModalOverlay/PalettePanel" unique_id=1548174066]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 295.0
+offset_top = 600.0
+offset_right = 345.0
+offset_bottom = 675.0
+theme_type_variation = &"MakerArt"
+script = ExtResource("page_arrow")
+direction = -1
+
+[node name="NextPage" type="Button" parent="ModalOverlay/PalettePanel" unique_id=540611193]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1575.0
+offset_top = 600.0
+offset_right = 1625.0
+offset_bottom = 675.0
+theme_type_variation = &"MakerArt"
+script = ExtResource("page_arrow")
+
+[node name="ViewPanel" type="VBoxContainer" parent="ModalOverlay" unique_id=1119354078]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_right = 530.0
+offset_bottom = 100.0
+mouse_filter = 0
+
+[node name="Navigation" type="HBoxContainer" parent="ModalOverlay/ViewPanel" unique_id=48478858]
+layout_mode = 2
+
+[node name="GridButton" type="Button" parent="ModalOverlay/ViewPanel/Navigation" unique_id=1123182292]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+text = "Grid"
+
+[node name="PositionSlider" type="HSlider" parent="ModalOverlay/ViewPanel/Navigation" unique_id=1577276375]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(280, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+step = 0.1
+
+[node name="ZoomLabel" type="Label" parent="ModalOverlay/ViewPanel/Navigation" unique_id=214674159]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(78, 0)
+layout_mode = 2
+text = "200%"
+
+[node name="CoordinatesLabel" type="Label" parent="ModalOverlay/ViewPanel" unique_id=504935608]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Middle drag · wheel zoom"

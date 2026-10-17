@@ -1,10 +1,201 @@
 keys,en_US,zh_CN
 DASH_TITLE,Player physics dashboard,玩家物理仪表盘
+TRIAL_RUNWAY,Flat runway / run and jump,平地：加速、刹车与跑跳
+TRIAL_RUNWAY_HINT,Hold run and move to full speed; reverse to brake. Compare short/held jumps and max-speed jump poses.,按住加速和方向跑到满速，再反向刹车。比较短跳、长跳和满速跳姿态。
+TRIAL_MUSHROOM,Question block / power-up,问号块与变身
+TRIAL_MUSHROOM_HINT,Jump into the block to the right or use Mushroom. Compare Small and Super; use pause/step during the transformation.,向右顶问号块或点击吃蘑菇。比较小型与大型，演出期间可暂停、单帧查看。
+TRIAL_TUNNEL,16 px tunnel / crouch,16px 狭缝：下蹲保护
+TRIAL_TUNNEL_HINT,Starts paused as Super beneath a 16 px gap. Step without crouch: stay low. Move out to stand; compare Small using the form selector.,默认以大型在16px通道内暂停。松开下蹲并单帧推进：仍应蹲着；移出后站起。可切小型比较。
+TRIAL_ENEMY,Enemy / stomp and damage,敌人：踩踏与受击
+TRIAL_ENEMY_HINT,The enemy is to the right. Compare a stomp with side contact; hold/release jump when stomping. Change form to inspect damage and invulnerability.,敌人在右侧。比较踩踏与侧面接触，踩踏时分别按住和松开跳跃；切换形态观察降级与无敌。
+TRIAL_COYOTE,Platform edge / coyote window,平台边缘：土狼窗口
+TRIAL_COYOTE_HINT,Starts paused on a raised platform. Walk off to the right; use F7 to count the coyote window. R restarts here.,默认在高台暂停。向右走出边缘，用F7数离地窗口，在窗口内外分别起跳；R回到此处。
+TRIAL_BUFFER,Air start / jump buffer,空中落地：跳跃缓冲
+TRIAL_BUFFER_HINT,Starts paused in the air. Step until almost grounded; tap jump within the buffer window. Compare one frame after expiry; R repeats the fall.,默认在空中暂停。单帧推进至接近地面，在缓冲窗口内按跳跃，比较超时后一帧；R重新落下。
+TRIAL_CORNER,Ceiling edge / correction,天花板边缘：擦角纠偏
+TRIAL_CORNER_HINT,Starts paused with 3 px overlap at the ceiling edge. Jump straight up and step. Compare correction distances 2 and 3 px; R repeats the same position.,默认暂停，头顶与方块边缘重叠3px。原地跳并单帧观察，比较纠偏距离2与3px；R复现相同位置。
 DASH_STATS,"Velocity: (%.1f, %.1f) px/s\nPosition: (%.1f, %.1f) px\nState: %s\nJump apex: %.1f px","速度: (%.1f, %.1f) px/s\n位置: (%.1f, %.1f) px\n状态: %s\n跳跃高度: %.1f px"
 DASH_METER_STATS,P-Meter: %d/%d (%s) · candidate,P-Meter：%d/%d（%s）· 候选值
 DASH_P_READY,P-Run ready,P-Run 已就绪
 DASH_P_CHARGING,charging,蓄力中
 DASH_P_UNAVAILABLE,unavailable,当前风格无此能力
 DASH_ANIMATION,Animation: %s · %.1f fps,动画：%s · %.1f 帧/秒
-DASH_CONTROLS,A/D move · ← run · ↑ jump · ↓ spin · S crouch,A/D 移动 · ← 跑 · ↑ 跳 · ↓ 旋转跳 · S 下蹲
-DASH_GRAPH,Horizontal speed · last 5 seconds,水平速度 · 最近 5 秒
+DASH_CONTROLS,A/D move · ← run · ↑ jump\n↓ spin · S crouch · W up-throw (SMW),A/D 移动 · ← 跑 · ↑ 跳\n↓ 旋转跳 · S 蹲 · W 高抛（SMW）
+DASH_GRAPH,Velocity: cyan vx / orange vy · 5 seconds,速度：青色 vx / 橙色 vy · 最近 5 秒
+DASH_STATS_V3,"Velocity: (%.1f, %.1f) px/s\nPosition: (%.1f, %.1f) px\nMovement: %s / Form: %s\nPhase: %s · %s / Transition: %d frames\nCoyote: %d / Buffer: %d frames\nAnimation: %s [%d] · %.1f fps\nTerrain/Hurt height: %.1f / %.1f px\nInvulnerability: %d frames\nExperimental charge: %d/%d","速度: (%.1f, %.1f) px/s\n位置: (%.1f, %.1f) px\n移动: %s / 形态: %s\n阶段: %s · %s / 演出剩余: %d 帧\n土狼: %d / 缓冲: %d 帧\n动画: %s [%d] · %.1f 帧/秒\n地形/受击高度: %.1f / %.1f px\n无敌剩余: %d 帧\n候选蓄积计数: %d/%d"
+DASH_METRICS,0→max: %d frames\nSkid stop: %d frames / %.1f px\nJump: %.1f px / apex %d / total %d frames,静止→满速: %d 帧\n反向刹停: %d 帧 / %.1f px\n跳高: %.1f px / 顶点 %d / 滞空 %d 帧
+DASH_SMALL,Small,小型
+DASH_SUPER,Super,大型
+DASH_FIRE,Fire,火焰
+DASH_RESET,Reset [R],复位 [R]
+DASH_PAUSE,Pause [F6],暂停 [F6]
+DASH_RESUME,Resume [F6],继续 [F6]
+DASH_STEP,Step [F7],单帧 [F7]
+DASH_TUNER,Tuning,调参
+DASH_MUSHROOM,Mushroom,吃蘑菇
+DASH_FLOWER,Flower,吃火花
+DASH_DAMAGE,Damage,受击
+DASH_KILL,Force death,强制阵亡
+DASH_CARRY,Carry probe,搬运探针
+DASH_EXPORT,Export run,导出本次记录
+DASH_BASELINE,Restore baseline,还原基线
+DASH_BOUNDS,Hitboxes,碰撞框
+DASH_PREVIEW_NOTE,SMW visuals · selectable style abilities\nCharge never changes speed or jump height.\nOpen the entity playground for blocks and enemies.,SMW 贴图 · 可切换三风格能力规则\n蓄积计数不改变跑速、跑姿和跳高。\n基础实体试玩中可操作方块和怪物与奖励物品。
+DASH_HEIGHT_GRAPH,Height above ground · last 5 seconds,距地高度 · 最近 5 秒
+DASH_TUNING_TITLE,Instance tuning · candidates,实例调参 · 候选值
+DASH_SKID_400,400 old,400 旧值
+DASH_SKID_540,540 candidate,540 候选
+DASH_SKID_468,468 SMMWE,468 SMMWE
+DASH_PHYSICS_SMMWE,SMMWE reference physics,SMMWE 参考物理（默认）
+DASH_PHYSICS_PREVIOUS,Previous physics,调整前物理
+DASH_SKID_800,800 NSMBU,800 NSMBU
+DASH_ACTIVE,active,运行
+DASH_FROZEN,transform freeze,变身定格
+DASH_MEASURING,Recording acceleration from rest...,正在记录静止加速过程…
+DASH_STYLE_NOTE,Ability rules: %s. Visuals remain SMW.,能力规则：%s。当前预览贴图为 SMW。
+DASH_READY,Ready. Reset starts a fresh recording.,就绪。复位会开始一份新的记录。
+DASH_INVALID,Invalid parameter: ,参数无效：
+DASH_CANDIDATE_EDIT,Instance edited. Export does not sign off TUNED.,已修改实例。导出不会自动签认 TUNED。
+DASH_EXPORT_FAILED,Export failed: %s,导出失败：%s
+DASH_EXPORTED,Saved profile + CSV + evidence to %s,Profile、CSV 与证据已保存至 %s
+PARAM_ACCEL,Ground acceleration,地面加速度 px/s²
+PARAM_SKID,Reverse braking,反向制动力 px/s²
+PARAM_FRICTION,Release friction,松手摩擦 px/s²
+PARAM_SKID_THRESHOLD,Skid entry speed,刹车姿态阈值 px/s
+PARAM_WALK,Walk cap,步行上限 px/s
+PARAM_RUN,Run cap,跑步上限 px/s
+PARAM_AIR,Air acceleration factor,空中加速系数
+PARAM_AIR_REVERSE,Air reverse acceleration,空中反向力 px/s²
+PARAM_OVERSPEED,Ground overspeed slowdown,地面超速回落 px/s²
+PARAM_MOVING_JUMP,Moving jump velocity,行走跳初速 px/s
+PARAM_MOVING_THRESHOLD,Moving jump threshold,行走跳速度门槛 px/s
+PARAM_RUN_THRESHOLD,High jump threshold,高速跳速度门槛 px/s
+PARAM_APEX_THRESHOLD,Fall gravity switch velocity,大重力切换速度 px/s
+PARAM_JUMP,Normal jump velocity,普通跳初速 px/s
+PARAM_RUN_JUMP,Running jump velocity,满速跳初速 px/s
+PARAM_SPIN,Spin jump velocity,旋转跳初速 px/s
+PARAM_RISE,Held rise gravity,长跳上升重力 px/s²
+PARAM_FALL,Released/fall gravity,短跳/下落重力 px/s²
+PARAM_TERMINAL,Fall speed threshold,下落速度阈值 px/s
+PARAM_STRIDE,Distance per sprite frame,动画每帧位移 px
+PARAM_COYOTE,Coyote frames,土狼窗口 帧
+PARAM_BUFFER,Jump buffer frames,跳跃缓冲 帧
+PARAM_CORNER,Corner correction px,纠偏距离 px
+PARAM_SMALL_DUCK,Small duck terrain height,小型蹲姿地形高度 px
+PARAM_SMALL_HURT,Small duck hurt height,小型蹲姿受击高度 px
+PARAM_SUPER_DUCK,Large duck terrain height,大型蹲姿地形高度 px
+PARAM_BOUNCE,Short stomp bounce,短踩踏弹跳 px/s
+PARAM_BOUNCE_HELD,Held stomp bounce,长踩踏弹跳 px/s
+PARAM_POWER_FREEZE,Power-up freeze frames,升级定格 帧
+PARAM_DAMAGE_FREEZE,Damage freeze frames,受伤定格 帧
+PARAM_IFRAMES,Invulnerability frames,无敌期 帧
+PARAM_METER,Experimental charge cap,候选蓄积容量
+PARAM_CHARGE,Experimental charge/frame,候选蓄积/帧
+PARAM_DECAY,Experimental decay/frame,候选衰减/帧
+OBJ_QUESTION_BLOCK,Question block,问号块
+OBJ_EMPTY_BLOCK,Used block,用过的方块
+OBJ_HARD_BLOCK,Hard block,硬块
+OBJ_TURN_BLOCK,Turn block,翻转块
+OBJ_GOOMBA,Goomba,栗子仔
+OBJ_GALOOMBA,Galoomba,板栗仔
+OBJ_SUPER_MUSHROOM,Mushroom,蘑菇
+OBJ_FIRE_FLOWER,Fire flower,火焰花
+OBJ_COIN,Coin,金币
+OBJ_GROUND,Ground,地面
+PLAY_TITLE,Entity playground,基础实体试玩
+PLAY_START,Start,出生点
+PLAY_BLOCKS,Question blocks,问号块区
+PLAY_FLOWER,Fire flower,火焰花区
+PLAY_ENEMIES,Goomba / Galoomba,栗子仔 / 板栗仔
+PLAY_TURN,Turn blocks,翻转块区
+PLAY_HELP,Choose a zone above. Stomp a Koopa to separate it from its shell. Hold run to carry; release to throw; hold up to toss.\nSpiny needs a spin jump. Fireballs ignite bombs; their fuse keeps ticking while held. Stay clear of pipe mouths.\nStars last 600 active frames. 1UP and large coins update session rewards.\nR restores all entities and clears rewards.,从上方选择分区。踩乌龟使其脱壳；按住跑键搬运，松开投掷，按上高抛。\n刺刺需旋跳；火球点燃炸弹，手持时引信继续。靠近管口会抑制食人花出管。\n星星持续600活动帧；1UP和大金币增加会话奖励。\nR复位全部实体并清空奖励。
+PLAY_STATS,Coins: %d\nMovement: %s / Form: %s\nPhase: %s / Carrying: %s,金币: %d\n移动: %s / 形态: %s\n阶段: %s / 搬运中: %s
+PLAY_COINS,Coins: %d,金币: %d
+PLAY_YES,yes,是
+PLAY_NO,no,否
+MAKER_SUBTITLE,COURSE MAKER · FRAMEWORK,关卡制作 · 界面框架
+MAKER_PALETTE,Course parts,物件菜单
+MAKER_PALETTE_HINT,Open parts wheel [Tab],打开物件圆环 [Tab]
+MAKER_SETTINGS_HINT,View course settings,查看关卡设置
+MAKER_THEME,Ground,地面
+MAKER_TIMER,300 s,300 秒
+MAKER_SCROLL,Scroll: none,卷轴：无
+MAKER_AREA_INFO,SMW · DAY · 240×27,SMW · 白天 · 240×27
+MAKER_MENU,Menu,菜单
+MAKER_COURSEBOT,Coursebot,Coursebot 关卡仓库
+MAKER_FILES,Files,仓库
+MAKER_DRAW,Draw,绘制
+MAKER_ERASE,Erase,擦除
+MAKER_SELECT,Select,选择
+MAKER_DRAW_HINT,Draw tool [B] · preview only,绘制工具 [B] · 本轮仅预览
+MAKER_ERASE_HINT,Erase tool [E] · preview only,擦除工具 [E] · 本轮仅预览
+MAKER_SELECT_HINT,Select tool [V] · preview only,选择工具 [V] · 本轮仅预览
+MAKER_HISTORY_PENDING,Undo/redo will follow object editing,撤销／重做将在物件编辑接通后启用
+MAKER_RESET_PENDING,Reset will follow object editing,重置将在物件编辑接通后启用
+MAKER_RESET,Reset,重置
+MAKER_PLAY_PENDING,Playtesting will be connected in a later iteration,试玩将在后续迭代接通
+MAKER_PLAY,▶ Play,▶ 试玩
+MAKER_POSITION_HINT,Horizontal view position · course length stays fixed,横向浏览位置 · 当前关卡长度固定
+MAKER_SUBAREA_PENDING,Sub-areas will be connected in a later iteration,副区域将在后续迭代接通
+MAKER_MAIN_AREA,Main area,主区域
+MAKER_GRID_HINT,Toggle grid [G],开关网格 [G]
+MAKER_GRID,Grid,网格
+MAKER_SELECTED,%s · %s · preview only,%s · %s · 仅预览
+MAKER_CANVAS_HINT,Middle drag · wheel zoom,中键拖动 · 滚轮缩放
+MAKER_CELL,Cell (%d / %d),格坐标（%d / %d）
+MAKER_CLOSE,Close [Esc],关闭 [Esc]
+MAKER_TERRAIN,Terrain,地形
+MAKER_BLOCKS,Blocks,方块
+MAKER_ITEMS,Items,道具
+MAKER_ENEMIES,Enemies,敌人
+MAKER_WHEEL_HINT,Hover a part · click to choose · Esc to close,悬停查看名称 · 点击选择 · Esc 关闭
+MAKER_SETTINGS,Course settings,关卡设置
+MAKER_SETTINGS_INFO,SMW · Ground · Day · 300 seconds · No autoscroll. Main area: 240×27 cells at 16 px per cell. Settings are read-only in this iteration.,SMW · 地面 · 白天 · 300 秒 · 无自动卷轴。主区域为 240×27 格，每格 16px。本轮设置只读。
+MAKER_MENU_INFO,B draw · E erase · V select · Tab parts wheel · G grid · Esc close. Middle drag pans and the wheel zooms. This framework previews parts without changing course data.,B 绘制 · E 擦除 · V 选择 · Tab 物件圆环 · G 网格 · Esc 关闭。中键拖动画布，滚轮缩放。本轮只展示物件预览，不写入关卡。
+MAKER_COURSEBOT_INFO,Coursebot will store your courses. Save and load are not connected in this framework.,Coursebot 将用于管理你的关卡。本轮保留入口，存读尚未接通。
+MAKER_SAVE,Save course,保存关卡
+MAKER_LOAD,Load course,读取关卡
+MAKER_SAVE_PENDING,Saving will follow the editor document model,保存将在编辑数据接通后启用
+MAKER_LOAD_PENDING,Loading will follow level validation and scene construction,读取将在关卡校验与场景构建接通后启用
+MAKER_PLACEHOLDER,SMB1 placeholder,SMB1 占位
+
+MAKER_BOWSER,Bowser,库巴
+MAKER_CLOWN_CAR,Koopa clown car,库巴飞船
+MAKER_HAMMER_BRO,Hammer Bro,锤兄弟
+MAKER_PIPE,Pipe,水管
+MAKER_BOWSER_JR,Bowser Jr,库巴 Jr.
+MAKER_ARROW_SIGN,Arrow sign,箭头牌
+MAKER_SLOPE,Slope,斜坡
+MAKER_FIRE_KOOPA,Fire Koopa,火焰红龟
+MAKER_PART_PENDING,Part not connected yet,该物件尚未接通
+MAKER_FINGER_CURSOR,Finger cursor,手指光标
+MAKER_MENU_HINT,Menu · view controls and PC shortcuts,菜单 · 视图设置与电脑快捷键
+MAKER_COURSEBOT_HINT,Coursebot · save/load pending,Coursebot · 存读待接通
+MAKER_THEME_HINT,Theme: Ground · read-only,主题：地面 · 本轮只读
+MAKER_TIMER_HINT,Time: 300 · read-only,时间：300 · 本轮只读
+MAKER_SCROLL_HINT,Autoscroll: none · read-only,自动卷轴：无 · 本轮只读
+MAKER_CLEAR_HINT,Clear condition: none · read-only,通关条件：无 · 本轮只读
+MAKER_WATER_PENDING,Water/lava settings pending,水位／熔岩设置待接通
+MAKER_NIGHT_PENDING,Night theme pending,夜晚主题待接通
+MAKER_COOP_PENDING,Multiplayer pending,多人模式待接通
+MAKER_CHARACTER_PENDING,Character settings pending,角色设置待接通
+MAKER_PLAY_CAPTION,Play,Play
+MAKER_GIZMOS,Gizmos,机关
+OBJ_KOOPA_GREEN,Green Koopa,绿龟
+OBJ_KOOPA_RED,Red Koopa,红龟
+OBJ_KOOPA_SHELL,Shell,龟壳
+OBJ_BUZZY_BEETLE,Buzzy Beetle,钢盔龟
+OBJ_SPINY,Spiny,刺刺
+OBJ_BOB_OMB,Bob-omb,炸弹兵
+OBJ_PIRANHA_PLANT,Piranha Plant,食人花
+OBJ_SUPER_STAR,Super Star,无敌星
+OBJ_ONE_UP,1UP,1UP蘑菇
+OBJ_COIN_10,10-Coin,10金币
+OBJ_COIN_30,30-Coin,30金币
+OBJ_COIN_50,50-Coin,50金币
+PLAY_KOOPAS,Koopas and Shells,乌龟与壳
+PLAY_SPIKY,Buzzy and Spiny,钢盔龟与刺刺
+PLAY_BOMBS,Bombs,炸弹
+PLAY_PLANTS,Piranha Plants,食人花
+PLAY_ITEMS,Stars and Rewards,星星与奖励
+PLAY_REWARDS,Extra lives: %d  Star: %d,额外生命：%d  星星：%d

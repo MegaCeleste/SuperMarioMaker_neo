@@ -9,10 +9,42 @@ const ACTIONS: Array[StringName] = [
 	&"move_left", &"move_right", &"move_up", &"move_down",
 	&"jump", &"run", &"spin_jump",
 	&"editor_undo", &"editor_redo", &"toggle_maker_play",
+	&"editor_draw", &"editor_erase", &"editor_select", &"editor_palette",
+	&"editor_toggle_grid", &"editor_close_panel", &"editor_pan",
+	&"editor_zoom_in", &"editor_zoom_out",
+	&"debug_reset", &"debug_pause", &"debug_step",
 ]
 
 func _ready() -> void:
+	_install_editor_defaults()
 	_load_custom_bindings()
+
+## 新编辑器动作按需注册；不覆盖项目或用户已配置的动作。
+func _install_editor_defaults() -> void:
+	var keys: Dictionary[StringName, int] = {
+		&"editor_draw": KEY_B, &"editor_erase": KEY_E, &"editor_select": KEY_V,
+		&"editor_palette": KEY_TAB, &"editor_toggle_grid": KEY_G,
+		&"editor_close_panel": KEY_ESCAPE,
+	}
+	for action: StringName in keys:
+		if InputMap.has_action(action):
+			continue
+		InputMap.add_action(action)
+		var event: InputEventKey = InputEventKey.new()
+		event.physical_keycode = keys[action]
+		InputMap.action_add_event(action, event)
+	var mouse_buttons: Dictionary[StringName, int] = {
+		&"editor_pan": MOUSE_BUTTON_MIDDLE,
+		&"editor_zoom_in": MOUSE_BUTTON_WHEEL_UP,
+		&"editor_zoom_out": MOUSE_BUTTON_WHEEL_DOWN,
+	}
+	for action: StringName in mouse_buttons:
+		if InputMap.has_action(action):
+			continue
+		InputMap.add_action(action)
+		var event: InputEventMouseButton = InputEventMouseButton.new()
+		event.button_index = mouse_buttons[action]
+		InputMap.action_add_event(action, event)
 
 func pressed(action: StringName) -> bool:
 	return Input.is_action_pressed(action)

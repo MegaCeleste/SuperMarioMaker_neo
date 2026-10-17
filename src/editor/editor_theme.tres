@@ -1,0 +1,265 @@
+[gd_resource type="Theme" format=3 uid="uid://bcv3je1ld2oxc"]
+
+[ext_resource type="FontFile" uid="uid://bc45ce6qvgkst" path="res://fonts/MARIOMAKER.otf" id="title_font"]
+
+[sub_resource type="StyleBoxFlat" id="Disabled"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.9, 0.93, 0.93, 0.7)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="Focus"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="Hover"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.91, 0.98, 0.98, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="Pressed"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.38, 0.11, 0.12, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="Normal"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxEmpty" id="Empty"]
+
+[sub_resource type="StyleBoxFlat" id="Bubble"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.28, 0.4, 0.37, 0.33)
+corner_radius_top_left = 36
+corner_radius_top_right = 36
+corner_radius_bottom_right = 36
+corner_radius_bottom_left = 36
+
+[sub_resource type="StyleBoxFlat" id="ToolBubble"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.35, 0.08, 0.09, 1)
+corner_radius_top_left = 36
+corner_radius_top_right = 36
+corner_radius_bottom_right = 36
+corner_radius_bottom_left = 36
+
+[sub_resource type="StyleBoxFlat" id="Card"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.99, 0.99, 0.96, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+shadow_color = Color(0, 0, 0, 0.16)
+shadow_size = 10
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="EraserPressed"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.96, 0.2, 0.08, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="GhostRound"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.36, 0.4, 0.38, 0.12)
+corner_radius_top_left = 44
+corner_radius_top_right = 44
+corner_radius_bottom_right = 44
+corner_radius_bottom_left = 44
+
+[sub_resource type="StyleBoxFlat" id="LeftTray"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.99, 1, 1, 0.38)
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 0.35)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+shadow_color = Color(0, 0, 0, 0.16)
+shadow_size = 4
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="RightTray"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.99, 1, 1, 0.33)
+
+[sub_resource type="StyleBoxFlat" id="Round"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+shadow_color = Color(0, 0, 0, 0.16)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="RoundPressed"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.38, 0.11, 0.12, 1)
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+shadow_color = Color(0, 0, 0, 0.16)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="FontVariation" id="LocalUIFont"]
+base_font = ExtResource("title_font")
+
+[sub_resource type="StyleBoxFlat" id="TopBand"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.96, 1, 1, 0.2)
+shadow_color = Color(0, 0, 0, 0.16)
+shadow_size = 5
+shadow_offset = Vector2(0, 4)
+
+[resource]
+default_font = SubResource("LocalUIFont")
+default_font_size = 16
+Button/colors/font_color = Color(0.18, 0.22, 0.22, 1)
+Button/colors/font_disabled_color = Color(0.48, 0.5, 0.5, 1)
+Button/colors/font_hover_color = Color(0.18, 0.22, 0.22, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/styles/disabled = SubResource("Disabled")
+Button/styles/focus = SubResource("Focus")
+Button/styles/hover = SubResource("Hover")
+Button/styles/hover_pressed = SubResource("Pressed")
+Button/styles/normal = SubResource("Normal")
+Button/styles/pressed = SubResource("Pressed")
+HBoxContainer/constants/separation = 8
+Label/colors/font_color = Color(0.18, 0.22, 0.22, 1)
+MakerArt/base_type = &"Button"
+MakerArt/styles/disabled = SubResource("Empty")
+MakerArt/styles/focus = SubResource("Empty")
+MakerArt/styles/hover = SubResource("Empty")
+MakerArt/styles/hover_pressed = SubResource("Empty")
+MakerArt/styles/normal = SubResource("Empty")
+MakerArt/styles/pressed = SubResource("Empty")
+MakerBubble/base_type = &"Panel"
+MakerBubble/styles/panel = SubResource("Bubble")
+MakerBubbleButton/base_type = &"Button"
+MakerBubbleButton/styles/disabled = SubResource("Empty")
+MakerBubbleButton/styles/focus = SubResource("Focus")
+MakerBubbleButton/styles/hover = SubResource("Empty")
+MakerBubbleButton/styles/hover_pressed = SubResource("ToolBubble")
+MakerBubbleButton/styles/normal = SubResource("Empty")
+MakerBubbleButton/styles/pressed = SubResource("ToolBubble")
+MakerCard/base_type = &"PanelContainer"
+MakerCard/styles/panel = SubResource("Card")
+MakerEraser/base_type = &"Button"
+MakerEraser/styles/disabled = SubResource("Empty")
+MakerEraser/styles/focus = SubResource("Focus")
+MakerEraser/styles/hover = SubResource("Empty")
+MakerEraser/styles/hover_pressed = SubResource("EraserPressed")
+MakerEraser/styles/normal = SubResource("Empty")
+MakerEraser/styles/pressed = SubResource("EraserPressed")
+MakerGhostRound/base_type = &"Button"
+MakerGhostRound/styles/disabled = SubResource("GhostRound")
+MakerGhostRound/styles/focus = SubResource("Focus")
+MakerGhostRound/styles/hover = SubResource("GhostRound")
+MakerGhostRound/styles/hover_pressed = SubResource("GhostRound")
+MakerGhostRound/styles/normal = SubResource("GhostRound")
+MakerGhostRound/styles/pressed = SubResource("GhostRound")
+MakerLeftTray/base_type = &"Panel"
+MakerLeftTray/styles/panel = SubResource("LeftTray")
+MakerPaletteTitle/base_type = &"Label"
+MakerPaletteTitle/fonts/font = ExtResource("title_font")
+MakerRightTray/base_type = &"Panel"
+MakerRightTray/styles/panel = SubResource("RightTray")
+MakerRound/base_type = &"Button"
+MakerRound/styles/disabled = SubResource("Round")
+MakerRound/styles/focus = SubResource("Focus")
+MakerRound/styles/hover = SubResource("Round")
+MakerRound/styles/hover_pressed = SubResource("RoundPressed")
+MakerRound/styles/normal = SubResource("Round")
+MakerRound/styles/pressed = SubResource("RoundPressed")
+MakerTimer/base_type = &"Label"
+MakerTimer/fonts/font = SubResource("LocalUIFont")
+MakerToolBubble/base_type = &"Panel"
+MakerToolBubble/styles/panel = SubResource("ToolBubble")
+MakerTopBand/base_type = &"Panel"
+MakerTopBand/styles/panel = SubResource("TopBand")
+TooltipLabel/colors/font_color = Color(0.18, 0.22, 0.22, 1)
+TooltipLabel/font_sizes/font_size = 16
+TooltipPanel/styles/panel = SubResource("Card")
+VBoxContainer/constants/separation = 8

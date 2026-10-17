@@ -1,6 +1,6 @@
 class_name CommandHistory
 extends RefCounted
-## 撤销/重做命令栈：容量 ≥100，满栈淘汰最旧（backlog-draft §6）
+## 撤销/重做基座；满栈淘汰最旧，编辑器接入进度见 docs/roadmap.md。
 
 signal changed
 
