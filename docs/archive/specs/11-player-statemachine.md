@@ -1,12 +1,14 @@
 # 11 - 玩家变身与受击降级状态机 (Power-Up State Machine)
 
 > **状态**: draft
-> **版本**: 0.1.0
-> **日期**: 2026-09-22
+> **版本**: 0.2.1
+> **日期**: 2026-09-30
 > **Changelog**: 0.1.0 初版（自 `.spec` v1.1.0 §7.1/7.2 拆分；补全状态/转换表）
 > **引用**: REQ-PHYS-006（碰撞盒切换）、REQ-INP-001（输入语义）
 
-变身管理由 `PowerUpManager` 负责，遵循 SMM2 严格规则：**受击逐级降级，禁止跳级惩罚**。
+> **本次变更**: 0.2.0 实装显式 PowerUpManager、独立受击盒与冻结事件；所有时长降为工程候选；加入火球试玩与生命周期接口。0.2.1 收拢合法转换表、只读形态与 ACTIVE/TRANSFORMING/DEAD 阶段，明确中断及复位边界。
+
+变身管理由 `PowerUpManager` 负责。本次保留以下项目梯级规则；没有完整 SMM2 转换录像前，不把本表称为已核实的全部原生规则。
 
 ## 1. 形态梯级
 
@@ -22,7 +24,7 @@ M1 范围只实现 `Small` / `Super` / `Fire` / `Dead`；`Leaf`、`Cape` 状态�
 |---|---|---|---|
 | Small | 拾取 Super Mushroom | Super | 变身动画，碰撞盒按 REQ-PHYS-006 切换 |
 | Super | 拾取 Fire Flower | Fire | 获得火球能力 |
-| Small | 拾取 Fire Flower | Fire | SMM2 规则：小马里奥吃火花直接变 Fire |
+| Small | 拾取 Fire Flower | Fire | 直接获得 Fire；保留项目转换规则，待 SMM2 录像核对 |
 | Advanced | 受击 | Super | 触发无敌帧（REQ-PWR-003） |
 | Super | 受击 | Small | 触发无敌帧 |
 | Small | 受击 | Dead | 阵亡流程 |
@@ -39,12 +41,20 @@ M1 范围只实现 `Small` / `Super` / `Fire` / `Dead`；`Leaf`、`Cape` 状态�
 ## 4. 搬运与投掷 (ICarryable)
 
 **REQ-PWR-006**: 按住 `run` 接触实现 `ICarryable` 的实体（龟壳、POW 块、弹簧、P 开关）时拾取：实体挂载至玩家手部锚点（Hold Anchor），禁用自身碰撞层（REQ-COL-001 对应层掩码置空）。
-**REQ-PWR-007**: 松开 `run` 投掷：默认沿面向水平掷出；SMW 风格按住 `move_up` 松开为垂直高抛。投掷初速度入 Profile（状态 TBD）。
+**REQ-PWR-007**: 松开 `run` 投掷：默认沿面向水平掷出；SMW 风格按住 `move_up` 松开为垂直高抛。投掷初速度入 Profile：SMM2 原始数值仍为 TBD，当前工程候选为 CANDIDATE。
 **REQ-PWR-008**: 搬运中受击时手中实体按当前速度原地掉落并恢复碰撞，随后执行 REQ-PWR-002 降级流程。
 
 ## 5. 状态机实现约束
 
 **REQ-PWR-009**: 状态机必须显式建模（状态枚举 + 转换函数），每次转换发出 `powerup_changed(from, to)` 信号供音频/HUD 消费。禁止用分散 bool 标志隐式表达形态。
+
+**REQ-PWR-010 定格工程契约**: 变身与降级时长、无敌和闪烁间隔来自 Profile，均为 CANDIDATE。GameManager 发布单人 gameplay 冻结事件，当前敌人/道具/方块经门控停下，BGM/HUD 保持运行；Player 保留速度且冻结运动和运动窗口，仅推进形态演出。结束后恢复同一速度。不能宣称与原版所有 actor 的冻结细节一致。重复拾取同级/低级道具不降级；伤害在无敌/演出期间忽略，强制死亡可打断。
+
+**REQ-PWR-011 碰撞与死亡**: 形态事件先排队，在安全物理帧原地更新碰撞盒；站起/变大只查询需要新增的头顶空间，不把脚下接触计为头顶障碍。小型蹲姿可用，Hurtbox 与地形盒独立。死亡进入 Dead 一次，关闭碰撞/伤害，先延迟后播放死亡弧线，最后发 died 事件；复位接口清理速度、窗口、无敌、演出、搬运和动画相位。
+
+**REQ-PWR-012 Fire 试玩能力**: Fire 形态使用逻辑 run 的按下事件发射，冷却、同时存在上限、弹道参数来自 Profile；未接入真实 Fire 素材时用明确的调试表现。玩家负责能力请求与数量限制，投射物负责地形弹跳和敌人命中。该候选实现可用于 Player 交互校准，不代表完整投射物系统已经验收。
+
+**REQ-PWR-013 形态与演出阶段所有权**: `PowerUpManager` 独立持有只读 Form 与 Phase；所有拾取、伤害、强制死亡由统一事件入口按 REQ-PWR-002 转换表处理。Phase 为 ACTIVE（正常行动）、TRANSFORMING（定格演出）、DEAD（死亡终态）。演出开始时 Form 原子切到目标形态；TRANSFORMING 忽略普通拾取/伤害，KILL 可打断并发布取消事件。时长按实际物理步推进且包含触发当帧；暂停不会消耗计时，无敌从降级演出完成后开始，只在 ACTIVE 物理步扣除。复位只接受存活形态，清空演出和无敌计时并回到 ACTIVE；不把中断误报为正常演出完成。形态、阶段与移动状态分别发出信号，HUD/CSV 同时记录它们。
 
 ## 6. 验收标准（M1）
 

@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://bisyer6kii1ve"
+
+[deps]
+
+files=["res://docs/research/smmwe-4.0.0/traces.frame.translation", "res://docs/research/smmwe-4.0.0/traces.seconds.translation", "res://docs/research/smmwe-4.0.0/traces.y.translation", "res://docs/research/smmwe-4.0.0/traces.vx.translation", "res://docs/research/smmwe-4.0.0/traces.vy.translation"]
+
+source_file="res://docs/research/smmwe-4.0.0/traces.csv"
+dest_files=["res://docs/research/smmwe-4.0.0/traces.frame.translation", "res://docs/research/smmwe-4.0.0/traces.seconds.translation", "res://docs/research/smmwe-4.0.0/traces.y.translation", "res://docs/research/smmwe-4.0.0/traces.vx.translation", "res://docs/research/smmwe-4.0.0/traces.vy.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

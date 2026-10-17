@@ -1,0 +1,106 @@
+{
+  "files": [
+    {
+      "archived": "docs/archive/specs/00-foundation.md",
+      "sha256": "A9308FE6D0BD064230E4E8546BAD538ABC89F49870673513262842389100CC90",
+      "original": "specs/00-foundation.md"
+    },
+    {
+      "archived": "docs/archive/specs/01-physics-profiles.md",
+      "sha256": "3DE5C0E61A8FC705D00B6ADBD8BF5DEF1C0D7235FA2A07BA70FBE723D7B61001",
+      "original": "specs/01-physics-profiles.md"
+    },
+    {
+      "archived": "docs/archive/specs/02-object-registry.md",
+      "sha256": "D0D09DD9583182C1F4117F1A9CC4B744AD70D3C9B6436DDE55EF9EE7DC020FF4",
+      "original": "specs/02-object-registry.md"
+    },
+    {
+      "archived": "docs/archive/specs/03-level-format.md",
+      "sha256": "EF120F3C1792872F7DCFAF0DC9BBF3835445080C405FE966FFECA3EFC9C20CC8",
+      "original": "specs/03-level-format.md"
+    },
+    {
+      "archived": "docs/archive/specs/04-lighting.md",
+      "sha256": "CA5474AE70CAB762EE41E1895F208B9615237693184768984030D675433DF92E",
+      "original": "specs/04-lighting.md"
+    },
+    {
+      "archived": "docs/archive/specs/05-asset-pipeline.md",
+      "sha256": "0E485D11C88BD6ED9332519C0EC088BFDCB89AB319475D0AEFB098841FA86F8A",
+      "original": "specs/05-asset-pipeline.md"
+    },
+    {
+      "archived": "docs/archive/specs/10-player-physics.md",
+      "sha256": "21A8C281C336866BC4A1D65CA467326B8811CFFB2DE2C0021C33A53D67C4F811",
+      "original": "specs/10-player-physics.md"
+    },
+    {
+      "archived": "docs/archive/specs/11-player-statemachine.md",
+      "sha256": "ED96C1CAC91B261A59BF08C7B330A70047F84648AB4772078D9E1DE2D5E66008",
+      "original": "specs/11-player-statemachine.md"
+    },
+    {
+      "archived": "docs/archive/specs/12-basic-entities.md",
+      "sha256": "FE752BD040BC6225603EC235D6EDE39A151665A1D7E6B83035C5526B23AD0A2A",
+      "original": "specs/12-basic-entities.md"
+    },
+    {
+      "archived": "docs/archive/specs/backlog-draft.md",
+      "sha256": "6980F220065C19DB43B9161BE483CCDF4B79EF7829933C7AEDC6FEBC175BF5AA",
+      "original": "specs/backlog-draft.md"
+    },
+    {
+      "archived": "docs/archive/specs/README.md",
+      "sha256": "EEBB7C3217CA8D123B7CF54E480C0E558048BA0FCB8382F452BC2995F19F4591",
+      "original": "specs/README.md"
+    },
+    {
+      "archived": "docs/archive/tasks/M0-001-foundation.md",
+      "sha256": "152E0B7CE09D95B54D62886E915BA4CAADA85F3C7D9A4D06CC572DABA82F87D7",
+      "original": "tasks/M0-001-foundation.md"
+    },
+    {
+      "archived": "docs/archive/tasks/M1-001-player-controller-dashboard.md",
+      "sha256": "DB9673C7E52E4A21F94B9B7CABC7AA336118629869CE6DCD37528FD2A73CB83F",
+      "original": "tasks/M1-001-player-controller-dashboard.md"
+    },
+    {
+      "archived": "docs/archive/tasks/M1-002-player-feel-feedback.md",
+      "sha256": "91A1F2A81B04F48F3DDDD05F060E79B37F7C27983384F66E21D1CF1E507AA7F1",
+      "original": "tasks/M1-002-player-feel-feedback.md"
+    },
+    {
+      "archived": "docs/archive/tasks/M1-003-research-candidates-player.md",
+      "sha256": "FA492A1CE63FFF7414C68CF4CF7D9A5F9FCF5782FBBEE2729880792852E596DC",
+      "original": "tasks/M1-003-research-candidates-player.md"
+    },
+    {
+      "archived": "docs/archive/tasks/M1-004-player-rebuild-research.md",
+      "sha256": "BCA6020A02BF902FB034F25BB34FF346725E2CB7BE9BE28AFF5CC5D893625911",
+      "original": "tasks/M1-004-player-rebuild-research.md"
+    },
+    {
+      "archived": "docs/archive/tasks/M1-005-player-regression-and-skid-audio.md",
+      "sha256": "28AF2B950CB739B6EC2C198F779CBC14A0CE69BEF5FE6E5C9073CF67DB10DB12",
+      "original": "tasks/M1-005-player-regression-and-skid-audio.md"
+    },
+    {
+      "archived": "docs/archive/tasks/M1-006-audio-and-basic-entities.md",
+      "sha256": "333984CFCEF5DE0423F0A4CECAEEE85D8DB5CBBBD220CF78C9AC67F89C9EA5EB",
+      "original": "tasks/M1-006-audio-and-basic-entities.md"
+    },
+    {
+      "archived": "docs/archive/tasks/TEMPLATE.md",
+      "sha256": "85D59CE9A6D6D8C129C63184D0E986A48B80BFF9DB9936A849C73A597C70E8FC",
+      "original": "tasks/TEMPLATE.md"
+    },
+    {
+      "archived": "docs/archive/AGENTS.sdd.md",
+      "sha256": "E202585E35475E97A557BB46D7BBAA9AA34838FE75E0135FD24545F70331DD57",
+      "original": "AGENTS.md"
+    }
+  ],
+  "reason": "Owner replaced SDD with living project docs",
+  "archived_at": "2026-10-08"
+}

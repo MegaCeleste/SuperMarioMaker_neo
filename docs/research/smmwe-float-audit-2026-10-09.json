@@ -1,0 +1,323 @@
+{
+  "date": "2026-10-09",
+  "user_observation": "Feels light and floaty, like jumping on the moon.",
+  "runtime_changed": false,
+  "status": "MODEL_REPRODUCED; NO_UNIT_OR_DELTA_ERROR_FOUND; FEEL_NOT_ACCEPTED",
+  "current": {
+    "accelerate_run": {
+      "distance_px": 76.4999925692876,
+      "frames": 50,
+      "last_speed": 180.000045776367,
+      "seconds": 0.833333333333333
+    },
+    "accelerate_walk": {
+      "distance_px": 16.4849977572759,
+      "frames": 23,
+      "last_speed": 79.7999801635742,
+      "seconds": 0.383333333333333
+    },
+    "jump_vx_0.0_hold_1": {
+      "air_frames": 27,
+      "air_seconds": 0.45,
+      "apex_frames": 13,
+      "height_px": 26.65
+    },
+    "jump_vx_0.0_hold_12": {
+      "air_frames": 40,
+      "air_seconds": 0.666666666666667,
+      "apex_frames": 21,
+      "height_px": 50.85
+    },
+    "jump_vx_0.0_hold_6": {
+      "air_frames": 33,
+      "air_seconds": 0.55,
+      "apex_frames": 17,
+      "height_px": 38.65
+    },
+    "jump_vx_0.0_hold_600": {
+      "air_frames": 61,
+      "air_seconds": 1.01666666666667,
+      "apex_frames": 36,
+      "height_px": 75.4
+    },
+    "jump_vx_180.0_hold_1": {
+      "air_frames": 29,
+      "air_seconds": 0.483333333333333,
+      "apex_frames": 14,
+      "height_px": 31.5
+    },
+    "jump_vx_180.0_hold_12": {
+      "air_frames": 43,
+      "air_seconds": 0.716666666666667,
+      "apex_frames": 22,
+      "height_px": 58.3
+    },
+    "jump_vx_180.0_hold_6": {
+      "air_frames": 36,
+      "air_seconds": 0.6,
+      "apex_frames": 18,
+      "height_px": 44.7
+    },
+    "jump_vx_180.0_hold_600": {
+      "air_frames": 68,
+      "air_seconds": 1.13333333333333,
+      "apex_frames": 40,
+      "height_px": 89.8
+    },
+    "jump_vx_78.0_hold_1": {
+      "air_frames": 28,
+      "air_seconds": 0.466666666666667,
+      "apex_frames": 14,
+      "height_px": 28.0
+    },
+    "jump_vx_78.0_hold_12": {
+      "air_frames": 41,
+      "air_seconds": 0.683333333333333,
+      "apex_frames": 21,
+      "height_px": 52.95
+    },
+    "jump_vx_78.0_hold_6": {
+      "air_frames": 34,
+      "air_seconds": 0.566666666666667,
+      "apex_frames": 17,
+      "height_px": 40.35
+    },
+    "jump_vx_78.0_hold_600": {
+      "air_frames": 63,
+      "air_seconds": 1.05,
+      "apex_frames": 37,
+      "height_px": 79.35
+    },
+    "release_run": {
+      "distance_px": 88.5000450134277,
+      "frames": 60,
+      "seconds": 1.0
+    },
+    "release_run_key_keep_direction": {
+      "frames": 68,
+      "seconds": 1.13333333333333
+    },
+    "release_walk": {
+      "distance_px": 16.9999917348226,
+      "frames": 26,
+      "seconds": 0.433333333333333
+    },
+    "reverse_air": {
+      "sign_change_frame": 24
+    },
+    "reverse_ground": {
+      "sign_change_frame": 24
+    },
+    "reverse_run": {
+      "forward_distance_px": 33.1199887782335,
+      "opposite_max_frame": 72,
+      "zero_frame": 24
+    },
+    "spin_hold_1": {
+      "air_frames": 23,
+      "air_seconds": 0.383333333333333,
+      "apex_frames": 11,
+      "height_px": 18.7
+    },
+    "spin_hold_12": {
+      "air_frames": 35,
+      "air_seconds": 0.583333333333333,
+      "apex_frames": 18,
+      "height_px": 38.1
+    },
+    "spin_hold_6": {
+      "air_frames": 29,
+      "air_seconds": 0.483333333333333,
+      "apex_frames": 14,
+      "height_px": 28.5
+    },
+    "spin_hold_600": {
+      "air_frames": 50,
+      "air_seconds": 0.833333333333333,
+      "apex_frames": 30,
+      "height_px": 52.3
+    }
+  },
+  "v342_threshold_probe": {
+    "accelerate_run": {
+      "distance_px": 76.4999925692876,
+      "frames": 50,
+      "last_speed": 180.000045776367,
+      "seconds": 0.833333333333333
+    },
+    "accelerate_walk": {
+      "distance_px": 16.4849977572759,
+      "frames": 23,
+      "last_speed": 79.7999801635742,
+      "seconds": 0.383333333333333
+    },
+    "jump_vx_0.0_hold_1": {
+      "air_frames": 27,
+      "air_seconds": 0.45,
+      "apex_frames": 13,
+      "height_px": 26.65
+    },
+    "jump_vx_0.0_hold_12": {
+      "air_frames": 40,
+      "air_seconds": 0.666666666666667,
+      "apex_frames": 21,
+      "height_px": 50.85
+    },
+    "jump_vx_0.0_hold_6": {
+      "air_frames": 33,
+      "air_seconds": 0.55,
+      "apex_frames": 17,
+      "height_px": 38.65
+    },
+    "jump_vx_0.0_hold_600": {
+      "air_frames": 57,
+      "air_seconds": 0.95,
+      "apex_frames": 33,
+      "height_px": 73.05
+    },
+    "jump_vx_180.0_hold_1": {
+      "air_frames": 29,
+      "air_seconds": 0.483333333333333,
+      "apex_frames": 14,
+      "height_px": 31.5
+    },
+    "jump_vx_180.0_hold_12": {
+      "air_frames": 43,
+      "air_seconds": 0.716666666666667,
+      "apex_frames": 22,
+      "height_px": 58.3
+    },
+    "jump_vx_180.0_hold_6": {
+      "air_frames": 36,
+      "air_seconds": 0.6,
+      "apex_frames": 18,
+      "height_px": 44.7
+    },
+    "jump_vx_180.0_hold_600": {
+      "air_frames": 65,
+      "air_seconds": 1.08333333333333,
+      "apex_frames": 36,
+      "height_px": 87.6
+    },
+    "jump_vx_78.0_hold_1": {
+      "air_frames": 28,
+      "air_seconds": 0.466666666666667,
+      "apex_frames": 14,
+      "height_px": 28.0
+    },
+    "jump_vx_78.0_hold_12": {
+      "air_frames": 41,
+      "air_seconds": 0.683333333333333,
+      "apex_frames": 21,
+      "height_px": 52.95
+    },
+    "jump_vx_78.0_hold_6": {
+      "air_frames": 34,
+      "air_seconds": 0.566666666666667,
+      "apex_frames": 17,
+      "height_px": 40.35
+    },
+    "jump_vx_78.0_hold_600": {
+      "air_frames": 59,
+      "air_seconds": 0.983333333333333,
+      "apex_frames": 34,
+      "height_px": 77.0
+    },
+    "release_run": {
+      "distance_px": 88.5000450134277,
+      "frames": 60,
+      "seconds": 1.0
+    },
+    "release_run_key_keep_direction": {
+      "frames": 68,
+      "seconds": 1.13333333333333
+    },
+    "release_walk": {
+      "distance_px": 16.9999917348226,
+      "frames": 26,
+      "seconds": 0.433333333333333
+    },
+    "reverse_air": {
+      "sign_change_frame": 24
+    },
+    "reverse_ground": {
+      "sign_change_frame": 24
+    },
+    "reverse_run": {
+      "forward_distance_px": 33.1199887782335,
+      "opposite_max_frame": 72,
+      "zero_frame": 24
+    },
+    "spin_hold_1": {
+      "air_frames": 23,
+      "air_seconds": 0.383333333333333,
+      "apex_frames": 11,
+      "height_px": 18.7
+    },
+    "spin_hold_12": {
+      "air_frames": 35,
+      "air_seconds": 0.583333333333333,
+      "apex_frames": 18,
+      "height_px": 38.1
+    },
+    "spin_hold_6": {
+      "air_frames": 29,
+      "air_seconds": 0.483333333333333,
+      "apex_frames": 14,
+      "height_px": 28.5
+    },
+    "spin_hold_600": {
+      "air_frames": 46,
+      "air_seconds": 0.766666666666667,
+      "apex_frames": 26,
+      "height_px": 50.1
+    }
+  },
+  "source_files": {
+    "objects/obj_mario/Other_12.gml": {
+      "url": "https://github.com/yohexp/smmwe3.4.2F-sc/blob/main/objects/obj_mario/Other_12.gml",
+      "raw_url": "https://raw.githubusercontent.com/yohexp/smmwe3.4.2F-sc/main/objects/obj_mario/Other_12.gml",
+      "sha256": "9e29ef82b8d78132996a87fb9d84a044fc1a5a54d1ae5397ec4a2b8da047dbec",
+      "bytes": 25805
+    },
+    "objects/obj_mario/Create_0.gml": {
+      "url": "https://github.com/yohexp/smmwe3.4.2F-sc/blob/main/objects/obj_mario/Create_0.gml",
+      "raw_url": "https://raw.githubusercontent.com/yohexp/smmwe3.4.2F-sc/main/objects/obj_mario/Create_0.gml",
+      "sha256": "dd31c09c6566b535960527afcb3154b57bb9022fb46b69e2330de0623b835009",
+      "bytes": 3256
+    },
+    "sprites/spr_square/spr_square.yy": {
+      "url": "https://github.com/yohexp/smmwe3.4.2F-sc/blob/main/sprites/spr_square/spr_square.yy",
+      "raw_url": "https://raw.githubusercontent.com/yohexp/smmwe3.4.2F-sc/main/sprites/spr_square/spr_square.yy",
+      "sha256": "222b089e2cc9fa3fab84f4cbf6bdcd0bc829790e2ba1359eb7fff855a02590d7",
+      "bytes": 2665
+    },
+    "options/main/options_main.yy": {
+      "url": "https://github.com/yohexp/smmwe3.4.2F-sc/blob/main/options/main/options_main.yy",
+      "raw_url": "https://raw.githubusercontent.com/yohexp/smmwe3.4.2F-sc/main/options/main/options_main.yy",
+      "sha256": "48e58f75aaf0ce8a0acf9eb7fc46d594a7a587a2400f9434be252f38d40b9594",
+      "bytes": 693
+    }
+  },
+  "conversion": {
+    "hd_grid_px": 32,
+    "normal_grid_px": 16,
+    "fps": 60,
+    "hd_speed_multiplier": 30,
+    "hd_acceleration_multiplier": 1800,
+    "normal_speed_multiplier": 60,
+    "normal_acceleration_multiplier": 3600
+  },
+  "differences": {
+    "hd_apex_threshold_px_s": -30,
+    "v342_apex_threshold_px_s": -60,
+    "hd_moving_jump_threshold_px_s": 30,
+    "v342_moving_jump_threshold_px_s": 60
+  },
+  "limitations": [
+    "No GameMaker runtime or side-by-side video measurement.",
+    "Public v3.4.2F repository version is author-described, not release-verified.",
+    "Threshold candidate tested only in an ignored temporary profile, not applied to game.",
+    "Passing the code model cannot prove release-game timing equivalence."
+  ]
+}

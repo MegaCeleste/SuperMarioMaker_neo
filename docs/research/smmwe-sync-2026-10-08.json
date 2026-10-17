@@ -1,0 +1,1152 @@
+{
+  "date": "2026-10-08",
+  "status": "PASS",
+  "scope": "Ordinary daytime SMW motion; native Godot synthetic floor and real Player collisions",
+  "reference": "docs/research/smmwe-4.0.0/metrics.json",
+  "units": {
+    "tile_px": 16,
+    "fps": 60
+  },
+  "numeric_checks": 139,
+  "boundary_results": {
+    "checks": 160,
+    "crouch": {
+      "air_frames": 61,
+      "apex_frame": 36,
+      "height_px": 75.4001541137695
+    },
+    "failures": [],
+    "full_speed": {
+      "air_frames": 68,
+      "apex_frame": 40,
+      "height_px": 89.8001098632813
+    },
+    "human_playtest": false,
+    "standing": {
+      "air_frames": 61,
+      "apex_frame": 36,
+      "height_px": 75.4093399047852
+    }
+  },
+  "failures": [],
+  "checks": [
+    {
+      "name": "jump_vx_0.0_hold_1.height_px",
+      "actual": 26.65,
+      "expected": 26.65,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_0.0_hold_1.apex_frames",
+      "actual": 13,
+      "expected": 13,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_0.0_hold_1.air_frames",
+      "actual": 27,
+      "expected": 27,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_0.0_hold_6.height_px",
+      "actual": 38.65,
+      "expected": 38.65,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_0.0_hold_6.apex_frames",
+      "actual": 17,
+      "expected": 17,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_0.0_hold_6.air_frames",
+      "actual": 33,
+      "expected": 33,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_0.0_hold_12.height_px",
+      "actual": 50.85,
+      "expected": 50.85,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_0.0_hold_12.apex_frames",
+      "actual": 21,
+      "expected": 21,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_0.0_hold_12.air_frames",
+      "actual": 40,
+      "expected": 40,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_0.0_hold_600.height_px",
+      "actual": 75.4,
+      "expected": 75.4,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_0.0_hold_600.apex_frames",
+      "actual": 36,
+      "expected": 36,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_0.0_hold_600.air_frames",
+      "actual": 61,
+      "expected": 61,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_78.0_hold_1.height_px",
+      "actual": 28.0,
+      "expected": 28.0,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_78.0_hold_1.apex_frames",
+      "actual": 14,
+      "expected": 14,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_78.0_hold_1.air_frames",
+      "actual": 28,
+      "expected": 28,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_78.0_hold_6.height_px",
+      "actual": 40.35,
+      "expected": 40.35,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_78.0_hold_6.apex_frames",
+      "actual": 17,
+      "expected": 17,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_78.0_hold_6.air_frames",
+      "actual": 34,
+      "expected": 34,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_78.0_hold_12.height_px",
+      "actual": 52.95,
+      "expected": 52.95,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_78.0_hold_12.apex_frames",
+      "actual": 21,
+      "expected": 21,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_78.0_hold_12.air_frames",
+      "actual": 41,
+      "expected": 41,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_78.0_hold_600.height_px",
+      "actual": 79.35,
+      "expected": 79.35,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_78.0_hold_600.apex_frames",
+      "actual": 37,
+      "expected": 37,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_78.0_hold_600.air_frames",
+      "actual": 63,
+      "expected": 63,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_180.0_hold_1.height_px",
+      "actual": 31.5,
+      "expected": 31.5,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_180.0_hold_1.apex_frames",
+      "actual": 14,
+      "expected": 14,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_180.0_hold_1.air_frames",
+      "actual": 29,
+      "expected": 29,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_180.0_hold_6.height_px",
+      "actual": 44.7,
+      "expected": 44.7,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_180.0_hold_6.apex_frames",
+      "actual": 18,
+      "expected": 18,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_180.0_hold_6.air_frames",
+      "actual": 36,
+      "expected": 36,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_180.0_hold_12.height_px",
+      "actual": 58.3,
+      "expected": 58.3,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_180.0_hold_12.apex_frames",
+      "actual": 22,
+      "expected": 22,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_180.0_hold_12.air_frames",
+      "actual": 43,
+      "expected": 43,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_180.0_hold_600.height_px",
+      "actual": 89.8,
+      "expected": 89.8,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_180.0_hold_600.apex_frames",
+      "actual": 40,
+      "expected": 40,
+      "passed": true
+    },
+    {
+      "name": "jump_vx_180.0_hold_600.air_frames",
+      "actual": 68,
+      "expected": 68,
+      "passed": true
+    },
+    {
+      "name": "spin_hold_1.height_px",
+      "actual": 18.7,
+      "expected": 18.7,
+      "passed": true
+    },
+    {
+      "name": "spin_hold_1.apex_frames",
+      "actual": 11,
+      "expected": 11,
+      "passed": true
+    },
+    {
+      "name": "spin_hold_1.air_frames",
+      "actual": 23,
+      "expected": 23,
+      "passed": true
+    },
+    {
+      "name": "spin_hold_6.height_px",
+      "actual": 28.5,
+      "expected": 28.5,
+      "passed": true
+    },
+    {
+      "name": "spin_hold_6.apex_frames",
+      "actual": 14,
+      "expected": 14,
+      "passed": true
+    },
+    {
+      "name": "spin_hold_6.air_frames",
+      "actual": 29,
+      "expected": 29,
+      "passed": true
+    },
+    {
+      "name": "spin_hold_12.height_px",
+      "actual": 38.1,
+      "expected": 38.1,
+      "passed": true
+    },
+    {
+      "name": "spin_hold_12.apex_frames",
+      "actual": 18,
+      "expected": 18,
+      "passed": true
+    },
+    {
+      "name": "spin_hold_12.air_frames",
+      "actual": 35,
+      "expected": 35,
+      "passed": true
+    },
+    {
+      "name": "spin_hold_600.height_px",
+      "actual": 52.3,
+      "expected": 52.3,
+      "passed": true
+    },
+    {
+      "name": "spin_hold_600.apex_frames",
+      "actual": 30,
+      "expected": 30,
+      "passed": true
+    },
+    {
+      "name": "spin_hold_600.air_frames",
+      "actual": 50,
+      "expected": 50,
+      "passed": true
+    },
+    {
+      "name": "reverse_air",
+      "actual": 24,
+      "expected": 24,
+      "passed": true
+    },
+    {
+      "name": "reverse_ground",
+      "actual": 24,
+      "expected": 24,
+      "passed": true
+    },
+    {
+      "name": "accelerate_walk",
+      "actual": 23,
+      "expected": 23,
+      "passed": true
+    },
+    {
+      "name": "accelerate_run",
+      "actual": 50,
+      "expected": 50,
+      "passed": true
+    },
+    {
+      "name": "release_run",
+      "actual": 60,
+      "expected": 60,
+      "passed": true
+    },
+    {
+      "name": "release_run_key_keep_direction",
+      "actual": 68,
+      "expected": 68,
+      "passed": true
+    },
+    {
+      "name": "legacy.accelerate_run.distance_px",
+      "actual": 73.5,
+      "expected": 73.5,
+      "passed": true
+    },
+    {
+      "name": "legacy.accelerate_run.frames",
+      "actual": 48,
+      "expected": 48,
+      "passed": true
+    },
+    {
+      "name": "legacy.accelerate_run.last_speed",
+      "actual": 180.0,
+      "expected": 180.0,
+      "passed": true
+    },
+    {
+      "name": "legacy.accelerate_run.seconds",
+      "actual": 0.8,
+      "expected": 0.8,
+      "passed": true
+    },
+    {
+      "name": "legacy.accelerate_walk.distance_px",
+      "actual": 17.2125,
+      "expected": 17.2125,
+      "passed": true
+    },
+    {
+      "name": "legacy.accelerate_walk.frames",
+      "actual": 23,
+      "expected": 23,
+      "passed": true
+    },
+    {
+      "name": "legacy.accelerate_walk.last_speed",
+      "actual": 84.0,
+      "expected": 84.0,
+      "passed": true
+    },
+    {
+      "name": "legacy.accelerate_walk.seconds",
+      "actual": 0.383333333333333,
+      "expected": 0.383333333333333,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_0.0_hold_1.air_frames",
+      "actual": 26,
+      "expected": 26,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_0.0_hold_1.air_seconds",
+      "actual": 0.433333333333333,
+      "expected": 0.433333333333333,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_0.0_hold_1.apex_frames",
+      "actual": 12,
+      "expected": 12,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_0.0_hold_1.height_px",
+      "actual": 39.0,
+      "expected": 39.0,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_0.0_hold_12.air_frames",
+      "actual": 37,
+      "expected": 37,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_0.0_hold_12.air_seconds",
+      "actual": 0.616666666666667,
+      "expected": 0.616666666666667,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_0.0_hold_12.apex_frames",
+      "actual": 18,
+      "expected": 18,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_0.0_hold_12.height_px",
+      "actual": 64.5,
+      "expected": 64.5,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_0.0_hold_6.air_frames",
+      "actual": 32,
+      "expected": 32,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_0.0_hold_6.air_seconds",
+      "actual": 0.533333333333333,
+      "expected": 0.533333333333333,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_0.0_hold_6.apex_frames",
+      "actual": 15,
+      "expected": 15,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_0.0_hold_6.height_px",
+      "actual": 52.5,
+      "expected": 52.5,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_0.0_hold_600.air_frames",
+      "actual": 46,
+      "expected": 46,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_0.0_hold_600.air_seconds",
+      "actual": 0.766666666666667,
+      "expected": 0.766666666666667,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_0.0_hold_600.apex_frames",
+      "actual": 24,
+      "expected": 24,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_0.0_hold_600.height_px",
+      "actual": 75.0,
+      "expected": 75.0,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_180.0_hold_1.air_frames",
+      "actual": 32,
+      "expected": 32,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_180.0_hold_1.air_seconds",
+      "actual": 0.533333333333333,
+      "expected": 0.533333333333333,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_180.0_hold_1.apex_frames",
+      "actual": 15,
+      "expected": 15,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_180.0_hold_1.height_px",
+      "actual": 55.0,
+      "expected": 55.0,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_180.0_hold_12.air_frames",
+      "actual": 45,
+      "expected": 45,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_180.0_hold_12.air_seconds",
+      "actual": 0.75,
+      "expected": 0.75,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_180.0_hold_12.apex_frames",
+      "actual": 20,
+      "expected": 20,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_180.0_hold_12.height_px",
+      "actual": 86.8333333333334,
+      "expected": 86.8333333333334,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_180.0_hold_6.air_frames",
+      "actual": 38,
+      "expected": 38,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_180.0_hold_6.air_seconds",
+      "actual": 0.633333333333333,
+      "expected": 0.633333333333333,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_180.0_hold_6.apex_frames",
+      "actual": 17,
+      "expected": 17,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_180.0_hold_6.height_px",
+      "actual": 71.3333333333333,
+      "expected": 71.3333333333333,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_180.0_hold_600.air_frames",
+      "actual": 58,
+      "expected": 58,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_180.0_hold_600.air_seconds",
+      "actual": 0.966666666666667,
+      "expected": 0.966666666666667,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_180.0_hold_600.apex_frames",
+      "actual": 29,
+      "expected": 29,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_180.0_hold_600.height_px",
+      "actual": 106.333333333333,
+      "expected": 106.333333333333,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_84.0_hold_1.air_frames",
+      "actual": 26,
+      "expected": 26,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_84.0_hold_1.air_seconds",
+      "actual": 0.433333333333333,
+      "expected": 0.433333333333333,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_84.0_hold_1.apex_frames",
+      "actual": 12,
+      "expected": 12,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_84.0_hold_1.height_px",
+      "actual": 39.0,
+      "expected": 39.0,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_84.0_hold_12.air_frames",
+      "actual": 37,
+      "expected": 37,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_84.0_hold_12.air_seconds",
+      "actual": 0.616666666666667,
+      "expected": 0.616666666666667,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_84.0_hold_12.apex_frames",
+      "actual": 18,
+      "expected": 18,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_84.0_hold_12.height_px",
+      "actual": 64.5,
+      "expected": 64.5,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_84.0_hold_6.air_frames",
+      "actual": 32,
+      "expected": 32,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_84.0_hold_6.air_seconds",
+      "actual": 0.533333333333333,
+      "expected": 0.533333333333333,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_84.0_hold_6.apex_frames",
+      "actual": 15,
+      "expected": 15,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_84.0_hold_6.height_px",
+      "actual": 52.5,
+      "expected": 52.5,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_84.0_hold_600.air_frames",
+      "actual": 46,
+      "expected": 46,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_84.0_hold_600.air_seconds",
+      "actual": 0.766666666666667,
+      "expected": 0.766666666666667,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_84.0_hold_600.apex_frames",
+      "actual": 24,
+      "expected": 24,
+      "passed": true
+    },
+    {
+      "name": "legacy.jump_vx_84.0_hold_600.height_px",
+      "actual": 75.0,
+      "expected": 75.0,
+      "passed": true
+    },
+    {
+      "name": "legacy.release_run.distance_px",
+      "actual": 70.5,
+      "expected": 70.5,
+      "passed": true
+    },
+    {
+      "name": "legacy.release_run.frames",
+      "actual": 48,
+      "expected": 48,
+      "passed": true
+    },
+    {
+      "name": "legacy.release_run.seconds",
+      "actual": 0.8,
+      "expected": 0.8,
+      "passed": true
+    },
+    {
+      "name": "legacy.release_run_key_keep_direction.frames",
+      "actual": 26,
+      "expected": 26,
+      "passed": true
+    },
+    {
+      "name": "legacy.release_run_key_keep_direction.seconds",
+      "actual": 0.433333333333333,
+      "expected": 0.433333333333333,
+      "passed": true
+    },
+    {
+      "name": "legacy.release_walk.distance_px",
+      "actual": 14.9875,
+      "expected": 14.9875,
+      "passed": true
+    },
+    {
+      "name": "legacy.release_walk.frames",
+      "actual": 23,
+      "expected": 23,
+      "passed": true
+    },
+    {
+      "name": "legacy.release_walk.seconds",
+      "actual": 0.383333333333333,
+      "expected": 0.383333333333333,
+      "passed": true
+    },
+    {
+      "name": "legacy.reverse_air.sign_change_frame",
+      "actual": 74,
+      "expected": 74,
+      "passed": true
+    },
+    {
+      "name": "legacy.reverse_ground.sign_change_frame",
+      "actual": 20,
+      "expected": 20,
+      "passed": true
+    },
+    {
+      "name": "legacy.reverse_run.forward_distance_px",
+      "actual": 28.5,
+      "expected": 28.5,
+      "passed": true
+    },
+    {
+      "name": "legacy.reverse_run.opposite_max_frame",
+      "actual": 68,
+      "expected": 68,
+      "passed": true
+    },
+    {
+      "name": "legacy.reverse_run.zero_frame",
+      "actual": 20,
+      "expected": 20,
+      "passed": true
+    },
+    {
+      "name": "legacy.spin_hold_1.air_frames",
+      "actual": 20,
+      "expected": 20,
+      "passed": true
+    },
+    {
+      "name": "legacy.spin_hold_1.air_seconds",
+      "actual": 0.333333333333333,
+      "expected": 0.333333333333333,
+      "passed": true
+    },
+    {
+      "name": "legacy.spin_hold_1.apex_frames",
+      "actual": 10,
+      "expected": 10,
+      "passed": true
+    },
+    {
+      "name": "legacy.spin_hold_1.height_px",
+      "actual": 24.1666666666667,
+      "expected": 24.1666666666667,
+      "passed": true
+    },
+    {
+      "name": "legacy.spin_hold_12.air_frames",
+      "actual": 30,
+      "expected": 30,
+      "passed": true
+    },
+    {
+      "name": "legacy.spin_hold_12.air_seconds",
+      "actual": 0.5,
+      "expected": 0.5,
+      "passed": true
+    },
+    {
+      "name": "legacy.spin_hold_12.apex_frames",
+      "actual": 15,
+      "expected": 15,
+      "passed": true
+    },
+    {
+      "name": "legacy.spin_hold_12.height_px",
+      "actual": 42.25,
+      "expected": 42.25,
+      "passed": true
+    },
+    {
+      "name": "legacy.spin_hold_6.air_frames",
+      "actual": 25,
+      "expected": 25,
+      "passed": true
+    },
+    {
+      "name": "legacy.spin_hold_6.air_seconds",
+      "actual": 0.416666666666667,
+      "expected": 0.416666666666667,
+      "passed": true
+    },
+    {
+      "name": "legacy.spin_hold_6.apex_frames",
+      "actual": 12,
+      "expected": 12,
+      "passed": true
+    },
+    {
+      "name": "legacy.spin_hold_6.height_px",
+      "actual": 34.25,
+      "expected": 34.25,
+      "passed": true
+    },
+    {
+      "name": "legacy.spin_hold_600.air_frames",
+      "actual": 35,
+      "expected": 35,
+      "passed": true
+    },
+    {
+      "name": "legacy.spin_hold_600.air_seconds",
+      "actual": 0.583333333333333,
+      "expected": 0.583333333333333,
+      "passed": true
+    },
+    {
+      "name": "legacy.spin_hold_600.apex_frames",
+      "actual": 19,
+      "expected": 19,
+      "passed": true
+    },
+    {
+      "name": "legacy.spin_hold_600.height_px",
+      "actual": 45.9166666666667,
+      "expected": 45.9166666666667,
+      "passed": true
+    }
+  ],
+  "native": {
+    "accelerate_run": {
+      "distance_px": 76.4999925692876,
+      "frames": 50,
+      "last_speed": 180.000045776367,
+      "seconds": 0.833333333333333
+    },
+    "accelerate_walk": {
+      "distance_px": 16.4849977572759,
+      "frames": 23,
+      "last_speed": 79.7999801635742,
+      "seconds": 0.383333333333333
+    },
+    "jump_vx_0.0_hold_1": {
+      "air_frames": 27,
+      "air_seconds": 0.45,
+      "apex_frames": 13,
+      "height_px": 26.65
+    },
+    "jump_vx_0.0_hold_12": {
+      "air_frames": 40,
+      "air_seconds": 0.666666666666667,
+      "apex_frames": 21,
+      "height_px": 50.85
+    },
+    "jump_vx_0.0_hold_6": {
+      "air_frames": 33,
+      "air_seconds": 0.55,
+      "apex_frames": 17,
+      "height_px": 38.65
+    },
+    "jump_vx_0.0_hold_600": {
+      "air_frames": 61,
+      "air_seconds": 1.01666666666667,
+      "apex_frames": 36,
+      "height_px": 75.4
+    },
+    "jump_vx_180.0_hold_1": {
+      "air_frames": 29,
+      "air_seconds": 0.483333333333333,
+      "apex_frames": 14,
+      "height_px": 31.5
+    },
+    "jump_vx_180.0_hold_12": {
+      "air_frames": 43,
+      "air_seconds": 0.716666666666667,
+      "apex_frames": 22,
+      "height_px": 58.3
+    },
+    "jump_vx_180.0_hold_6": {
+      "air_frames": 36,
+      "air_seconds": 0.6,
+      "apex_frames": 18,
+      "height_px": 44.7
+    },
+    "jump_vx_180.0_hold_600": {
+      "air_frames": 68,
+      "air_seconds": 1.13333333333333,
+      "apex_frames": 40,
+      "height_px": 89.8
+    },
+    "jump_vx_78.0_hold_1": {
+      "air_frames": 28,
+      "air_seconds": 0.466666666666667,
+      "apex_frames": 14,
+      "height_px": 28.0
+    },
+    "jump_vx_78.0_hold_12": {
+      "air_frames": 41,
+      "air_seconds": 0.683333333333333,
+      "apex_frames": 21,
+      "height_px": 52.95
+    },
+    "jump_vx_78.0_hold_6": {
+      "air_frames": 34,
+      "air_seconds": 0.566666666666667,
+      "apex_frames": 17,
+      "height_px": 40.35
+    },
+    "jump_vx_78.0_hold_600": {
+      "air_frames": 63,
+      "air_seconds": 1.05,
+      "apex_frames": 37,
+      "height_px": 79.35
+    },
+    "release_run": {
+      "distance_px": 88.5000450134277,
+      "frames": 60,
+      "seconds": 1.0
+    },
+    "release_run_key_keep_direction": {
+      "frames": 68,
+      "seconds": 1.13333333333333
+    },
+    "release_walk": {
+      "distance_px": 16.9999917348226,
+      "frames": 26,
+      "seconds": 0.433333333333333
+    },
+    "reverse_air": {
+      "sign_change_frame": 24
+    },
+    "reverse_ground": {
+      "sign_change_frame": 24
+    },
+    "reverse_run": {
+      "forward_distance_px": 33.1199887782335,
+      "opposite_max_frame": 72,
+      "zero_frame": 24
+    },
+    "spin_hold_1": {
+      "air_frames": 23,
+      "air_seconds": 0.383333333333333,
+      "apex_frames": 11,
+      "height_px": 18.7
+    },
+    "spin_hold_12": {
+      "air_frames": 35,
+      "air_seconds": 0.583333333333333,
+      "apex_frames": 18,
+      "height_px": 38.1
+    },
+    "spin_hold_6": {
+      "air_frames": 29,
+      "air_seconds": 0.483333333333333,
+      "apex_frames": 14,
+      "height_px": 28.5
+    },
+    "spin_hold_600": {
+      "air_frames": 50,
+      "air_seconds": 0.833333333333333,
+      "apex_frames": 30,
+      "height_px": 52.3
+    }
+  },
+  "previous": {
+    "accelerate_run": {
+      "distance_px": 73.5,
+      "frames": 48,
+      "last_speed": 180.0,
+      "seconds": 0.8
+    },
+    "accelerate_walk": {
+      "distance_px": 17.2125,
+      "frames": 23,
+      "last_speed": 84.0,
+      "seconds": 0.383333333333333
+    },
+    "jump_vx_0.0_hold_1": {
+      "air_frames": 26,
+      "air_seconds": 0.433333333333333,
+      "apex_frames": 12,
+      "height_px": 39.0
+    },
+    "jump_vx_0.0_hold_12": {
+      "air_frames": 37,
+      "air_seconds": 0.616666666666667,
+      "apex_frames": 18,
+      "height_px": 64.5
+    },
+    "jump_vx_0.0_hold_6": {
+      "air_frames": 32,
+      "air_seconds": 0.533333333333333,
+      "apex_frames": 15,
+      "height_px": 52.5
+    },
+    "jump_vx_0.0_hold_600": {
+      "air_frames": 46,
+      "air_seconds": 0.766666666666667,
+      "apex_frames": 24,
+      "height_px": 75.0
+    },
+    "jump_vx_180.0_hold_1": {
+      "air_frames": 32,
+      "air_seconds": 0.533333333333333,
+      "apex_frames": 15,
+      "height_px": 55.0
+    },
+    "jump_vx_180.0_hold_12": {
+      "air_frames": 45,
+      "air_seconds": 0.75,
+      "apex_frames": 20,
+      "height_px": 86.8333333333334
+    },
+    "jump_vx_180.0_hold_6": {
+      "air_frames": 38,
+      "air_seconds": 0.633333333333333,
+      "apex_frames": 17,
+      "height_px": 71.3333333333333
+    },
+    "jump_vx_180.0_hold_600": {
+      "air_frames": 58,
+      "air_seconds": 0.966666666666667,
+      "apex_frames": 29,
+      "height_px": 106.333333333333
+    },
+    "jump_vx_84.0_hold_1": {
+      "air_frames": 26,
+      "air_seconds": 0.433333333333333,
+      "apex_frames": 12,
+      "height_px": 39.0
+    },
+    "jump_vx_84.0_hold_12": {
+      "air_frames": 37,
+      "air_seconds": 0.616666666666667,
+      "apex_frames": 18,
+      "height_px": 64.5
+    },
+    "jump_vx_84.0_hold_6": {
+      "air_frames": 32,
+      "air_seconds": 0.533333333333333,
+      "apex_frames": 15,
+      "height_px": 52.5
+    },
+    "jump_vx_84.0_hold_600": {
+      "air_frames": 46,
+      "air_seconds": 0.766666666666667,
+      "apex_frames": 24,
+      "height_px": 75.0
+    },
+    "release_run": {
+      "distance_px": 70.5,
+      "frames": 48,
+      "seconds": 0.8
+    },
+    "release_run_key_keep_direction": {
+      "frames": 26,
+      "seconds": 0.433333333333333
+    },
+    "release_walk": {
+      "distance_px": 14.9875,
+      "frames": 23,
+      "seconds": 0.383333333333333
+    },
+    "reverse_air": {
+      "sign_change_frame": 74
+    },
+    "reverse_ground": {
+      "sign_change_frame": 20
+    },
+    "reverse_run": {
+      "forward_distance_px": 28.5,
+      "opposite_max_frame": 68,
+      "zero_frame": 20
+    },
+    "spin_hold_1": {
+      "air_frames": 20,
+      "air_seconds": 0.333333333333333,
+      "apex_frames": 10,
+      "height_px": 24.1666666666667
+    },
+    "spin_hold_12": {
+      "air_frames": 30,
+      "air_seconds": 0.5,
+      "apex_frames": 15,
+      "height_px": 42.25
+    },
+    "spin_hold_6": {
+      "air_frames": 25,
+      "air_seconds": 0.416666666666667,
+      "apex_frames": 12,
+      "height_px": 34.25
+    },
+    "spin_hold_600": {
+      "air_frames": 35,
+      "air_seconds": 0.583333333333333,
+      "apex_frames": 19,
+      "height_px": 45.9166666666667
+    }
+  },
+  "assumptions": [
+    "Reference assumes gravity before displacement and terminal clamping before gravity.",
+    "Spin excludes the separate source y-- offset of 0.5 normalized px.",
+    "Walking release starts at the achieved soft-cap speed rather than exactly 78.",
+    "No SMMWE GameMaker execution or human playtest acceptance."
+  ],
+  "runtime_sha256": {
+    "data/physics/base_physics.tres": "05f9a7f4c7c9a3497e8ff04a2b87756c17689a110cce8305424efcc75318277e",
+    "data/physics/pre_smmwe_physics.tres": "e4fcd71c37135689b35dadcc8f1011538594e44b1129332592845117ceaab6cd",
+    "src/gameplay/player/player_motion.gd": "3b8501a6f222fe1170ef46184d55e94a3e6ce55c644f2415b8aa037fca5d0414",
+    "src/gameplay/player/player_physics_profile.gd": "8701278146585896e7dd39cf11c20a11e71c89db196aa7e4874c387934346c39",
+    "src/gameplay/player/player.gd": "cdefe404f79017c5036fe476e26e3e632e7139b133238d5b6ef1610adae435e1",
+    "src/gameplay/debug/physics_dashboard.gd": "f26252195ae1b5f5244303c7581443c0bedd922e3996f14009c21764802c8af4"
+  }
+}

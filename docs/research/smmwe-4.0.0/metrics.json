@@ -1,0 +1,513 @@
+{
+  "status": {
+    "smmwe": "SOURCE_DERIVED_MODEL_NOT_GAME_RUNTIME",
+    "smmneo": "NATIVE_PLAYER_MOTION_SYNTHETIC_FLOOR",
+    "owner_playtest_accepted": false
+  },
+  "units": {
+    "fps": 60,
+    "smmwe_tile_px": 32,
+    "smmneo_tile_px": 16,
+    "speed_multiplier": 30,
+    "acceleration_multiplier": 1800
+  },
+  "assumptions": [
+    "ordinary daytime SMW, no ice/star/powerup/carry/mount",
+    "reference gravity before displacement; Decimal exact literals",
+    "synthetic same-height floor, no predictive landing, collision or camera",
+    "spin curve excludes the separate y-- (0.5 normalized px)"
+  ],
+  "smmwe": {
+    "jump_standing_hold_1": {
+      "height_px": 26.65,
+      "height_tiles": 1.665625,
+      "apex_frames": 13,
+      "air_frames": 27,
+      "air_seconds": 0.45
+    },
+    "jump_standing_hold_6": {
+      "height_px": 38.65,
+      "height_tiles": 2.415625,
+      "apex_frames": 17,
+      "air_frames": 33,
+      "air_seconds": 0.55
+    },
+    "jump_standing_hold_12": {
+      "height_px": 50.85,
+      "height_tiles": 3.178125,
+      "apex_frames": 21,
+      "air_frames": 40,
+      "air_seconds": 0.6666666666666666
+    },
+    "jump_standing_hold_600": {
+      "height_px": 75.4,
+      "height_tiles": 4.7125,
+      "apex_frames": 36,
+      "air_frames": 61,
+      "air_seconds": 1.0166666666666666
+    },
+    "jump_walking_hold_1": {
+      "height_px": 28.0,
+      "height_tiles": 1.75,
+      "apex_frames": 14,
+      "air_frames": 28,
+      "air_seconds": 0.4666666666666667
+    },
+    "jump_walking_hold_6": {
+      "height_px": 40.35,
+      "height_tiles": 2.521875,
+      "apex_frames": 17,
+      "air_frames": 34,
+      "air_seconds": 0.5666666666666667
+    },
+    "jump_walking_hold_12": {
+      "height_px": 52.95,
+      "height_tiles": 3.309375,
+      "apex_frames": 21,
+      "air_frames": 41,
+      "air_seconds": 0.6833333333333333
+    },
+    "jump_walking_hold_600": {
+      "height_px": 79.35,
+      "height_tiles": 4.959375,
+      "apex_frames": 37,
+      "air_frames": 63,
+      "air_seconds": 1.05
+    },
+    "jump_running_hold_1": {
+      "height_px": 31.5,
+      "height_tiles": 1.96875,
+      "apex_frames": 14,
+      "air_frames": 29,
+      "air_seconds": 0.48333333333333334
+    },
+    "jump_running_hold_6": {
+      "height_px": 44.7,
+      "height_tiles": 2.79375,
+      "apex_frames": 18,
+      "air_frames": 36,
+      "air_seconds": 0.6
+    },
+    "jump_running_hold_12": {
+      "height_px": 58.3,
+      "height_tiles": 3.64375,
+      "apex_frames": 22,
+      "air_frames": 43,
+      "air_seconds": 0.7166666666666667
+    },
+    "jump_running_hold_600": {
+      "height_px": 89.8,
+      "height_tiles": 5.6125,
+      "apex_frames": 40,
+      "air_frames": 68,
+      "air_seconds": 1.1333333333333333
+    },
+    "jump_spin_hold_1": {
+      "height_px": 18.7,
+      "height_tiles": 1.16875,
+      "apex_frames": 11,
+      "air_frames": 23,
+      "air_seconds": 0.38333333333333336
+    },
+    "jump_spin_hold_6": {
+      "height_px": 28.5,
+      "height_tiles": 1.78125,
+      "apex_frames": 14,
+      "air_frames": 29,
+      "air_seconds": 0.48333333333333334
+    },
+    "jump_spin_hold_12": {
+      "height_px": 38.1,
+      "height_tiles": 2.38125,
+      "apex_frames": 18,
+      "air_frames": 35,
+      "air_seconds": 0.5833333333333334
+    },
+    "jump_spin_hold_600": {
+      "height_px": 52.3,
+      "height_tiles": 3.26875,
+      "apex_frames": 30,
+      "air_frames": 50,
+      "air_seconds": 0.8333333333333334
+    },
+    "accelerate_walk": {
+      "frames": 23,
+      "seconds": 0.38333333333333336,
+      "distance_px": 16.485,
+      "last_speed_px_s": 79.8
+    },
+    "accelerate_run": {
+      "frames": 50,
+      "seconds": 0.8333333333333334,
+      "distance_px": 76.5,
+      "last_speed_px_s": 180.0
+    },
+    "release_walk": {
+      "frames": 26,
+      "seconds": 0.43333333333333335,
+      "distance_px": 16.25,
+      "last_speed_px_s": 0.0
+    },
+    "release_run": {
+      "frames": 60,
+      "seconds": 1.0,
+      "distance_px": 88.5,
+      "last_speed_px_s": 0.0
+    },
+    "reverse_ground": {
+      "frames": 24,
+      "seconds": 0.4,
+      "distance_px": 33.0,
+      "last_speed_px_s": -7.2
+    },
+    "reverse_air": {
+      "frames": 24,
+      "seconds": 0.4,
+      "distance_px": 33.0,
+      "last_speed_px_s": -7.2
+    },
+    "release_run_key_keep_direction": {
+      "frames": 68,
+      "seconds": 1.1333333333333333,
+      "distance_px": 145.35,
+      "last_speed_px_s": 78.0
+    }
+  },
+  "smmneo": {
+    "accelerate_run": {
+      "distance_px": 73.5,
+      "frames": 48,
+      "last_speed": 180.0,
+      "seconds": 0.8
+    },
+    "accelerate_walk": {
+      "distance_px": 17.2125,
+      "frames": 23,
+      "last_speed": 84.0,
+      "seconds": 0.383333333333333
+    },
+    "jump_vx_0.0_hold_1": {
+      "air_frames": 26,
+      "air_seconds": 0.433333333333333,
+      "apex_frames": 12,
+      "height_px": 39.0
+    },
+    "jump_vx_0.0_hold_12": {
+      "air_frames": 37,
+      "air_seconds": 0.616666666666667,
+      "apex_frames": 18,
+      "height_px": 64.5
+    },
+    "jump_vx_0.0_hold_6": {
+      "air_frames": 32,
+      "air_seconds": 0.533333333333333,
+      "apex_frames": 15,
+      "height_px": 52.5
+    },
+    "jump_vx_0.0_hold_600": {
+      "air_frames": 46,
+      "air_seconds": 0.766666666666667,
+      "apex_frames": 24,
+      "height_px": 75.0
+    },
+    "jump_vx_180.0_hold_1": {
+      "air_frames": 32,
+      "air_seconds": 0.533333333333333,
+      "apex_frames": 15,
+      "height_px": 55.0
+    },
+    "jump_vx_180.0_hold_12": {
+      "air_frames": 45,
+      "air_seconds": 0.75,
+      "apex_frames": 20,
+      "height_px": 86.8333333333334
+    },
+    "jump_vx_180.0_hold_6": {
+      "air_frames": 38,
+      "air_seconds": 0.633333333333333,
+      "apex_frames": 17,
+      "height_px": 71.3333333333333
+    },
+    "jump_vx_180.0_hold_600": {
+      "air_frames": 58,
+      "air_seconds": 0.966666666666667,
+      "apex_frames": 29,
+      "height_px": 106.333333333333
+    },
+    "jump_vx_84.0_hold_1": {
+      "air_frames": 26,
+      "air_seconds": 0.433333333333333,
+      "apex_frames": 12,
+      "height_px": 39.0
+    },
+    "jump_vx_84.0_hold_12": {
+      "air_frames": 37,
+      "air_seconds": 0.616666666666667,
+      "apex_frames": 18,
+      "height_px": 64.5
+    },
+    "jump_vx_84.0_hold_6": {
+      "air_frames": 32,
+      "air_seconds": 0.533333333333333,
+      "apex_frames": 15,
+      "height_px": 52.5
+    },
+    "jump_vx_84.0_hold_600": {
+      "air_frames": 46,
+      "air_seconds": 0.766666666666667,
+      "apex_frames": 24,
+      "height_px": 75.0
+    },
+    "release_run": {
+      "distance_px": 70.5,
+      "frames": 48,
+      "seconds": 0.8
+    },
+    "release_run_key_keep_direction": {
+      "frames": 26,
+      "seconds": 0.433333333333333
+    },
+    "release_walk": {
+      "distance_px": 14.9875,
+      "frames": 23,
+      "seconds": 0.383333333333333
+    },
+    "reverse_air": {
+      "sign_change_frame": 74
+    },
+    "reverse_ground": {
+      "sign_change_frame": 20
+    },
+    "reverse_run": {
+      "forward_distance_px": 28.5,
+      "opposite_max_frame": 68,
+      "zero_frame": 20
+    },
+    "spin_hold_1": {
+      "air_frames": 20,
+      "air_seconds": 0.333333333333333,
+      "apex_frames": 10,
+      "height_px": 24.1666666666667
+    },
+    "spin_hold_12": {
+      "air_frames": 30,
+      "air_seconds": 0.5,
+      "apex_frames": 15,
+      "height_px": 42.25
+    },
+    "spin_hold_6": {
+      "air_frames": 25,
+      "air_seconds": 0.416666666666667,
+      "apex_frames": 12,
+      "height_px": 34.25
+    },
+    "spin_hold_600": {
+      "air_frames": 35,
+      "air_seconds": 0.583333333333333,
+      "apex_frames": 19,
+      "height_px": 45.9166666666667
+    }
+  },
+  "smmwe_alternate_move_before_gravity": {
+    "jump_standing_hold_1": {
+      "height_px": 30.6,
+      "height_tiles": 1.9125,
+      "apex_frames": 14,
+      "air_frames": 29,
+      "air_seconds": 0.48333333333333334
+    },
+    "jump_standing_hold_6": {
+      "height_px": 42.6,
+      "height_tiles": 2.6625,
+      "apex_frames": 18,
+      "air_frames": 35,
+      "air_seconds": 0.5833333333333334
+    },
+    "jump_standing_hold_12": {
+      "height_px": 54.8,
+      "height_tiles": 3.425,
+      "apex_frames": 22,
+      "air_frames": 43,
+      "air_seconds": 0.7166666666666667
+    },
+    "jump_standing_hold_600": {
+      "height_px": 79.35,
+      "height_tiles": 4.959375,
+      "apex_frames": 37,
+      "air_frames": 64,
+      "air_seconds": 1.0666666666666667
+    },
+    "jump_walking_hold_1": {
+      "height_px": 32.05,
+      "height_tiles": 2.003125,
+      "apex_frames": 15,
+      "air_frames": 30,
+      "air_seconds": 0.5
+    },
+    "jump_walking_hold_6": {
+      "height_px": 44.4,
+      "height_tiles": 2.775,
+      "apex_frames": 18,
+      "air_frames": 36,
+      "air_seconds": 0.6
+    },
+    "jump_walking_hold_12": {
+      "height_px": 57.0,
+      "height_tiles": 3.5625,
+      "apex_frames": 22,
+      "air_frames": 43,
+      "air_seconds": 0.7166666666666667
+    },
+    "jump_walking_hold_600": {
+      "height_px": 83.4,
+      "height_tiles": 5.2125,
+      "apex_frames": 38,
+      "air_frames": 66,
+      "air_seconds": 1.1
+    },
+    "jump_running_hold_1": {
+      "height_px": 35.8,
+      "height_tiles": 2.2375,
+      "apex_frames": 15,
+      "air_frames": 32,
+      "air_seconds": 0.5333333333333333
+    },
+    "jump_running_hold_6": {
+      "height_px": 49.0,
+      "height_tiles": 3.0625,
+      "apex_frames": 19,
+      "air_frames": 38,
+      "air_seconds": 0.6333333333333333
+    },
+    "jump_running_hold_12": {
+      "height_px": 62.6,
+      "height_tiles": 3.9125,
+      "apex_frames": 23,
+      "air_frames": 46,
+      "air_seconds": 0.7666666666666667
+    },
+    "jump_running_hold_600": {
+      "height_px": 94.1,
+      "height_tiles": 5.88125,
+      "apex_frames": 41,
+      "air_frames": 72,
+      "air_seconds": 1.2
+    },
+    "jump_spin_hold_1": {
+      "height_px": 22.0,
+      "height_tiles": 1.375,
+      "apex_frames": 12,
+      "air_frames": 25,
+      "air_seconds": 0.4166666666666667
+    },
+    "jump_spin_hold_6": {
+      "height_px": 31.8,
+      "height_tiles": 1.9875,
+      "apex_frames": 15,
+      "air_frames": 31,
+      "air_seconds": 0.5166666666666667
+    },
+    "jump_spin_hold_12": {
+      "height_px": 41.4,
+      "height_tiles": 2.5875,
+      "apex_frames": 19,
+      "air_frames": 37,
+      "air_seconds": 0.6166666666666667
+    },
+    "jump_spin_hold_600": {
+      "height_px": 55.6,
+      "height_tiles": 3.475,
+      "apex_frames": 31,
+      "air_frames": 52,
+      "air_seconds": 0.8666666666666667
+    }
+  },
+  "source_files": {
+    "options/main/options_main.yy": {
+      "sha256": "732f1be14cb229354fd173683d36ca147e46e5497043863e5d63d7d96d3c1ea8",
+      "lines": 20
+    },
+    "objects/obj_ground/Create_0.gml": {
+      "sha256": "b9f5793b0cc0040797c370ee6be349732a414f0c28d20b34c6a7520b704a3488",
+      "lines": 10
+    },
+    "objects/obj_mario/Other_12.gml": {
+      "sha256": "ab9d056e850a11d42f3090729efc0c927003741475a2b6e148da19aa1e4e1cf9",
+      "lines": 769
+    },
+    "objects/obj_mario/Create_0.gml": {
+      "sha256": "72cd9c3a8871f71c206ee4db52461fb0d15b7b02efbea7900c5eaa6dd1f248bf",
+      "lines": 134
+    },
+    "objects/obj_mario/Step_0.gml": {
+      "sha256": "f48cdc40bae19e7a3d94e211c356f16be4abdfa59c172d66cf3cf392e67aa6b6",
+      "lines": 550
+    },
+    "objects/obj_mario/Step_2.gml": {
+      "sha256": "a9151a8e5edecc1101b9017e7c3406733f47e03a9832b556b3bb31a99365a7d7",
+      "lines": 910
+    },
+    "objects/obj_mario/Other_11.gml": {
+      "sha256": "cbcceca2b29a2136a5ca4a6c935a0ca3f35af3b368bd3fffaf3a69cff4ae7d40",
+      "lines": 29
+    },
+    "objects/obj_mario/Other_25.gml": {
+      "sha256": "05c195b9c2e61ccb82d017324965ca71a3e4d92209105518d9900031087b79ca",
+      "lines": 20
+    },
+    "objects/obj_levelmanager/Create_0.gml": {
+      "sha256": "3ca47887313a6e9362eaebbd5a226bd1e2d46976ed0b692d1e8ca34725deac8f",
+      "lines": 65
+    },
+    "objects/obj_levelmanager/Alarm_7.gml": {
+      "sha256": "867ec0f59af5c90da17eeb3250f398379d61c2d3f52d18aa0187a32066c6ca6c",
+      "lines": 27
+    },
+    "objects/obj_levelmanager/Alarm_8.gml": {
+      "sha256": "c15c7894a63c2f589b64ee19e1fccb7fccc32a34dc324b0511e132db11065d89",
+      "lines": 11
+    },
+    "objects/obj_levelmanager/Alarm_9.gml": {
+      "sha256": "c68b8bc12658299b526416cecb41dc0e8cf07aa485c730a9ea7f18342c4ce354",
+      "lines": 15
+    },
+    "objects/obj_persistent/Step_0.gml": {
+      "sha256": "59e6b58abb0b92a3d329af5111601be635847bc22739019d17d6161daf23f896",
+      "lines": 135
+    },
+    "objects/obj_mario/Other_13.gml": {
+      "sha256": "82cfd6b593d9006d1340d1e8df47c854246432823856d10d635075d75c1dfd67",
+      "lines": 401
+    },
+    "scripts/slope_collision/slope_collision.gml": {
+      "sha256": "b0fdb95d5bc73916f2507bc8c15e04043df54e80402b5073d9bb24c80d81ec7f",
+      "lines": 82
+    },
+    "sprites/spr_smallmask/spr_smallmask.yy": {
+      "sha256": "ed5272464e26b95f262b37dd033195364564de16570cb14348dd1d58a6053420",
+      "lines": 74
+    },
+    "sprites/spr_bigmask/spr_bigmask.yy": {
+      "sha256": "f75a697359663ebef89317d256a7f8238eb2d1b94503137b35fcc37d8f9e8c9f",
+      "lines": 74
+    },
+    "sprites/spr_smallduckmask/spr_smallduckmask.yy": {
+      "sha256": "5a768b20fab63eeb6d748c82ec260c4957b4e9e17c056aa944b3c185f7f99a7f",
+      "lines": 74
+    }
+  },
+  "source_archive": {
+    "source_index": "https://github.com/arichornlover/SMMWE-SourceCode",
+    "source_file_id": "1Uv6Fqpp5eXy70mPek1QIxEL2ipoh4vuq",
+    "download_name": "SMM_WE_4.0.0.zip",
+    "archive_bytes": 252000276,
+    "archive_sha256": "ce2b957af1e1efe68c678d0c38895d325a61a5852212e1feb52e43abdeb9c528",
+    "archive_prefix": "SMM_WE-HD-main/SMM_WE-HD/"
+  },
+  "smmneo_files": {
+    "data/physics/base_physics.tres": "e4fcd71c37135689b35dadcc8f1011538594e44b1129332592845117ceaab6cd",
+    "src/gameplay/player/player_motion.gd": "949be613e371702421ebfe3d4d6699f78a0c104461588a1a09f82cbdc7f16174",
+    "src/gameplay/player/player_physics_profile.gd": "8f74de9c504e9efc3c1d76f0a5aa167e4545d00efea518e61fed43626804684e",
+    "tools/research/measure_player_motion.gd": "b52941c8b8eed55c941946ba1a696f0c6cca8311fd22fa1eaf2ff618dd3e2f2b"
+  }
+}

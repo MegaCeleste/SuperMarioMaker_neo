@@ -1,10 +1,12 @@
 # 00 - Foundation 共享契约（宪法）
 
 > **状态**: draft
-> **版本**: 0.2.0
-> **日期**: 2026-09-23
+> **版本**: 0.2.1
+> **日期**: 2026-09-29
 > **Changelog**: 0.1.0 初版（自 `.spec` v1.1.0 §1/2/3.1/8.1/15 拆分；修正 "2D Jolt Physics" 错误）→ 0.2.0 默认键位改为 SMMWE 布局；新增 REQ-INP-002 旋转跳降级规则、REQ-INP-003 键位重绑、REQ-INP-004 命名对齐
 > **收录标准**: 只收录被 ≥2 个功能 spec 共享的契约。单一功能内部的设计决定不属于本文件。
+
+> **本次变更**: 0.2.1 登记物理仪表盘的复位、暂停和单帧逻辑 Action。
 
 ---
 
@@ -72,6 +74,7 @@ res://
 | `spin_jump` | ↓ | R | 右侧 `A` 触控键 | 旋转跳（见 REQ-INP-002 降级规则） |
 | `editor_undo` / `editor_redo` | Ctrl+Z / Ctrl+Y | — | 编辑器 HUD 按钮 | |
 | `toggle_maker_play` | Tab | Select | 顶部 HUD 图标 | |
+| `debug_reset` / `debug_pause` / `debug_step` | R / F6 / F7 | — | 仪表盘按钮 | 仅物理仪表盘消费 |
 
 - **REQ-INP-001**: 所有 gameplay 与编辑器逻辑只消费上表逻辑 Action；物理按键/手柄按钮/触控事件的映射只发生在 `InputManager` 单例内。
 - **REQ-INP-002**: 新增逻辑 Action 必须先登记本表。`spin_jump` 在不支持旋转跳的风格（SMB1/SMB3）中必须**降级表现为普通跳跃**，而非静默无效或报错。
