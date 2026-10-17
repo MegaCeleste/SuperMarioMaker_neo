@@ -1,6 +1,5 @@
 extends Node
-## CourseBot — 本地关卡仓储（M0 空壳占位，REQ-ARC-012）
-## 目录布局：user://courses/<uuid>/level.json + thumb.png（backlog-draft §5.2）
+## CourseBot — 本地关卡目录基座；完整仓储/界面待实现，见 docs/roadmap.md。
 
 const COURSES_DIR := "user://courses/"
 

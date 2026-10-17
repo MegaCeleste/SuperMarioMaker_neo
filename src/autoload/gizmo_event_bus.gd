@@ -1,5 +1,5 @@
 extends Node
-## GizmoEventBus — 集中式机关事件总线（REQ-ARC-012；信号契约见 backlog-draft §10）
+## GizmoEventBus — 集中式机关通知接口；接入进度见 docs/architecture.md 与 docs/roadmap.md。
 
 signal on_off_state_changed(is_on: bool)
 signal p_switch_activated(duration: float)

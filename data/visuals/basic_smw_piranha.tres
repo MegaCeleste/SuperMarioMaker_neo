@@ -1,0 +1,47 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://j51mmff8mjho"]
+
+[ext_resource type="Texture2D" uid="uid://dnf7n5kkr5vru" path="res://textures/basic/smw/smw_piranha_mouth.png" id="t_smw_piranha_mouth"]
+
+[sub_resource type="AtlasTexture" id="f_smw_piranha_mouth_0"]
+atlas = ExtResource("t_smw_piranha_mouth")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="f_smw_piranha_mouth_1"]
+atlas = ExtResource("t_smw_piranha_mouth")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="f_smw_piranha_mouth_2"]
+atlas = ExtResource("t_smw_piranha_mouth")
+region = Rect2(32, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="f_smw_piranha_mouth_3"]
+atlas = ExtResource("t_smw_piranha_mouth")
+region = Rect2(48, 0, 16, 24)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_smw_piranha_mouth_0")
+}],
+"loop": 0,
+"name": &"dead",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_smw_piranha_mouth_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_smw_piranha_mouth_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_smw_piranha_mouth_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_smw_piranha_mouth_3")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 7.5
+}]

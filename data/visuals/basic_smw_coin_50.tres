@@ -1,0 +1,22 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://textures/basic/smw/smw_coin_50.png" id="t_smw_coin_50"]
+
+[sub_resource type="AtlasTexture" id="f_smw_coin_50_0"]
+atlas = ExtResource("t_smw_coin_50")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_smw_coin_50_1"]
+atlas = ExtResource("t_smw_coin_50")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_smw_coin_50_2"]
+atlas = ExtResource("t_smw_coin_50")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_smw_coin_50_3"]
+atlas = ExtResource("t_smw_coin_50")
+region = Rect2(96, 0, 32, 32)
+
+[resource]
+animations = [{"frames": [{"duration": 1.0, "texture": SubResource("f_smw_coin_50_0")}, {"duration": 1.0, "texture": SubResource("f_smw_coin_50_1")}, {"duration": 1.0, "texture": SubResource("f_smw_coin_50_2")}, {"duration": 1.0, "texture": SubResource("f_smw_coin_50_3")}], "loop": true, "name": &"idle", "speed": 9.0}]

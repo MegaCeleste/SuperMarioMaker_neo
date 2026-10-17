@@ -1,0 +1,10 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://textures/basic/smw/smw_mushroom.png" id="t_smw_mushroom"]
+
+[sub_resource type="AtlasTexture" id="f_smw_mushroom_0"]
+atlas = ExtResource("t_smw_mushroom")
+region = Rect2(0, 0, 16, 16)
+
+[resource]
+animations = [{"frames": [{"duration": 1.0, "texture": SubResource("f_smw_mushroom_0")}], "loop": true, "name": &"idle", "speed": 0.0}]

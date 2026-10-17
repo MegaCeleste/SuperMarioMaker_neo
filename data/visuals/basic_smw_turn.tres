@@ -1,0 +1,47 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bnoydgdkr1crj"]
+
+[ext_resource type="Texture2D" uid="uid://boxv6l75xrmav" path="res://textures/basic/smw/spr_SMW_flipblock_Strip4.png" id="t_turn"]
+
+[sub_resource type="AtlasTexture" id="f_turn_0"]
+atlas = ExtResource("t_turn")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_turn_1"]
+atlas = ExtResource("t_turn")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_turn_2"]
+atlas = ExtResource("t_turn")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_turn_3"]
+atlas = ExtResource("t_turn")
+region = Rect2(48, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_turn_0")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_turn_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_turn_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_turn_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_turn_3")
+}],
+"loop": 1,
+"name": &"turning",
+"speed": 10.0
+}]

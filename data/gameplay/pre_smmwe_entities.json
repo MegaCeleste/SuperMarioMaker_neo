@@ -1,0 +1,11 @@
+{
+  "schema_version": 2,
+  "note": "Existing prototype actor values retained for Player integration; these are not SMM2 verified parameters.",
+  "calibration_state": "CANDIDATE",
+  "enemy": {"speed": 40.0, "gravity": 900.0, "death_initial": -200.0, "cleanup_y": 1000.0, "death_rotation_seconds": 0.3, "body_size": [12.0, 13.0], "body_offset": [0.0, 1.5], "hurt_size": [14.0, 14.0], "stomp_size": [12.0, 2.0], "stomp_y": -6.0, "squash_frames": 30, "recovery_frames": 300},
+  "mushroom": {"speed": 60.0, "gravity": 900.0, "cleanup_y": 1000.0},
+  "flower": {"speed": 0.0, "gravity": 900.0, "cleanup_y": 1000.0},
+  "pickup": {"body_size": [14.0, 14.0], "sensor_size": [16.0, 16.0], "feet_y": 8.0},
+  "coin": {"sensor_size": [12.0, 14.0], "popup_frames": 24, "popup_height": 24.0},
+  "block": {"bounce_height": 6.0, "bounce_seconds": 0.15, "bounce_scale": 1.0, "item_rise": 16.0, "item_rise_seconds": 0.7, "size": [16.0, 16.0], "top_sensor_size": [16.0, 2.0], "turn_frames": 240, "restore_epsilon": 0.02}
+}

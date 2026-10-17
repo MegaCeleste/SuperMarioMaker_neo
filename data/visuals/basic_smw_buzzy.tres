@@ -1,0 +1,38 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://dpkr501wniem6"]
+
+[ext_resource type="Texture2D" uid="uid://kn12xch75uuw" path="res://textures/basic/smw/smw_buzzy_walk.png" id="t_smw_buzzy_walk"]
+[ext_resource type="Texture2D" uid="uid://dkqyefm5fmx0n" path="res://textures/basic/smw/smw_shell_buzzy.png" id="t_smw_shell_buzzy"]
+
+[sub_resource type="AtlasTexture" id="f_smw_shell_buzzy_0"]
+atlas = ExtResource("t_smw_shell_buzzy")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_smw_buzzy_walk_0"]
+atlas = ExtResource("t_smw_buzzy_walk")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_smw_buzzy_walk_1"]
+atlas = ExtResource("t_smw_buzzy_walk")
+region = Rect2(16, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_smw_shell_buzzy_0")
+}],
+"loop": 0,
+"name": &"dead",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_smw_buzzy_walk_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_smw_buzzy_walk_1")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 9.0
+}]

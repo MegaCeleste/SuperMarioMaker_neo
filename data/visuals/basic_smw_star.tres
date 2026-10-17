@@ -1,0 +1,22 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://textures/basic/smw/smw_star.png" id="t_smw_star"]
+
+[sub_resource type="AtlasTexture" id="f_smw_star_0"]
+atlas = ExtResource("t_smw_star")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_smw_star_1"]
+atlas = ExtResource("t_smw_star")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_smw_star_2"]
+atlas = ExtResource("t_smw_star")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_smw_star_3"]
+atlas = ExtResource("t_smw_star")
+region = Rect2(48, 0, 16, 16)
+
+[resource]
+animations = [{"frames": [{"duration": 1.0, "texture": SubResource("f_smw_star_0")}, {"duration": 1.0, "texture": SubResource("f_smw_star_1")}, {"duration": 1.0, "texture": SubResource("f_smw_star_2")}, {"duration": 1.0, "texture": SubResource("f_smw_star_3")}], "loop": true, "name": &"idle", "speed": 18.0}]

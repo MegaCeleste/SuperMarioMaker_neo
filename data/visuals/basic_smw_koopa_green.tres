@@ -1,0 +1,38 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://cuacywxuqvgbb"]
+
+[ext_resource type="Texture2D" uid="uid://87jk0cnmoqxq" path="res://textures/basic/smw/smw_koopa_green_walk.png" id="t_smw_koopa_green_walk"]
+[ext_resource type="Texture2D" uid="uid://di508e1ckv1e4" path="res://textures/basic/smw/smw_shell_green.png" id="t_smw_shell_green"]
+
+[sub_resource type="AtlasTexture" id="f_smw_shell_green_0"]
+atlas = ExtResource("t_smw_shell_green")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_smw_koopa_green_walk_0"]
+atlas = ExtResource("t_smw_koopa_green_walk")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="f_smw_koopa_green_walk_1"]
+atlas = ExtResource("t_smw_koopa_green_walk")
+region = Rect2(16, 0, 16, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_smw_shell_green_0")
+}],
+"loop": 0,
+"name": &"dead",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_smw_koopa_green_walk_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_smw_koopa_green_walk_1")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 6.0
+}]

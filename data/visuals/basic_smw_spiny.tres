@@ -1,0 +1,33 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://j1vfxnyg65kx"]
+
+[ext_resource type="Texture2D" uid="uid://dm6oslg2uht67" path="res://textures/basic/smw/smw_spiny_walk.png" id="t_smw_spiny_walk"]
+
+[sub_resource type="AtlasTexture" id="f_smw_spiny_walk_0"]
+atlas = ExtResource("t_smw_spiny_walk")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_smw_spiny_walk_1"]
+atlas = ExtResource("t_smw_spiny_walk")
+region = Rect2(16, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_smw_spiny_walk_0")
+}],
+"loop": 0,
+"name": &"dead",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_smw_spiny_walk_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_smw_spiny_walk_1")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 7.5
+}]

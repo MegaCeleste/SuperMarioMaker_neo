@@ -1,0 +1,9 @@
+[gd_scene format=3]
+[ext_resource type="PackedScene" path="res://src/gameplay/enemies/enemy.tscn" id="1_base"]
+[ext_resource type="Script" path="res://src/gameplay/enemies/bob_omb.gd" id="2_script"]
+[ext_resource type="SpriteFrames" path="res://data/visuals/basic_smw_bob_omb.tres" id="3_frames"]
+[node name="bob_omb" instance=ExtResource("1_base")]
+script = ExtResource("2_script")
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = ExtResource("3_frames")
+

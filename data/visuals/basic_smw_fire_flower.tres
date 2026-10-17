@@ -1,0 +1,25 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bqfn6d3julakr"]
+
+[ext_resource type="Texture2D" uid="uid://fgxguf1g8tu0" path="res://textures/basic/smw/spr_SMW_fireflower_Strip2.png" id="t_fire_flower"]
+
+[sub_resource type="AtlasTexture" id="f_fire_flower_0"]
+atlas = ExtResource("t_fire_flower")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_fire_flower_1"]
+atlas = ExtResource("t_fire_flower")
+region = Rect2(16, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_fire_flower_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_fire_flower_1")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 9.0
+}]

@@ -7,7 +7,12 @@ signal picked_up(by: Node2D)
 signal thrown(velocity: Vector2)
 signal dropped
 
-var is_carried := false
+var is_carried: bool = false
+var pickup_enabled: bool = true
+
+
+func can_pick_up() -> bool:
+	return pickup_enabled and not is_carried
 
 func pick_up(by: Node2D) -> void:
 	is_carried = true

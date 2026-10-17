@@ -1,0 +1,33 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://textures/basic/smw/smw_koopa_red_walk.png" id="t_smw_koopa_red_walk"]
+
+[ext_resource type="Texture2D" path="res://textures/basic/smw/smw_shell_red.png" id="t_smw_shell_red"]
+
+[sub_resource type="AtlasTexture" id="f_smw_koopa_red_walk_0"]
+atlas = ExtResource("t_smw_koopa_red_walk")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="f_smw_koopa_red_walk_1"]
+atlas = ExtResource("t_smw_koopa_red_walk")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="f_smw_shell_red_0"]
+atlas = ExtResource("t_smw_shell_red")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_smw_shell_red_1"]
+atlas = ExtResource("t_smw_shell_red")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_smw_shell_red_2"]
+atlas = ExtResource("t_smw_shell_red")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_smw_shell_red_3"]
+atlas = ExtResource("t_smw_shell_red")
+region = Rect2(48, 0, 16, 16)
+
+[resource]
+animations = [{"frames": [{"duration": 1.0, "texture": SubResource("f_smw_koopa_red_walk_0")}, {"duration": 1.0, "texture": SubResource("f_smw_koopa_red_walk_1")}], "loop": true, "name": &"walk", "speed": 6.0},
+{"frames": [{"duration": 1.0, "texture": SubResource("f_smw_shell_red_0")}], "loop": false, "name": &"dead", "speed": 0.0}]

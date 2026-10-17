@@ -1,26 +1,35 @@
 class_name BumpableComponent
 extends Node
-## 方块被顶起的弹性缓动与上方实体推离（REQ-REG-005、REQ-PHYS-105）
+## REQ-REG-005, REQ-PHYS-105/122.
 
 signal bumped(by: Node2D)
-
-const BUMP_HEIGHT := 8.0
-const BUMP_DURATION := 0.15
+signal finished
 
 @export var visual_target: Node2D
-
+var _height: float = 0.0
+var _duration: float = 0.0
 var _tween: Tween
 
+
+func configure(height: float, duration: float) -> void:
+	_height = height
+	_duration = duration
+
+
+func is_running() -> bool:
+	return _tween != null and _tween.is_valid() and _tween.is_running()
+
+
 func bump(by: Node2D = null) -> void:
-	if _tween != null and _tween.is_running():
+	if is_running() or visual_target == null:
 		return
-	var target := visual_target if visual_target != null else get_parent() as Node2D
-	if target == null:
-		return
-	var origin := target.position
-	_tween = target.create_tween()
-	_tween.tween_property(target, "position:y", origin.y - BUMP_HEIGHT, BUMP_DURATION * 0.4)\
-		.set_ease(Tween.EASE_OUT)
-	_tween.tween_property(target, "position:y", origin.y, BUMP_DURATION * 0.6)\
-		.set_ease(Tween.EASE_IN)
+	var origin: Vector2 = visual_target.position
+	_tween = visual_target.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+	_tween.tween_property(visual_target, "position:y", origin.y - _height, _duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	_tween.tween_property(visual_target, "position:y", origin.y, _duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	_tween.tween_callback(_on_finished)
 	bumped.emit(by)
+
+
+func _on_finished() -> void:
+	finished.emit()

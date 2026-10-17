@@ -1,0 +1,26 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://textures/basic/smw/smw_naked_red_walk.png" id="t_smw_naked_red_walk"]
+
+[ext_resource type="Texture2D" path="res://textures/basic/smw/smw_naked_red_ejected.png" id="t_smw_naked_red_ejected"]
+
+[sub_resource type="AtlasTexture" id="f_smw_naked_red_walk_0"]
+atlas = ExtResource("t_smw_naked_red_walk")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_smw_naked_red_walk_1"]
+atlas = ExtResource("t_smw_naked_red_walk")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_smw_naked_red_ejected_0"]
+atlas = ExtResource("t_smw_naked_red_ejected")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_smw_naked_red_ejected_1"]
+atlas = ExtResource("t_smw_naked_red_ejected")
+region = Rect2(16, 0, 16, 16)
+
+[resource]
+animations = [{"frames": [{"duration": 1.0, "texture": SubResource("f_smw_naked_red_walk_0")}, {"duration": 1.0, "texture": SubResource("f_smw_naked_red_walk_1")}], "loop": true, "name": &"walk", "speed": 9.0},
+{"frames": [{"duration": 1.0, "texture": SubResource("f_smw_naked_red_ejected_0")}], "loop": true, "name": &"ejected", "speed": 0.0},
+{"frames": [{"duration": 1.0, "texture": SubResource("f_smw_naked_red_walk_0")}], "loop": false, "name": &"dead", "speed": 0.0}]

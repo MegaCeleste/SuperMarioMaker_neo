@@ -1,54 +1,26 @@
 [gd_scene format=3 uid="uid://do2ho8mnrjxmc"]
 
-[ext_resource type="Script" uid="uid://dq8b5vanmbkhi" path="res://src/gameplay/blocks/interactable_block.gd" id="1_16a27"]
-[ext_resource type="Texture2D" uid="uid://dm510dlk0st0r" path="res://textures/tiles/question_block.png" id="2_1mkh3"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lp58i"]
-atlas = ExtResource("2_1mkh3")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jnxts"]
-atlas = ExtResource("2_1mkh3")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s82g3"]
-atlas = ExtResource("2_1mkh3")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dhngq"]
-atlas = ExtResource("2_1mkh3")
-region = Rect2(48, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ai12g"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lp58i")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jnxts")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s82g3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dhngq")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1mkh3"]
+[ext_resource type="Script" path="res://src/gameplay/blocks/interactable_block.gd" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://data/visuals/basic_smw_question.tres" id="2_frames"]
+[ext_resource type="Script" path="res://src/core/components/bumpable_component.gd" id="3_bumpable"]
+[ext_resource type="AudioStream" path="res://audio/smw/player/bump.wav" id="4_audio"]
+[sub_resource type="RectangleShape2D" id="body"]
 size = Vector2(16, 16)
+[sub_resource type="RectangleShape2D" id="sensor"]
+size = Vector2(16, 2)
 
-[node name="InteractableBlock" type="AnimatableBody2D" unique_id=674435154]
-script = ExtResource("1_16a27")
-
-[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1178299911]
-sprite_frames = SubResource("SpriteFrames_ai12g")
+[node name="InteractableBlock" type="StaticBody2D"]
+script = ExtResource("1_script")
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_frames")
 animation = &"idle"
-frame_progress = 0.11847668
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1752337715]
-shape = SubResource("RectangleShape2D_1mkh3")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("body")
+[node name="Bumpable" type="Node" parent="."]
+script = ExtResource("3_bumpable")
+[node name="TopSensor" type="Area2D" parent="."]
+position = Vector2(0, -9)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopSensor"]
+shape = SubResource("sensor")
+[node name="Bump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_audio")

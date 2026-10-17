@@ -1,0 +1,46 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://cmgavgftwv4nu"]
+
+[ext_resource type="Texture2D" uid="uid://c845l4baonuh0" path="res://textures/basic/smw/smw_naked_green_ejected.png" id="t_smw_naked_green_ejected"]
+[ext_resource type="Texture2D" uid="uid://cqvbqm2iq1mbi" path="res://textures/basic/smw/smw_naked_green_walk.png" id="t_smw_naked_green_walk"]
+
+[sub_resource type="AtlasTexture" id="f_smw_naked_green_walk_0"]
+atlas = ExtResource("t_smw_naked_green_walk")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_smw_naked_green_ejected_0"]
+atlas = ExtResource("t_smw_naked_green_ejected")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_smw_naked_green_walk_1"]
+atlas = ExtResource("t_smw_naked_green_walk")
+region = Rect2(16, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_smw_naked_green_walk_0")
+}],
+"loop": 0,
+"name": &"dead",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_smw_naked_green_ejected_0")
+}],
+"loop": 1,
+"name": &"ejected",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_smw_naked_green_walk_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_smw_naked_green_walk_1")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 9.0
+}]

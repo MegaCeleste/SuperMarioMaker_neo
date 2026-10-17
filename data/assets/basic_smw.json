@@ -1,0 +1,2525 @@
+{
+  "schema_version": 1,
+  "visual_style": "smw",
+  "note": "Default SMW preset. Goomba intentionally uses SMB1 placeholder walk/squashed art pending owner-supplied independent art. Galoomba uses SMW round art and retains stun/carry/throw behavior. Source filenames are preserved in source_original.",
+  "rejected_sources": [
+    {
+      "source_original": "smw/enemies/goomba_res_Strip4.png",
+      "retired_texture_path": "res://textures/basic/smw/spr_SMW_goomba_res_Strip4.png",
+      "source_role": "mixed_appearance_variants",
+      "reviewed_at": "2026-10-08",
+      "reason": "Frames are different appearances, not a walk cycle; the old verified animation mapping was incorrect."
+    }
+  ],
+  "assets": {
+    "fireball": {
+      "schema_version": 1,
+      "asset_id": "SMW/fireball",
+      "source": "spr_SMW_fireball_Strip4.png",
+      "source_original": "smw/enemies/fireball_Strip4.png",
+      "texture_path": "res://textures/basic/smw/spr_SMW_fireball_Strip4.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 4,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8,
+        8
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "fireball/idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 12,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "PNG header and inspected local sprite strip; project visual alignment",
+      "unresolved": []
+    },
+    "fire_flower": {
+      "schema_version": 1,
+      "asset_id": "SMW/fire_flower",
+      "source": "spr_SMW_fireflower_Strip2.png",
+      "source_original": "smw/objects/fireflower_Strip2.png",
+      "texture_path": "res://textures/basic/smw/spr_SMW_fireflower_Strip2.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 2,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8,
+        8
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "fire_flower/idle": {
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 9,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "PNG header and inspected local sprite strip; project visual alignment",
+      "unresolved": []
+    },
+    "coin": {
+      "schema_version": 1,
+      "asset_id": "SMW/coin",
+      "source": "spr_SMW_coin_Strip8.png",
+      "source_original": "smw/objects/coin_Strip8.png",
+      "texture_path": "res://textures/basic/smw/spr_SMW_coin_Strip8.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 8,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8,
+        8
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "coin/idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 9,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "PNG header and inspected local sprite strip; project visual alignment",
+      "unresolved": []
+    },
+    "question": {
+      "schema_version": 1,
+      "asset_id": "SMW/question",
+      "source": "spr_SMW_qblock_Strip4.png",
+      "source_original": "smw/blocks/qblock_Strip4.png",
+      "texture_path": "res://textures/basic/smw/spr_SMW_qblock_Strip4.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 4,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8,
+        8
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "question/idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "PNG header and inspected local sprite strip; project visual alignment",
+      "unresolved": []
+    },
+    "empty": {
+      "schema_version": 1,
+      "asset_id": "SMW/empty",
+      "source": "spr_SMW_qblock_empty_Strip1.png",
+      "source_original": "smw/blocks/qblock_empty_Strip1.png",
+      "texture_path": "res://textures/basic/smw/spr_SMW_qblock_empty_Strip1.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 1,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8,
+        8
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "question/empty": {
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "empty/idle": {
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "PNG header and inspected local sprite strip; project visual alignment",
+      "unresolved": []
+    },
+    "turn": {
+      "schema_version": 1,
+      "asset_id": "SMW/turn",
+      "source": "spr_SMW_flipblock_Strip4.png",
+      "source_original": "smw/blocks/flipblock_Strip4.png",
+      "texture_path": "res://textures/basic/smw/spr_SMW_flipblock_Strip4.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 4,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8,
+        8
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "turn/idle": {
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "turn/turning": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 10,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "PNG header and inspected local sprite strip; project visual alignment",
+      "unresolved": []
+    },
+    "hard": {
+      "schema_version": 1,
+      "asset_id": "SMW/hard",
+      "source": "spr_SMW_block_rock_Strip1.png",
+      "source_original": "smw/blocks/block_rock_Strip1.png",
+      "texture_path": "res://textures/basic/smw/spr_SMW_block_rock_Strip1.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 1,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8,
+        8
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "hard/idle": {
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "PNG header and inspected local sprite strip; project visual alignment",
+      "unresolved": []
+    },
+    "fire_idle": {
+      "schema_version": 1,
+      "asset_id": "SMW/fire_idle",
+      "source": "spr_SMW_mario_fire_idle_Strip1.png",
+      "source_original": "smw/player/mario_fire_idle_Strip1.png",
+      "texture_path": "res://textures/basic/smw/spr_SMW_mario_fire_idle_Strip1.png",
+      "frame_width": 32,
+      "frame_height": 32,
+      "frame_count": 1,
+      "layout": "horizontal_strip",
+      "pivot": [
+        16,
+        16
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "fire/idle": {
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "PNG header and inspected local sprite strip; project visual alignment",
+      "unresolved": []
+    },
+    "fire_walk": {
+      "schema_version": 1,
+      "asset_id": "SMW/fire_walk",
+      "source": "spr_SMW_mario_fire_walk_Strip3.png",
+      "source_original": "smw/player/mario_fire_walk_Strip3.png",
+      "texture_path": "res://textures/basic/smw/spr_SMW_mario_fire_walk_Strip3.png",
+      "frame_width": 32,
+      "frame_height": 32,
+      "frame_count": 3,
+      "layout": "horizontal_strip",
+      "pivot": [
+        16,
+        16
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "fire/walk": {
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "PNG header and inspected local sprite strip; project visual alignment",
+      "unresolved": []
+    },
+    "fire_run": {
+      "schema_version": 1,
+      "asset_id": "SMW/fire_run",
+      "source": "spr_SMW_mario_fire_run_Strip3.png",
+      "source_original": "smw/player/mario_fire_run_Strip3.png",
+      "texture_path": "res://textures/basic/smw/spr_SMW_mario_fire_run_Strip3.png",
+      "frame_width": 32,
+      "frame_height": 32,
+      "frame_count": 3,
+      "layout": "horizontal_strip",
+      "pivot": [
+        16,
+        16
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "fire/run": {
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "PNG header and inspected local sprite strip; project visual alignment",
+      "unresolved": []
+    },
+    "fire_jump": {
+      "schema_version": 1,
+      "asset_id": "SMW/fire_jump",
+      "source": "spr_SMW_mario_fire_jump_Strip1.png",
+      "source_original": "smw/player/mario_fire_jump_Strip1.png",
+      "texture_path": "res://textures/basic/smw/spr_SMW_mario_fire_jump_Strip1.png",
+      "frame_width": 32,
+      "frame_height": 32,
+      "frame_count": 1,
+      "layout": "horizontal_strip",
+      "pivot": [
+        16,
+        16
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "fire/jump": {
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "PNG header and inspected local sprite strip; project visual alignment",
+      "unresolved": []
+    },
+    "fire_p_jump": {
+      "schema_version": 1,
+      "asset_id": "SMW/fire_p_jump",
+      "source": "spr_SMW_mario_fire_runjump_Strip1.png",
+      "source_original": "smw/player/mario_fire_runjump_Strip1.png",
+      "texture_path": "res://textures/basic/smw/spr_SMW_mario_fire_runjump_Strip1.png",
+      "frame_width": 32,
+      "frame_height": 32,
+      "frame_count": 1,
+      "layout": "horizontal_strip",
+      "pivot": [
+        16,
+        16
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "fire/p_jump": {
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "PNG header and inspected local sprite strip; project visual alignment",
+      "unresolved": []
+    },
+    "fire_fall": {
+      "schema_version": 1,
+      "asset_id": "SMW/fire_fall",
+      "source": "spr_SMW_mario_fire_fall_Strip1.png",
+      "source_original": "smw/player/mario_fire_fall_Strip1.png",
+      "texture_path": "res://textures/basic/smw/spr_SMW_mario_fire_fall_Strip1.png",
+      "frame_width": 32,
+      "frame_height": 32,
+      "frame_count": 1,
+      "layout": "horizontal_strip",
+      "pivot": [
+        16,
+        16
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "fire/fall": {
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "PNG header and inspected local sprite strip; project visual alignment",
+      "unresolved": []
+    },
+    "fire_duck": {
+      "schema_version": 1,
+      "asset_id": "SMW/fire_duck",
+      "source": "spr_SMW_mario_fire_duck_Strip1.png",
+      "source_original": "smw/player/mario_fire_duck_Strip1.png",
+      "texture_path": "res://textures/basic/smw/spr_SMW_mario_fire_duck_Strip1.png",
+      "frame_width": 32,
+      "frame_height": 32,
+      "frame_count": 1,
+      "layout": "horizontal_strip",
+      "pivot": [
+        16,
+        16
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "fire/duck": {
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "PNG header and inspected local sprite strip; project visual alignment",
+      "unresolved": []
+    },
+    "fire_skid": {
+      "schema_version": 1,
+      "asset_id": "SMW/fire_skid",
+      "source": "spr_SMW_mario_fire_skid_Strip1.png",
+      "source_original": "smw/player/mario_fire_skid_Strip1.png",
+      "texture_path": "res://textures/basic/smw/spr_SMW_mario_fire_skid_Strip1.png",
+      "frame_width": 32,
+      "frame_height": 32,
+      "frame_count": 1,
+      "layout": "horizontal_strip",
+      "pivot": [
+        16,
+        16
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "fire/skid": {
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "PNG header and inspected local sprite strip; project visual alignment",
+      "unresolved": []
+    },
+    "fire_spin_jump": {
+      "schema_version": 1,
+      "asset_id": "SMW/fire_spin_jump",
+      "source": "spr_SMW_mario_fire_spinjump_Strip4.png",
+      "source_original": "smw/player/mario_fire_spinjump_Strip4.png",
+      "texture_path": "res://textures/basic/smw/spr_SMW_mario_fire_spinjump_Strip4.png",
+      "frame_width": 32,
+      "frame_height": 32,
+      "frame_count": 4,
+      "layout": "horizontal_strip",
+      "pivot": [
+        16,
+        16
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "fire/spin_jump": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "PNG header and inspected local sprite strip; project visual alignment",
+      "unresolved": []
+    },
+    "fire_look_up": {
+      "schema_version": 1,
+      "asset_id": "SMW/fire_look_up",
+      "source": "spr_SMW_mario_fire_up_Strip1.png",
+      "source_original": "smw/player/mario_fire_up_Strip1.png",
+      "texture_path": "res://textures/basic/smw/spr_SMW_mario_fire_up_Strip1.png",
+      "frame_width": 32,
+      "frame_height": 32,
+      "frame_count": 1,
+      "layout": "horizontal_strip",
+      "pivot": [
+        16,
+        16
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "fire/look_up": {
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "PNG header and inspected local sprite strip; project visual alignment",
+      "unresolved": []
+    },
+    "fire_hold": {
+      "schema_version": 1,
+      "asset_id": "SMW/fire_hold",
+      "source": "spr_SMW_mario_fire_hold_Strip3.png",
+      "source_original": "smw/player/mario_fire_hold_Strip3.png",
+      "texture_path": "res://textures/basic/smw/spr_SMW_mario_fire_hold_Strip3.png",
+      "frame_width": 32,
+      "frame_height": 32,
+      "frame_count": 3,
+      "layout": "horizontal_strip",
+      "pivot": [
+        16,
+        16
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "fire/walk_hold": {
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "fire/run_hold": {
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "fire/idle_hold": {
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "PNG header and inspected local sprite strip; project visual alignment",
+      "unresolved": []
+    },
+    "fire_duck_hold": {
+      "schema_version": 1,
+      "asset_id": "SMW/fire_duck_hold",
+      "source": "spr_SMW_mario_fire_duck_hold_Strip1.png",
+      "source_original": "smw/player/mario_fire_duck_hold_Strip1.png",
+      "texture_path": "res://textures/basic/smw/spr_SMW_mario_fire_duck_hold_Strip1.png",
+      "frame_width": 32,
+      "frame_height": 32,
+      "frame_count": 1,
+      "layout": "horizontal_strip",
+      "pivot": [
+        16,
+        16
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "fire/duck_hold": {
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "PNG header and inspected local sprite strip; project visual alignment",
+      "unresolved": []
+    },
+    "fire_look_up_hold": {
+      "schema_version": 1,
+      "asset_id": "SMW/fire_look_up_hold",
+      "source": "spr_SMW_mario_fire_up_hold_Strip1.png",
+      "source_original": "smw/player/mario_fire_up_hold_Strip1.png",
+      "texture_path": "res://textures/basic/smw/spr_SMW_mario_fire_up_hold_Strip1.png",
+      "frame_width": 32,
+      "frame_height": 32,
+      "frame_count": 1,
+      "layout": "horizontal_strip",
+      "pivot": [
+        16,
+        16
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "fire/look_up_hold": {
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "PNG header and inspected local sprite strip; project visual alignment",
+      "unresolved": []
+    },
+    "fire_shoot": {
+      "schema_version": 1,
+      "asset_id": "SMW/fire_shoot",
+      "source": "spr_SMW_mario_fire_shoot_Strip1.png",
+      "source_original": "smw/player/mario_fire_shoot_Strip1.png",
+      "texture_path": "res://textures/basic/smw/spr_SMW_mario_fire_shoot_Strip1.png",
+      "frame_width": 32,
+      "frame_height": 32,
+      "frame_count": 1,
+      "layout": "horizontal_strip",
+      "pivot": [
+        16,
+        16
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "fire/shoot": {
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "PNG header and inspected local sprite strip; project visual alignment",
+      "unresolved": []
+    },
+    "mario_dead": {
+      "schema_version": 1,
+      "asset_id": "SMW/mario_dead",
+      "source": "spr_SMW_mario_dead_Strip2.png",
+      "source_original": "smw/player/mario_dead_Strip2.png",
+      "texture_path": "res://textures/basic/smw/spr_SMW_mario_dead_Strip2.png",
+      "frame_width": 16,
+      "frame_height": 32,
+      "frame_count": 2,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8,
+        16
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "fire/dead": {
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "PNG header and inspected local sprite strip; project visual alignment",
+      "unresolved": []
+    },
+    "smw_galoomba_walk": {
+      "schema_version": 1,
+      "asset_id": "SMW/galoomba",
+      "visual_style": "smw",
+      "source_role": "locomotion",
+      "reviewed_at": "2026-10-08",
+      "source": "smw_galoomba_walk_16x16_2f.png",
+      "source_original": "smw/enemies/galoomba_Strip2.png",
+      "texture_path": "res://textures/basic/smw/smw_galoomba_walk_16x16_2f.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 2,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8,
+        8
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "galoomba/walk": {
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "galoomba/dead": {
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "2026-10-08: directly inspected SMW round brown/green-foot sprite poses; PNG geometry verified by installation tool. Original source retained.",
+      "unresolved": []
+    },
+    "smw_galoomba_stunned": {
+      "schema_version": 1,
+      "asset_id": "SMW/galoomba_stunned",
+      "visual_style": "smw",
+      "source_role": "stunned_pose",
+      "reviewed_at": "2026-10-08",
+      "source": "smw_galoomba_stunned_16x16_2f.png",
+      "source_original": "smw/enemies/galoomba_hold2_Strip2.png",
+      "texture_path": "res://textures/basic/smw/smw_galoomba_stunned_16x16_2f.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 2,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8,
+        8
+      ],
+      "frame_offsets": [],
+      "animations": {},
+      "metadata_state": "verified",
+      "verification_basis": "2026-10-08: directly inspected SMW round brown/green-foot sprite poses; PNG geometry verified by installation tool. Original source retained.",
+      "unresolved": [],
+      "usage_note": "Preserved historical source; no longer mapped to runtime after owner feedback 2026-10-10."
+    },
+    "smb1_goomba_walk": {
+      "schema_version": 1,
+      "asset_id": "SMB1/goomba",
+      "visual_style": "smb1",
+      "source_role": "locomotion",
+      "reviewed_at": "2026-10-08",
+      "source": "smb1_goomba_walk_16x16_2f.png",
+      "source_original": "smb1/enemies/goomba_Strip2.png",
+      "texture_path": "res://textures/basic/smb1/smb1_goomba_walk_16x16_2f.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 2,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8,
+        8
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "goomba/walk": {
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "goomba/dead": {
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": false,
+          "timing_state": "CANDIDATE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "2026-10-08: inspected both SMB1 locomotion frames; this replaces the invalid mixed-appearance goomba_res mapping",
+      "unresolved": [],
+      "usage_state": "placeholder",
+      "usage_note": "Owner-approved temporary art for Goomba in the SMW preset; replace when independent Goomba art is supplied."
+    },
+    "smb1_goomba_squashed": {
+      "schema_version": 1,
+      "asset_id": "SMB1/goomba_squashed",
+      "visual_style": "smb1",
+      "source_role": "squashed_pose",
+      "reviewed_at": "2026-10-08",
+      "source": "smb1_goomba_squashed_16x16_1f.png",
+      "source_original": "smb1/enemies/goomba_stomped_Strip1.png",
+      "texture_path": "res://textures/basic/smb1/smb1_goomba_squashed_16x16_1f.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 1,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8,
+        8
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "goomba/squashed": {
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": false,
+          "timing_state": "CANDIDATE"
+        }
+      },
+      "metadata_state": "verified",
+      "verification_basis": "2026-10-08: inspected SMB1 flattened pose; native single frame, no synthetic squash scale",
+      "unresolved": [],
+      "usage_state": "placeholder",
+      "usage_note": "Owner-approved temporary art for Goomba in the SMW preset; replace when independent Goomba art is supplied."
+    },
+    "smw_koopa_green_walk": {
+      "schema_version": 1,
+      "asset_id": "SMW/smw_koopa_green_walk",
+      "source_original": "smw/enemies/koopa_Strip2.png",
+      "source": "smw_koopa_green_walk.png",
+      "texture_path": "res://textures/basic/smw/smw_koopa_green_walk.png",
+      "frame_width": 16,
+      "frame_height": 32,
+      "frame_count": 2,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8.0,
+        16.0
+      ],
+      "frame_offsets": [],
+      "metadata_state": "verified",
+      "visual_style": "smw",
+      "source_role": "locomotion",
+      "verification_basis": "Original PNG header and Codex direct frame inspection, 2026-10-09; timing calibrated separately.",
+      "animations": {},
+      "unresolved": []
+    },
+    "smw_shell_green": {
+      "schema_version": 1,
+      "asset_id": "SMW/smw_shell_green",
+      "source_original": "smw/enemies/shell_Strip4.png",
+      "source": "smw_shell_green.png",
+      "texture_path": "res://textures/basic/smw/smw_shell_green.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 4,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8.0,
+        8.0
+      ],
+      "frame_offsets": [],
+      "metadata_state": "verified",
+      "visual_style": "smw",
+      "source_role": "shell_spin",
+      "verification_basis": "Original PNG header and Codex direct frame inspection, 2026-10-09; timing calibrated separately.",
+      "animations": {},
+      "unresolved": []
+    },
+    "smw_shell_green_inside": {
+      "schema_version": 1,
+      "asset_id": "SMW/smw_shell_green_inside",
+      "source_original": "smw/enemies/shell_inside_Strip2.png",
+      "source": "smw_shell_green_inside.png",
+      "texture_path": "res://textures/basic/smw/smw_shell_green_inside.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 2,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8.0,
+        8.0
+      ],
+      "frame_offsets": [],
+      "metadata_state": "verified",
+      "visual_style": "smw",
+      "source_role": "occupied_shell",
+      "verification_basis": "Original PNG header and Codex direct frame inspection, 2026-10-09; timing calibrated separately.",
+      "animations": {},
+      "unresolved": []
+    },
+    "smw_naked_green_walk": {
+      "schema_version": 1,
+      "asset_id": "SMW/smw_naked_green_walk",
+      "source_original": "smw/enemies/beachkoopa_walk_Strip2.png",
+      "source": "smw_naked_green_walk.png",
+      "texture_path": "res://textures/basic/smw/smw_naked_green_walk.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 2,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8.0,
+        8.0
+      ],
+      "frame_offsets": [],
+      "metadata_state": "verified",
+      "visual_style": "smw",
+      "source_role": "locomotion",
+      "verification_basis": "Original PNG header and Codex direct frame inspection, 2026-10-09; timing calibrated separately.",
+      "animations": {},
+      "unresolved": []
+    },
+    "smw_naked_green_ejected": {
+      "schema_version": 1,
+      "asset_id": "SMW/smw_naked_green_ejected",
+      "source_original": "smw/enemies/beachkoopa_Strip2.png",
+      "source": "smw_naked_green_ejected.png",
+      "texture_path": "res://textures/basic/smw/smw_naked_green_ejected.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 2,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8.0,
+        8.0
+      ],
+      "frame_offsets": [],
+      "metadata_state": "verified",
+      "visual_style": "smw",
+      "source_role": "ejected_pose",
+      "verification_basis": "Original PNG header and Codex direct frame inspection, 2026-10-09; timing calibrated separately.",
+      "animations": {},
+      "unresolved": []
+    },
+    "smw_koopa_red_walk": {
+      "schema_version": 1,
+      "asset_id": "SMW/smw_koopa_red_walk",
+      "source_original": "smw/enemies/koopa_red_Strip2.png",
+      "source": "smw_koopa_red_walk.png",
+      "texture_path": "res://textures/basic/smw/smw_koopa_red_walk.png",
+      "frame_width": 16,
+      "frame_height": 32,
+      "frame_count": 2,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8.0,
+        16.0
+      ],
+      "frame_offsets": [],
+      "metadata_state": "verified",
+      "visual_style": "smw",
+      "source_role": "locomotion",
+      "verification_basis": "Original PNG header and Codex direct frame inspection, 2026-10-09; timing calibrated separately.",
+      "animations": {},
+      "unresolved": []
+    },
+    "smw_shell_red": {
+      "schema_version": 1,
+      "asset_id": "SMW/smw_shell_red",
+      "source_original": "smw/enemies/shell_red_Strip4.png",
+      "source": "smw_shell_red.png",
+      "texture_path": "res://textures/basic/smw/smw_shell_red.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 4,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8.0,
+        8.0
+      ],
+      "frame_offsets": [],
+      "metadata_state": "verified",
+      "visual_style": "smw",
+      "source_role": "shell_spin",
+      "verification_basis": "Original PNG header and Codex direct frame inspection, 2026-10-09; timing calibrated separately.",
+      "animations": {},
+      "unresolved": []
+    },
+    "smw_shell_red_inside": {
+      "schema_version": 1,
+      "asset_id": "SMW/smw_shell_red_inside",
+      "source_original": "smw/enemies/shell_red_inside_Strip2.png",
+      "source": "smw_shell_red_inside.png",
+      "texture_path": "res://textures/basic/smw/smw_shell_red_inside.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 2,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8.0,
+        8.0
+      ],
+      "frame_offsets": [],
+      "metadata_state": "verified",
+      "visual_style": "smw",
+      "source_role": "occupied_shell",
+      "verification_basis": "Original PNG header and Codex direct frame inspection, 2026-10-09; timing calibrated separately.",
+      "animations": {},
+      "unresolved": []
+    },
+    "smw_naked_red_walk": {
+      "schema_version": 1,
+      "asset_id": "SMW/smw_naked_red_walk",
+      "source_original": "smw/enemies/beachkoopa_walk_red_Strip2.png",
+      "source": "smw_naked_red_walk.png",
+      "texture_path": "res://textures/basic/smw/smw_naked_red_walk.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 2,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8.0,
+        8.0
+      ],
+      "frame_offsets": [],
+      "metadata_state": "verified",
+      "visual_style": "smw",
+      "source_role": "locomotion",
+      "verification_basis": "Original PNG header and Codex direct frame inspection, 2026-10-09; timing calibrated separately.",
+      "animations": {},
+      "unresolved": []
+    },
+    "smw_naked_red_ejected": {
+      "schema_version": 1,
+      "asset_id": "SMW/smw_naked_red_ejected",
+      "source_original": "smw/enemies/beachkoopa_red_Strip2.png",
+      "source": "smw_naked_red_ejected.png",
+      "texture_path": "res://textures/basic/smw/smw_naked_red_ejected.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 2,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8.0,
+        8.0
+      ],
+      "frame_offsets": [],
+      "metadata_state": "verified",
+      "visual_style": "smw",
+      "source_role": "ejected_pose",
+      "verification_basis": "Original PNG header and Codex direct frame inspection, 2026-10-09; timing calibrated separately.",
+      "animations": {},
+      "unresolved": []
+    },
+    "smw_buzzy_walk": {
+      "schema_version": 1,
+      "asset_id": "SMW/smw_buzzy_walk",
+      "source_original": "smw/enemies/buzzybeetle_Strip2.png",
+      "source": "smw_buzzy_walk.png",
+      "texture_path": "res://textures/basic/smw/smw_buzzy_walk.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 2,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8.0,
+        8.0
+      ],
+      "frame_offsets": [],
+      "metadata_state": "verified",
+      "visual_style": "smw",
+      "source_role": "locomotion",
+      "verification_basis": "Original PNG header and Codex direct frame inspection, 2026-10-09; timing calibrated separately.",
+      "animations": {},
+      "unresolved": []
+    },
+    "smw_shell_buzzy": {
+      "schema_version": 1,
+      "asset_id": "SMW/smw_shell_buzzy",
+      "source_original": "smw/enemies/shell_buzzy_Strip4.png",
+      "source": "smw_shell_buzzy.png",
+      "texture_path": "res://textures/basic/smw/smw_shell_buzzy.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 4,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8.0,
+        8.0
+      ],
+      "frame_offsets": [],
+      "metadata_state": "verified",
+      "visual_style": "smw",
+      "source_role": "shell_spin",
+      "verification_basis": "Original PNG header and Codex direct frame inspection, 2026-10-09; timing calibrated separately.",
+      "animations": {},
+      "unresolved": []
+    },
+    "smw_spiny_walk": {
+      "schema_version": 1,
+      "asset_id": "SMW/smw_spiny_walk",
+      "source_original": "smw/enemies/spiny_Strip2.png",
+      "source": "smw_spiny_walk.png",
+      "texture_path": "res://textures/basic/smw/smw_spiny_walk.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 2,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8.0,
+        8.0
+      ],
+      "frame_offsets": [],
+      "metadata_state": "verified",
+      "visual_style": "smw",
+      "source_role": "locomotion",
+      "verification_basis": "Original PNG header and Codex direct frame inspection, 2026-10-09; timing calibrated separately.",
+      "animations": {},
+      "unresolved": []
+    },
+    "smw_bob_omb_walk": {
+      "schema_version": 1,
+      "asset_id": "SMW/smw_bob_omb_walk",
+      "source_original": "smw/enemies/bobomb_Strip2.png",
+      "source": "smw_bob_omb_walk.png",
+      "texture_path": "res://textures/basic/smw/smw_bob_omb_walk.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 2,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8.0,
+        8.0
+      ],
+      "frame_offsets": [],
+      "metadata_state": "verified",
+      "visual_style": "smw",
+      "source_role": "locomotion",
+      "verification_basis": "Original PNG header and Codex direct frame inspection, 2026-10-09; timing calibrated separately.",
+      "animations": {},
+      "unresolved": []
+    },
+    "smw_bob_omb_primed": {
+      "schema_version": 1,
+      "asset_id": "SMW/smw_bob_omb_primed",
+      "source_original": "smw/enemies/bobomb_hold_Strip2.png",
+      "source": "smw_bob_omb_primed.png",
+      "texture_path": "res://textures/basic/smw/smw_bob_omb_primed.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 2,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8.0,
+        8.0
+      ],
+      "frame_offsets": [],
+      "metadata_state": "verified",
+      "visual_style": "smw",
+      "source_role": "primed_bomb",
+      "verification_basis": "Original PNG header and Codex direct frame inspection, 2026-10-09; timing calibrated separately.",
+      "animations": {},
+      "unresolved": []
+    },
+    "smw_piranha_mouth": {
+      "schema_version": 1,
+      "asset_id": "SMW/smw_piranha_mouth",
+      "source_original": "smw/enemies/jumppiranha_Strip4.png",
+      "source": "smw_piranha_mouth.png",
+      "texture_path": "res://textures/basic/smw/smw_piranha_mouth.png",
+      "frame_width": 16,
+      "frame_height": 24,
+      "frame_count": 4,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8.0,
+        12.0
+      ],
+      "frame_offsets": [],
+      "metadata_state": "verified",
+      "visual_style": "smw",
+      "source_role": "mouth_cycle",
+      "verification_basis": "Original PNG header and Codex direct frame inspection, 2026-10-09; timing calibrated separately.",
+      "animations": {},
+      "unresolved": []
+    },
+    "smw_star": {
+      "schema_version": 1,
+      "asset_id": "SMW/smw_star",
+      "source_original": "smw/objects/star_Strip4.png",
+      "source": "smw_star.png",
+      "texture_path": "res://textures/basic/smw/smw_star.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 4,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8.0,
+        8.0
+      ],
+      "frame_offsets": [],
+      "metadata_state": "verified",
+      "visual_style": "smw",
+      "source_role": "pickup_animation",
+      "verification_basis": "Original PNG header and Codex direct frame inspection, 2026-10-09; timing calibrated separately.",
+      "animations": {},
+      "unresolved": []
+    },
+    "smw_one_up": {
+      "schema_version": 1,
+      "asset_id": "SMW/smw_one_up",
+      "source_original": "smw/objects/1up_Strip2.png",
+      "source": "smw_one_up.png",
+      "texture_path": "res://textures/basic/smw/smw_one_up.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 2,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8.0,
+        8.0
+      ],
+      "frame_offsets": [],
+      "metadata_state": "verified",
+      "visual_style": "smw",
+      "source_role": "pickup_animation",
+      "verification_basis": "Original PNG header and Codex direct frame inspection, 2026-10-09; timing calibrated separately.",
+      "animations": {},
+      "unresolved": []
+    },
+    "smw_coin_10": {
+      "schema_version": 1,
+      "asset_id": "SMW/smw_coin_10",
+      "source_original": "smw/objects/coin_10_Strip4.png",
+      "source": "smw_coin_10.png",
+      "texture_path": "res://textures/basic/smw/smw_coin_10.png",
+      "frame_width": 32,
+      "frame_height": 32,
+      "frame_count": 4,
+      "layout": "horizontal_strip",
+      "pivot": [
+        16.0,
+        16.0
+      ],
+      "frame_offsets": [],
+      "metadata_state": "verified",
+      "visual_style": "smw",
+      "source_role": "pickup_animation",
+      "verification_basis": "Original PNG header and Codex direct frame inspection, 2026-10-09; timing calibrated separately.",
+      "animations": {},
+      "unresolved": []
+    },
+    "smw_coin_30": {
+      "schema_version": 1,
+      "asset_id": "SMW/smw_coin_30",
+      "source_original": "smw/objects/coin_30_Strip4.png",
+      "source": "smw_coin_30.png",
+      "texture_path": "res://textures/basic/smw/smw_coin_30.png",
+      "frame_width": 32,
+      "frame_height": 32,
+      "frame_count": 4,
+      "layout": "horizontal_strip",
+      "pivot": [
+        16.0,
+        16.0
+      ],
+      "frame_offsets": [],
+      "metadata_state": "verified",
+      "visual_style": "smw",
+      "source_role": "pickup_animation",
+      "verification_basis": "Original PNG header and Codex direct frame inspection, 2026-10-09; timing calibrated separately.",
+      "animations": {},
+      "unresolved": []
+    },
+    "smw_coin_50": {
+      "schema_version": 1,
+      "asset_id": "SMW/smw_coin_50",
+      "source_original": "smw/objects/coin_50_Strip4.png",
+      "source": "smw_coin_50.png",
+      "texture_path": "res://textures/basic/smw/smw_coin_50.png",
+      "frame_width": 32,
+      "frame_height": 32,
+      "frame_count": 4,
+      "layout": "horizontal_strip",
+      "pivot": [
+        16.0,
+        16.0
+      ],
+      "frame_offsets": [],
+      "metadata_state": "verified",
+      "visual_style": "smw",
+      "source_role": "pickup_animation",
+      "verification_basis": "Original PNG header and Codex direct frame inspection, 2026-10-09; timing calibrated separately.",
+      "animations": {},
+      "unresolved": []
+    },
+    "smw_explosion": {
+      "schema_version": 1,
+      "asset_id": "SMW/explosion",
+      "source_original": "smmwe_archive/smw_explosion_38x38_14f.png",
+      "source_archive": "local_debug_output/smmwe-research/SMM_WE_4.0.0.zip",
+      "archive_sprite_directory": "SMM_WE-HD-main/SMM_WE-HD/sprites/spr_explosion/",
+      "source_archive_sha256": "ce2b957af1e1efe68c678d0c38895d325a61a5852212e1feb52e43abdeb9c528",
+      "texture_path": "res://textures/basic/smw/smw_explosion.png",
+      "frame_width": 38,
+      "frame_height": 38,
+      "frame_count": 14,
+      "metadata_state": "verified",
+      "visual_style": "smw",
+      "source_role": "explosion_sequence",
+      "verification_basis": "Source YY frame ordering and unmodified concatenated PNG frames; inspected installed strip separately.",
+      "animations": {},
+      "layout": "horizontal_strip",
+      "pivot": [
+        19.0,
+        19.0
+      ],
+      "frame_offsets": [],
+      "unresolved": []
+    },
+    "smw_mushroom": {
+      "schema_version": 1,
+      "asset_id": "SMW/mushroom",
+      "source_original": "smw/objects/mushroom_Strip1.png",
+      "texture_path": "res://textures/basic/smw/smw_mushroom.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 1,
+      "metadata_state": "verified",
+      "source_role": "pickup_animation",
+      "visual_style": "smw",
+      "verification_basis": "Original PNG and direct source inspection; native static pickup",
+      "animations": {}
+    },
+    "smw_spiny_flipped": {
+      "schema_version": 1,
+      "asset_id": "SMW/smw_spiny_flipped",
+      "source": "smw_spiny_flipped.png",
+      "source_original": "smw/enemies/spiny_dead_Strip4.png",
+      "texture_path": "res://textures/basic/smw/smw_spiny_flipped.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 4,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8,
+        8
+      ],
+      "frame_offsets": [],
+      "animations": {},
+      "metadata_state": "verified",
+      "unresolved": [],
+      "visual_style": "smw",
+      "source_role": "flipped_shell_cycle",
+      "verification_basis": "Original source PNG and direct Codex frame inspection 2026-10-09; flipped shell and death poses, not locomotion."
+    },
+    "smw_spiny_shell_dead": {
+      "schema_version": 1,
+      "asset_id": "SMW/smw_spiny_shell_dead",
+      "source": "smw_spiny_shell_dead.png",
+      "source_original": "smw/enemies/shell_spiny_deads_Strip1.png",
+      "texture_path": "res://textures/basic/smw/smw_spiny_shell_dead.png",
+      "frame_width": 16,
+      "frame_height": 16,
+      "frame_count": 1,
+      "layout": "horizontal_strip",
+      "pivot": [
+        8,
+        8
+      ],
+      "frame_offsets": [],
+      "animations": {},
+      "metadata_state": "verified",
+      "unresolved": [],
+      "visual_style": "smw",
+      "source_role": "death_pose",
+      "verification_basis": "Original source PNG and direct Codex frame inspection 2026-10-09; flipped shell and death poses, not locomotion."
+    },
+    "spin_star": {
+      "schema_version": 1,
+      "asset_id": "SMW/spin_star",
+      "visual_style": "smw",
+      "source": "smw_spin_star.png",
+      "source_original": "smw/objects/star_explosion_Strip1.png",
+      "texture_path": "res://textures/basic/smw/smw_spin_star.png",
+      "frame_width": 8,
+      "frame_height": 8,
+      "frame_count": 1,
+      "layout": "horizontal_strip",
+      "pivot": [
+        4.0,
+        4.0
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "spin_star/idle": {
+          "frames": [
+            0
+          ],
+          "fps": 0,
+          "loop": false
+        }
+      },
+      "source_role": "spin_defeat_star",
+      "reviewed_at": "2026-10-10",
+      "metadata_state": "verified",
+      "verification_basis": "Directly inspected original 8x8 PNG; SMMWE obj_spinsmoke Draw/Alarm events, 16 active frames at half scale. Owner requests stars only, without smoke (2026-10-10).",
+      "unresolved": []
+    },
+    "skid_dust": {
+      "schema_version": 1,
+      "asset_id": "SMW/skid_dust",
+      "visual_style": "smw",
+      "source": "smw_skid_dust_8x8_5f.png",
+      "source_original": "smw/miscellaneous/skidsmoke_Strip5.png",
+      "texture_path": "res://textures/basic/smw/smw_skid_dust_8x8_5f.png",
+      "frame_width": 8,
+      "frame_height": 8,
+      "frame_count": 5,
+      "layout": "horizontal_strip",
+      "pivot": [
+        4,
+        4
+      ],
+      "frame_offsets": [],
+      "animations": {
+        "skid_dust/idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "fps": 18,
+          "loop": false
+        }
+      },
+      "source_role": "skid_dust_sequence",
+      "reviewed_at": "2026-10-10",
+      "metadata_state": "verified",
+      "verification_basis": "Directly inspected five SMW skid smoke frames; SMMWE obj_mario/Alarm_5 uses spr_skidsmoke every 8 ticks, obj_smoke/Create sets image_speed=0.3. Half-scale, feet anchor adaptation; first puff on SKID entry.",
+      "unresolved": []
+    }
+  },
+  "groups": {
+    "fireball": {
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "idle": {
+          "asset": "fireball",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 12,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      }
+    },
+    "fire": {
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "idle": {
+          "asset": "fire_idle",
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "walk": {
+          "asset": "fire_walk",
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "run": {
+          "asset": "fire_run",
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "jump": {
+          "asset": "fire_jump",
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "p_jump": {
+          "asset": "fire_p_jump",
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "fall": {
+          "asset": "fire_fall",
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "duck": {
+          "asset": "fire_duck",
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "skid": {
+          "asset": "fire_skid",
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "spin_jump": {
+          "asset": "fire_spin_jump",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "look_up": {
+          "asset": "fire_look_up",
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "walk_hold": {
+          "asset": "fire_hold",
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "run_hold": {
+          "asset": "fire_hold",
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "duck_hold": {
+          "asset": "fire_duck_hold",
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "look_up_hold": {
+          "asset": "fire_look_up_hold",
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "shoot": {
+          "asset": "fire_shoot",
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "dead": {
+          "asset": "mario_dead",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "idle_hold": {
+          "asset": "fire_hold",
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      }
+    },
+    "fire_flower": {
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "idle": {
+          "asset": "fire_flower",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 9,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        }
+      }
+    },
+    "coin": {
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "idle": {
+          "asset": "coin",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 9,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        }
+      }
+    },
+    "goomba": {
+      "visual_style": "smb1",
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "walk": {
+          "asset": "smb1_goomba_walk",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 9,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "squashed": {
+          "asset": "smb1_goomba_squashed",
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": false,
+          "timing_state": "CANDIDATE"
+        },
+        "dead": {
+          "asset": "smb1_goomba_walk",
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": false,
+          "timing_state": "CANDIDATE"
+        }
+      },
+      "visual_actor": "goomba",
+      "presentation_note": "Owner-approved SMB1 placeholder for Goomba in the SMW preset. Native walk and squashed frames; no synthetic scaling. Replace when independent art is supplied.",
+      "usage_state": "placeholder"
+    },
+    "galoomba": {
+      "visual_style": "smw",
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "walk": {
+          "asset": "smw_galoomba_walk",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 9,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "stunned": {
+          "asset": "smw_galoomba_walk",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE",
+          "presentation": "Original walk frames with vertical flip in STUNNED/HELD/THROWN, per owner 2026-10-10."
+        },
+        "dead": {
+          "asset": "smw_galoomba_walk",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      }
+    },
+    "question": {
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "idle": {
+          "asset": "question",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "empty": {
+          "asset": "empty",
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      }
+    },
+    "empty": {
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "idle": {
+          "asset": "empty",
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      }
+    },
+    "hard": {
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "idle": {
+          "asset": "hard",
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      }
+    },
+    "turn": {
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "idle": {
+          "asset": "turn",
+          "frames": [
+            0
+          ],
+          "fps": 5,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "turning": {
+          "asset": "turn",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 10,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        }
+      }
+    },
+    "koopa_green": {
+      "visual_style": "smw",
+      "offset": [
+        0,
+        -8
+      ],
+      "animations": {
+        "walk": {
+          "asset": "smw_koopa_green_walk",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 6,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        },
+        "dead": {
+          "asset": "smw_shell_green",
+          "frames": [
+            0
+          ],
+          "fps": 0,
+          "loop": false,
+          "timing_state": "CANDIDATE"
+        }
+      }
+    },
+    "shell_green": {
+      "visual_style": "smw",
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "slide": {
+          "asset": "smw_shell_green",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 12,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "stunned": {
+          "asset": "smw_shell_green",
+          "frames": [
+            0
+          ],
+          "fps": 0,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "inside": {
+          "asset": "smw_shell_green_inside",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 6,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        },
+        "dead": {
+          "asset": "smw_shell_green",
+          "frames": [
+            0
+          ],
+          "fps": 0,
+          "loop": false,
+          "timing_state": "CANDIDATE"
+        }
+      }
+    },
+    "naked_green": {
+      "visual_style": "smw",
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "walk": {
+          "asset": "smw_naked_green_walk",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 9,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        },
+        "ejected": {
+          "asset": "smw_naked_green_ejected",
+          "frames": [
+            0
+          ],
+          "fps": 0,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "dead": {
+          "asset": "smw_naked_green_walk",
+          "frames": [
+            0
+          ],
+          "fps": 0,
+          "loop": false,
+          "timing_state": "CANDIDATE"
+        }
+      }
+    },
+    "koopa_red": {
+      "visual_style": "smw",
+      "offset": [
+        0,
+        -8
+      ],
+      "animations": {
+        "walk": {
+          "asset": "smw_koopa_red_walk",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 6,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        },
+        "dead": {
+          "asset": "smw_shell_red",
+          "frames": [
+            0
+          ],
+          "fps": 0,
+          "loop": false,
+          "timing_state": "CANDIDATE"
+        }
+      }
+    },
+    "shell_red": {
+      "visual_style": "smw",
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "slide": {
+          "asset": "smw_shell_red",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 12,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "stunned": {
+          "asset": "smw_shell_red",
+          "frames": [
+            0
+          ],
+          "fps": 0,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "inside": {
+          "asset": "smw_shell_red_inside",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 6,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        },
+        "dead": {
+          "asset": "smw_shell_red",
+          "frames": [
+            0
+          ],
+          "fps": 0,
+          "loop": false,
+          "timing_state": "CANDIDATE"
+        }
+      }
+    },
+    "naked_red": {
+      "visual_style": "smw",
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "walk": {
+          "asset": "smw_naked_red_walk",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 9,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        },
+        "ejected": {
+          "asset": "smw_naked_red_ejected",
+          "frames": [
+            0
+          ],
+          "fps": 0,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "dead": {
+          "asset": "smw_naked_red_walk",
+          "frames": [
+            0
+          ],
+          "fps": 0,
+          "loop": false,
+          "timing_state": "CANDIDATE"
+        }
+      }
+    },
+    "buzzy": {
+      "visual_style": "smw",
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "walk": {
+          "asset": "smw_buzzy_walk",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 9,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        },
+        "dead": {
+          "asset": "smw_shell_buzzy",
+          "frames": [
+            0
+          ],
+          "fps": 0,
+          "loop": false,
+          "timing_state": "CANDIDATE"
+        }
+      }
+    },
+    "shell_buzzy": {
+      "visual_style": "smw",
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "slide": {
+          "asset": "smw_shell_buzzy",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 12,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "stunned": {
+          "asset": "smw_shell_buzzy",
+          "frames": [
+            0
+          ],
+          "fps": 0,
+          "loop": true,
+          "timing_state": "CANDIDATE"
+        },
+        "inside": {
+          "asset": "smw_shell_buzzy",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 6,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        },
+        "dead": {
+          "asset": "smw_shell_buzzy",
+          "frames": [
+            0
+          ],
+          "fps": 0,
+          "loop": false,
+          "timing_state": "CANDIDATE"
+        }
+      }
+    },
+    "spiny": {
+      "visual_style": "smw",
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "walk": {
+          "asset": "smw_spiny_walk",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 7.5,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        },
+        "dead": {
+          "asset": "smw_spiny_walk",
+          "frames": [
+            0
+          ],
+          "fps": 0,
+          "loop": false,
+          "timing_state": "CANDIDATE"
+        }
+      }
+    },
+    "bob_omb": {
+      "visual_style": "smw",
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "walk": {
+          "asset": "smw_bob_omb_walk",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 9,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        },
+        "primed": {
+          "asset": "smw_bob_omb_primed",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 6,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        },
+        "stunned": {
+          "asset": "smw_bob_omb_primed",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 6,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        },
+        "dead": {
+          "asset": "smw_bob_omb_walk",
+          "frames": [
+            0
+          ],
+          "fps": 0,
+          "loop": false,
+          "timing_state": "CANDIDATE"
+        }
+      }
+    },
+    "piranha": {
+      "visual_style": "smw",
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "idle": {
+          "asset": "smw_piranha_mouth",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 7.5,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        },
+        "dead": {
+          "asset": "smw_piranha_mouth",
+          "frames": [
+            0
+          ],
+          "fps": 0,
+          "loop": false,
+          "timing_state": "CANDIDATE"
+        }
+      }
+    },
+    "star": {
+      "visual_style": "smw",
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "idle": {
+          "asset": "smw_star",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 18,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        }
+      }
+    },
+    "one_up": {
+      "visual_style": "smw",
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "idle": {
+          "asset": "smw_one_up",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 9,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        }
+      }
+    },
+    "coin_10": {
+      "visual_style": "smw",
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "idle": {
+          "asset": "smw_coin_10",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 9,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        }
+      }
+    },
+    "coin_30": {
+      "visual_style": "smw",
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "idle": {
+          "asset": "smw_coin_30",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 9,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        }
+      }
+    },
+    "coin_50": {
+      "visual_style": "smw",
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "idle": {
+          "asset": "smw_coin_50",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 9,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        }
+      }
+    },
+    "explosion": {
+      "visual_style": "smw",
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "idle": {
+          "asset": "smw_explosion",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "fps": 27,
+          "loop": false,
+          "timing_state": "CANDIDATE"
+        }
+      }
+    },
+    "mushroom": {
+      "visual_style": "smw",
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "idle": {
+          "asset": "smw_mushroom",
+          "frames": [
+            0
+          ],
+          "fps": 0,
+          "loop": true
+        }
+      }
+    },
+    "shell_spiny": {
+      "visual_style": "smw",
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "slide": {
+          "asset": "smw_spiny_flipped",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 12,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        },
+        "stunned": {
+          "asset": "smw_spiny_flipped",
+          "frames": [
+            0
+          ],
+          "fps": 0,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        },
+        "inside": {
+          "asset": "smw_spiny_flipped",
+          "frames": [
+            0
+          ],
+          "fps": 0,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        },
+        "dead": {
+          "asset": "smw_spiny_shell_dead",
+          "frames": [
+            0
+          ],
+          "fps": 0,
+          "loop": true,
+          "timing_state": "SMMWE_SOURCE_REFERENCE"
+        }
+      }
+    },
+    "spin_star": {
+      "visual_style": "smw",
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "idle": {
+          "asset": "spin_star",
+          "frames": [
+            0
+          ],
+          "fps": 0,
+          "loop": false
+        }
+      }
+    },
+    "skid_dust": {
+      "visual_style": "smw",
+      "offset": [
+        0,
+        0
+      ],
+      "animations": {
+        "idle": {
+          "asset": "skid_dust",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "fps": 18,
+          "loop": false
+        }
+      }
+    }
+  }
+}

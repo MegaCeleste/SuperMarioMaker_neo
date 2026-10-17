@@ -1,0 +1,17 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/entities/coin.gd" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://data/visuals/basic_smw_coin.tres" id="2_frames"]
+[ext_resource type="Script" path="res://src/core/components/block_content.gd" id="3_content"]
+[sub_resource type="RectangleShape2D" id="sensor"]
+size = Vector2(12, 14)
+
+[node name="Coin" type="Area2D"]
+script = ExtResource("1_script")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_frames")
+animation = &"idle"
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("sensor")
+[node name="BlockContent" type="Node" parent="."]
+script = ExtResource("3_content")

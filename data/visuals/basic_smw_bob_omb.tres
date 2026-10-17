@@ -1,0 +1,64 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://48c01dsrcdxk"]
+
+[ext_resource type="Texture2D" uid="uid://cy0j1ax77dfdq" path="res://textures/basic/smw/smw_bob_omb_primed.png" id="t_smw_bob_omb_primed"]
+[ext_resource type="Texture2D" uid="uid://43elkrgj16ho" path="res://textures/basic/smw/smw_bob_omb_walk.png" id="t_smw_bob_omb_walk"]
+
+[sub_resource type="AtlasTexture" id="f_smw_bob_omb_walk_0"]
+atlas = ExtResource("t_smw_bob_omb_walk")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_smw_bob_omb_primed_0"]
+atlas = ExtResource("t_smw_bob_omb_primed")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_smw_bob_omb_primed_1"]
+atlas = ExtResource("t_smw_bob_omb_primed")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_smw_bob_omb_walk_1"]
+atlas = ExtResource("t_smw_bob_omb_walk")
+region = Rect2(16, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_smw_bob_omb_walk_0")
+}],
+"loop": 0,
+"name": &"dead",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_smw_bob_omb_primed_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_smw_bob_omb_primed_1")
+}],
+"loop": 1,
+"name": &"primed",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_smw_bob_omb_primed_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_smw_bob_omb_primed_1")
+}],
+"loop": 1,
+"name": &"stunned",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_smw_bob_omb_walk_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_smw_bob_omb_walk_1")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 9.0
+}]

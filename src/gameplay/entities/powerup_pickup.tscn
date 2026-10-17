@@ -1,0 +1,23 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/entities/powerup_pickup.gd" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://data/visuals/basic_smw_fire_flower.tres" id="2_frames"]
+[ext_resource type="Script" path="res://src/core/components/block_content.gd" id="3_content"]
+[sub_resource type="RectangleShape2D" id="body"]
+size = Vector2(14, 14)
+[sub_resource type="RectangleShape2D" id="sensor"]
+size = Vector2(16, 16)
+
+[node name="PowerUpPickup" type="CharacterBody2D"]
+script = ExtResource("1_script")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("body")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_frames")
+animation = &"idle"
+[node name="PickupArea" type="Area2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+shape = SubResource("sensor")
+[node name="BlockContent" type="Node" parent="."]
+script = ExtResource("3_content")

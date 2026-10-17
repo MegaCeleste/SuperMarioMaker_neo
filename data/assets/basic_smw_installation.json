@@ -1,0 +1,333 @@
+{
+  "schema_version": 1,
+  "asset_count": 53,
+  "records": [
+    {
+      "asset_id": "SMW/fireball",
+      "source_original": "smw/enemies/fireball_Strip4.png",
+      "source": "spr_SMW_fireball_Strip4.png",
+      "sha256": "61ac1945c9e890d484b639fd594a4d5d35bee3aa2c3cc78a06776be1f9f5212c"
+    },
+    {
+      "asset_id": "SMW/fire_flower",
+      "source_original": "smw/objects/fireflower_Strip2.png",
+      "source": "spr_SMW_fireflower_Strip2.png",
+      "sha256": "1300baf042f9ff9f3ba7d6b24a5e278685b1a68a39dee5c4b2a5b579f920f4b1"
+    },
+    {
+      "asset_id": "SMW/coin",
+      "source_original": "smw/objects/coin_Strip8.png",
+      "source": "spr_SMW_coin_Strip8.png",
+      "sha256": "9ebca2a0477afe83263ad1368a58368a809f062f5ac5f773133e0f710352c408"
+    },
+    {
+      "asset_id": "SMW/question",
+      "source_original": "smw/blocks/qblock_Strip4.png",
+      "source": "spr_SMW_qblock_Strip4.png",
+      "sha256": "93e78b9e8975bbb8863bbc0533f9aa4a2d23b6575deda39603e71ca07895e011"
+    },
+    {
+      "asset_id": "SMW/empty",
+      "source_original": "smw/blocks/qblock_empty_Strip1.png",
+      "source": "spr_SMW_qblock_empty_Strip1.png",
+      "sha256": "1f7abda3b8c676ce97e2cc6cae8f75cb57c61defd22e9d9cbf417d2122f89b39"
+    },
+    {
+      "asset_id": "SMW/turn",
+      "source_original": "smw/blocks/flipblock_Strip4.png",
+      "source": "spr_SMW_flipblock_Strip4.png",
+      "sha256": "d4da9478cb77a15919ab5098441695c5868b73d70b950543d732617de66bd82c"
+    },
+    {
+      "asset_id": "SMW/hard",
+      "source_original": "smw/blocks/block_rock_Strip1.png",
+      "source": "spr_SMW_block_rock_Strip1.png",
+      "sha256": "684a43ba10fe7bc36793c4b2f4d40f1a553d32d0e7727e3523073571dec87584"
+    },
+    {
+      "asset_id": "SMW/fire_idle",
+      "source_original": "smw/player/mario_fire_idle_Strip1.png",
+      "source": "spr_SMW_mario_fire_idle_Strip1.png",
+      "sha256": "8e45fa99745d05fbcc69c048430a4fd5c526665bf28effed749779c8a6e9ab25"
+    },
+    {
+      "asset_id": "SMW/fire_walk",
+      "source_original": "smw/player/mario_fire_walk_Strip3.png",
+      "source": "spr_SMW_mario_fire_walk_Strip3.png",
+      "sha256": "802fd2682193362f625f592e8e3eb30d3cea69897bc474fe6198ce8d191ebf26"
+    },
+    {
+      "asset_id": "SMW/fire_run",
+      "source_original": "smw/player/mario_fire_run_Strip3.png",
+      "source": "spr_SMW_mario_fire_run_Strip3.png",
+      "sha256": "a365576d4edb076c52aa74caa69835d679a0154aa3c5042765b33280c97cedaf"
+    },
+    {
+      "asset_id": "SMW/fire_jump",
+      "source_original": "smw/player/mario_fire_jump_Strip1.png",
+      "source": "spr_SMW_mario_fire_jump_Strip1.png",
+      "sha256": "b3e72a125469e612a75a4af2b27b7fbd050240acfd8f21273eb569f303484c92"
+    },
+    {
+      "asset_id": "SMW/fire_p_jump",
+      "source_original": "smw/player/mario_fire_runjump_Strip1.png",
+      "source": "spr_SMW_mario_fire_runjump_Strip1.png",
+      "sha256": "615146bd3616f3770c415eaa781b2ee990d13629f767d5c9b01ad37076c649b4"
+    },
+    {
+      "asset_id": "SMW/fire_fall",
+      "source_original": "smw/player/mario_fire_fall_Strip1.png",
+      "source": "spr_SMW_mario_fire_fall_Strip1.png",
+      "sha256": "2e9bd0c1b9840bda3726e0f9016a15bc4e8dd56f849ad91fd4d886e49409023e"
+    },
+    {
+      "asset_id": "SMW/fire_duck",
+      "source_original": "smw/player/mario_fire_duck_Strip1.png",
+      "source": "spr_SMW_mario_fire_duck_Strip1.png",
+      "sha256": "9450ebc587d3a88b999cc0e158786195e1de39239f98777b13c3d18b6927785c"
+    },
+    {
+      "asset_id": "SMW/fire_skid",
+      "source_original": "smw/player/mario_fire_skid_Strip1.png",
+      "source": "spr_SMW_mario_fire_skid_Strip1.png",
+      "sha256": "90eb4f425701de2f7f768f138ba99dbf93c38e9e56ea9df954883d7f09d4b914"
+    },
+    {
+      "asset_id": "SMW/fire_spin_jump",
+      "source_original": "smw/player/mario_fire_spinjump_Strip4.png",
+      "source": "spr_SMW_mario_fire_spinjump_Strip4.png",
+      "sha256": "f84dd3313904e147f5d729e19e5db6f8571f516a7e1bb728260ff2d146ef0a0f"
+    },
+    {
+      "asset_id": "SMW/fire_look_up",
+      "source_original": "smw/player/mario_fire_up_Strip1.png",
+      "source": "spr_SMW_mario_fire_up_Strip1.png",
+      "sha256": "0ea8ac1a47b839793a70124318d5abaa61b4c5cc0814026482c17017cdc47bbd"
+    },
+    {
+      "asset_id": "SMW/fire_hold",
+      "source_original": "smw/player/mario_fire_hold_Strip3.png",
+      "source": "spr_SMW_mario_fire_hold_Strip3.png",
+      "sha256": "d011b6cfa4490ab46160fd22b992865b9423b7f43eb072e46c52f92d1178b536"
+    },
+    {
+      "asset_id": "SMW/fire_duck_hold",
+      "source_original": "smw/player/mario_fire_duck_hold_Strip1.png",
+      "source": "spr_SMW_mario_fire_duck_hold_Strip1.png",
+      "sha256": "6ff08631a355e6d2df947588271dbd351de1be5ff87bee2b95b61e6fba04254f"
+    },
+    {
+      "asset_id": "SMW/fire_look_up_hold",
+      "source_original": "smw/player/mario_fire_up_hold_Strip1.png",
+      "source": "spr_SMW_mario_fire_up_hold_Strip1.png",
+      "sha256": "9c805ea9e09849854d41b98b38ebf32ffe1e304eee8608d3f604645db3600e1c"
+    },
+    {
+      "asset_id": "SMW/fire_shoot",
+      "source_original": "smw/player/mario_fire_shoot_Strip1.png",
+      "source": "spr_SMW_mario_fire_shoot_Strip1.png",
+      "sha256": "b9178356bbaebedeba26cc77b4d533bb130cba18a816999b0cafb73566ed5faa"
+    },
+    {
+      "asset_id": "SMW/mario_dead",
+      "source_original": "smw/player/mario_dead_Strip2.png",
+      "source": "spr_SMW_mario_dead_Strip2.png",
+      "sha256": "89c28565557d022c00fdb68cdc080c9ed0d40ab28016186f912eb303652fcc70"
+    },
+    {
+      "asset_id": "SMW/galoomba",
+      "source_original": "smw/enemies/galoomba_Strip2.png",
+      "source": "smw_galoomba_walk_16x16_2f.png",
+      "sha256": "fbf566c2d3a49b51a0532f951998ebb1cdd57a135e48b4a64fcb9aa82747969a"
+    },
+    {
+      "asset_id": "SMW/galoomba_stunned",
+      "source_original": "smw/enemies/galoomba_hold2_Strip2.png",
+      "source": "smw_galoomba_stunned_16x16_2f.png",
+      "sha256": "0707edf60f9807e460ccbf79fde1c7aff28536fa98d3d8aa38d9f704e840f1dd"
+    },
+    {
+      "asset_id": "SMB1/goomba",
+      "source_original": "smb1/enemies/goomba_Strip2.png",
+      "source": "smb1_goomba_walk_16x16_2f.png",
+      "sha256": "3615ea68d1db1c7ab273ff2c61c4545011f35e31c2f537b76f44570c546968c5"
+    },
+    {
+      "asset_id": "SMB1/goomba_squashed",
+      "source_original": "smb1/enemies/goomba_stomped_Strip1.png",
+      "source": "smb1_goomba_squashed_16x16_1f.png",
+      "sha256": "c7dcda1543a2fc10bdc1c32275adb87ef98670dfac84a3a90083287eb42d9f05"
+    },
+    {
+      "asset_id": "SMW/smw_koopa_green_walk",
+      "source_original": "smw/enemies/koopa_Strip2.png",
+      "source": "smw_koopa_green_walk.png",
+      "sha256": "0987cd59fbc7635450bb4e526a5a858f24d51b269d6d6622c97f0c35a4fea660"
+    },
+    {
+      "asset_id": "SMW/smw_shell_green",
+      "source_original": "smw/enemies/shell_Strip4.png",
+      "source": "smw_shell_green.png",
+      "sha256": "281a11279bac26cdc1ae2e13a0448970c685ee432bb02b3cdc28d1dcc6e4b206"
+    },
+    {
+      "asset_id": "SMW/smw_shell_green_inside",
+      "source_original": "smw/enemies/shell_inside_Strip2.png",
+      "source": "smw_shell_green_inside.png",
+      "sha256": "1ee4d5fb912415145f275715667ff77f4d7c266885a27d2c171cf47bf6784f88"
+    },
+    {
+      "asset_id": "SMW/smw_naked_green_walk",
+      "source_original": "smw/enemies/beachkoopa_walk_Strip2.png",
+      "source": "smw_naked_green_walk.png",
+      "sha256": "a2ecff1a304e0b6ccc963c79c128031a345803df4a792ee4c1be986de594833a"
+    },
+    {
+      "asset_id": "SMW/smw_naked_green_ejected",
+      "source_original": "smw/enemies/beachkoopa_Strip2.png",
+      "source": "smw_naked_green_ejected.png",
+      "sha256": "795a53557dfaaa8d90a67731448b92de7ebf61160bd4340f04bd598c5fcb27a8"
+    },
+    {
+      "asset_id": "SMW/smw_koopa_red_walk",
+      "source_original": "smw/enemies/koopa_red_Strip2.png",
+      "source": "smw_koopa_red_walk.png",
+      "sha256": "2e4c507b29c3825d548695a92b99de2e4a7288670310e34aa5a6252c53993733"
+    },
+    {
+      "asset_id": "SMW/smw_shell_red",
+      "source_original": "smw/enemies/shell_red_Strip4.png",
+      "source": "smw_shell_red.png",
+      "sha256": "9484fa576ff62079237c8483c034a8816bc0aa80a3d5745d04607ca4d9c4aa89"
+    },
+    {
+      "asset_id": "SMW/smw_shell_red_inside",
+      "source_original": "smw/enemies/shell_red_inside_Strip2.png",
+      "source": "smw_shell_red_inside.png",
+      "sha256": "1d146edb02d05307249a57da83c04d1c15ce129a322ad19adf071601c8101372"
+    },
+    {
+      "asset_id": "SMW/smw_naked_red_walk",
+      "source_original": "smw/enemies/beachkoopa_walk_red_Strip2.png",
+      "source": "smw_naked_red_walk.png",
+      "sha256": "9f6de467dc9b909614e6a56f51fc463c9249bf27fe4cec0d43786698dfc51202"
+    },
+    {
+      "asset_id": "SMW/smw_naked_red_ejected",
+      "source_original": "smw/enemies/beachkoopa_red_Strip2.png",
+      "source": "smw_naked_red_ejected.png",
+      "sha256": "6a745c07c0f8fe975182a82abed81fa2069c22722127dd791dc57cf2465efa07"
+    },
+    {
+      "asset_id": "SMW/smw_buzzy_walk",
+      "source_original": "smw/enemies/buzzybeetle_Strip2.png",
+      "source": "smw_buzzy_walk.png",
+      "sha256": "ca33022bf230eef692171670d43168154cd4346e678b1feaa184400e68638800"
+    },
+    {
+      "asset_id": "SMW/smw_shell_buzzy",
+      "source_original": "smw/enemies/shell_buzzy_Strip4.png",
+      "source": "smw_shell_buzzy.png",
+      "sha256": "33eb7b2a454bb4fc240340a68bc2a28a71c1525ea86adb38a031c4c6c7ca2913"
+    },
+    {
+      "asset_id": "SMW/smw_spiny_walk",
+      "source_original": "smw/enemies/spiny_Strip2.png",
+      "source": "smw_spiny_walk.png",
+      "sha256": "f35106a142099fb28ea45908a9efe3a225b1f05617755dee6cdfb87d843790c7"
+    },
+    {
+      "asset_id": "SMW/smw_bob_omb_walk",
+      "source_original": "smw/enemies/bobomb_Strip2.png",
+      "source": "smw_bob_omb_walk.png",
+      "sha256": "5ff1a9b8019e5ce147b5e3aaa04763a8166e0a8582c0d73603a4af9dcd72932b"
+    },
+    {
+      "asset_id": "SMW/smw_bob_omb_primed",
+      "source_original": "smw/enemies/bobomb_hold_Strip2.png",
+      "source": "smw_bob_omb_primed.png",
+      "sha256": "07a8f3d6498d4dd798814bcdbf339e65bbb1cf2b6a38bc458248c1e33585c673"
+    },
+    {
+      "asset_id": "SMW/smw_piranha_mouth",
+      "source_original": "smw/enemies/jumppiranha_Strip4.png",
+      "source": "smw_piranha_mouth.png",
+      "sha256": "695dea5ef6c7f4398e124a56b96713d436136cb61068403005a9a711569bd45d"
+    },
+    {
+      "asset_id": "SMW/smw_star",
+      "source_original": "smw/objects/star_Strip4.png",
+      "source": "smw_star.png",
+      "sha256": "0520e9b93cbee3e940fd1d8db271d11f5164608cd2c98adda83d102a9bd5dd7a"
+    },
+    {
+      "asset_id": "SMW/smw_one_up",
+      "source_original": "smw/objects/1up_Strip2.png",
+      "source": "smw_one_up.png",
+      "sha256": "bd75558e2e7a6b781a6bcaf76e3e669dba5c7ee8ebca70fbf96c6191887748c3"
+    },
+    {
+      "asset_id": "SMW/smw_coin_10",
+      "source_original": "smw/objects/coin_10_Strip4.png",
+      "source": "smw_coin_10.png",
+      "sha256": "d2becd3469b4b30fed11023544016fcec8a4ba30802d91de04dedc1fb3aaecf6"
+    },
+    {
+      "asset_id": "SMW/smw_coin_30",
+      "source_original": "smw/objects/coin_30_Strip4.png",
+      "source": "smw_coin_30.png",
+      "sha256": "5922a1e5e5e475b828164e5903ece2ed76dc972cb830901d1f319c5b1c6849f2"
+    },
+    {
+      "asset_id": "SMW/smw_coin_50",
+      "source_original": "smw/objects/coin_50_Strip4.png",
+      "source": "smw_coin_50.png",
+      "sha256": "5d330e85514d248acf3cebf2e45f0ca3ec25cce800b118ac6b490e79790a48c8"
+    },
+    {
+      "asset_id": "SMW/explosion",
+      "source_original": "smmwe_archive/smw_explosion_38x38_14f.png",
+      "source": "smw_explosion.png",
+      "sha256": "82c150204db799daf696b5dcf513ba1f6d34083e1bfe8470a673133594e86847"
+    },
+    {
+      "asset_id": "SMW/mushroom",
+      "source_original": "smw/objects/mushroom_Strip1.png",
+      "source": "smw_mushroom.png",
+      "sha256": "95c86b23cfb935ccad88021f47f4a6b99d1305759652d7484cecbc856a82b336"
+    },
+    {
+      "asset_id": "SMW/smw_spiny_flipped",
+      "source_original": "smw/enemies/spiny_dead_Strip4.png",
+      "source": "smw_spiny_flipped.png",
+      "sha256": "6785c9d5f1e11414e8758038151b519623f58a1e3bfc5c410ad66a35841ec1cb"
+    },
+    {
+      "asset_id": "SMW/smw_spiny_shell_dead",
+      "source_original": "smw/enemies/shell_spiny_deads_Strip1.png",
+      "source": "smw_spiny_shell_dead.png",
+      "sha256": "3552299fa0b374615d8a70226fa185c3435dae7c8a0cc7a22f7f36d0706abb53"
+    },
+    {
+      "asset_id": "SMW/spin_star",
+      "source_original": "smw/objects/star_explosion_Strip1.png",
+      "source": "smw_spin_star.png",
+      "sha256": "697f73aaf8aa7435d07927aeccdb44088d88dfaf5cfff9d6d4c6063770477074"
+    },
+    {
+      "asset_id": "SMW/skid_dust",
+      "source_original": "smw/miscellaneous/skidsmoke_Strip5.png",
+      "source": "smw_skid_dust_8x8_5f.png",
+      "sha256": "cfd6c19f08f1409ab8c00c40cfa71d23fe9cf7872e04f8b8731dc8677dc6f9c7"
+    }
+  ],
+  "rejected_sources": [
+    {
+      "source_original": "smw/enemies/goomba_res_Strip4.png",
+      "retired_texture_path": "res://textures/basic/smw/spr_SMW_goomba_res_Strip4.png",
+      "source_role": "mixed_appearance_variants",
+      "reviewed_at": "2026-10-08",
+      "reason": "Frames are different appearances, not a walk cycle; the old verified animation mapping was incorrect."
+    }
+  ]
+}

@@ -1,0 +1,292 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://dh1cntixx80c8"]
+
+[ext_resource type="Texture2D" uid="uid://cqmvcej01dy7w" path="res://textures/basic/smw/spr_SMW_mario_fire_duck_Strip1.png" id="t_fire_duck"]
+[ext_resource type="Texture2D" uid="uid://cc7dxyvvat6aa" path="res://textures/basic/smw/spr_SMW_mario_fire_duck_hold_Strip1.png" id="t_fire_duck_hold"]
+[ext_resource type="Texture2D" uid="uid://dbd4uo1hstub2" path="res://textures/basic/smw/spr_SMW_mario_fire_fall_Strip1.png" id="t_fire_fall"]
+[ext_resource type="Texture2D" uid="uid://b0bedlf8x881d" path="res://textures/basic/smw/spr_SMW_mario_fire_hold_Strip3.png" id="t_fire_hold"]
+[ext_resource type="Texture2D" uid="uid://chxa10ybfgsn3" path="res://textures/basic/smw/spr_SMW_mario_fire_idle_Strip1.png" id="t_fire_idle"]
+[ext_resource type="Texture2D" uid="uid://dvidie5no420m" path="res://textures/basic/smw/spr_SMW_mario_fire_jump_Strip1.png" id="t_fire_jump"]
+[ext_resource type="Texture2D" uid="uid://b3g7vsspii8xo" path="res://textures/basic/smw/spr_SMW_mario_fire_up_Strip1.png" id="t_fire_look_up"]
+[ext_resource type="Texture2D" uid="uid://dsejsncnpy4ne" path="res://textures/basic/smw/spr_SMW_mario_fire_up_hold_Strip1.png" id="t_fire_look_up_hold"]
+[ext_resource type="Texture2D" uid="uid://dt73wmcyinuo8" path="res://textures/basic/smw/spr_SMW_mario_fire_runjump_Strip1.png" id="t_fire_p_jump"]
+[ext_resource type="Texture2D" uid="uid://3412d3dm1ri5" path="res://textures/basic/smw/spr_SMW_mario_fire_run_Strip3.png" id="t_fire_run"]
+[ext_resource type="Texture2D" uid="uid://xvq4wll00ewp" path="res://textures/basic/smw/spr_SMW_mario_fire_shoot_Strip1.png" id="t_fire_shoot"]
+[ext_resource type="Texture2D" uid="uid://b0dkra1327sy7" path="res://textures/basic/smw/spr_SMW_mario_fire_skid_Strip1.png" id="t_fire_skid"]
+[ext_resource type="Texture2D" uid="uid://dow70ouqacpea" path="res://textures/basic/smw/spr_SMW_mario_fire_spinjump_Strip4.png" id="t_fire_spin_jump"]
+[ext_resource type="Texture2D" uid="uid://b0myb50um5xs1" path="res://textures/basic/smw/spr_SMW_mario_fire_walk_Strip3.png" id="t_fire_walk"]
+[ext_resource type="Texture2D" uid="uid://bxp2jo3qr8f3a" path="res://textures/basic/smw/spr_SMW_mario_dead_Strip2.png" id="t_mario_dead"]
+
+[sub_resource type="AtlasTexture" id="f_mario_dead_0"]
+atlas = ExtResource("t_mario_dead")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="f_mario_dead_1"]
+atlas = ExtResource("t_mario_dead")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="f_fire_duck_0"]
+atlas = ExtResource("t_fire_duck")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_fire_duck_hold_0"]
+atlas = ExtResource("t_fire_duck_hold")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_fire_fall_0"]
+atlas = ExtResource("t_fire_fall")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_fire_idle_0"]
+atlas = ExtResource("t_fire_idle")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_fire_hold_0"]
+atlas = ExtResource("t_fire_hold")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_fire_jump_0"]
+atlas = ExtResource("t_fire_jump")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_fire_look_up_0"]
+atlas = ExtResource("t_fire_look_up")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_fire_look_up_hold_0"]
+atlas = ExtResource("t_fire_look_up_hold")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_fire_p_jump_0"]
+atlas = ExtResource("t_fire_p_jump")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_fire_run_0"]
+atlas = ExtResource("t_fire_run")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_fire_run_1"]
+atlas = ExtResource("t_fire_run")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_fire_run_2"]
+atlas = ExtResource("t_fire_run")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_fire_hold_1"]
+atlas = ExtResource("t_fire_hold")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_fire_hold_2"]
+atlas = ExtResource("t_fire_hold")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_fire_shoot_0"]
+atlas = ExtResource("t_fire_shoot")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_fire_skid_0"]
+atlas = ExtResource("t_fire_skid")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_fire_spin_jump_0"]
+atlas = ExtResource("t_fire_spin_jump")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_fire_spin_jump_1"]
+atlas = ExtResource("t_fire_spin_jump")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_fire_spin_jump_2"]
+atlas = ExtResource("t_fire_spin_jump")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_fire_spin_jump_3"]
+atlas = ExtResource("t_fire_spin_jump")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_fire_walk_0"]
+atlas = ExtResource("t_fire_walk")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_fire_walk_1"]
+atlas = ExtResource("t_fire_walk")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="f_fire_walk_2"]
+atlas = ExtResource("t_fire_walk")
+region = Rect2(64, 0, 32, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_mario_dead_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_mario_dead_1")
+}],
+"loop": 1,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_fire_duck_0")
+}],
+"loop": 1,
+"name": &"duck",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_fire_duck_hold_0")
+}],
+"loop": 1,
+"name": &"duck_hold",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_fire_fall_0")
+}],
+"loop": 1,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_fire_idle_0")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_fire_hold_0")
+}],
+"loop": 1,
+"name": &"idle_hold",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_fire_jump_0")
+}],
+"loop": 1,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_fire_look_up_0")
+}],
+"loop": 1,
+"name": &"look_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_fire_look_up_hold_0")
+}],
+"loop": 1,
+"name": &"look_up_hold",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_fire_p_jump_0")
+}],
+"loop": 1,
+"name": &"p_jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_fire_run_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_fire_run_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_fire_run_2")
+}],
+"loop": 1,
+"name": &"run",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_fire_hold_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_fire_hold_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_fire_hold_2")
+}],
+"loop": 1,
+"name": &"run_hold",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_fire_shoot_0")
+}],
+"loop": 1,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_fire_skid_0")
+}],
+"loop": 1,
+"name": &"skid",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_fire_spin_jump_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_fire_spin_jump_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_fire_spin_jump_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_fire_spin_jump_3")
+}],
+"loop": 1,
+"name": &"spin_jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_fire_walk_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_fire_walk_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_fire_walk_2")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_fire_hold_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_fire_hold_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_fire_hold_2")
+}],
+"loop": 1,
+"name": &"walk_hold",
+"speed": 5.0
+}]

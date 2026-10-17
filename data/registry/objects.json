@@ -4,40 +4,177 @@
     "category": "block",
     "palette_category": "blocks",
     "display_name_key": "OBJ_QUESTION_BLOCK",
-    "styles": ["smb1", "smb3", "smw"],
+    "styles": [
+      "smb1",
+      "smb3",
+      "smw"
+    ],
     "scenes": {
       "play": "res://src/gameplay/blocks/question_block.tscn",
       "editor_preview": "res://src/gameplay/blocks/question_block.tscn"
     },
-    "components": ["BumpableComponent", "ContainerComponent"],
+    "components": [
+      "BumpableComponent",
+      "ContainerComponent"
+    ],
     "properties_schema": {
-      "contained_item": { "type": "object_id", "default": "smm.item.coin" }
+      "contained_item": {
+        "type": "object_id",
+        "default": "smm.item.coin",
+        "enum": [
+          "smm.item.coin",
+          "smm.item.super_mushroom",
+          "smm.item.fire_flower",
+          "smm.item.super_star",
+          "smm.item.one_up"
+        ]
+      }
     }
+  },
+  {
+    "id": "smm.block.empty",
+    "category": "block",
+    "palette_category": "blocks",
+    "display_name_key": "OBJ_EMPTY_BLOCK",
+    "styles": [
+      "smb1",
+      "smb3",
+      "smw"
+    ],
+    "scenes": {
+      "play": "res://src/gameplay/blocks/empty_block.tscn",
+      "editor_preview": "res://src/gameplay/blocks/empty_block.tscn"
+    },
+    "components": [],
+    "properties_schema": {}
+  },
+  {
+    "id": "smm.block.hard",
+    "category": "block",
+    "palette_category": "blocks",
+    "display_name_key": "OBJ_HARD_BLOCK",
+    "styles": [
+      "smb1",
+      "smb3",
+      "smw"
+    ],
+    "scenes": {
+      "play": "res://src/gameplay/blocks/hard_block.tscn",
+      "editor_preview": "res://src/gameplay/blocks/hard_block.tscn"
+    },
+    "components": [],
+    "properties_schema": {}
+  },
+  {
+    "id": "smm.block.turn",
+    "category": "block",
+    "palette_category": "blocks",
+    "display_name_key": "OBJ_TURN_BLOCK",
+    "styles": [
+      "smw"
+    ],
+    "scenes": {
+      "play": "res://src/gameplay/blocks/turn_block.tscn",
+      "editor_preview": "res://src/gameplay/blocks/turn_block.tscn"
+    },
+    "components": [
+      "BumpableComponent"
+    ],
+    "properties_schema": {}
   },
   {
     "id": "smm.enemy.goomba",
     "category": "enemy",
     "palette_category": "enemies",
     "display_name_key": "OBJ_GOOMBA",
-    "styles": ["smb1", "smb3", "smw"],
+    "styles": [
+      "smb1",
+      "smb3",
+      "smw"
+    ],
     "scenes": {
       "play": "res://src/gameplay/enemies/goomba.tscn",
       "editor_preview": "res://src/gameplay/enemies/goomba.tscn"
     },
-    "components": ["GravityMovementComponent", "HitboxComponent"],
-    "properties_schema": {}
+    "components": [],
+    "properties_schema": {
+      "start_direction": {
+        "type": "int",
+        "default": -1,
+        "enum": [
+          -1,
+          1
+        ]
+      }
+    }
+  },
+  {
+    "id": "smm.enemy.galoomba",
+    "category": "enemy",
+    "palette_category": "enemies",
+    "display_name_key": "OBJ_GALOOMBA",
+    "styles": [
+      "smw"
+    ],
+    "scenes": {
+      "play": "res://src/gameplay/enemies/galoomba.tscn",
+      "editor_preview": "res://src/gameplay/enemies/galoomba.tscn"
+    },
+    "components": [
+      "ICarryable"
+    ],
+    "properties_schema": {
+      "start_direction": {
+        "type": "int",
+        "default": -1,
+        "enum": [
+          -1,
+          1
+        ]
+      }
+    }
   },
   {
     "id": "smm.item.super_mushroom",
     "category": "item",
     "palette_category": "items",
     "display_name_key": "OBJ_SUPER_MUSHROOM",
-    "styles": ["smb1", "smb3", "smw"],
+    "styles": [
+      "smb1",
+      "smb3",
+      "smw"
+    ],
     "scenes": {
       "play": "res://src/gameplay/entities/mushroom.tscn",
       "editor_preview": "res://src/gameplay/entities/mushroom.tscn"
     },
-    "components": ["GravityMovementComponent", "HitboxComponent"],
+    "components": [],
+    "properties_schema": {
+      "start_direction": {
+        "type": "int",
+        "default": -1,
+        "enum": [
+          -1,
+          1
+        ]
+      }
+    }
+  },
+  {
+    "id": "smm.item.fire_flower",
+    "category": "item",
+    "palette_category": "items",
+    "display_name_key": "OBJ_FIRE_FLOWER",
+    "styles": [
+      "smb1",
+      "smb3",
+      "smw"
+    ],
+    "scenes": {
+      "play": "res://src/gameplay/entities/fire_flower.tscn",
+      "editor_preview": "res://src/gameplay/entities/fire_flower.tscn"
+    },
+    "components": [],
     "properties_schema": {}
   },
   {
@@ -45,12 +182,16 @@
     "category": "item",
     "palette_category": "items",
     "display_name_key": "OBJ_COIN",
-    "styles": ["smb1", "smb3", "smw"],
+    "styles": [
+      "smb1",
+      "smb3",
+      "smw"
+    ],
     "scenes": {
       "play": "res://src/gameplay/entities/coin.tscn",
       "editor_preview": "res://src/gameplay/entities/coin.tscn"
     },
-    "components": ["HitboxComponent"],
+    "components": [],
     "properties_schema": {}
   },
   {
@@ -58,12 +199,334 @@
     "category": "terrain",
     "palette_category": "terrain",
     "display_name_key": "OBJ_GROUND",
-    "styles": ["smb1", "smb3", "smw"],
+    "styles": [
+      "smb1",
+      "smb3",
+      "smw"
+    ],
     "scenes": {
       "play": "",
       "editor_preview": ""
     },
     "components": [],
     "properties_schema": {}
+  },
+  {
+    "id": "smm.enemy.koopa_green",
+    "category": "enemy",
+    "palette_category": "enemies",
+    "display_name_key": "OBJ_KOOPA_GREEN",
+    "styles": [
+      "smw"
+    ],
+    "scenes": {
+      "play": "res://src/gameplay/enemies/koopa.tscn",
+      "editor_preview": "res://src/gameplay/enemies/koopa.tscn"
+    },
+    "components": [],
+    "properties_schema": {
+      "start_direction": {
+        "type": "int",
+        "default": -1,
+        "enum": [
+          -1,
+          1
+        ]
+      },
+      "color": {
+        "type": "string",
+        "default": "green",
+        "enum": [
+          "green"
+        ]
+      }
+    }
+  },
+  {
+    "id": "smm.enemy.koopa_red",
+    "category": "enemy",
+    "palette_category": "enemies",
+    "display_name_key": "OBJ_KOOPA_RED",
+    "styles": [
+      "smw"
+    ],
+    "scenes": {
+      "play": "res://src/gameplay/enemies/koopa.tscn",
+      "editor_preview": "res://src/gameplay/enemies/koopa.tscn"
+    },
+    "components": [],
+    "properties_schema": {
+      "start_direction": {
+        "type": "int",
+        "default": -1,
+        "enum": [
+          -1,
+          1
+        ]
+      },
+      "color": {
+        "type": "string",
+        "default": "red",
+        "enum": [
+          "red"
+        ]
+      }
+    }
+  },
+  {
+    "id": "smm.enemy.buzzy_beetle",
+    "category": "enemy",
+    "palette_category": "enemies",
+    "display_name_key": "OBJ_BUZZY_BEETLE",
+    "styles": [
+      "smw"
+    ],
+    "scenes": {
+      "play": "res://src/gameplay/enemies/buzzy_beetle.tscn",
+      "editor_preview": "res://src/gameplay/enemies/buzzy_beetle.tscn"
+    },
+    "components": [],
+    "properties_schema": {
+      "start_direction": {
+        "type": "int",
+        "default": -1,
+        "enum": [
+          -1,
+          1
+        ]
+      }
+    }
+  },
+  {
+    "id": "smm.enemy.spiny",
+    "category": "enemy",
+    "palette_category": "enemies",
+    "display_name_key": "OBJ_SPINY",
+    "styles": [
+      "smw"
+    ],
+    "scenes": {
+      "play": "res://src/gameplay/enemies/spiny.tscn",
+      "editor_preview": "res://src/gameplay/enemies/spiny.tscn"
+    },
+    "components": [],
+    "properties_schema": {
+      "start_direction": {
+        "type": "int",
+        "default": -1,
+        "enum": [
+          -1,
+          1
+        ]
+      }
+    }
+  },
+  {
+    "id": "smm.enemy.bob_omb",
+    "category": "enemy",
+    "palette_category": "enemies",
+    "display_name_key": "OBJ_BOB_OMB",
+    "styles": [
+      "smw"
+    ],
+    "scenes": {
+      "play": "res://src/gameplay/enemies/bob_omb.tscn",
+      "editor_preview": "res://src/gameplay/enemies/bob_omb.tscn"
+    },
+    "components": [
+      "ICarryable"
+    ],
+    "properties_schema": {
+      "start_direction": {
+        "type": "int",
+        "default": -1,
+        "enum": [
+          -1,
+          1
+        ]
+      }
+    }
+  },
+  {
+    "id": "smm.enemy.piranha_plant",
+    "category": "enemy",
+    "palette_category": "enemies",
+    "display_name_key": "OBJ_PIRANHA_PLANT",
+    "styles": [
+      "smw"
+    ],
+    "scenes": {
+      "play": "res://src/gameplay/enemies/piranha_plant.tscn",
+      "editor_preview": "res://src/gameplay/enemies/piranha_plant.tscn"
+    },
+    "components": [],
+    "properties_schema": {
+      "orientation": {
+        "type": "string",
+        "default": "up",
+        "enum": [
+          "up",
+          "down",
+          "left",
+          "right"
+        ]
+      }
+    }
+  },
+  {
+    "id": "smm.enemy.koopa_shell",
+    "category": "enemy",
+    "palette_category": "enemies",
+    "display_name_key": "OBJ_KOOPA_SHELL",
+    "styles": [
+      "smw"
+    ],
+    "scenes": {
+      "play": "res://src/gameplay/enemies/koopa_shell.tscn",
+      "editor_preview": "res://src/gameplay/enemies/koopa_shell.tscn"
+    },
+    "components": [
+      "ICarryable"
+    ],
+    "properties_schema": {
+      "shell_kind": {
+        "type": "string",
+        "default": "green",
+        "enum": [
+          "green",
+          "red",
+          "buzzy"
+        ]
+      }
+    }
+  },
+  {
+    "id": "smm.item.super_star",
+    "category": "item",
+    "palette_category": "items",
+    "display_name_key": "OBJ_SUPER_STAR",
+    "styles": [
+      "smw"
+    ],
+    "scenes": {
+      "play": "res://src/gameplay/entities/super_star.tscn",
+      "editor_preview": "res://src/gameplay/entities/super_star.tscn"
+    },
+    "components": [
+      "PickupInteraction",
+      "BlockContent"
+    ],
+    "properties_schema": {
+      "start_direction": {
+        "type": "int",
+        "default": -1,
+        "enum": [
+          -1,
+          1
+        ]
+      }
+    }
+  },
+  {
+    "id": "smm.item.one_up",
+    "category": "item",
+    "palette_category": "items",
+    "display_name_key": "OBJ_ONE_UP",
+    "styles": [
+      "smw"
+    ],
+    "scenes": {
+      "play": "res://src/gameplay/entities/one_up.tscn",
+      "editor_preview": "res://src/gameplay/entities/one_up.tscn"
+    },
+    "components": [
+      "PickupInteraction",
+      "BlockContent"
+    ],
+    "properties_schema": {
+      "start_direction": {
+        "type": "int",
+        "default": -1,
+        "enum": [
+          -1,
+          1
+        ]
+      }
+    }
+  },
+  {
+    "id": "smm.item.coin_10",
+    "category": "item",
+    "palette_category": "items",
+    "display_name_key": "OBJ_COIN_10",
+    "styles": [
+      "smw"
+    ],
+    "scenes": {
+      "play": "res://src/gameplay/entities/big_coin.tscn",
+      "editor_preview": "res://src/gameplay/entities/big_coin.tscn"
+    },
+    "components": [
+      "PickupInteraction"
+    ],
+    "properties_schema": {
+      "value": {
+        "type": "int",
+        "default": 10,
+        "enum": [
+          10
+        ]
+      }
+    }
+  },
+  {
+    "id": "smm.item.coin_30",
+    "category": "item",
+    "palette_category": "items",
+    "display_name_key": "OBJ_COIN_30",
+    "styles": [
+      "smw"
+    ],
+    "scenes": {
+      "play": "res://src/gameplay/entities/big_coin.tscn",
+      "editor_preview": "res://src/gameplay/entities/big_coin.tscn"
+    },
+    "components": [
+      "PickupInteraction"
+    ],
+    "properties_schema": {
+      "value": {
+        "type": "int",
+        "default": 30,
+        "enum": [
+          30
+        ]
+      }
+    }
+  },
+  {
+    "id": "smm.item.coin_50",
+    "category": "item",
+    "palette_category": "items",
+    "display_name_key": "OBJ_COIN_50",
+    "styles": [
+      "smw"
+    ],
+    "scenes": {
+      "play": "res://src/gameplay/entities/big_coin.tscn",
+      "editor_preview": "res://src/gameplay/entities/big_coin.tscn"
+    },
+    "components": [
+      "PickupInteraction"
+    ],
+    "properties_schema": {
+      "value": {
+        "type": "int",
+        "default": 50,
+        "enum": [
+          50
+        ]
+      }
+    }
   }
 ]

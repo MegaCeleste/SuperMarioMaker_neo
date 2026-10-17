@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cgy3tno1pg60o" path="res://src/gameplay/entities/mushroom.gd" id="1_d60rn"]
 [ext_resource type="Texture2D" uid="uid://b757gbkr1a7j0" path="res://textures/smw/entities/mushroom.png" id="2_u7jc2"]
+[ext_resource type="Script" path="res://src/core/components/block_content.gd" id="3_content"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_til3n"]
 size = Vector2(14, 14)
@@ -25,8 +26,8 @@ animations = [{
 size = Vector2(16, 16)
 
 [node name="Mushroom" type="CharacterBody2D"]
-collision_layer = 2
-collision_mask = 3
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_d60rn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -41,3 +42,6 @@ frame_progress = 0.8581786
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
 shape = SubResource("RectangleShape2D_pickup")
+
+[node name="BlockContent" type="Node" parent="."]
+script = ExtResource("3_content")

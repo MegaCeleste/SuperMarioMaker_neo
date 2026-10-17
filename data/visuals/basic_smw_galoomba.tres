@@ -1,0 +1,47 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://d0huwsuabxp83"]
+
+[ext_resource type="Texture2D" uid="uid://wq7qhhm345g0" path="res://textures/basic/smw/smw_galoomba_walk_16x16_2f.png" id="t_smw_galoomba_walk"]
+
+[sub_resource type="AtlasTexture" id="f_smw_galoomba_walk_0"]
+atlas = ExtResource("t_smw_galoomba_walk")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_smw_galoomba_walk_1"]
+atlas = ExtResource("t_smw_galoomba_walk")
+region = Rect2(16, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_smw_galoomba_walk_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_smw_galoomba_walk_1")
+}],
+"loop": 1,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_smw_galoomba_walk_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_smw_galoomba_walk_1")
+}],
+"loop": 1,
+"name": &"stunned",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_smw_galoomba_walk_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_smw_galoomba_walk_1")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 4.0
+}]

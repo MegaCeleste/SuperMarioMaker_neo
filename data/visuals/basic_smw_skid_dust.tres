@@ -1,0 +1,26 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://textures/basic/smw/smw_skid_dust_8x8_5f.png" id="t_skid_dust"]
+
+[sub_resource type="AtlasTexture" id="f_skid_dust_0"]
+atlas = ExtResource("t_skid_dust")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="f_skid_dust_1"]
+atlas = ExtResource("t_skid_dust")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="f_skid_dust_2"]
+atlas = ExtResource("t_skid_dust")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="f_skid_dust_3"]
+atlas = ExtResource("t_skid_dust")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="f_skid_dust_4"]
+atlas = ExtResource("t_skid_dust")
+region = Rect2(32, 0, 8, 8)
+
+[resource]
+animations = [{"frames": [{"duration": 1.0, "texture": SubResource("f_skid_dust_0")}, {"duration": 1.0, "texture": SubResource("f_skid_dust_1")}, {"duration": 1.0, "texture": SubResource("f_skid_dust_2")}, {"duration": 1.0, "texture": SubResource("f_skid_dust_3")}, {"duration": 1.0, "texture": SubResource("f_skid_dust_4")}], "loop": false, "name": &"idle", "speed": 18.0}]

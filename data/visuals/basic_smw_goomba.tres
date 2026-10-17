@@ -1,0 +1,46 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://ulcb6dnrv8ia"]
+
+[ext_resource type="Texture2D" uid="uid://bdccq4upyyj5l" path="res://textures/basic/smb1/smb1_goomba_squashed_16x16_1f.png" id="t_smb1_goomba_squashed"]
+[ext_resource type="Texture2D" uid="uid://dpsedopuf15o7" path="res://textures/basic/smb1/smb1_goomba_walk_16x16_2f.png" id="t_smb1_goomba_walk"]
+
+[sub_resource type="AtlasTexture" id="f_smb1_goomba_walk_0"]
+atlas = ExtResource("t_smb1_goomba_walk")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_smb1_goomba_squashed_0"]
+atlas = ExtResource("t_smb1_goomba_squashed")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_smb1_goomba_walk_1"]
+atlas = ExtResource("t_smb1_goomba_walk")
+region = Rect2(16, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_smb1_goomba_walk_0")
+}],
+"loop": 0,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_smb1_goomba_squashed_0")
+}],
+"loop": 0,
+"name": &"squashed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_smb1_goomba_walk_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("f_smb1_goomba_walk_1")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 9.0
+}]

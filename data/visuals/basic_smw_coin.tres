@@ -1,0 +1,38 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://textures/basic/smw/spr_SMW_coin_Strip8.png" id="t_coin"]
+
+[sub_resource type="AtlasTexture" id="f_coin_0"]
+atlas = ExtResource("t_coin")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_coin_1"]
+atlas = ExtResource("t_coin")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_coin_2"]
+atlas = ExtResource("t_coin")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_coin_3"]
+atlas = ExtResource("t_coin")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_coin_4"]
+atlas = ExtResource("t_coin")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_coin_5"]
+atlas = ExtResource("t_coin")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_coin_6"]
+atlas = ExtResource("t_coin")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="f_coin_7"]
+atlas = ExtResource("t_coin")
+region = Rect2(112, 0, 16, 16)
+
+[resource]
+animations = [{"frames": [{"duration": 1.0, "texture": SubResource("f_coin_0")}, {"duration": 1.0, "texture": SubResource("f_coin_1")}, {"duration": 1.0, "texture": SubResource("f_coin_2")}, {"duration": 1.0, "texture": SubResource("f_coin_3")}, {"duration": 1.0, "texture": SubResource("f_coin_4")}, {"duration": 1.0, "texture": SubResource("f_coin_5")}, {"duration": 1.0, "texture": SubResource("f_coin_6")}, {"duration": 1.0, "texture": SubResource("f_coin_7")}], "loop": true, "name": &"idle", "speed": 9.0}]

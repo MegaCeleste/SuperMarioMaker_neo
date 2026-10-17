@@ -1,0 +1,206 @@
+{
+  "schema_version": 3,
+  "note": "SMW daytime SMMWE 4.0.0 source reference, 16px/60Hz; geometry and Godot contact solving remain explicit project candidates. Not SMM2 measurement or owner feel approval.",
+  "calibration_state": "SMMWE_SOURCE_REFERENCE_WITH_GODOT_ADAPTATIONS",
+  "enemy": {
+    "speed": 30,
+    "gravity": 720,
+    "death_initial": -120,
+    "cleanup_y": 1000.0,
+    "death_rotation_seconds": 0.3,
+    "body_size": [
+      12.0,
+      13.0
+    ],
+    "body_offset": [
+      0.0,
+      1.5
+    ],
+    "hurt_size": [
+      14.0,
+      14.0
+    ],
+    "stomp_size": [
+      12.0,
+      2.0
+    ],
+    "stomp_y": -6.0,
+    "squash_frames": 30,
+    "recovery_frames": 300,
+    "max_fall": 240,
+    "friction": 180
+  },
+  "mushroom": {
+    "speed": 60,
+    "gravity": 720,
+    "cleanup_y": 1000.0,
+    "max_fall": 240,
+    "bump_initial": -180
+  },
+  "flower": {
+    "speed": 0.0,
+    "gravity": 720,
+    "cleanup_y": 1000.0,
+    "max_fall": 240,
+    "bump_initial": -180
+  },
+  "pickup": {
+    "body_size": [
+      14.0,
+      14.0
+    ],
+    "sensor_size": [
+      16.0,
+      16.0
+    ],
+    "feet_y": 8.0
+  },
+  "coin": {
+    "sensor_size": [
+      12.0,
+      14.0
+    ],
+    "popup_frames": 60,
+    "popup_height": 24.0,
+    "popup_initial": -120,
+    "popup_gravity": 360,
+    "popup_end_offset": -10
+  },
+  "block": {
+    "bounce_height": 6.0,
+    "bounce_seconds": 0.15,
+    "bounce_scale": 1.0,
+    "item_rise": 16.0,
+    "item_rise_seconds": 0.7,
+    "size": [
+      16.0,
+      16.0
+    ],
+    "top_sensor_size": [
+      16.0,
+      2.0
+    ],
+    "turn_frames": 240,
+    "restore_epsilon": 0.02
+  },
+  "goomba": {
+    "squash_frames": 30
+  },
+  "galoomba": {
+    "recovery_frames": 600,
+    "bump_initial": -180,
+    "throw_speed": 120,
+    "throw_lift": -90,
+    "throw_up_initial": -367.5,
+    "friction": 306
+  },
+  "koopa": {
+    "body_size": [
+      12,
+      26
+    ],
+    "body_offset": [
+      0,
+      -5
+    ],
+    "hurt_size": [
+      14,
+      28
+    ],
+    "stomp_size": [
+      12,
+      2
+    ],
+    "stomp_y": -18
+  },
+  "naked_koopa": {
+    "eject_speed": 180,
+    "slide_decel": 180,
+    "immunity_frames": 30,
+    "recovery_frames": 90,
+    "enter_jump": -156,
+    "recover_jump": -120
+  },
+  "shell": {
+    "body_size": [
+      12,
+      12
+    ],
+    "body_offset": [
+      0,
+      2
+    ],
+    "hurt_size": [
+      14,
+      12
+    ],
+    "stomp_y": -5,
+    "slide_speed": 132,
+    "kick_protection_frames": 15,
+    "enter_green_frames": 60,
+    "enter_red_frames": 70,
+    "bump_initial": -180,
+    "kick_initial": 120,
+    "slide_accel": 180,
+    "bump_recovery_frames": 600,
+    "throw_up_initial": -367.5,
+    "held_slide_speed": 150,
+    "held_slide_cap": 192
+  },
+  "buzzy": {
+    "recovery_frames": 640
+  },
+  "spiny": {
+    "recovery_frames": 640
+  },
+  "bob_omb": {
+    "fuse_frames": 300,
+    "kick_speed": 126,
+    "fireball_push": 36,
+    "fireball_lift": -45,
+    "bump_initial": -90,
+    "throw_speed": 120,
+    "throw_lift": -90,
+    "throw_up_initial": -367.5,
+    "friction": 306
+  },
+  "piranha": {
+    "speed": 30,
+    "travel_frames": 32,
+    "wait_frames": 90,
+    "avoid_lateral": 16,
+    "avoid_outward": 32,
+    "damage_threshold": 8
+  },
+  "star": {
+    "speed": 30,
+    "gravity": 225,
+    "max_fall": 240,
+    "cleanup_y": 1000,
+    "bounce_initial": -120,
+    "duration_frames": 600,
+    "speed_bonus": 30
+  },
+  "one_up": {
+    "speed": 30,
+    "gravity": 720,
+    "max_fall": 240,
+    "cleanup_y": 1000,
+    "bump_initial": -90
+  },
+  "big_coin": {
+    "sensor_size": [
+      28,
+      28
+    ],
+    "popup_frames": 30,
+    "popup_height": 24,
+    "popup_initial": -120,
+    "popup_gravity": 360,
+    "popup_end_offset": -10
+  },
+  "explosion": {
+    "frames": 30,
+    "radius": 11.5
+  }
+}

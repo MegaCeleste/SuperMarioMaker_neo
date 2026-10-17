@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bm7b57nc56oo6"]
+
+[ext_resource type="Texture2D" uid="uid://ikl4vmhoynmf" path="res://textures/basic/smw/spr_SMW_block_rock_Strip1.png" id="t_hard"]
+
+[sub_resource type="AtlasTexture" id="f_hard_0"]
+atlas = ExtResource("t_hard")
+region = Rect2(0, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f_hard_0")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]

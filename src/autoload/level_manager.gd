@@ -1,5 +1,5 @@
 extends Node
-## LevelManager — 关卡数据内存持有者与 .smmlevel 序列化（03-level-format.md）
+## LevelManager — 关卡数据内存与 JSON/RLE 辅助，见 docs/level-format.md。
 
 signal level_loaded
 signal level_saved(path: String)

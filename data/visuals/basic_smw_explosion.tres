@@ -1,0 +1,62 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://textures/basic/smw/smw_explosion.png" id="t_smw_explosion"]
+
+[sub_resource type="AtlasTexture" id="f_smw_explosion_0"]
+atlas = ExtResource("t_smw_explosion")
+region = Rect2(0, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="f_smw_explosion_1"]
+atlas = ExtResource("t_smw_explosion")
+region = Rect2(38, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="f_smw_explosion_2"]
+atlas = ExtResource("t_smw_explosion")
+region = Rect2(76, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="f_smw_explosion_3"]
+atlas = ExtResource("t_smw_explosion")
+region = Rect2(114, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="f_smw_explosion_4"]
+atlas = ExtResource("t_smw_explosion")
+region = Rect2(152, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="f_smw_explosion_5"]
+atlas = ExtResource("t_smw_explosion")
+region = Rect2(190, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="f_smw_explosion_6"]
+atlas = ExtResource("t_smw_explosion")
+region = Rect2(228, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="f_smw_explosion_7"]
+atlas = ExtResource("t_smw_explosion")
+region = Rect2(266, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="f_smw_explosion_8"]
+atlas = ExtResource("t_smw_explosion")
+region = Rect2(304, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="f_smw_explosion_9"]
+atlas = ExtResource("t_smw_explosion")
+region = Rect2(342, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="f_smw_explosion_10"]
+atlas = ExtResource("t_smw_explosion")
+region = Rect2(380, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="f_smw_explosion_11"]
+atlas = ExtResource("t_smw_explosion")
+region = Rect2(418, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="f_smw_explosion_12"]
+atlas = ExtResource("t_smw_explosion")
+region = Rect2(456, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="f_smw_explosion_13"]
+atlas = ExtResource("t_smw_explosion")
+region = Rect2(494, 0, 38, 38)
+
+[resource]
+animations = [{"frames": [{"duration": 1.0, "texture": SubResource("f_smw_explosion_0")}, {"duration": 1.0, "texture": SubResource("f_smw_explosion_1")}, {"duration": 1.0, "texture": SubResource("f_smw_explosion_2")}, {"duration": 1.0, "texture": SubResource("f_smw_explosion_3")}, {"duration": 1.0, "texture": SubResource("f_smw_explosion_4")}, {"duration": 1.0, "texture": SubResource("f_smw_explosion_5")}, {"duration": 1.0, "texture": SubResource("f_smw_explosion_6")}, {"duration": 1.0, "texture": SubResource("f_smw_explosion_7")}, {"duration": 1.0, "texture": SubResource("f_smw_explosion_8")}, {"duration": 1.0, "texture": SubResource("f_smw_explosion_9")}, {"duration": 1.0, "texture": SubResource("f_smw_explosion_10")}, {"duration": 1.0, "texture": SubResource("f_smw_explosion_11")}, {"duration": 1.0, "texture": SubResource("f_smw_explosion_12")}, {"duration": 1.0, "texture": SubResource("f_smw_explosion_13")}], "loop": false, "name": &"idle", "speed": 27.0}]

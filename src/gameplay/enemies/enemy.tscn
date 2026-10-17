@@ -1,0 +1,28 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/enemies/enemy.gd" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://data/visuals/basic_smw_goomba.tres" id="2_frames"]
+
+[sub_resource type="RectangleShape2D" id="body"]
+size = Vector2(12, 13)
+[sub_resource type="RectangleShape2D" id="stomp"]
+size = Vector2(12, 2)
+[sub_resource type="RectangleShape2D" id="hurt"]
+size = Vector2(14, 14)
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_script")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_frames")
+animation = &"walk"
+offset = Vector2(0, 0)
+[node name="PhysicsShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1.5)
+shape = SubResource("body")
+[node name="StompArea" type="Area2D" parent="."]
+position = Vector2(0, -6)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StompArea"]
+shape = SubResource("stomp")
+[node name="HurtArea" type="Area2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtArea"]
+shape = SubResource("hurt")
