@@ -1,26 +1,30 @@
-# Godot 4+ specific ignores
+# ==============================================================================
+# Godot 4 项目忽略规则
+# ==============================================================================
+
+# --- Godot 缓存与导出配置 ---
 .godot/
 .nomedia
-
-# Godot-specific ignores
 .import/
 export.cfg
 export_credentials.cfg
-
-# Imported translations (automatically generated from CSV files)
 *.translation
 
-# Mono-specific ignores
+# --- Mono / C# ---
 .mono/
 data_*/
 mono_crash.*.json
 
-# agent
-.kimi
-
-# 参考
-GodotWE
-
-# 游戏媒体资产不入库（REQ-AST-001），本地保留
+# --- 本地媒体、日志与调试输出（新克隆需按 docs/architecture.md 安装）---
 textures/
 audio/
+local_debug_output/
+
+# --- 本地参考工程与代理工具目录 ---
+GodotWE/
+.kimi/
+
+# --- 操作系统与编辑器临时文件 ---
+**/.DS_Store
+Thumbs.db
+*.swp

@@ -17,11 +17,14 @@
 *.cfg text eol=lf
 *.shader text eol=lf
 *.gdshader text eol=lf
+# Godot 生成的导入配置是文本，随资源一起入库
+*.import text eol=lf
 
 # ------------------------------------------------------------------------------
 # 数据与文档文件 (强制 LF)
 # ------------------------------------------------------------------------------
 *.json text eol=lf
+*.smmlevel text eol=lf
 *.spec text eol=lf
 *.md text eol=lf
 *.txt text eol=lf
@@ -34,6 +37,7 @@
 *.yml text eol=lf
 *.yaml text eol=lf
 *.sh text eol=lf
+*.py text eol=lf
 *.bat text eol=crlf
 *.cmd text eol=crlf
 
@@ -59,7 +63,6 @@
 *.woff binary
 *.woff2 binary
 
-*.import binary
 *.pck binary
 *.zip binary
 *.tar.gz binary
