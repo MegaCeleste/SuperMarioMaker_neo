@@ -1,0 +1,2772 @@
+{
+ "root": "C:\\Working\\新建文件夹\\GodotWE",
+ "project": {
+  "application": {
+   "config/name": "GodotWE",
+   "config/description": "SMM:WE in Godot",
+   "config/version": "0.1.0",
+   "run/main_scene": "uid://qepmxcf7odg6",
+   "config/use_custom_user_dir": "true",
+   "config/custom_user_dir_name": "GodotWE",
+   "config/features": "PackedStringArray(\"4.7\", \"Mobile\")",
+   "boot_splash/bg_color": "Color(0, 0, 0, 1)",
+   "boot_splash/show_image": "false",
+   "boot_splash/stretch_mode": "0",
+   "boot_splash/use_filter": "false",
+   "config/icon": "uid://god0ayqmlgrj",
+   "config/windows_native_icon": "res://icon.ico"
+  },
+  "autoloads": [
+   "Utility",
+   "UISoundPlayer",
+   "SceneManager",
+   "GameSettings",
+   "MainMenu",
+   "MusicPlayer",
+   "LevelProcessor",
+   "Cursor",
+   "SpriteLibrary"
+  ],
+  "input_actions": [
+   "player_left",
+   "player_right",
+   "player_jump",
+   "player_duck",
+   "player_run",
+   "player_spin_jump",
+   "player_up",
+   "player_down",
+   "mb_left",
+   "player_run_toggle",
+   "pause",
+   "palette_left",
+   "palette_right",
+   "quick_erase",
+   "erase",
+   "place"
+  ]
+ },
+ "scripts": [
+  {
+   "name": "preview",
+   "path": "addons/terrain_icon_gen/preview.gd",
+   "class_name": null,
+   "extends": "TextureRect",
+   "functions": [
+    "_draw",
+    "_set_draw_grid"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 24
+  },
+  {
+   "name": "terrain_icon_gen",
+   "path": "addons/terrain_icon_gen/terrain_icon_gen.gd",
+   "class_name": null,
+   "extends": "EditorPlugin",
+   "functions": [
+    "_draw_image",
+    "_enter_tree",
+    "_exit_tree",
+    "_gridlines",
+    "_open_file_dialog",
+    "_save_image",
+    "_set_image",
+    "_set_output_text"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 100
+  },
+  {
+   "name": "block_component",
+   "path": "scripts/components/block_component.gd",
+   "class_name": "BlockComponent",
+   "extends": "Component",
+   "functions": [
+    "_enter_tree",
+    "_exit_tree",
+    "_finish_sprout",
+    "_get_sprout_pos",
+    "_just_collided",
+    "_set_sprout"
+   ],
+   "signals": [
+    "sprout_end",
+    "sprout_start"
+   ],
+   "exports": [
+    "enabled",
+    "sprite",
+    "sprout"
+   ],
+   "lines": 103
+  },
+  {
+   "name": "component",
+   "path": "scripts/components/component.gd",
+   "class_name": "Component",
+   "extends": "Node",
+   "functions": [],
+   "signals": [],
+   "exports": [],
+   "lines": 20
+  },
+  {
+   "name": "gravity_component",
+   "path": "scripts/components/gravity_component.gd",
+   "class_name": "GravityComponent",
+   "extends": "Component",
+   "functions": [
+    "_physics_process"
+   ],
+   "signals": [],
+   "exports": [
+    "bounce",
+    "bounce_strength"
+   ],
+   "lines": 43
+  },
+  {
+   "name": "pickup_component",
+   "path": "scripts/components/pickup_component.gd",
+   "class_name": "PickupComponent",
+   "extends": "Component",
+   "functions": [
+    "_body_entered",
+    "_dropped",
+    "_picked_up",
+    "_ready",
+    "_set_check_area",
+    "get_holder"
+   ],
+   "signals": [
+    "dropped",
+    "picked_up"
+   ],
+   "exports": [
+    "check_area"
+   ],
+   "lines": 100
+  },
+  {
+   "name": "slide_component",
+   "path": "scripts/components/slide_component.gd",
+   "class_name": "SlideComponent",
+   "extends": "Component",
+   "functions": [
+    "_physics_process"
+   ],
+   "signals": [
+    "turned"
+   ],
+   "exports": [],
+   "lines": 33
+  },
+  {
+   "name": "character_body_ext",
+   "path": "scripts/ext/character_body_ext.gd",
+   "class_name": "CharacterBodyExt",
+   "extends": "CharacterBody2D",
+   "functions": [
+    "_physics_process"
+   ],
+   "signals": [
+    "collided",
+    "just_collided"
+   ],
+   "exports": [],
+   "lines": 43
+  },
+  {
+   "name": "static_body_ext",
+   "path": "scripts/ext/static_body_ext.gd",
+   "class_name": "StaticBodyExt",
+   "extends": "StaticBody2D",
+   "functions": [],
+   "signals": [
+    "collided",
+    "just_collided"
+   ],
+   "exports": [],
+   "lines": 17
+  },
+  {
+   "name": "background",
+   "path": "scripts/level/background.gd",
+   "class_name": "Background",
+   "extends": "Node2D",
+   "functions": [
+    "_draw",
+    "_process"
+   ],
+   "signals": [],
+   "exports": [
+    "follow_scale",
+    "texture"
+   ],
+   "lines": 29
+  },
+  {
+   "name": "enemy",
+   "path": "scripts/level/entities/enemies/enemy.gd",
+   "class_name": "Enemy",
+   "extends": "Entity",
+   "functions": [
+    "_body_handling",
+    "_physics_process",
+    "_ready",
+    "_spin_stomp",
+    "_stomped",
+    "kill"
+   ],
+   "signals": [
+    "stomped"
+   ],
+   "exports": [
+    "hitbox"
+   ],
+   "lines": 126
+  },
+  {
+   "name": "galoomba",
+   "path": "scripts/level/entities/enemies/galoomba.gd",
+   "class_name": "Galoomba",
+   "extends": "Enemy",
+   "functions": [
+    "_stomped",
+    "_turned"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 22
+  },
+  {
+   "name": "koopa",
+   "path": "scripts/level/entities/enemies/koopa.gd",
+   "class_name": "Koopa",
+   "extends": "Enemy",
+   "functions": [
+    "_turned"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 10
+  },
+  {
+   "name": "entity",
+   "path": "scripts/level/entities/entity.gd",
+   "class_name": "Entity",
+   "extends": "CharacterBodyExt",
+   "functions": [],
+   "signals": [],
+   "exports": [],
+   "lines": 9
+  },
+  {
+   "name": "mushroom",
+   "path": "scripts/level/entities/mushroom.gd",
+   "class_name": "Mushroom",
+   "extends": "CharacterBodyExt",
+   "functions": [
+    "_body_entered",
+    "_physics_process"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 15
+  },
+  {
+   "name": "player",
+   "path": "scripts/level/entities/player.gd",
+   "class_name": "Player",
+   "extends": "Entity",
+   "functions": [
+    "_attempt_correction",
+    "_just_collided",
+    "_notification",
+    "_physics_process",
+    "_process",
+    "_ready",
+    "bounce",
+    "can_change_sprite",
+    "damage",
+    "drop_item",
+    "get_powerup",
+    "give_item",
+    "kill",
+    "set_powerup",
+    "spawn_spin_thump"
+   ],
+   "signals": [
+    "item_dropped",
+    "item_given"
+   ],
+   "exports": [
+    "starting_powerup"
+   ],
+   "lines": 330
+  },
+  {
+   "name": "player_death_state",
+   "path": "scripts/level/entities/states/player_death_state.gd",
+   "class_name": "PlayerDeathState",
+   "extends": "PlayerState",
+   "functions": [
+    "_fall",
+    "_init",
+    "start"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 54
+  },
+  {
+   "name": "player_falling_state",
+   "path": "scripts/level/entities/states/player_falling_state.gd",
+   "class_name": "PlayerFallingState",
+   "extends": "PlayerState",
+   "functions": [
+    "input",
+    "physics_process",
+    "start"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 71
+  },
+  {
+   "name": "player_idle_state",
+   "path": "scripts/level/entities/states/player_idle_state.gd",
+   "class_name": "PlayerIdleState",
+   "extends": "PlayerState",
+   "functions": [
+    "input",
+    "physics_process"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 46
+  },
+  {
+   "name": "player_jumping_state",
+   "path": "scripts/level/entities/states/player_jumping_state.gd",
+   "class_name": "PlayerJumpingState",
+   "extends": "PlayerState",
+   "functions": [
+    "end",
+    "input",
+    "physics_process",
+    "start"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 126
+  },
+  {
+   "name": "player_moving_state",
+   "path": "scripts/level/entities/states/player_moving_state.gd",
+   "class_name": "PlayerMovingState",
+   "extends": "PlayerState",
+   "functions": [
+    "_do_skid_smoke",
+    "do_p_meter",
+    "end",
+    "input",
+    "physics_process"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 114
+  },
+  {
+   "name": "player_spin_jumping_state",
+   "path": "scripts/level/entities/states/player_spin_jumping_state.gd",
+   "class_name": "PlayerSpinJumpingState",
+   "extends": "PlayerState",
+   "functions": [
+    "end",
+    "input",
+    "item_dropped",
+    "physics_process",
+    "start"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 121
+  },
+  {
+   "name": "player_state",
+   "path": "scripts/level/entities/states/player_state.gd",
+   "class_name": "PlayerState",
+   "extends": "State",
+   "functions": [
+    "_init",
+    "end",
+    "input",
+    "item_dropped",
+    "move_check",
+    "position_held_item",
+    "start"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 95
+  },
+  {
+   "name": "state",
+   "path": "scripts/level/entities/states/state.gd",
+   "class_name": "State",
+   "extends": "Node",
+   "functions": [
+    "end",
+    "input",
+    "physics_process",
+    "process",
+    "start"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 63
+  },
+  {
+   "name": "state_machine",
+   "path": "scripts/level/entities/states/state_machine.gd",
+   "class_name": "StateMachine",
+   "extends": "Node",
+   "functions": [
+    "_call_and_switch",
+    "_child_entered_tree",
+    "_enter_tree",
+    "_init",
+    "_input",
+    "_physics_process",
+    "_process",
+    "switch"
+   ],
+   "signals": [],
+   "exports": [
+    "current_state"
+   ],
+   "lines": 74
+  },
+  {
+   "name": "stomped_galoomba",
+   "path": "scripts/level/entities/stomped_galoomba.gd",
+   "class_name": "StompedGaloomba",
+   "extends": "Entity",
+   "functions": [
+    "_physics_process"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 19
+  },
+  {
+   "name": "level",
+   "path": "scripts/level/level.gd",
+   "class_name": "Level",
+   "extends": "Node2D",
+   "functions": [
+    "_camera_clamp",
+    "_edit",
+    "_init",
+    "_play",
+    "_process",
+    "_ready",
+    "_timeout",
+    "create_editor",
+    "edit",
+    "get_current_time",
+    "play",
+    "reload"
+   ],
+   "signals": [
+    "editing",
+    "game_style_changed",
+    "playing",
+    "time_changed",
+    "times_up"
+   ],
+   "exports": [
+    "author",
+    "clear_condition",
+    "creation_date",
+    "creation_time",
+    "current_sub_area",
+    "description",
+    "editor",
+    "file_path",
+    "game_style",
+    "level_name",
+    "online_id",
+    "status",
+    "tag_1",
+    "tag_2",
+    "time",
+    "title_screen"
+   ],
+   "lines": 306
+  },
+  {
+   "name": "coin_part",
+   "path": "scripts/level/parts/coin_part.gd",
+   "class_name": "CoinPart",
+   "extends": "Part",
+   "functions": [
+    "build"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 25
+  },
+  {
+   "name": "editor_player",
+   "path": "scripts/level/parts/editor_player.gd",
+   "class_name": "EditorPlayer",
+   "extends": "Part",
+   "functions": [
+    "_check_validity",
+    "_draw",
+    "_lets_go",
+    "_process",
+    "build",
+    "erase",
+    "load"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 76
+  },
+  {
+   "name": "galoomba_part",
+   "path": "scripts/level/parts/galoomba_part.gd",
+   "class_name": "GaloombaPart",
+   "extends": "Part",
+   "functions": [
+    "build"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 21
+  },
+  {
+   "name": "ground_part",
+   "path": "scripts/level/parts/ground_part.gd",
+   "class_name": "GroundPart",
+   "extends": "Part",
+   "functions": [
+    "_connect",
+    "_get_nearby_tiles",
+    "_hold",
+    "_notify_tiles",
+    "_unhold",
+    "atlas",
+    "build",
+    "erase",
+    "load",
+    "refresh_sprite",
+    "reset_sprite"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 290
+  },
+  {
+   "name": "koopa_part",
+   "path": "scripts/level/parts/koopa_part.gd",
+   "class_name": "KoopaPart",
+   "extends": "Part",
+   "functions": [
+    "build"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 23
+  },
+  {
+   "name": "part",
+   "path": "scripts/level/parts/part.gd",
+   "class_name": "Part",
+   "extends": "Area2D",
+   "functions": [
+    "_anim_held",
+    "_anim_place",
+    "_check_validity",
+    "_create_touch_effect",
+    "_create_window",
+    "_draw",
+    "_draw_highlight",
+    "_hold",
+    "_input_event",
+    "_mouse_update",
+    "_notification",
+    "_process",
+    "_ready",
+    "_stop_window_timer",
+    "_unhandled_input",
+    "_unhold",
+    "build",
+    "erase",
+    "load"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 316
+  },
+  {
+   "name": "question_block_part",
+   "path": "scripts/level/parts/question_block_part.gd",
+   "class_name": "QuestionBlockPart",
+   "extends": "Part",
+   "functions": [
+    "build"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 25
+  },
+  {
+   "name": "starting_ground",
+   "path": "scripts/level/parts/starting_ground.gd",
+   "class_name": "StartingGround",
+   "extends": "Part",
+   "functions": [
+    "_draw",
+    "_hold",
+    "_on_grabber_input_event",
+    "_process",
+    "_ready",
+    "_unhandled_input",
+    "_unhold",
+    "build",
+    "erase"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 120
+  },
+  {
+   "name": "turn_block_part",
+   "path": "scripts/level/parts/turn_block_part.gd",
+   "class_name": "TurnBlockPart",
+   "extends": "Part",
+   "functions": [
+    "build"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 25
+  },
+  {
+   "name": "powerup",
+   "path": "scripts/level/powerups/powerup.gd",
+   "class_name": "Powerup",
+   "extends": "Resource",
+   "functions": [
+    "end",
+    "physics_process",
+    "process",
+    "start"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 55
+  },
+  {
+   "name": "small_powerup",
+   "path": "scripts/level/powerups/small_powerup.gd",
+   "class_name": "SmallPowerup",
+   "extends": "Powerup",
+   "functions": [
+    "start"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 9
+  },
+  {
+   "name": "super_powerup",
+   "path": "scripts/level/powerups/super_powerup.gd",
+   "class_name": "SuperPowerup",
+   "extends": "Powerup",
+   "functions": [
+    "start"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 25
+  },
+  {
+   "name": "coin_sprout",
+   "path": "scripts/level/sprouts/coin_sprout.gd",
+   "class_name": "CoinSprout",
+   "extends": "Sprout",
+   "functions": [
+    "_process",
+    "_ready",
+    "start_sprout"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 45
+  },
+  {
+   "name": "rise_sprout",
+   "path": "scripts/level/sprouts/rise_sprout.gd",
+   "class_name": "RiseSprout",
+   "extends": "Sprout",
+   "functions": [
+    "_ready",
+    "_spawn",
+    "end_sprout"
+   ],
+   "signals": [],
+   "exports": [
+    "item",
+    "offset",
+    "texture"
+   ],
+   "lines": 46
+  },
+  {
+   "name": "sprout",
+   "path": "scripts/level/sprouts/sprout.gd",
+   "class_name": "Sprout",
+   "extends": "Resource",
+   "functions": [
+    "end_sprout",
+    "start_sprout"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 32
+  },
+  {
+   "name": "sub_area",
+   "path": "scripts/level/sub_area.gd",
+   "class_name": "SubArea",
+   "extends": "Node2D",
+   "functions": [
+    "_edit",
+    "_play",
+    "add",
+    "add_part",
+    "freeze",
+    "get_background",
+    "get_foreground",
+    "get_parts",
+    "load",
+    "unfreeze"
+   ],
+   "signals": [],
+   "exports": [
+    "autoscroll",
+    "level_theme",
+    "max_water_height",
+    "meteorites",
+    "min_water_height",
+    "night_mode",
+    "water_speed"
+   ],
+   "lines": 113
+  },
+  {
+   "name": "coin",
+   "path": "scripts/level/tiles/coin.gd",
+   "class_name": "Coin",
+   "extends": "Area2D",
+   "functions": [
+    "_body_entered"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 13
+  },
+  {
+   "name": "ground",
+   "path": "scripts/level/tiles/ground.gd",
+   "class_name": "GroundTile",
+   "extends": "StaticBody2D",
+   "functions": [],
+   "signals": [],
+   "exports": [],
+   "lines": 188
+  },
+  {
+   "name": "question_block",
+   "path": "scripts/level/tiles/question_block.gd",
+   "class_name": "QuestionBlock",
+   "extends": "StaticBodyExt",
+   "functions": [
+    "_sprout_end"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 15
+  },
+  {
+   "name": "turn_block_tile",
+   "path": "scripts/level/tiles/turn_block_tile.gd",
+   "class_name": "TurnBlockTile",
+   "extends": "StaticBodyExt",
+   "functions": [
+    "_sprite_animation_looped",
+    "_sprout_end"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 25
+  },
+  {
+   "name": "dark_overlay",
+   "path": "scripts/other/dark_overlay.gd",
+   "class_name": "DarkOverlay",
+   "extends": "Node2D",
+   "functions": [
+    "_draw",
+    "_process",
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 17
+  },
+  {
+   "name": "dead_entity",
+   "path": "scripts/other/dead_entity.gd",
+   "class_name": "DeadEntity",
+   "extends": "Node2D",
+   "functions": [
+    "_physics_process",
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 19
+  },
+  {
+   "name": "grid",
+   "path": "scripts/other/grid.gd",
+   "class_name": "Grid",
+   "extends": "Node2D",
+   "functions": [
+    "_draw",
+    "_process"
+   ],
+   "signals": [],
+   "exports": [
+    "major_color",
+    "major_grid_size",
+    "major_width",
+    "minor_color",
+    "minor_width",
+    "space_size"
+   ],
+   "lines": 53
+  },
+  {
+   "name": "particle",
+   "path": "scripts/other/particle.gd",
+   "class_name": "Particle",
+   "extends": "AnimatedSprite2D",
+   "functions": [
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 8
+  },
+  {
+   "name": "spin_smoke",
+   "path": "scripts/other/spin_smoke.gd",
+   "class_name": "SpinSmoke",
+   "extends": "AnimatedSprite2D",
+   "functions": [
+    "_draw",
+    "_process",
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 34
+  },
+  {
+   "name": "shadows",
+   "path": "scripts/shadows.gd",
+   "class_name": null,
+   "extends": "SubViewportContainer",
+   "functions": [
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 10
+  },
+  {
+   "name": "cursor",
+   "path": "scripts/singletons/cursor.gd",
+   "class_name": null,
+   "extends": "CanvasLayer",
+   "functions": [
+    "_mouse_entered",
+    "_mouse_exited",
+    "_process",
+    "_ready",
+    "_refresh_sprite",
+    "_set_down",
+    "_set_type",
+    "set_to_player"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 70
+  },
+  {
+   "name": "game_settings",
+   "path": "scripts/singletons/game_settings.gd",
+   "class_name": null,
+   "extends": "Node",
+   "functions": [
+    "_exists",
+    "_init",
+    "flag_exists",
+    "reset_config"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 66
+  },
+  {
+   "name": "level_processor",
+   "path": "scripts/singletons/level_processor.gd",
+   "class_name": null,
+   "extends": "Node",
+   "functions": [
+    "_from_swe",
+    "_ready",
+    "_request",
+    "_run",
+    "decode_swe",
+    "from_swe"
+   ],
+   "signals": [
+    "_done"
+   ],
+   "exports": [],
+   "lines": 377
+  },
+  {
+   "name": "main_menu",
+   "path": "scripts/singletons/main_menu.gd",
+   "class_name": null,
+   "extends": "CanvasLayer",
+   "functions": [
+    "_input",
+    "_ready",
+    "_scene_changed",
+    "close",
+    "open"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 62
+  },
+  {
+   "name": "music_player",
+   "path": "scripts/singletons/music_player.gd",
+   "class_name": null,
+   "extends": "AudioStreamPlayer",
+   "functions": [
+    "_init"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 7
+  },
+  {
+   "name": "scene_manager",
+   "path": "scripts/singletons/scene_manager.gd",
+   "class_name": null,
+   "extends": "CanvasLayer",
+   "functions": [
+    "_change_scene",
+    "_init",
+    "_input",
+    "_ready",
+    "_update_polygon",
+    "fade_in_progress",
+    "fade_to_callback",
+    "fade_to_node",
+    "fade_to_scene"
+   ],
+   "signals": [
+    "transition_ended",
+    "transition_started"
+   ],
+   "exports": [],
+   "lines": 144
+  },
+  {
+   "name": "sprite_library",
+   "path": "scripts/singletons/sprite_library.gd",
+   "class_name": null,
+   "extends": "Node",
+   "functions": [
+    "_ready",
+    "get_frames",
+    "get_metadata",
+    "get_origin",
+    "has_sprite",
+    "make_sprite"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 67
+  },
+  {
+   "name": "ui_sound_player",
+   "path": "scripts/singletons/ui_sound_player.gd",
+   "class_name": null,
+   "extends": "AudioStreamPlayer",
+   "functions": [
+    "_init"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 7
+  },
+  {
+   "name": "utility",
+   "path": "scripts/singletons/utility.gd",
+   "class_name": null,
+   "extends": "Node",
+   "functions": [
+    "_get_camera_position",
+    "_get_camera_position_raw",
+    "_get_camera_scale",
+    "_iter_get",
+    "_iter_init",
+    "_iter_next",
+    "_set_camera_position",
+    "_set_camera_position_raw",
+    "_set_camera_scale",
+    "add_sibling_up",
+    "array_merge",
+    "find_child_by_class",
+    "get_bounding_box",
+    "get_visible_rect",
+    "group",
+    "id",
+    "rangef"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 191
+  },
+  {
+   "name": "game_constants",
+   "path": "scripts/static/game_constants.gd",
+   "class_name": "GameConstants",
+   "extends": null,
+   "functions": [],
+   "signals": [],
+   "exports": [],
+   "lines": 287
+  },
+  {
+   "name": "control_set_controller",
+   "path": "scripts/ui/control_sets/control_set_controller.gd",
+   "class_name": "ControlSet",
+   "extends": "Control",
+   "functions": [
+    "_input"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 20
+  },
+  {
+   "name": "coursebot",
+   "path": "scripts/ui/coursebot/coursebot.gd",
+   "class_name": "Coursebot",
+   "extends": "Panel",
+   "functions": [
+    "_cover_animation",
+    "_create_head_tween",
+    "_ready",
+    "_scale_animation",
+    "_shine_animation",
+    "transition"
+   ],
+   "signals": [],
+   "exports": [
+    "content",
+    "level_list",
+    "main_page"
+   ],
+   "lines": 121
+  },
+  {
+   "name": "level_action_btn",
+   "path": "scripts/ui/coursebot/level_action_btn.gd",
+   "class_name": "LevelActionBtn",
+   "extends": "Button",
+   "functions": [
+    "_draw",
+    "_enter_tree",
+    "_mouse_entered",
+    "_process",
+    "_toggled"
+   ],
+   "signals": [
+    "_level_loaded"
+   ],
+   "exports": [
+    "action"
+   ],
+   "lines": 58
+  },
+  {
+   "name": "level_card",
+   "path": "scripts/ui/coursebot/level_card.gd",
+   "class_name": "LevelCard",
+   "extends": "TextureButton",
+   "functions": [
+    "_draw",
+    "_mouse_entered",
+    "_mouse_exited",
+    "_pressed",
+    "_process",
+    "_ready",
+    "_set_path"
+   ],
+   "signals": [],
+   "exports": [
+    "coursebot",
+    "level",
+    "path"
+   ],
+   "lines": 52
+  },
+  {
+   "name": "level_close_btn",
+   "path": "scripts/ui/coursebot/level_close_btn.gd",
+   "class_name": "LevelCloseBtn",
+   "extends": "TextureButton",
+   "functions": [
+    "_draw",
+    "_pressed",
+    "_process",
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 24
+  },
+  {
+   "name": "level_view",
+   "path": "scripts/ui/coursebot/level_view.gd",
+   "class_name": "LevelView",
+   "extends": "PanelContainer",
+   "functions": [
+    "_ready",
+    "_set_level",
+    "_set_path",
+    "close"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 102
+  },
+  {
+   "name": "credits",
+   "path": "scripts/ui/credits.gd",
+   "class_name": "Credits",
+   "extends": "ColorRect",
+   "functions": [
+    "_close_btn_pressed",
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 33
+  },
+  {
+   "name": "disclaimer",
+   "path": "scripts/ui/disclaimer.gd",
+   "class_name": "Disclaimer",
+   "extends": "Control",
+   "functions": [
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 13
+  },
+  {
+   "name": "clapperboard",
+   "path": "scripts/ui/editor/clapperboard.gd",
+   "class_name": "Clapperboard",
+   "extends": "BaseButton",
+   "functions": [
+    "_draw",
+    "_editor_loaded",
+    "_level_state_changed",
+    "_pressed",
+    "_process",
+    "_ready",
+    "_switch"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 99
+  },
+  {
+   "name": "editor",
+   "path": "scripts/ui/editor/editor.gd",
+   "class_name": "Editor",
+   "extends": "Control",
+   "functions": [
+    "_edit",
+    "_play",
+    "_process",
+    "_process_placing",
+    "_ready",
+    "_set_erasing",
+    "_set_part_type",
+    "_unhandled_input",
+    "get_selected_part",
+    "load",
+    "place"
+   ],
+   "signals": [
+    "erase_started",
+    "erase_stopped",
+    "loaded",
+    "part_type_changed"
+   ],
+   "exports": [],
+   "lines": 200
+  },
+  {
+   "name": "editor_panel",
+   "path": "scripts/ui/editor/editor_panel.gd",
+   "class_name": "EditorPanel",
+   "extends": "Control",
+   "functions": [
+    "_erase_started",
+    "_erase_stopped",
+    "_process",
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [
+    "closed_pos",
+    "hidden_pos",
+    "move_for_eraser",
+    "open_pos",
+    "status"
+   ],
+   "lines": 67
+  },
+  {
+   "name": "editor_panel_handle",
+   "path": "scripts/ui/editor/editor_panel_handle.gd",
+   "class_name": "EditorPanelHandle",
+   "extends": "TextureButton",
+   "functions": [
+    "_enter_tree",
+    "_pressed",
+    "can_use"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 30
+  },
+  {
+   "name": "editor_popout",
+   "path": "scripts/ui/editor/editor_popout.gd",
+   "class_name": "EditorPopout",
+   "extends": "Control",
+   "functions": [
+    "_draw",
+    "_process",
+    "_ready",
+    "_set_side",
+    "_set_status",
+    "close",
+    "get_opacity",
+    "open"
+   ],
+   "signals": [
+    "status_changed"
+   ],
+   "exports": [
+    "close_sound",
+    "has_close_button",
+    "open_sound",
+    "panel_handle",
+    "side",
+    "title"
+   ],
+   "lines": 233
+  },
+  {
+   "name": "editor_tab",
+   "path": "scripts/ui/editor/editor_tab.gd",
+   "class_name": "EditorTab",
+   "extends": "TextureRect",
+   "functions": [
+    "_process"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 25
+  },
+  {
+   "name": "autoscroll_btn",
+   "path": "scripts/ui/editor/left_panel/autoscroll_btn.gd",
+   "class_name": "AutoscrollBtn",
+   "extends": "PopoutBtn",
+   "functions": [
+    "_draw",
+    "get_icon"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 19
+  },
+  {
+   "name": "binary_btn",
+   "path": "scripts/ui/editor/left_panel/binary_btn.gd",
+   "class_name": "BinaryBtn",
+   "extends": "TextureButton",
+   "functions": [
+    "_draw",
+    "_mouse_entered",
+    "_mouse_exited",
+    "_process",
+    "_ready",
+    "_toggled"
+   ],
+   "signals": [],
+   "exports": [
+    "type"
+   ],
+   "lines": 56
+  },
+  {
+   "name": "clear_condition_btn",
+   "path": "scripts/ui/editor/left_panel/clear_condition_btn.gd",
+   "class_name": "ClearConditionBtn",
+   "extends": "PopoutBtn",
+   "functions": [
+    "_draw"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 8
+  },
+  {
+   "name": "game_style_btn",
+   "path": "scripts/ui/editor/left_panel/game_style_btn.gd",
+   "class_name": "GameStyleBtn",
+   "extends": "PopoutBtn",
+   "functions": [
+    "_draw",
+    "_game_style_changed"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 23
+  },
+  {
+   "name": "level_theme_btn",
+   "path": "scripts/ui/editor/left_panel/level_theme_btn.gd",
+   "class_name": "LevelThemeBtn",
+   "extends": "PopoutBtn",
+   "functions": [
+    "_draw",
+    "get_icon"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 46
+  },
+  {
+   "name": "popout_ok_btn",
+   "path": "scripts/ui/editor/left_panel/popout_ok_btn.gd",
+   "class_name": "PopoutOkBtn",
+   "extends": "Button",
+   "functions": [
+    "_draw",
+    "_mouse_entered",
+    "_mouse_exited",
+    "_pressed",
+    "_process",
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 35
+  },
+  {
+   "name": "time_btn",
+   "path": "scripts/ui/editor/left_panel/time_btn.gd",
+   "class_name": "TimeBtn",
+   "extends": "PopoutBtn",
+   "functions": [
+    "_draw",
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 49
+  },
+  {
+   "name": "time_change_btn",
+   "path": "scripts/ui/editor/left_panel/time_change_btn.gd",
+   "class_name": "TimeChangeBtn",
+   "extends": "TextureButton",
+   "functions": [
+    "_pressed",
+    "_process"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 40
+  },
+  {
+   "name": "time_guy",
+   "path": "scripts/ui/editor/left_panel/time_guy.gd",
+   "class_name": "TimeGuy",
+   "extends": "Control",
+   "functions": [
+    "_draw",
+    "_process",
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 79
+  },
+  {
+   "name": "category_btn",
+   "path": "scripts/ui/editor/palette/category_btn.gd",
+   "class_name": "CategoryBtn",
+   "extends": "Button",
+   "functions": [
+    "_draw",
+    "_get_alpha",
+    "_get_container_x",
+    "_notification",
+    "_process",
+    "_ready",
+    "_text_alpha",
+    "_toggled"
+   ],
+   "signals": [],
+   "exports": [
+    "category"
+   ],
+   "lines": 93
+  },
+  {
+   "name": "palette_category",
+   "path": "scripts/ui/editor/palette/palette_category.gd",
+   "class_name": "PaletteCategory",
+   "extends": "Resource",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "color",
+    "icon",
+    "name",
+    "pages"
+   ],
+   "lines": 13
+  },
+  {
+   "name": "palette_item",
+   "path": "scripts/ui/editor/palette/palette_item.gd",
+   "class_name": "PaletteItem",
+   "extends": "Resource",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "disabled",
+    "part"
+   ],
+   "lines": 9
+  },
+  {
+   "name": "palette_navigation_btn",
+   "path": "scripts/ui/editor/palette/palette_navigation_btn.gd",
+   "class_name": "PaletteNavigationBtn",
+   "extends": "TextureButton",
+   "functions": [
+    "_input",
+    "_move_category",
+    "_pressed"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 43
+  },
+  {
+   "name": "palette_page",
+   "path": "scripts/ui/editor/palette/palette_page.gd",
+   "class_name": "PalettePage",
+   "extends": "Resource",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "items"
+   ],
+   "lines": 7
+  },
+  {
+   "name": "palette_ring",
+   "path": "scripts/ui/editor/palette/palette_ring.gd",
+   "class_name": "PaletteRing",
+   "extends": "TextureRect",
+   "functions": [
+    "_close_btn_pressed",
+    "_create_icon",
+    "_get_color",
+    "_gui_input",
+    "_notification",
+    "_process",
+    "_set_category",
+    "_set_color",
+    "_set_page_index",
+    "_set_selected",
+    "get_page"
+   ],
+   "signals": [],
+   "exports": [
+    "category",
+    "page_index"
+   ],
+   "lines": 237
+  },
+  {
+   "name": "popout_btn",
+   "path": "scripts/ui/editor/popout_btn.gd",
+   "class_name": "PopoutBtn",
+   "extends": "TextureButton",
+   "functions": [
+    "_draw",
+    "_mouse_entered",
+    "_mouse_exited",
+    "_popout_status_changed",
+    "_process",
+    "_ready",
+    "_toggled"
+   ],
+   "signals": [],
+   "exports": [
+    "connect_rect",
+    "hover_rect",
+    "hover_sound",
+    "popout"
+   ],
+   "lines": 90
+  },
+  {
+   "name": "coursebot_popout_btn",
+   "path": "scripts/ui/editor/right_panel/coursebot/coursebot_popout_btn.gd",
+   "class_name": "CoursebotPopoutBtn",
+   "extends": "Button",
+   "functions": [
+    "_draw",
+    "_mouse_entered",
+    "_mouse_exited",
+    "_pressed",
+    "_process",
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [
+    "type"
+   ],
+   "lines": 50
+  },
+  {
+   "name": "coursebot_btn",
+   "path": "scripts/ui/editor/right_panel/coursebot_btn.gd",
+   "class_name": "CoursebotBtn",
+   "extends": "PopoutBtn",
+   "functions": [
+    "_draw"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 12
+  },
+  {
+   "name": "eraser_btn",
+   "path": "scripts/ui/editor/right_panel/eraser_btn.gd",
+   "class_name": "EraserBtn",
+   "extends": "BaseButton",
+   "functions": [
+    "_draw",
+    "_erase_started",
+    "_erase_stopped",
+    "_mouse_entered",
+    "_mouse_exited",
+    "_process",
+    "_ready",
+    "_toggled"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 78
+  },
+  {
+   "name": "editor_card",
+   "path": "scripts/ui/editor/top_panel/editor_card.gd",
+   "class_name": "EditorCard",
+   "extends": "BaseButton",
+   "functions": [
+    "_draw",
+    "_entered",
+    "_exited",
+    "_process",
+    "_ready",
+    "_toggled"
+   ],
+   "signals": [],
+   "exports": [
+    "editor",
+    "part"
+   ],
+   "lines": 117
+  },
+  {
+   "name": "palette_btn",
+   "path": "scripts/ui/editor/top_panel/palette_btn.gd",
+   "class_name": "PaletteBtn",
+   "extends": "TextureButton",
+   "functions": [
+    "_draw",
+    "_mouse_entered",
+    "_mouse_exited",
+    "_pressed",
+    "_process",
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 38
+  },
+  {
+   "name": "part_type_btn",
+   "path": "scripts/ui/editor/top_panel/part_type_btn.gd",
+   "class_name": "PartTypeBtn",
+   "extends": "BaseButton",
+   "functions": [
+    "_draw",
+    "_mouse_entered",
+    "_mouse_exited",
+    "_part_type_changed",
+    "_pressed",
+    "_process",
+    "_ready",
+    "_set_double_quaver_pos",
+    "_set_quaver_pos",
+    "_set_texture"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 115
+  },
+  {
+   "name": "window",
+   "path": "scripts/ui/editor/window.gd",
+   "class_name": "EditorWindow",
+   "extends": "PanelContainer",
+   "functions": [
+    "_input",
+    "_ready",
+    "close",
+    "select"
+   ],
+   "signals": [
+    "selected"
+   ],
+   "exports": [],
+   "lines": 40
+  },
+  {
+   "name": "button_hover_effect",
+   "path": "scripts/ui/effects/button_hover_effect.gd",
+   "class_name": "ButtonHoverEffect",
+   "extends": "Resource",
+   "functions": [
+    "_init",
+    "check_redraw",
+    "draw",
+    "start",
+    "stop"
+   ],
+   "signals": [],
+   "exports": [
+    "arrow_end_pos",
+    "arrow_start_pos",
+    "enabled",
+    "rect"
+   ],
+   "lines": 125
+  },
+  {
+   "name": "hud",
+   "path": "scripts/ui/hud.gd",
+   "class_name": "HUD",
+   "extends": "CanvasLayer",
+   "functions": [
+    "_process"
+   ],
+   "signals": [],
+   "exports": [
+    "coins_label",
+    "lives_label",
+    "score_label",
+    "time_label"
+   ],
+   "lines": 19
+  },
+  {
+   "name": "intro",
+   "path": "scripts/ui/intro/intro.gd",
+   "class_name": "Intro",
+   "extends": "Control",
+   "functions": [
+    "_draw",
+    "_finish_intro",
+    "_input",
+    "_play_animation",
+    "_ready",
+    "_skip",
+    "_title_call"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 122
+  },
+  {
+   "name": "intro_link_button",
+   "path": "scripts/ui/intro/intro_link_button.gd",
+   "class_name": "IntroLinkButton",
+   "extends": "TextureButton",
+   "functions": [
+    "_draw",
+    "_entered",
+    "_pressed",
+    "_process",
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [
+    "link"
+   ],
+   "lines": 43
+  },
+  {
+   "name": "intro_play_button",
+   "path": "scripts/ui/intro/intro_play_button.gd",
+   "class_name": "IntroPlayButton",
+   "extends": "Button",
+   "functions": [
+    "_draw",
+    "_pressed",
+    "_process",
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 24
+  },
+  {
+   "name": "logo",
+   "path": "scripts/ui/logo.gd",
+   "class_name": "Logo",
+   "extends": "Control",
+   "functions": [
+    "_draw",
+    "_get_a",
+    "_get_e",
+    "_get_i",
+    "_get_k",
+    "_get_m",
+    "_get_minimum_size",
+    "_get_o",
+    "_get_r",
+    "_get_super",
+    "_get_world_engine"
+   ],
+   "signals": [],
+   "exports": [
+    "white",
+    "world_engine"
+   ],
+   "lines": 131
+  },
+  {
+   "name": "mini_btn",
+   "path": "scripts/ui/main_menu/mini_btn.gd",
+   "class_name": "MiniBtn",
+   "extends": "TextureButton",
+   "functions": [
+    "_draw",
+    "_mouse_entered",
+    "_mouse_exited",
+    "_pressed",
+    "_process",
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [
+    "type"
+   ],
+   "lines": 50
+  },
+  {
+   "name": "page_btn",
+   "path": "scripts/ui/main_menu/page_btn.gd",
+   "class_name": "PageBtn",
+   "extends": "Button",
+   "functions": [
+    "_draw",
+    "_get_scn",
+    "_mouse_entered",
+    "_mouse_exited",
+    "_process",
+    "_ready",
+    "_scene_changed",
+    "_toggled"
+   ],
+   "signals": [],
+   "exports": [
+    "in_main_menu",
+    "page"
+   ],
+   "lines": 68
+  },
+  {
+   "name": "menu_btn",
+   "path": "scripts/ui/menu_btn.gd",
+   "class_name": "MenuBtn",
+   "extends": "TextureButton",
+   "functions": [
+    "_draw",
+    "_mouse_entered",
+    "_mouse_exited",
+    "_pressed",
+    "_process",
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 34
+  },
+  {
+   "name": "smooth_scroll_container",
+   "path": "scripts/ui/smooth_scroll_container.gd",
+   "class_name": "SmoothScrollContainer",
+   "extends": "Container",
+   "functions": [
+    "_draw",
+    "_get_marginless_rect",
+    "_gui_input",
+    "_init",
+    "_notification",
+    "_process",
+    "get_scroll_max",
+    "get_scroll_min"
+   ],
+   "signals": [],
+   "exports": [
+    "panel"
+   ],
+   "lines": 104
+  },
+  {
+   "name": "texture_button_ext",
+   "path": "scripts/ui/texture_button_ext.gd",
+   "class_name": "TextureButtonExt",
+   "extends": "TextureButton",
+   "functions": [
+    "_draw",
+    "_hover_mouse_end",
+    "_hover_mouse_start",
+    "_init",
+    "_process"
+   ],
+   "signals": [],
+   "exports": [
+    "hover_offset",
+    "hover_sound"
+   ],
+   "lines": 55
+  },
+  {
+   "name": "start_btn",
+   "path": "scripts/ui/title/start_btn.gd",
+   "class_name": "TitleStartBtn",
+   "extends": "TextureButton",
+   "functions": [
+    "_pressed"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 14
+  },
+  {
+   "name": "title_clapperboard",
+   "path": "scripts/ui/title/title_clapperboard.gd",
+   "class_name": "TitleClapperboard",
+   "extends": "TextureButton",
+   "functions": [
+    "_animate_logo",
+    "_draw",
+    "_pressed",
+    "_process",
+    "_ready",
+    "_switch"
+   ],
+   "signals": [],
+   "exports": [
+    "type"
+   ],
+   "lines": 99
+  },
+  {
+   "name": "title_screen",
+   "path": "scripts/ui/title/title_screen.gd",
+   "class_name": "TitleScreen",
+   "extends": "Control",
+   "functions": [
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 11
+  }
+ ],
+ "scenes": [
+  {
+   "name": "dialog",
+   "path": "addons/terrain_icon_gen/dialog.tscn",
+   "format": "3",
+   "nodes": 18,
+   "node_types": {
+    "AcceptDialog": 1,
+    "VBoxContainer": 3,
+    "Label": 4,
+    "HBoxContainer": 3,
+    "LineEdit": 2,
+    "Button": 2,
+    "CheckButton": 1,
+    "PanelContainer": 1,
+    "TextureRect": 1
+   },
+   "scripts": [
+    "res://addons/terrain_icon_gen/preview.gd"
+   ]
+  },
+  {
+   "name": "background",
+   "path": "scenes/backgrounds/background.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "CanvasLayer": 1
+   },
+   "scripts": []
+  },
+  {
+   "name": "overworld",
+   "path": "scenes/backgrounds/smw/overworld.tscn",
+   "format": "3",
+   "nodes": 2,
+   "node_types": {
+    "Node2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/background.gd"
+   ]
+  },
+  {
+   "name": "galoomba",
+   "path": "scenes/entities/galoomba.tscn",
+   "format": "3",
+   "nodes": 8,
+   "node_types": {
+    "CharacterBody2D": 1,
+    "CollisionShape2D": 2,
+    "Area2D": 1,
+    "Node2D": 1,
+    "AnimatedSprite2D": 1,
+    "Node": 2
+   },
+   "scripts": [
+    "res://scripts/level/entities/enemies/galoomba.gd",
+    "res://scripts/components/gravity_component.gd",
+    "res://scripts/components/slide_component.gd"
+   ]
+  },
+  {
+   "name": "green_koopa",
+   "path": "scenes/entities/green_koopa.tscn",
+   "format": "3",
+   "nodes": 8,
+   "node_types": {
+    "CharacterBody2D": 1,
+    "CollisionShape2D": 2,
+    "Area2D": 1,
+    "Node2D": 1,
+    "AnimatedSprite2D": 1,
+    "Node": 2
+   },
+   "scripts": [
+    "res://scripts/level/entities/enemies/koopa.gd",
+    "res://scripts/components/slide_component.gd",
+    "res://scripts/components/gravity_component.gd"
+   ]
+  },
+  {
+   "name": "mushroom",
+   "path": "scenes/entities/mushroom.tscn",
+   "format": "3",
+   "nodes": 7,
+   "node_types": {
+    "CharacterBody2D": 1,
+    "CollisionShape2D": 2,
+    "Area2D": 1,
+    "Sprite2D": 1,
+    "Node": 2
+   },
+   "scripts": [
+    "res://scripts/level/entities/mushroom.gd",
+    "res://scripts/components/gravity_component.gd",
+    "res://scripts/components/slide_component.gd"
+   ]
+  },
+  {
+   "name": "player",
+   "path": "scenes/entities/player.tscn",
+   "format": "3",
+   "nodes": 14,
+   "node_types": {
+    "CharacterBody2D": 1,
+    "CollisionShape2D": 1,
+    "Node2D": 1,
+    "AnimatedSprite2D": 1,
+    "AudioStreamPlayer": 2,
+    "Node": 8
+   },
+   "scripts": [
+    "res://scripts/level/entities/player.gd",
+    "res://scripts/level/entities/states/player_death_state.gd",
+    "res://scripts/level/entities/states/state_machine.gd",
+    "res://scripts/level/entities/states/player_moving_state.gd",
+    "res://scripts/level/entities/states/player_idle_state.gd",
+    "res://scripts/components/gravity_component.gd",
+    "res://scripts/level/entities/states/player_falling_state.gd",
+    "res://scripts/level/entities/states/player_jumping_state.gd",
+    "res://scripts/level/entities/states/player_spin_jumping_state.gd"
+   ]
+  },
+  {
+   "name": "stomped_galoomba",
+   "path": "scenes/entities/stomped_galoomba.tscn",
+   "format": "3",
+   "nodes": 8,
+   "node_types": {
+    "CharacterBody2D": 1,
+    "CollisionShape2D": 2,
+    "Area2D": 1,
+    "Node2D": 1,
+    "AnimatedSprite2D": 1,
+    "Node": 2
+   },
+   "scripts": [
+    "res://scripts/level/entities/stomped_galoomba.gd",
+    "res://scripts/components/gravity_component.gd",
+    "res://scripts/components/pickup_component.gd"
+   ]
+  },
+  {
+   "name": "skid_smoke",
+   "path": "scenes/particles/skid_smoke.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "AnimatedSprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/other/particle.gd"
+   ]
+  },
+  {
+   "name": "sparkle",
+   "path": "scenes/particles/sparkle.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "AnimatedSprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/other/particle.gd"
+   ]
+  },
+  {
+   "name": "spin_smoke",
+   "path": "scenes/particles/spin_smoke.tscn",
+   "format": "3",
+   "nodes": 2,
+   "node_types": {
+    "AnimatedSprite2D": 1,
+    "AudioStreamPlayer": 1
+   },
+   "scripts": [
+    "res://scripts/other/spin_smoke.gd"
+   ]
+  },
+  {
+   "name": "spin_thump",
+   "path": "scenes/particles/spin_thump.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "AnimatedSprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/other/particle.gd"
+   ]
+  },
+  {
+   "name": "touch_effect",
+   "path": "scenes/particles/touch_effect.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "AnimatedSprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/other/particle.gd"
+   ]
+  },
+  {
+   "name": "transform_effect",
+   "path": "scenes/particles/transform_effect.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "AnimatedSprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/other/particle.gd"
+   ]
+  },
+  {
+   "name": "coin_part",
+   "path": "scenes/parts/coin_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/coin_part.gd"
+   ]
+  },
+  {
+   "name": "editor_player",
+   "path": "scenes/parts/editor_player.tscn",
+   "format": "3",
+   "nodes": 4,
+   "node_types": {
+    "AnimatedSprite2D": 1,
+    "AudioStreamPlayer": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/editor_player.gd"
+   ]
+  },
+  {
+   "name": "galoomba_part",
+   "path": "scenes/parts/galoomba_part.tscn",
+   "format": "3",
+   "nodes": 2,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/galoomba_part.gd"
+   ]
+  },
+  {
+   "name": "ground_part",
+   "path": "scenes/parts/ground_part.tscn",
+   "format": "3",
+   "nodes": 4,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/ground_part.gd"
+   ]
+  },
+  {
+   "name": "koopa_part",
+   "path": "scenes/parts/koopa_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/koopa_part.gd"
+   ]
+  },
+  {
+   "name": "part",
+   "path": "scenes/parts/part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Area2D": 1,
+    "CollisionShape2D": 1,
+    "Node2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/part.gd"
+   ]
+  },
+  {
+   "name": "question_block_part",
+   "path": "scenes/parts/question_block_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/question_block_part.gd"
+   ]
+  },
+  {
+   "name": "starting_ground",
+   "path": "scenes/parts/starting_ground.tscn",
+   "format": "3",
+   "nodes": 6,
+   "node_types": {
+    "Sprite2D": 2,
+    "Area2D": 1,
+    "CollisionShape2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/starting_ground.gd"
+   ]
+  },
+  {
+   "name": "turn_block_part",
+   "path": "scenes/parts/turn_block_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/turn_block_part.gd"
+   ]
+  },
+  {
+   "name": "coursebot",
+   "path": "scenes/rooms/coursebot.tscn",
+   "format": "3",
+   "nodes": 25,
+   "node_types": {
+    "Panel": 1,
+    "PanelContainer": 2,
+    "VBoxContainer": 1,
+    "Label": 2,
+    "ScrollContainer": 1,
+    "MarginContainer": 1,
+    "GridContainer": 1,
+    "Control": 3,
+    "TextureRect": 11,
+    "VScrollBar": 1
+   },
+   "scripts": [
+    "res://scripts/ui/coursebot/coursebot.gd"
+   ]
+  },
+  {
+   "name": "credits",
+   "path": "scenes/rooms/credits.tscn",
+   "format": "3",
+   "nodes": 6,
+   "node_types": {
+    "ColorRect": 1,
+    "VBoxContainer": 1,
+    "Control": 1,
+    "Label": 1,
+    "RichTextLabel": 1,
+    "TextureButton": 1
+   },
+   "scripts": [
+    "res://scripts/ui/credits.gd",
+    "res://scripts/ui/logo.gd"
+   ]
+  },
+  {
+   "name": "disclaimer",
+   "path": "scenes/rooms/disclaimer.tscn",
+   "format": "3",
+   "nodes": 7,
+   "node_types": {
+    "Control": 1,
+    "ColorRect": 1,
+    "Timer": 1,
+    "Label": 3,
+    "VBoxContainer": 1
+   },
+   "scripts": [
+    "res://scripts/ui/disclaimer.gd"
+   ]
+  },
+  {
+   "name": "editor",
+   "path": "scenes/rooms/editor.tscn",
+   "format": "3",
+   "nodes": 2,
+   "node_types": {},
+   "scripts": []
+  },
+  {
+   "name": "intro",
+   "path": "scenes/rooms/intro.tscn",
+   "format": "3",
+   "nodes": 18,
+   "node_types": {
+    "Control": 4,
+    "ColorRect": 1,
+    "CenterContainer": 1,
+    "TextureRect": 1,
+    "Label": 1,
+    "HBoxContainer": 3,
+    "Button": 1,
+    "TextureButton": 5,
+    "AudioStreamPlayer": 1
+   },
+   "scripts": [
+    "res://scripts/ui/intro/intro.gd",
+    "res://scripts/ui/logo.gd",
+    "res://scripts/ui/intro/intro_link_button.gd",
+    "res://scripts/ui/intro/intro_play_button.gd"
+   ]
+  },
+  {
+   "name": "title",
+   "path": "scenes/rooms/title.tscn",
+   "format": "3",
+   "nodes": 31,
+   "node_types": {
+    "CanvasLayer": 1,
+    "Control": 3,
+    "TextureButton": 3,
+    "HBoxContainer": 1,
+    "VBoxContainer": 1,
+    "Button": 1,
+    "TextureRect": 12,
+    "PanelContainer": 3,
+    "Label": 3,
+    "AudioStreamPlayer": 1
+   },
+   "scripts": [
+    "res://scripts/ui/title/title_screen.gd",
+    "res://scripts/ui/title/start_btn.gd",
+    "res://scripts/ui/title/title_clapperboard.gd",
+    "res://scripts/ui/main_menu/page_btn.gd"
+   ]
+  },
+  {
+   "name": "mushroom_sprout",
+   "path": "scenes/sprouts/mushroom_sprout.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {},
+   "scripts": []
+  },
+  {
+   "name": "rise_sprout",
+   "path": "scenes/sprouts/rise_sprout.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Node2D": 1,
+    "Sprite2D": 1,
+    "AudioStreamPlayer": 1
+   },
+   "scripts": [
+    "res://scripts/level/sprouts/rise_sprout.gd"
+   ]
+  },
+  {
+   "name": "level_template",
+   "path": "scenes/templates/level_template.tscn",
+   "format": "3",
+   "nodes": 10,
+   "node_types": {
+    "Node2D": 1,
+    "StaticBody2D": 1,
+    "CollisionShape2D": 4,
+    "Timer": 1
+   },
+   "scripts": [
+    "res://scripts/level/level.gd"
+   ]
+  },
+  {
+   "name": "sub_area_template",
+   "path": "scenes/templates/sub_area_template.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Node2D": 3
+   },
+   "scripts": [
+    "res://scripts/level/sub_area.gd"
+   ]
+  },
+  {
+   "name": "coin",
+   "path": "scenes/tiles/coin.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Area2D": 1,
+    "CollisionShape2D": 1,
+    "AnimatedSprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/tiles/coin.gd"
+   ]
+  },
+  {
+   "name": "empty_block",
+   "path": "scenes/tiles/empty_block.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "StaticBody2D": 1,
+    "CollisionShape2D": 1,
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/ext/static_body_ext.gd"
+   ]
+  },
+  {
+   "name": "ground_tile",
+   "path": "scenes/tiles/ground_tile.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "StaticBody2D": 1,
+    "CollisionShape2D": 1,
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/tiles/ground.gd"
+   ]
+  },
+  {
+   "name": "question_block",
+   "path": "scenes/tiles/question_block.tscn",
+   "format": "3",
+   "nodes": 5,
+   "node_types": {
+    "StaticBody2D": 1,
+    "CollisionShape2D": 1,
+    "Node2D": 1,
+    "AnimatedSprite2D": 1,
+    "Node": 1
+   },
+   "scripts": [
+    "res://scripts/level/tiles/question_block.gd",
+    "res://scripts/components/block_component.gd",
+    "res://scripts/level/sprouts/coin_sprout.gd"
+   ]
+  },
+  {
+   "name": "turn_block_tile",
+   "path": "scenes/tiles/turn_block_tile.tscn",
+   "format": "3",
+   "nodes": 6,
+   "node_types": {
+    "StaticBody2D": 1,
+    "CollisionShape2D": 2,
+    "Area2D": 1,
+    "AnimatedSprite2D": 1,
+    "Node": 1
+   },
+   "scripts": [
+    "res://scripts/level/tiles/turn_block_tile.gd",
+    "res://scripts/components/block_component.gd"
+   ]
+  },
+  {
+   "name": "sm4j",
+   "path": "scenes/ui/controls/sm4j.tscn",
+   "format": "3",
+   "nodes": 8,
+   "node_types": {
+    "Control": 3,
+    "Node2D": 1,
+    "TouchScreenButton": 4
+   },
+   "scripts": []
+  },
+  {
+   "name": "level_card",
+   "path": "scenes/ui/coursebot/level_card.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "TextureButton": 1,
+    "Label": 1,
+    "AudioStreamPlayer": 1
+   },
+   "scripts": [
+    "res://scripts/ui/coursebot/level_card.gd"
+   ]
+  },
+  {
+   "name": "level_view",
+   "path": "scenes/ui/coursebot/level_view.tscn",
+   "format": "3",
+   "nodes": 40,
+   "node_types": {
+    "PanelContainer": 6,
+    "VBoxContainer": 6,
+    "Panel": 3,
+    "Label": 8,
+    "TextureButton": 1,
+    "Control": 1,
+    "TextureRect": 6,
+    "HBoxContainer": 4,
+    "Button": 5
+   },
+   "scripts": [
+    "res://scripts/ui/coursebot/level_view.gd",
+    "res://scripts/ui/coursebot/level_close_btn.gd",
+    "res://scripts/ui/coursebot/level_action_btn.gd"
+   ]
+  },
+  {
+   "name": "card",
+   "path": "scenes/ui/editor/card.tscn",
+   "format": "3",
+   "nodes": 4,
+   "node_types": {
+    "BaseButton": 1,
+    "AudioStreamPlayer": 1,
+    "TextureRect": 2
+   },
+   "scripts": [
+    "res://scripts/ui/editor/top_panel/editor_card.gd"
+   ]
+  },
+  {
+   "name": "category_btn",
+   "path": "scenes/ui/editor/category_btn.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Button": 1
+   },
+   "scripts": [
+    "res://scripts/ui/editor/palette/category_btn.gd"
+   ]
+  },
+  {
+   "name": "editor",
+   "path": "scenes/ui/editor/editor.tscn",
+   "format": "3",
+   "nodes": 79,
+   "node_types": {
+    "CanvasLayer": 2,
+    "Control": 11,
+    "Panel": 2,
+    "ColorRect": 2,
+    "MarginContainer": 1,
+    "TextureRect": 8,
+    "TextureButton": 21,
+    "HBoxContainer": 2,
+    "AudioStreamPlayer": 3,
+    "NinePatchRect": 2,
+    "Button": 3,
+    "BaseButton": 3,
+    "Label": 1
+   },
+   "scripts": [
+    "res://scripts/ui/editor/editor.gd",
+    "res://scripts/ui/editor/editor_panel.gd",
+    "res://scripts/ui/editor/palette/palette_ring.gd",
+    "res://scripts/ui/editor/right_panel/coursebot_btn.gd",
+    "res://scripts/ui/texture_button_ext.gd",
+    "res://scripts/ui/editor/palette/palette_navigation_btn.gd",
+    "res://scripts/ui/editor/editor_popout.gd",
+    "res://scripts/ui/editor/right_panel/coursebot/coursebot_popout_btn.gd",
+    "res://scripts/ui/editor/top_panel/palette_btn.gd",
+    "res://scripts/ui/editor/left_panel/game_style_btn.gd",
+    "res://scripts/ui/editor/clapperboard.gd",
+    "res://scripts/ui/editor/right_panel/eraser_btn.gd",
+    "res://scripts/ui/editor/top_panel/part_type_btn.gd",
+    "res://scripts/ui/editor/editor_panel_handle.gd",
+    "res://scripts/level/parts/koopa_part.gd",
+    "res://scripts/level/parts/galoomba_part.gd",
+    "res://scripts/level/parts/coin_part.gd",
+    "res://scripts/level/parts/turn_block_part.gd",
+    "res://scripts/level/parts/question_block_part.gd",
+    "res://scripts/level/parts/ground_part.gd",
+    "res://scripts/ui/editor/editor_tab.gd",
+    "res://scripts/ui/editor/left_panel/level_theme_btn.gd",
+    "res://scripts/ui/editor/left_panel/autoscroll_btn.gd",
+    "res://scripts/ui/editor/left_panel/time_btn.gd",
+    "res://scripts/ui/editor/left_panel/binary_btn.gd",
+    "res://scripts/ui/editor/left_panel/clear_condition_btn.gd",
+    "res://scripts/ui/editor/left_panel/time_guy.gd",
+    "res://scripts/ui/editor/left_panel/time_change_btn.gd"
+   ]
+  },
+  {
+   "name": "to_left",
+   "path": "scenes/ui/editor/popout_close_btn/to_left.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "TextureButton": 1
+   },
+   "scripts": []
+  },
+  {
+   "name": "to_right",
+   "path": "scenes/ui/editor/popout_close_btn/to_right.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {},
+   "scripts": []
+  },
+  {
+   "name": "popout_ok_btn",
+   "path": "scenes/ui/editor/popout_ok_btn.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Button": 1
+   },
+   "scripts": [
+    "res://scripts/ui/editor/left_panel/popout_ok_btn.gd"
+   ]
+  },
+  {
+   "name": "window",
+   "path": "scenes/ui/editor/window.tscn",
+   "format": "3",
+   "nodes": 2,
+   "node_types": {
+    "PanelContainer": 1,
+    "AudioStreamPlayer": 1
+   },
+   "scripts": [
+    "res://scripts/ui/editor/window.gd"
+   ]
+  },
+  {
+   "name": "smw",
+   "path": "scenes/ui/hud/smw.tscn",
+   "format": "3",
+   "nodes": 12,
+   "node_types": {
+    "CanvasLayer": 1,
+    "HBoxContainer": 4,
+    "Label": 3,
+    "TextureRect": 3,
+    "VBoxContainer": 1
+   },
+   "scripts": [
+    "res://scripts/ui/hud.gd"
+   ]
+  },
+  {
+   "name": "shell_kicked",
+   "path": "scenes/ui/intro_anims/shell_kicked.tscn",
+   "format": "4",
+   "nodes": 5,
+   "node_types": {
+    "Control": 1,
+    "AnimationPlayer": 1,
+    "AudioStreamPlayer": 1,
+    "TextureRect": 2
+   },
+   "scripts": []
+  },
+  {
+   "name": "thwomped",
+   "path": "scenes/ui/intro_anims/thwomped.tscn",
+   "format": "3",
+   "nodes": 5,
+   "node_types": {
+    "Control": 1,
+    "AnimationPlayer": 1,
+    "AudioStreamPlayer": 1,
+    "TextureRect": 2
+   },
+   "scripts": []
+  },
+  {
+   "name": "main_menu",
+   "path": "scenes/ui/main_menu.tscn",
+   "format": "3",
+   "nodes": 14,
+   "node_types": {
+    "Control": 2,
+    "Panel": 2,
+    "TextureRect": 1,
+    "TextureButton": 4,
+    "AudioStreamPlayer": 1,
+    "VBoxContainer": 1,
+    "Button": 2,
+    "HBoxContainer": 1
+   },
+   "scripts": [
+    "res://scripts/ui/main_menu/page_btn.gd",
+    "res://scripts/ui/main_menu/mini_btn.gd"
+   ]
+  },
+  {
+   "name": "menu_btn",
+   "path": "scenes/ui/menu_btn.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "TextureButton": 1
+   },
+   "scripts": [
+    "res://scripts/ui/menu_btn.gd"
+   ]
+  }
+ ],
+ "counts": {
+  "scripts": 114,
+  "scenes": 53,
+  "gd_lines_total": 8292
+ }
+}

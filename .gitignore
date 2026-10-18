@@ -7,3 +7,6 @@ dist/
 
 # JetBrains IDEs
 .idea/
+
+# Converted third-party assets; regenerate with tools/porting/port_sprites.py
+assets/openwe/
