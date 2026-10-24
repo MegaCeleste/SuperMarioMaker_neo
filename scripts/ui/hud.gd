@@ -16,3 +16,4 @@ func _process(_delta: float) -> void:
 	time_label.text = "%03d" % level.get_current_time()
 	if player != null:
 		coins_label.text = "%02d" % player.coins
+		score_label.text = "%09d" % player.score

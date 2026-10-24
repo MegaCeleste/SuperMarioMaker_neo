@@ -4,9 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://t3tsk1lthxde" path="res://textures/smw/entities/green_koopa.png" id="2_um8oi"]
 [ext_resource type="Script" uid="uid://sv7f6f65t1eb" path="res://scripts/components/slide_component.gd" id="3_r8ap5"]
 [ext_resource type="Script" uid="uid://nhyxn7n2fqbr" path="res://scripts/components/gravity_component.gd" id="4_q8068"]
+[ext_resource type="Script" path="res://scripts/components/enemy_flight_component.gd" id="5_flight"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
-size = Vector2(10, 16)
+size = Vector2(16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dh246"]
 atlas = ExtResource("2_um8oi")
@@ -38,7 +39,7 @@ hitbox = NodePath("KillArea")
 metadata/_custom_type_script = "uid://dclnp0a1etjyw"
 
 [node name="CollShape" type="CollisionShape2D" parent="." unique_id=39178322]
-position = Vector2(-1, -8)
+position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_g4v7s")
 
 [node name="KillArea" type="Area2D" parent="." unique_id=1214584575]
@@ -46,7 +47,7 @@ collision_layer = 2
 collision_mask = 4
 
 [node name="CollShape" type="CollisionShape2D" parent="KillArea" unique_id=361063178]
-position = Vector2(-1, -8)
+position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_g4v7s")
 
 [node name="Graphics" type="Node2D" parent="." unique_id=1838321991]
@@ -67,5 +68,8 @@ metadata/_custom_type_script = "uid://nhyxn7n2fqbr"
 script = ExtResource("3_r8ap5")
 speed = 30.0
 metadata/_custom_type_script = "uid://sv7f6f65t1eb"
+
+[node name="FlightComponent" type="Node" parent="."]
+script = ExtResource("5_flight")
 
 [connection signal="turned" from="SlideComponent" to="." method="_turned"]

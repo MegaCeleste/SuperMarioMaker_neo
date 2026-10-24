@@ -1,6 +1,5 @@
 class_name QuestionBlockPart
-extends Part
-
+extends ContainerBlockPart
 
 static func get_category() -> PaletteCategory:
 	return load("uid://wtetnd7c3nmk")
@@ -21,4 +20,5 @@ static func create() -> QuestionBlockPart:
 func build() -> void:
 	var tile = preload("uid://c4qpbj5epsp55").instantiate()
 	tile.position = position
+	tile.get_node("%BlockComponent").sprout = make_sprout()
 	sub_area.add(tile)

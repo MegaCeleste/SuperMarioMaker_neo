@@ -72,26 +72,34 @@ func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed \
 				and selected >= 0:
-			var card: EditorCard
-			# find an existing card with this part
-			for i: EditorCard in %Cards.get_children():
-				if i.part == get_page().items[selected].part:
-					card = i
-			# otherwise, add a new one
-			if card == null:
-				%Cards.remove_child(%Cards.get_child(0))
-				card = EditorCard.create()
-				card.editor = %Editor
-				%Cards.add_child(card)
-				card.part = get_page().items[selected].part
-			# trigger the sound
-			card.button_pressed = false
-			card.button_pressed = true
-			%TopPanel.status = EditorPanel.Status.OPEN
-			%LeftPanel.status = EditorPanel.Status.OPEN
-			%RightPanel.status = EditorPanel.Status.OPEN
-			%Clapperboard.off_screen = false
-			%PaletteMenu.hide()
+			choose(selected)
+
+
+## Selects an available palette entry using the same path as a mouse click.
+func choose(index: int) -> bool:
+	var page := get_page()
+	if index < 0 or index >= page.items.size() or page.items[index] == null or page.items[index].disabled:
+		return false
+	var card: EditorCard
+	for item: EditorCard in %Cards.get_children():
+		if item.part == page.items[index].part:
+			card = item
+	if card == null:
+		var oldest := %Cards.get_child(0)
+		%Cards.remove_child(oldest)
+		oldest.queue_free()
+		card = EditorCard.create()
+		card.editor = %Editor
+		%Cards.add_child(card)
+		card.part = page.items[index].part
+	card.button_pressed = false
+	card.button_pressed = true
+	%TopPanel.status = EditorPanel.Status.OPEN
+	%LeftPanel.status = EditorPanel.Status.OPEN
+	%RightPanel.status = EditorPanel.Status.OPEN
+	%Clapperboard.off_screen = false
+	%PaletteMenu.hide()
+	return true
 
 
 func _notification(what: int) -> void:
@@ -117,6 +125,10 @@ func _notification(what: int) -> void:
 
 func get_page() -> PalettePage:
 	return category.pages[page_index]
+
+
+func refresh_icons() -> void:
+	page_index = page_index
 
 
 func _set_category(v: PaletteCategory) -> void:
@@ -154,8 +166,7 @@ func _set_page_index(v: int) -> void:
 	if page.items[0] == null:
 		%CenterIcon.texture = null
 	else:
-		%CenterIcon.texture = page.items[0].part.get_part_icon(
-				%Editor.level.current_sub_area)
+		%CenterIcon.texture = %Editor.get_palette_icon(page.items[0].part)
 		%CenterIcon.texture_filter = page.items[0].part \
 				.get_part_icon_filter(%Editor.level.current_sub_area)
 	# add sector icons
@@ -180,7 +191,7 @@ func _set_page_index(v: int) -> void:
 
 func _set_selected(v: int) -> void:
 	var page = get_page()
-	if page.items[v] == null or page.items[v].disabled:
+	if v < 0 or v >= page.items.size() or page.items[v] == null or page.items[v].disabled:
 		v = -1
 	if v != selected:
 		%Sector.visible = v >= 0
@@ -192,8 +203,7 @@ func _set_selected(v: int) -> void:
 				UISoundPlayer.play()
 			if %Editor.level == null:
 				await %Editor.loaded
-			%CenterIcon.texture = page.items[v].part.get_part_icon(
-					%Editor.level.current_sub_area)
+			%CenterIcon.texture = %Editor.get_palette_icon(page.items[v].part)
 			%CenterIcon.texture_filter = page.items[v].part \
 					.get_part_icon_filter(%Editor.level.current_sub_area)
 	selected = v
@@ -217,7 +227,9 @@ func _create_icon(part: Script) -> TextureRect:
 	cutout.clip_children = CLIP_CHILDREN_ONLY
 	cutout.texture = preload("uid://b3tx16rivyjy4")
 	var icon = TextureRect.new()
-	icon.texture = part.get_part_icon(%Editor.level.current_sub_area)
+	icon.texture = %Editor.get_palette_icon(part)
+	# Source icons are not all square (e.g. the 24x32 Bros); never stretch them.
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	icon.texture_filter = part.get_part_icon_filter(
 			%Editor.level.current_sub_area)
 	icon.set_anchors_and_offsets_preset(PRESET_CENTER)

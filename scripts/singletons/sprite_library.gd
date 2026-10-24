@@ -9,12 +9,22 @@ extends Node
 
 const MANIFEST_PATH := "res://assets/openwe/manifests/sprites.json"
 const DEFAULT_ANIMATION := &"default"
+## Opt in only for independent converted PNGs that rotate during gameplay.
+## Mario, terrain, UI, atlases and ordinary moving sprites keep nearest sampling.
+const ROTATION_MATERIAL = preload("res://resources/rendering/pixel_rotation.tres")
 
 var _sprites: Dictionary = {}
 var _frames_cache: Dictionary = {}
+var _animation_cache: Dictionary = {}
+var _contact_draw_cache: Dictionary = {}
 
 
 func _ready() -> void:
+	# Resource getters may run while earlier autoloads are being constructed.
+	# An early empty lookup must not survive the manifest becoming available.
+	_frames_cache.clear()
+	_animation_cache.clear()
+	_contact_draw_cache.clear()
 	if not FileAccess.file_exists(MANIFEST_PATH):
 		return
 	var parsed: Variant = JSON.parse_string(
@@ -37,6 +47,34 @@ func get_origin(sprite_name: StringName) -> Vector2:
 	return Vector2(origin[0], origin[1])
 
 
+## A stable draw origin for the user's one-source-pixel surface overlap.
+## Use the union of a reference/rest animation, never realign individual frames:
+## natural foot/jaw motion must not become a moving pivot or visual jitter.
+## Physical masks and source instance coordinates remain independent.
+func contact_draw_y(sprite_name: StringName, surface_y := 0.0, upper := false,
+		flipped := false, source_frame := -1) -> float:
+	var key := "%s/%s/%s/%s/%s" % [sprite_name, surface_y, upper, flipped, source_frame]
+	if _contact_draw_cache.has(key):
+		return _contact_draw_cache[key]
+	var frames := get_frames(sprite_name)
+	var count := frames.get_frame_count(DEFAULT_ANIMATION)
+	if count == 0:
+		return 0
+	var edge := INF if upper else -INF
+	var indices: Array = [posmod(source_frame, count)] if source_frame >= 0 else range(count)
+	for index: int in indices:
+		var texture := frames.get_frame_texture(DEFAULT_ANIMATION, index)
+		var used := texture.get_image().get_used_rect()
+		if not used.has_area():
+			continue
+		var first := texture.get_height() - used.end.y if flipped else used.position.y
+		var last := texture.get_height() - used.position.y if flipped else used.end.y
+		edge = minf(edge, first) if upper else maxf(edge, last)
+	var result := surface_y + (-1 if upper else 1) + get_origin(sprite_name).y - edge if is_finite(edge) else 0.0
+	_contact_draw_cache[key] = result
+	return result
+
+
 ## Returns a cached [SpriteFrames] for [param sprite_name], or an empty one if
 ## the sprite is not in the manifest.
 func get_frames(sprite_name: StringName) -> SpriteFrames:
@@ -45,6 +83,8 @@ func get_frames(sprite_name: StringName) -> SpriteFrames:
 		return _frames_cache[key]
 	var entry := get_metadata(sprite_name)
 	var frames := SpriteFrames.new()
+	if entry.is_empty():
+		return frames
 	frames.set_animation_speed(DEFAULT_ANIMATION, float(entry.get("fps", 10.0)))
 	frames.set_animation_loop(DEFAULT_ANIMATION, bool(entry.get("loop", true)))
 	for path in entry.get("frames", []):
@@ -53,6 +93,42 @@ func get_frames(sprite_name: StringName) -> SpriteFrames:
 			frames.add_frame(DEFAULT_ANIMATION, texture)
 	_frames_cache[key] = frames
 	return frames
+
+
+## Combines named animations described by [sprite name, fps, loop]. Returns
+## null when the locally converted assets are missing so callers can fall back.
+func get_animations(mapping: Dictionary) -> SpriteFrames:
+	var key := JSON.stringify(mapping)
+	if _animation_cache.has(key):
+		return _animation_cache[key]
+	for entry: Array in mapping.values():
+		if not has_sprite(entry[0]):
+			return null
+	var frames := SpriteFrames.new()
+	frames.remove_animation(DEFAULT_ANIMATION)
+	for animation: String in mapping:
+		var entry: Array = mapping[animation]
+		var source := get_frames(entry[0])
+		frames.add_animation(animation)
+		frames.set_animation_speed(animation, float(entry[1]))
+		frames.set_animation_loop(animation, bool(entry[2]))
+		var indices: Variant = entry[3] if entry.size() > 3 else range(source.get_frame_count(DEFAULT_ANIMATION))
+		for index in indices:
+			frames.add_frame(animation, source.get_frame_texture(DEFAULT_ANIMATION, index))
+	_animation_cache[key] = frames
+	return frames
+
+
+## Assigns a single converted animation with its original GameMaker origin.
+func configure_sprite(sprite: AnimatedSprite2D, sprite_name: StringName,
+		animation: StringName, fps: float, anchor: Vector2 = Vector2.ZERO) -> void:
+	if not has_sprite(sprite_name):
+		return
+	sprite.sprite_frames = get_animations({String(animation): [String(sprite_name), fps, true]})
+	sprite.centered = false
+	sprite.offset = -get_origin(sprite_name)
+	sprite.position = anchor
+	sprite.play(animation)
 
 
 ## Creates an [AnimatedSprite2D] positioned like a GameMaker instance: the

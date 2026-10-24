@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ChompVariant" format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/chomp_variant.gd" id="1"]
+[ext_resource type="Resource" path="res://resources/content/smw_flight_chomp_editor.tres" id="2"]
+
+[resource]
+script = ExtResource("1")
+id = &"small"
+object_id = "obj_chomp_res"
+label = &"EDITOR_ENEMY_CHAIN_CHOMP"
+head_sprite = &"spr_chainchomp"
+chain_sprite = &"spr_chain"
+editor_sprite = &"spr_chainchomp_res"
+dark_editor_sprite = &"spr_chainchomp_night_res"
+decoration = ExtResource("2")

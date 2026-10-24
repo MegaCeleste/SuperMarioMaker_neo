@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="PiranhaVariant" format=3 uid="uid://6jww7gbf8ki5"]
+
+[ext_resource type="Script" uid="uid://dt0t8bbv4rfw1" path="res://scripts/level/entities/piranha_variant.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://be55dhcf7owoa" path="res://textures/ui/editor/parts/smw/piranha_plant.png" id="2"]
+[ext_resource type="Script" uid="uid://cxed5ag6ecvv8" path="res://scripts/level/entities/enemy_flight_profile.gd" id="3"]
+
+[sub_resource type="Resource" id="Flight"]
+script = ExtResource("3")
+wings_sprite = &"spr_wings2"
+editor_wings_sprite = &"spr_wings_editor_16x16"
+wing_loss_offsets = PackedVector2Array(17, 8, -3, 8)
+
+[resource]
+script = ExtResource("1")
+id = &"jump"
+object_id = "obj_pplant_res"
+label = &"EDITOR_ENEMY_PIRANHA"
+icon = ExtResource("2")
+editor_sprite = &"spr_pplant_res"
+idle_sprite = &"spr_jumppiranha_falll"
+jump_sprite = &"spr_jumppiranha"
+projectile_sprite = &"spr_fireball"
+smoke_sprite = &"spr_smoke"
+lava_splash_sprite = &"spr_splash_lava"
+poison_splash_sprite = &"spr_splash_lava_purple"
+flight = SubResource("Flight")
+dead_sprite = &"spr_jumppiranha_deads"
+dead_frame = 0
+dead_offset = Vector2(8, -16)
+dead_water_offset = 3.0

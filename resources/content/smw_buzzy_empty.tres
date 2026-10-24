@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="BuzzyVariant" format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/buzzy_variant.gd" id="1"]
+[ext_resource type="Texture2D" path="res://textures/ui/editor/parts/smw/buzzy_shell.png" id="2"]
+[ext_resource type="Resource" path="res://resources/content/smw_flight_buzzy.tres" id="3"]
+
+[resource]
+script = ExtResource("1")
+id = &"buzzy_empty"
+object_id = "obj_buzzy_shell_res"
+label = &"EDITOR_BUZZY_EMPTY"
+icon = ExtResource("2")
+walk_sprite = &"spr_shell_buzzy_empty"
+editor_sprite = &"spr_shell_empty_res"
+shell_sprite = &"spr_shell_buzzy_empty"
+inside_sprite = &"spr_shell_buzzy_empty"
+dead_sprite = &"spr_shell_buzzy_deads"
+flight = ExtResource("3")
+empty_shell = true
+wearable = true
+fireproof = true

@@ -30,9 +30,9 @@ def build_level(width_tiles=200):
         "cronometro": 300,
         "autoavance": 0,
         "modo_noche": 0,
-        "ground2": 432,
-        "ground3_x": 0,
-        "ground3_y": 432,
+        "ground2": 416,
+        "ground3_x": max(384, width_tiles * 16 - 112),
+        "ground3_y": 416,
         "size": max(496, width_tiles * 16),
         "water_level": 0,
         "water_level_limit": 0,
@@ -44,17 +44,17 @@ def build_level(width_tiles=200):
         "description": "Generated porting fixture",
     }
     terrain = [
-        {"x_pos": x * 16, "y_pos": 432, "index": 0}
+        {"x_pos": x * 16, "y_pos": 416, "index": 21 if x % 2 else 52}
         for x in range(width_tiles)
     ]
     objects = [
-        # Starting marker and a small spread of objects the base already knows.
-        {"object": "obj_mariostart", "x_pos": 32, "y_pos": 400},
+        # Spawn is derived from ground2, as in OpenWE's Coursebot loader.
         {"object": "obj_coin_res", "x_pos": 128, "y_pos": 384},
         {"object": "obj_coin_res", "x_pos": 144, "y_pos": 384},
-        {"object": "obj_qblock_res", "x_pos": 192, "y_pos": 384},
-        {"object": "obj_block_res", "x_pos": 224, "y_pos": 384},
+        {"object": "obj_qblock_res", "x_pos": 192, "y_pos": 368},
+        {"object": "obj_block_res", "x_pos": 224, "y_pos": 368},
         {"object": "obj_goomba_res", "x_pos": 320, "y_pos": 400},
+        {"object": "obj_qblock_res", "x_pos": 640, "y_pos": 368, "sprout": 1},
     ]
     return {
         "MAIN": {

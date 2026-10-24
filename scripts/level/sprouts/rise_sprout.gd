@@ -14,8 +14,18 @@ func end_sprout(position: Vector2, direction: Vector2) -> void:
 	sprouter.pos = position
 	sprouter.dir = direction
 	sprouter.off = offset
+	sprouter.sub_area = _find_sub_area()
 	body.add_sibling(sprouter)
 	empty = true
+
+
+func _find_sub_area() -> SubArea:
+	var ancestor := body.get_parent()
+	while ancestor != null:
+		if ancestor is SubArea:
+			return ancestor
+		ancestor = ancestor.get_parent()
+	return null
 
 
 class Sprouter extends Sprite2D:
@@ -24,6 +34,7 @@ class Sprouter extends Sprite2D:
 	var off: Vector2
 	var item: Node
 	var audio := AudioStreamPlayer.new()
+	var sub_area: SubArea
 	
 	
 	func _ready() -> void:
@@ -37,9 +48,19 @@ class Sprouter extends Sprite2D:
 	
 	
 	func _spawn() -> void:
-		item.global_position = global_position + off
-		add_sibling(item)
+		var at := global_position + off
+		if item is Entity and is_instance_valid(sub_area):
+			item.position = sub_area.get_foreground().to_local(at)
+			sub_area.add(item)
+		else:
+			item.global_position = at
+			add_sibling(item)
 		if audio.playing:
 			hide()
 			await audio.finished
 		queue_free()
+
+
+	func _exit_tree() -> void:
+		if is_instance_valid(item) and item.get_parent() == null:
+			item.free()

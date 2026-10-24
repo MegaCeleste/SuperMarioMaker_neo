@@ -12,6 +12,11 @@ extends Area2D
 var level: Level
 ## The [SubArea] this part is in.
 var sub_area: SubArea
+## Original object/terrain fields retained by SWE round-trip serialization.
+var swe_data: Dictionary = {}
+var swe_source_index := -1
+## Which saved source the index belongs to; detached undo Parts can outlive it.
+var swe_revision := 0
 ## Whether this part is currently being dragged around.
 var held := false:
 	set(v):
@@ -48,6 +53,8 @@ var _start_frame := Engine.get_process_frames()
 var _coll_layers: int
 var _window: EditorWindow
 var _window_timer: SceneTreeTimer
+var _drag_start: Vector2
+var _content_origin: ContainerBlockPart
 
 
 ## Gets this part's [PaletteCategory].
@@ -138,7 +145,7 @@ func _process(_delta: float) -> void:
 			_check_validity()
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if event is not InputEventMouseButton:
 		return
 	if event.button_index != MouseButton.MOUSE_BUTTON_LEFT:
@@ -151,7 +158,11 @@ func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int
 		) -> void:
 	if Engine.get_process_frames() == _start_frame:
 		return
-	if not level.editor.part_interact:
+	if not is_instance_valid(level) or not is_instance_valid(level.editor) or not level.editor.part_interact:
+		return
+	if level.editor.held_part != null and level.editor.held_part != self:
+		return
+	if self is GroundPart and level.editor.hovered_part is SlopePart:
 		return
 	if event is not InputEventMouseButton:
 		return
@@ -162,7 +173,8 @@ func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int
 
 
 func _notification(what: int) -> void:
-	if what == NOTIFICATION_PREDELETE and held:
+	if what == NOTIFICATION_PREDELETE and held and is_instance_valid(level) \
+			and is_instance_valid(level.editor):
 		level.editor.held_part = null
 
 
@@ -176,7 +188,7 @@ func _draw():
 		else:
 			color = Color(1, 0, 0, 0.5)
 		_draw_highlight(Level.from_grid(_grid_pos) - global_position, color)
-	elif _mouse_in and level.editor.part_interact \
+	elif _mouse_in and level.editor != null and level.editor.part_interact \
 			and level.editor.held_part == null:
 		_draw_highlight(Vector2(0, 0), Color(0, 0, 1, 0.5))
 
@@ -191,6 +203,7 @@ func load(placed_from_editor := false) -> void:
 
 ## Erases the part. [param silent] is used when the part gets deleted for any
 ## other reason than being erased by the user.
+## Editor gestures use Editor.erase_part() to retain the Part for undo.
 func erase(silent := false) -> void:
 	queue_free()
 	if not silent:
@@ -204,8 +217,66 @@ func build() -> void:
 	pass
 
 
+func can_erase() -> bool:
+	return true
+
+
+## Variant windows and undo use stable IDs rather than UI button positions.
+func get_variants() -> Array[Dictionary]:
+	return []
+
+
+func get_variant() -> StringName:
+	return &""
+
+
+func set_variant(_id: StringName) -> void:
+	pass
+
+
+## Independent toggles (such as wings and a parachute) do not change type IDs.
+func get_modifiers() -> Array[Dictionary]:
+	return []
+
+
+func has_modifier(_id: StringName) -> bool:
+	return false
+
+
+func set_modifier(_id: StringName, _enabled: bool) -> void:
+	pass
+
+
+## Type swaps can also remove dependent attachments. Undo restores both.
+func get_variant_state() -> Dictionary:
+	var modifiers := {}
+	for option in get_modifiers():
+		modifiers[option.id] = has_modifier(option.id)
+	return {"id": get_variant(), "modifiers": modifiers}
+
+
+func restore_variant_state(state: Dictionary) -> void:
+	set_variant(state.id)
+	for id: StringName in state.modifiers:
+		set_modifier(id, state.modifiers[id])
+
+
+## Environment changes may remove dependent attachments in the same history action.
+func get_environment_state() -> Dictionary:
+	return {}
+
+
+func restore_environment_state(_state: Dictionary) -> void:
+	pass
+
+
+func refresh_environment() -> void:
+	pass
+
+
 ## Called when the part is held.
 func _hold() -> void:
+	_drag_start = position
 	_coll_layers = collision_layer
 	collision_layer = 0
 
@@ -240,11 +311,21 @@ func _unhold() -> void:
 	_anim_place()
 	_check_validity()
 	_stop_window_timer()
+	%Graphics.rotation = 0
+	if level.editor.try_insert_content(self, _grid_pos):
+		Cursor.down = false
+		return
+	if not _valid_space and is_instance_valid(_content_origin) \
+			and level.editor.try_insert_content(self, Level.to_grid(_content_origin.position)):
+		Cursor.down = false
+		return
+	_content_origin = null
 
 	if not _valid_space:
 		_grid_pos = _original_pos
 	global_position = Level.from_grid(_grid_pos)
 	%Graphics.rotation = 0
+	level.editor.history.record_move(self, _drag_start, position)
 
 	UISoundPlayer.stream = preload("uid://2x6kk0s4njjp")
 	UISoundPlayer.play()
@@ -276,10 +357,13 @@ func _anim_held() -> void:
 
 
 func _mouse_update(state: bool) -> void:
+	if level == null or level.editor == null:
+		return
 	_mouse_in = state
 	queue_redraw()
 	if _mouse_in:
-		level.editor.hovered_part = self
+		if not (self is GroundPart and level.editor.hovered_part is SlopePart):
+			level.editor.hovered_part = self
 	elif level.editor.hovered_part == self:
 		level.editor.hovered_part = null
 
@@ -294,6 +378,8 @@ func _check_validity() -> void:
 	query.position = Level.from_grid(_grid_pos) + Level.GRID_SIZE / 2
 	_valid_space = get_world_2d().direct_space_state \
 			.intersect_point(query, 1).is_empty()
+	if not _valid_space and level.editor.content_target(_grid_pos, self) != null:
+		_valid_space = true
 
 
 func _create_touch_effect() -> void:
@@ -304,7 +390,10 @@ func _create_touch_effect() -> void:
 
 
 func _create_window() -> void:
+	if (get_variants().is_empty() and get_modifiers().is_empty()) or not held or not is_inside_tree():
+		return
 	_window = preload("uid://dyw1evq8k8n58").instantiate()
+	_window.part = self
 	_window.target_position = Level.from_grid(_original_pos) + Level.GRID_SIZE / 2
 	level.editor.get_node(^"%WindowLayer").add_child(_window)
 

@@ -25,6 +25,12 @@ PAGE_ONLINE,Course World,Niveles Mundiales
 EDITOR_POPOUT_COURSEBOT,Save | Load,Guardar | Cargar
 EDITOR_POPOUT_GAME_STYLE,Game Style,Apariencia
 EDITOR_POPOUT_LEVEL_THEME,Course Theme,Entorno
+COURSE_THEME_OVERWORLD,Ground,Superficie
+COURSE_THEME_UNDERGROUND,Underground,Subsuelo
+COURSE_THEME_UNDERWATER,Underwater,Submarino
+COURSE_THEME_MANSION,Ghost House,Casa encantada
+COURSE_THEME_AIRSHIP,Airship,Aeronave
+COURSE_THEME_CASTLE,Castle,Castillo
 EDITOR_POPOUT_AUTOSCROLL,Autoscroll,Autoavance
 EDITOR_POPOUT_TIME,Timer,Cronómetro
 EDITOR_POPOUT_CLEAR_CONDITION,Clear Condition,Condición Especial
@@ -37,6 +43,17 @@ EDITOR_COURSEBOT_SAVE_CHANGES,Save changes,Guardar cambios
 EDITOR_COURSEBOT_LOAD,Load,Cargar
 EDITOR_OK,OK,Aceptar
 EDITOR_ERASE,Erase,Goma de borrar
+EDITOR_CONTENT_COIN,Coin,Moneda
+EDITOR_CONTENT_MUSHROOM,Mushroom,Champiñón
+EDITOR_CONTENT_FIRE_FLOWER,Fire Flower,Flor de fuego
+EDITOR_CONTENT_STAR,Super Star,Superestrella
+EDITOR_CONTENT_PROGRESSIVE_FLOWER,Mushroom / Fire Flower,Champiñón / Flor de fuego
+EDITOR_UNDO,Undo,Deshacer
+EDITOR_REDO,Redo,Rehacer
+EDITOR_ENEMY_GALOOMBA,Galoomba,Galoomba
+EDITOR_ENEMY_GOOMBUD,Goombud,Goombud
+EDITOR_KOOPA_GREEN,Green Koopa,Koopa verde
+EDITOR_KOOPA_RED,Red Koopa,Koopa rojo
 EDITOR_SOUNDS,Sounds,Sonidos
 COURSEBOT_COURSES,Courses,Niveles
 LEVEL_EDIT,Edit,Editar
@@ -72,3 +89,25 @@ CATEGORY_TERRAIN,Terrain,Superfícies
 CATEGORY_ITEMS,Items,Objetos
 CATEGORY_ENEMIES,Enemies,Enemigos
 CATEGORY_GIZMOS,Gizmos,Artilugios
+EDITOR_WINGS,Wings,Alas
+EDITOR_PARACHUTE,Parachute,Paracaídas
+EDITOR_BUZZY_BEETLE,Buzzy Beetle,Buzzy Beetle
+EDITOR_BUZZY_EMPTY,Empty Buzzy Shell,Caparazón vacío de Buzzy
+EDITOR_SPINY,Spiny,Pinchón
+EDITOR_SPINY_EMPTY,Empty Spiny Shell,Caparazón vacío de Pinchón
+EDITOR_ENEMY_CHEEP_CHEEP,Cheep Cheep,Cheep Cheep
+EDITOR_ENEMY_YELLOW_CHEEP_CHEEP,Yellow Cheep Cheep,Cheep Cheep amarillo
+EDITOR_ENEMY_PIRANHA,Piranha Plant,Planta piraña
+EDITOR_ENEMY_FIRE_PIRANHA,Fire Piranha Plant,Planta piraña de fuego
+EDITOR_ENEMY_MUNCHER,Muncher,Muncher
+EDITOR_ENEMY_MUNCHER_GIANT,Giant Muncher,Muncher gigante
+EDITOR_ENEMY_THWOMP,Thwomp,Roca Picuda
+EDITOR_ENEMY_THWOMP_GIANT,Giant Thwomp,Roca Picuda gigante
+EDITOR_ENEMY_GRRROL_PENDING,Grrrol (unavailable),Grrrol (no disponible)
+EDITOR_ENEMY_CHAIN_CHOMP,Chain Chomp,Chomp Cadenas
+EDITOR_ENEMY_CHAIN_CHOMP_GIANT,Giant Chain Chomp,Chomp Cadenas gigante
+EDITOR_ENEMY_GRRROL,Grrrol,Grrrol
+EDITOR_ENEMY_GRRROL_LEGACY,Legacy Grrrol,Grrrol clásico
+EDITOR_ENEMY_GRRROL_GIANT,Giant Grrrol,Grrrol gigante
+EDITOR_CONTENT_EMPTY,Empty,Vacío
+EDITOR_CONTENT_DRAG_OUT,Drag the item out,Arrastra el objeto fuera

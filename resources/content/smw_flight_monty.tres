@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EnemyFlightProfile" format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/enemy_flight_profile.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+motion = 1
+manual_walk = true
+wing_hop_speed = 180.0
+wings_sprite = &"spr_wings"
+wings_fps = 7.2
+wings_offset = Vector2(-12, -20)
+mirror_wings_offset = true
+parachute_offset = Vector2(-3, 0)
+wing_loss_offsets = PackedVector2Array(-9, 9)
+editor_wings_sprite = &"spr_wings_editor_16x16"
+editor_wings_offset = Vector2(20, -20)
+editor_parachute_offset = Vector2(8, -16)

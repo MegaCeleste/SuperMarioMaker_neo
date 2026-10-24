@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="HammerBroVariant" format=3 uid="uid://qekjk0cxwxte"]
+
+[ext_resource type="Script" uid="uid://5wa2ayfoogqa" path="res://scripts/level/entities/hammer_bro_variant.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"sledge"
+object_id = "obj_sledgebro_res"
+label = &"EDITOR_ENEMY_SLEDGE"
+idle_sprite = &"spr_sledgebro"
+jump_sprite = &"spr_sledgebro"
+throw_sprite = &"spr_sledgebro_throw"
+editor_sprite = &"spr_sledgebro_res"
+editor_origin = Vector2(19, 30)
+throw_delay = 10
+lower_support_probes = null
+sledge = true
+mask_size = Vector2(18, 24)
+jump_interval = 8.0
+throw_interval = 60
+hammer_offset = Vector2(0, -26)
+dead_sprite = &"spr_sledgebro"
+dead_frame = 0
+dead_offset = Vector2(0, -16)
+dead_mask_rect = Rect2(-9, -8, 18, 24)

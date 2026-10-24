@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="EnemyFlightPhysics" format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/enemy_flight_physics.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+gravity = 720.0
+fall_speed = 240.0
+parachute_gravity = 360.0
+parachute_fall_speed = 24.0
+sway_distance = 16.0
+sway_speed = 30.0
+sway_acceleration = 54.0
+swing_frequency = 1.6666666667
+swing_degrees = 12.0
+koopa_hop = 247.5
+burst_small_hop = 150.0
+burst_large_hop = 240.0
+burst_pause = 2.0
+vertical_distance = 32.0
+collision_recoil = 24.0
+land_delay = 0.1666666667
+wing_loss_delay = 0.0333333333
+ride_sink_speed = 72.0
+ride_rise_speed = 24.0
+ride_acceleration = 180.0
+parachute_sprite = &"spr_paracaidas"
+parachute_land_sprite = &"spr_paracaidas"
+wing_dead_sprite = &"spr_wings_deads"
+other_wing_dead_sprite = &"spr_wings_dead2"
+editor_parachute_sprite = &"spr_paracaidas_editor"
+editor_icon_sprite = &"spr_window_button_SMW"

@@ -23,6 +23,8 @@ func _draw() -> void:
 	rect.position *= follow_scale
 
 	var size = texture.get_size()
-	var pos = (rect.position / size).floor() * size
-	var end = (rect.end / size).ceil() * size
+	# Overscan covers the display camera just before a repeat boundary, while
+	# physics/activation continue to use the completed tick's camera.
+	var pos = ((rect.position / size).floor() - Vector2.ONE) * size
+	var end = ((rect.end / size).ceil() + Vector2.ONE) * size
 	draw_texture_rect(texture, Rect2(pos, end - pos), true)

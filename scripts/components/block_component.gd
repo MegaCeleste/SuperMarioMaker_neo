@@ -30,25 +30,27 @@ signal sprout_end(eject_direction: Vector2, activator: PhysicsBody2D, empty: boo
 @export var enabled := true
 
 var _old_z: int
+var _activating := false
 
 
 ## Animates the given [param spr] with the starting sprout animation.
-static func animate_sprout_start(spr: Node2D) -> Tween:
+static func animate_sprout_start(spr: Node2D, direction := Vector2.UP) -> Tween:
 	var tween = spr.create_tween()
-	tween.tween_property(spr, "position", Vector2(8, -2), 4/60.0) 
+	var side := 1.0 if direction.y > 0 else -1.0
+	tween.tween_property(spr, "position", Vector2(8, 8 + side * 10), 4/60.0)
 	tween.parallel() \
 			.tween_property(spr, "scale", Vector2(1.1875, 1.1875), 4/60.0)
-	tween.tween_property(spr, "position", Vector2(8, 5), 4/60.0) 
+	tween.tween_property(spr, "position", Vector2(8, 8 + side * 3), 4/60.0)
 	tween.parallel() \
 			.tween_property(spr, "scale", Vector2(1.375, 1.375), 4/60.0)
 	return tween
 
 
 ## Animates the given [param spr] with the ending sprout animation.
-static func animate_sprout_end(spr: Node2D) -> Tween:
+static func animate_sprout_end(spr: Node2D, direction := Vector2.UP) -> Tween:
 	var tween = spr.create_tween()
 	tween.tween_property(spr, "position", Vector2(8, 8), 4/60.0) \
-			.from(Vector2(8, 5))
+			.from(Vector2(8, 11 if direction.y > 0 else 5))
 	tween.parallel().tween_property(spr, "scale", Vector2(1, 1), 4/60.0) \
 			.from(Vector2(1.375, 1.375))
 	return tween
@@ -66,35 +68,70 @@ func _exit_tree() -> void:
 
 func _set_sprout(v: Sprout) -> void:
 	sprout = v
+	if v == null:
+		return
 	if not is_inside_tree():
 		await tree_entered
-	v.body = get_parent()
+	if sprout == v:
+		v.body = get_parent()
 
 
 func _just_collided(data: KinematicCollision2D):
-	if not enabled:
+	if not enabled or _activating:
 		return
 	var entity = data.get_local_shape().get_parent() as PhysicsBody2D
 	if entity is Player and data.get_normal().y == 1:
-		if sprout != null and not sprout.empty:
-			sprout.start_sprout(_get_sprout_pos(Vector2.UP), Vector2.UP)
-		_old_z = get_parent().z_index
-		sprite.z_index = GameConstants.Layers.Z_ANIM_BLOCKS
-		sprout_start.emit(data.get_normal(), entity)
-		animate_sprout_start(sprite).finished.connect(
-				_finish_sprout.bind(data.get_normal(), Vector2.UP, entity))
+		activate(entity)
+
+
+## Player head bumps and shell impacts share one activation path.
+func activate(activator: PhysicsBody2D, eject_direction := Vector2.UP) -> void:
+	if not enabled or _activating:
+		return
+	_activating = true
+	if eject_direction.y <= 0:
+		_bump_supported_enemies(activator)
+	if sprout != null and not sprout.empty:
+		sprout.start_sprout(_get_sprout_pos(eject_direction), eject_direction)
+	_old_z = get_parent().z_index
+	sprite.z_index = GameConstants.Layers.Z_ANIM_BLOCKS
+	sprout_start.emit(-eject_direction, activator)
+	animate_sprout_start(sprite, eject_direction).finished.connect(
+			_finish_sprout.bind(-eject_direction, eject_direction, activator.get_instance_id()))
+
+
+func _bump_supported_enemies(activator: PhysicsBody2D) -> void:
+	var bounds := Utility.get_bounding_box(get_parent())
+	var query := PhysicsShapeQueryParameters2D.new()
+	var rectangle := RectangleShape2D.new()
+	rectangle.size = Vector2(bounds.size.x, 6)
+	query.shape = rectangle
+	query.transform.origin = Vector2(bounds.get_center().x, bounds.position.y - 3)
+	query.collision_mask = 2 | 8
+	for hit in get_parent().get_world_2d().direct_space_state.intersect_shape(query):
+		# The SMW flip-block's own bump handler excludes hardness99 actors.
+		if get_parent() is TurnBlockTile and hit.collider is Enemy and hit.collider.hardness >= 99:
+			continue
+		if Utility.get_bounding_box(hit.collider).end.y < bounds.position.y + 5:
+			if hit.collider is Enemy:
+				hit.collider.bumped_by_block(get_parent(), activator)
+			elif hit.collider.has_method("bumped_from_below"):
+				hit.collider.bumped_from_below(activator)
 
 
 func _finish_sprout(
 		normal: Vector2,
 		eject_direction: Vector2,
-		activator: PhysicsBody2D
+		activator_id: int
 ) -> void:
-	animate_sprout_end(sprite) \
+	# The shell/player can disappear before the bump tween finishes.
+	var activator: PhysicsBody2D = instance_from_id(activator_id) if is_instance_id_valid(activator_id) else null
+	animate_sprout_end(sprite, eject_direction) \
 			.tween_property(get_parent(), "z_index", _old_z, 0)
 	if sprout != null:
 		sprout.end_sprout(_get_sprout_pos(eject_direction), eject_direction)
-		sprout_end.emit(normal, activator, sprout.empty)
+	sprout_end.emit(normal, activator, sprout != null and sprout.empty)
+	_activating = false
 
 
 # TODO: add some sort of customizability to sprout positions

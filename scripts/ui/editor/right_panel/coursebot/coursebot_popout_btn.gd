@@ -31,11 +31,11 @@ func _pressed() -> void:
 	%CoursebotPanel.sound_player.play()
 	match type:
 		Type.SAVE_NEW:
-			pass
+			%Editor.request_save(true)
 		Type.SAVE_CHANGES:
-			pass
+			%Editor.request_save()
 		Type.LOAD:
-			pass
+			SceneManager.fade_to_scene(load("res://scenes/rooms/coursebot.tscn"))
 
 
 func _mouse_entered() -> void:

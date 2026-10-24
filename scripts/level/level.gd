@@ -11,10 +11,14 @@ signal game_style_changed(old: GameStyle)
 signal time_changed
 signal playing
 signal editing
+## Emitted once when a living player enters the goal.
+signal completed(player: Player)
+signal completion_finished
 
 enum Status {
 	PLAYING,
 	EDITING,
+	COMPLETED,
 }
 
 ## Represents a game style. Applies across the entire level.
@@ -158,6 +162,12 @@ const LEVEL_HEIGHT = 27
 ## [b]is[/b] being played online. See [member online_id] for the online
 ## counterpart.
 @export var file_path := ""
+## Original decoded SWE data, retained so saving keeps unported sections.
+var source_swe: Dictionary = {}
+var metadata_only := false
+var swe_load_complete := false
+var swe_revision := 0
+@export_range(496, 9216, 16) var width := 3200
 ## The author's local time when this level was saved in the format "HH:MM".
 ## Empty if unknown. Using this as a level creation timestamp can be unreliable
 ## as this is saved as a string and can be tampered, leading to possible parse
@@ -172,6 +182,16 @@ const LEVEL_HEIGHT = 27
 var sub_areas: Array[SubArea] = []
 ## The [HUD] associated with this level. Hidden while editing.
 var hud: HUD
+var is_completed := false
+## Shared source animation clock (obj_levelmanager.banim2), independent of spawn time.
+var animation_time := 0.0
+var _camera_impulse: CameraImpulse
+var _completion_time := 0
+var _goal_sequence: SMWGoalSequence
+var _world_death: WorldDeath
+var _death_time := 0
+## Set by the Coursebot entry point; standalone hosts can handle completion_finished.
+var return_to_coursebot := false
 
 
 static func to_grid(pos: Vector2) -> Vector2i:
@@ -193,11 +213,26 @@ func _init(_level_name := "", _author := "", _game_style := GameStyle.SMW):
 
 
 func _ready() -> void:
-	hud = load(GameConstants.HUDS[game_style]).instantiate()
+	var hud_path: String = GameConstants.HUDS[game_style]
+	if hud_path.is_empty():
+		push_warning("HUD for this style is not ported; using the SMW HUD.")
+		hud_path = "res://scenes/ui/hud/smw.tscn"
+	hud = load(hud_path).instantiate()
 	hud.level = self
 	add_child(hud)
+	%LevelTimer.timeout.connect(_timeout)
 	for i in get_children():
 		if i is SubArea:
+			if status == Status.EDITING and source_swe.is_empty():
+				var has_goal := false
+				for part in i.get_parts().get_children():
+					if part is GoalPolePart:
+						has_goal = true
+				if not has_goal:
+					var goal: GoalPolePart = load("res://scenes/parts/goal_pole_part.tscn").instantiate()
+					var start: StartingGround = i.get_parts().get_node_or_null("StartingGround")
+					goal.position = Vector2(width - 112, (start.position.y if start != null else -32) - 137)
+					i.add_part(goal)
 			sub_areas.append(i)
 			i.level = self
 			i.load()
@@ -217,6 +252,18 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	_camera_clamp.call_deferred()
+
+
+func _physics_process(delta: float) -> void:
+	animation_time += delta
+
+
+## Source impact shake changes only rendering, never world collision coordinates.
+func shake_camera(strength: float) -> void:
+	if not is_instance_valid(_camera_impulse):
+		_camera_impulse = CameraImpulse.new()
+		add_child(_camera_impulse)
+	_camera_impulse.start(strength)
 
 
 func create_editor() -> void:
@@ -245,10 +292,77 @@ func edit() -> void:
 
 
 func get_current_time() -> int:
+	if is_completed:
+		return _goal_sequence.remaining_time if is_instance_valid(_goal_sequence) else _completion_time
+	if is_player_dying():
+		return _death_time
 	if %LevelTimer.is_stopped():
 		return 0
 	else:
-		return int(%LevelTimer.time_left)
+		return ceili(%LevelTimer.time_left)
+
+
+func is_player_dying() -> bool:
+	return is_instance_valid(_world_death)
+
+
+func get_living_player() -> Player:
+	var player := hud.player if is_instance_valid(hud) else null
+	# Source AI queries obj_mario; ice/death/goal use separate replacements.
+	return player if is_instance_valid(player) and not player.is_dead() and not player.is_frozen() \
+			and status == Status.PLAYING else null
+
+
+func start_player_death() -> void:
+	if is_player_dying():
+		return
+	_death_time = get_current_time()
+	%LevelTimer.stop()
+	_world_death = WorldDeath.new()
+	_world_death.name = "WorldDeath"
+	_world_death.level = self
+	add_child(_world_death)
+
+
+func _clear_player_death() -> void:
+	if is_instance_valid(_world_death):
+		remove_child(_world_death)
+		_world_death.queue_free()
+	_world_death = null
+	_death_time = 0
+
+
+## Stops the level clock once and starts SMW's goal walk/score sequence.
+func complete(player: Player, finish_x := INF) -> void:
+	if status != Status.PLAYING or player.level != self or player.is_dead():
+		return
+	_completion_time = get_current_time()
+	is_completed = true
+	status = Status.COMPLETED
+	%LevelTimer.stop()
+	_goal_sequence = SMWGoalSequence.new()
+	_goal_sequence.level = self
+	_goal_sequence.player = player
+	_goal_sequence.finish_x = finish_x if is_finite(finish_x) else player.global_position.x + 90
+	_goal_sequence.remaining_time = _completion_time
+	_goal_sequence.finished.connect(_finish_completion, CONNECT_DEFERRED)
+	add_child(_goal_sequence)
+	completed.emit(player)
+
+
+func _finish_completion() -> void:
+	completion_finished.emit()
+	if editor != null:
+		edit()
+	elif return_to_coursebot:
+		SceneManager.fade_to_scene(load("res://scenes/rooms/coursebot.tscn"))
+
+
+func _clear_goal_sequence() -> void:
+	if is_instance_valid(_goal_sequence):
+		remove_child(_goal_sequence)
+		_goal_sequence.queue_free()
+		_goal_sequence = null
 
 
 func reload() -> void:
@@ -266,12 +380,18 @@ func _camera_clamp() -> void:
 
 func _timeout() -> void:
 	times_up.emit()
-	#player.kill()
+	if is_instance_valid(hud.player):
+		hud.player.kill()
 
 
 func _play() -> void:
+	_clear_player_death()
 	status = Status.PLAYING
-	%LevelTimer.start(time + 1)
+	is_completed = false
+	_clear_goal_sequence()
+	if is_instance_valid(_camera_impulse):
+		_camera_impulse.cancel()
+	%LevelTimer.start(time)
 	hud.show()
 	if editor != null:
 		editor.music_offset = MusicPlayer.get_playback_position()
@@ -293,12 +413,17 @@ func _play() -> void:
 				GameStyle.NSMBU:
 					MusicPlayer.stream = preload("uid://chlmxxg0dw2t3")
 	else:
-		MusicPlayer.stream = preload("uid://c7xx82tvew4nu")
+		MusicPlayer.stream = SMWTheme.music_for(current_sub_area, false)
 	MusicPlayer.play()
 
 
 func _edit() -> void:
+	_clear_player_death()
 	status = Status.EDITING
+	is_completed = false
+	_clear_goal_sequence()
+	if is_instance_valid(_camera_impulse):
+		_camera_impulse.cancel()
 	process_mode = Node.PROCESS_MODE_INHERIT
 	%LevelTimer.stop()
 	hud.hide()

@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="ThwompVariant" format=3 uid="uid://c680p5ud1camu"]
+
+[ext_resource type="Script" uid="uid://lys4ls4lvaqc" path="res://scripts/level/entities/thwomp_variant.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"thwomp_giant"
+object_id = "obj_thwomp_b_res"
+label = &"EDITOR_ENEMY_THWOMP_GIANT"
+body_sprite = &"spr_thwomp_b"
+horizontal_sprite = &"spr_thwomp_h_b"
+mask_sprite = &""
+editor_sprite = &"spr_SMW_thwomp_b_res"
+giant = true
+mask_size = Vector2(48, 64)
+source_to_feet = Vector2(0, 64)
+part_to_feet = Vector2(0, 64)
+editor_bounds = Rect2(-32, 0, 64, 64)
+arrow_center = Vector2(0, 32)
+arrow_button = Rect2(-11, 14, 29, 36)
+vertical_trigger_margin = 16.0
+vertical_trigger_offset = 9.0
+side_trigger_distance = 56.0
+side_trigger_inset = 2.0
+side_trigger_top = 20.0
+side_trigger_bottom = 4.0

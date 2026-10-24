@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="WrenchRules" format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/wrench_rules.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+flight_sprite = &"spr_wrench"
+dead_sprite = &"spr_wrench"
+dead_frame = 0
+dead_water_offset = -4.0

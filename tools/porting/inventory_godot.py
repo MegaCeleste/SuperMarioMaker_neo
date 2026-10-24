@@ -91,6 +91,8 @@ def inventory_scenes(root: Path):
 def main():
     root = Path(sys.argv[1]).resolve()
     out_path = Path(sys.argv[2]).resolve()
+    if not (root / "project.godot").is_file():
+        raise SystemExit(f"Godot project.godot not found under: {root}")
     report = {
         "root": str(root),
         "project": parse_project_godot(root),

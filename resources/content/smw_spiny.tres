@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="SpinyVariant" format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/spiny_variant.gd" id="1"]
+[ext_resource type="Texture2D" path="res://textures/ui/editor/parts/smw/spiny.png" id="2"]
+[ext_resource type="Resource" path="res://resources/content/smw_flight_spiny.tres" id="3"]
+
+[resource]
+script = ExtResource("1")
+id = &"spiny"
+object_id = "obj_spiny_res"
+label = &"EDITOR_SPINY"
+icon = ExtResource("2")
+walk_sprite = &"spr_spiny"
+editor_sprite = &"spr_spiny_res"
+winged_editor_sprite = &"spr_spiny_wings_res"
+shell_sprite = &"spr_spiny_dead"
+inside_sprite = &"spr_spiny_dead"
+dead_sprite = &"spr_shell_spiny_deads"
+ball_sprite = &"spr_spiny_ball"
+needle_sprite = &"spr_spiny_espina"
+flight = ExtResource("3")
+restore_scene = "res://scenes/entities/spiny.tscn"
+recovery_time = 10.6666666667

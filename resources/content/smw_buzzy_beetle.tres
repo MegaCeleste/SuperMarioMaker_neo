@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="BuzzyVariant" format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/buzzy_variant.gd" id="1"]
+[ext_resource type="Texture2D" path="res://textures/ui/editor/parts/smw/buzzy_beetle.png" id="2"]
+[ext_resource type="Resource" path="res://resources/content/smw_flight_buzzy.tres" id="3"]
+
+[resource]
+script = ExtResource("1")
+id = &"buzzy"
+object_id = "obj_buzzybeetle_res"
+label = &"EDITOR_BUZZY_BEETLE"
+icon = ExtResource("2")
+walk_sprite = &"spr_buzzybeetle"
+editor_sprite = &"spr_buzzybeetle_res"
+winged_editor_sprite = &"spr_buzzy_wings_res"
+shell_sprite = &"spr_shell_buzzy"
+inside_sprite = &"spr_shell_buzzy"
+dead_sprite = &"spr_shell_buzzy_deads"
+flight = ExtResource("3")
+mask_width = 12.0
+restore_scene = "res://scenes/entities/buzzy_beetle.tscn"
+recovery_time = 10.6666666667
+fireproof = true

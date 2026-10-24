@@ -85,12 +85,14 @@
    "class_name": "BlockComponent",
    "extends": "Component",
    "functions": [
+    "_bump_supported_enemies",
     "_enter_tree",
     "_exit_tree",
     "_finish_sprout",
     "_get_sprout_pos",
     "_just_collided",
-    "_set_sprout"
+    "_set_sprout",
+    "activate"
    ],
    "signals": [
     "sprout_end",
@@ -101,7 +103,7 @@
     "sprite",
     "sprout"
    ],
-   "lines": 103
+   "lines": 140
   },
   {
    "name": "component",
@@ -112,6 +114,31 @@
    "signals": [],
    "exports": [],
    "lines": 20
+  },
+  {
+   "name": "enemy_flight_component",
+   "path": "scripts/components/enemy_flight_component.gd",
+   "class_name": "EnemyFlightComponent",
+   "extends": "Component",
+   "functions": [
+    "_burst",
+    "_create_ride_platform",
+    "_exit_tree",
+    "_land_parachute",
+    "_ride",
+    "_sway",
+    "_update_visuals",
+    "after_move",
+    "before_move",
+    "setup",
+    "strip_wings"
+   ],
+   "signals": [],
+   "exports": [
+    "parachute",
+    "wings"
+   ],
+   "lines": 301
   },
   {
    "name": "gravity_component",
@@ -136,6 +163,7 @@
    "functions": [
     "_body_entered",
     "_dropped",
+    "_physics_process",
     "_picked_up",
     "_ready",
     "_set_check_area",
@@ -148,7 +176,33 @@
    "exports": [
     "check_area"
    ],
-   "lines": 100
+   "lines": 135
+  },
+  {
+   "name": "player_helmet",
+   "path": "scripts/components/player_helmet.gd",
+   "class_name": "PlayerHelmet",
+   "extends": "Node2D",
+   "functions": [
+    "_apply_head_shape",
+    "_contacts",
+    "_head_bounds",
+    "_physics_process",
+    "_play_sound",
+    "_process",
+    "_ready",
+    "_spawn_effect",
+    "_spawn_spark",
+    "_sync_head_shape",
+    "_sync_visual",
+    "activate",
+    "break_off",
+    "deflect",
+    "shields"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 308
   },
   {
    "name": "slide_component",
@@ -156,13 +210,16 @@
    "class_name": "SlideComponent",
    "extends": "Component",
    "functions": [
+    "_has_floor_ahead",
     "_physics_process"
    ],
    "signals": [
     "turned"
    ],
-   "exports": [],
-   "lines": 33
+   "exports": [
+    "avoid_ledges"
+   ],
+   "lines": 53
   },
   {
    "name": "character_body_ext",
@@ -170,14 +227,20 @@
    "class_name": "CharacterBodyExt",
    "extends": "CharacterBody2D",
    "functions": [
-    "_physics_process"
+    "_enter_tree",
+    "_physics_process",
+    "apply_source_death",
+    "move_source_and_slide",
+    "source_death_stopped",
+    "uses_source_deactivation",
+    "uses_source_death_stop"
    ],
    "signals": [
     "collided",
     "just_collided"
    ],
    "exports": [],
-   "lines": 43
+   "lines": 88
   },
   {
    "name": "static_body_ext",
@@ -193,6 +256,60 @@
    "lines": 17
   },
   {
+   "name": "actor_activity",
+   "path": "scripts/level/actor_activity.gd",
+   "class_name": "ActorActivity",
+   "extends": "Node",
+   "functions": [
+    "_apply",
+    "_exit_tree",
+    "_physics_process",
+    "_ready",
+    "region",
+    "register",
+    "reset"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 84
+  },
+  {
+   "name": "actor_activity_rules",
+   "path": "scripts/level/actor_activity_rules.gd",
+   "class_name": "ActorActivityRules",
+   "extends": "Resource",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "horizontal_margin",
+    "interval_ticks",
+    "vertical_margin"
+   ],
+   "lines": 9
+  },
+  {
+   "name": "actor_contacts",
+   "path": "scripts/level/actor_contacts.gd",
+   "class_name": "ActorContacts",
+   "extends": "Node",
+   "functions": [
+    "_active",
+    "_away",
+    "_cells",
+    "_held_obstacle",
+    "_physics_process",
+    "_ready",
+    "hit_from_galoomba",
+    "overlaps",
+    "reset",
+    "turn_enemy",
+    "turn_item"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 227
+  },
+  {
    "name": "background",
    "path": "scripts/level/background.gd",
    "class_name": "Background",
@@ -206,7 +323,359 @@
     "follow_scale",
     "texture"
    ],
-   "lines": 29
+   "lines": 31
+  },
+  {
+   "name": "beach_koopa",
+   "path": "scripts/level/entities/beach_koopa.gd",
+   "class_name": "BeachKoopa",
+   "extends": "Enemy",
+   "functions": [
+    "_body_handling",
+    "_physics_process",
+    "_ready",
+    "_seek_shell",
+    "_stomped",
+    "get_defeat_sprite",
+    "is_walking"
+   ],
+   "signals": [],
+   "exports": [
+    "variant"
+   ],
+   "lines": 133
+  },
+  {
+   "name": "block_break_request",
+   "path": "scripts/level/entities/block_break_request.gd",
+   "class_name": "BlockBreakRequest",
+   "extends": "Node",
+   "functions": [
+    "_bump_above",
+    "_physics_process"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 71
+  },
+  {
+   "name": "block_shard",
+   "path": "scripts/level/entities/block_shard.gd",
+   "class_name": "BlockShard",
+   "extends": "Node2D",
+   "functions": [
+    "_physics_process",
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 31
+  },
+  {
+   "name": "blooper_rules",
+   "path": "scripts/level/entities/blooper_rules.gd",
+   "class_name": "BlooperRules",
+   "extends": "Resource",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "cooldown_time",
+    "defeat_air_fall_gravity",
+    "defeat_air_launch",
+    "defeat_air_rise_gravity",
+    "defeat_fall_speed",
+    "defeat_fps",
+    "defeat_offset",
+    "defeat_sprite",
+    "defeat_water_gravity",
+    "defeat_water_launch",
+    "editor_decorations",
+    "editor_sprite",
+    "jet_speed",
+    "jet_time",
+    "mask_center",
+    "mask_size",
+    "sink_gravity",
+    "sink_speed",
+    "swim_sprite"
+   ],
+   "lines": 26
+  },
+  {
+   "name": "bro_projectile",
+   "path": "scripts/level/entities/bro_projectile.gd",
+   "class_name": "BroProjectile",
+   "extends": "Entity",
+   "functions": [
+    "_boomerang",
+    "_bouncing_shot",
+    "_burst",
+    "_hit_player",
+    "_ice_supported",
+    "_in_water",
+    "_liquid_contact",
+    "_outside_view",
+    "_physics_process",
+    "_ready",
+    "_splash",
+    "_sprite_name",
+    "_tick_boomerang_lifetime",
+    "deflect_from_helmet",
+    "uses_source_deactivation",
+    "uses_source_death_stop"
+   ],
+   "signals": [],
+   "exports": [
+    "direction",
+    "kind",
+    "rules"
+   ],
+   "lines": 329
+  },
+  {
+   "name": "bro_projectile_physics",
+   "path": "scripts/level/entities/bro_projectile_physics.gd",
+   "class_name": "BroProjectilePhysics",
+   "extends": "Resource",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "boomerang_alarms",
+    "boomerang_blink_interval",
+    "boomerang_blink_time",
+    "boomerang_expiry",
+    "boomerang_spin",
+    "boomerang_turn",
+    "boomerang_vertical_acceleration",
+    "fall_cap",
+    "fire_bounce",
+    "hammer_gravity",
+    "hammer_spin",
+    "horizontal_speeds",
+    "ice_bounce",
+    "ice_fall_cap",
+    "launch_speeds",
+    "molten_hammer_cap",
+    "shot_gravity",
+    "water_fire_cap",
+    "water_fire_gravity",
+    "water_hammer_gravity",
+    "water_hammer_launch",
+    "water_hammer_spin"
+   ],
+   "lines": 28
+  },
+  {
+   "name": "buzzy_variant",
+   "path": "scripts/level/entities/buzzy_variant.gd",
+   "class_name": "BuzzyVariant",
+   "extends": "ShellVariant",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "editor_sprite",
+    "empty_shell",
+    "flight",
+    "icon",
+    "label",
+    "object_id",
+    "walk_fps",
+    "walk_sprite",
+    "winged_editor_sprite"
+   ],
+   "lines": 14
+  },
+  {
+   "name": "chain_chomp",
+   "path": "scripts/level/entities/chain_chomp.gd",
+   "class_name": "ChainChomp",
+   "extends": "Enemy",
+   "functions": [
+    "_corpse",
+    "_full_water",
+    "_has_support",
+    "_is_below_world",
+    "_is_swimming",
+    "_physics_process",
+    "_ready",
+    "_record_history",
+    "_sink",
+    "_solid_query",
+    "_touches_damaging_liquid",
+    "_turn_from_neighbours",
+    "_update_visuals",
+    "_wall_ahead",
+    "_water_launch",
+    "apply_source_death",
+    "bumped_by_block",
+    "hit_by_projectile",
+    "kill",
+    "source_origin"
+   ],
+   "signals": [],
+   "exports": [
+    "variant"
+   ],
+   "lines": 272
+  },
+  {
+   "name": "cheep_cheep_variant",
+   "path": "scripts/level/entities/cheep_cheep_variant.gd",
+   "class_name": "CheepCheepVariant",
+   "extends": "EnemyDefeatStyle",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "aim_large_jump",
+    "animation_fps",
+    "bubble_sprite",
+    "editor_sprite",
+    "ember_sprite",
+    "fall_speed",
+    "fire_sprite",
+    "flight",
+    "float_fall_speed",
+    "float_gravity",
+    "glide_acceleration",
+    "glide_rise_speed",
+    "glide_speed",
+    "glide_time",
+    "glide_wings_fps",
+    "gravity",
+    "horizontal_drag",
+    "icon",
+    "id",
+    "jump_speed",
+    "label",
+    "large_jump",
+    "object_id",
+    "poison_sprite",
+    "small_jump",
+    "sway_acceleration",
+    "sway_distance",
+    "sway_speed",
+    "swim_speed",
+    "swim_sprite",
+    "turn_time",
+    "wing_jump_speed",
+    "wings_fps"
+   ],
+   "lines": 39
+  },
+  {
+   "name": "chomp_variant",
+   "path": "scripts/level/entities/chomp_variant.gd",
+   "class_name": "ChompVariant",
+   "extends": "EnemyDefeatStyle",
+   "functions": [
+    "part_to_feet",
+    "source_mask"
+   ],
+   "signals": [],
+   "exports": [
+    "canvas_size",
+    "chain_sprite",
+    "dark_editor_sprite",
+    "deceleration",
+    "decoration",
+    "editor_origin",
+    "editor_sprite",
+    "fall_speed",
+    "gravity",
+    "head_fps",
+    "head_sprite",
+    "history_length",
+    "hop_speed",
+    "id",
+    "label",
+    "launch_speed",
+    "link_spacing",
+    "mask_rect",
+    "object_id",
+    "source_to_feet",
+    "wake_delay",
+    "walk_speed",
+    "water_fall_speed",
+    "water_hop_speed",
+    "water_launch_speed",
+    "water_walk_speed"
+   ],
+   "lines": 41
+  },
+  {
+   "name": "blooper",
+   "path": "scripts/level/entities/enemies/blooper.gd",
+   "class_name": "Blooper",
+   "extends": "Enemy",
+   "functions": [
+    "_physics_process",
+    "_ready",
+    "_stomped",
+    "bumped_from_below",
+    "kill"
+   ],
+   "signals": [],
+   "exports": [
+    "rules"
+   ],
+   "lines": 93
+  },
+  {
+   "name": "buzzy_beetle",
+   "path": "scripts/level/entities/enemies/buzzy_beetle.gd",
+   "class_name": "BuzzyBeetle",
+   "extends": "Enemy",
+   "functions": [
+    "_ceiling_support",
+    "_drop_from_ceiling",
+    "_make_shell",
+    "_physics_process",
+    "_ready",
+    "_stomped",
+    "get_defeat_sprite"
+   ],
+   "signals": [],
+   "exports": [
+    "ceiling",
+    "variant"
+   ],
+   "lines": 85
+  },
+  {
+   "name": "cheep_cheep",
+   "path": "scripts/level/entities/enemies/cheep_cheep.gd",
+   "class_name": "CheepCheep",
+   "extends": "Enemy",
+   "functions": [
+    "_air_motion",
+    "_build_mask",
+    "_defeat",
+    "_detach_parachute",
+    "_effect",
+    "_free_below",
+    "_jump_from_surface",
+    "_physics_process",
+    "_ready",
+    "_resume",
+    "_shed_wing",
+    "_spin_stomp",
+    "_stomped",
+    "_sway",
+    "_swim_motion",
+    "_update_contact_policy",
+    "_update_visuals",
+    "_uses_room_bottom",
+    "apply_source_death",
+    "bumped_from_below",
+    "kill"
+   ],
+   "signals": [],
+   "exports": [
+    "parachute",
+    "variant",
+    "wings"
+   ],
+   "lines": 320
   },
   {
    "name": "enemy",
@@ -215,11 +684,22 @@
    "extends": "Entity",
    "functions": [
     "_body_handling",
+    "_is_below_world",
     "_physics_process",
     "_ready",
     "_spin_stomp",
     "_stomped",
-    "kill"
+    "bumped_by_block",
+    "get_defeat_frame",
+    "get_defeat_sprite",
+    "hit_by_actor",
+    "hit_by_projectile",
+    "kill",
+    "source_block_defeat",
+    "source_hit_direction",
+    "spawn_source_defeat",
+    "uses_source_deactivation",
+    "uses_source_death_stop"
    ],
    "signals": [
     "stomped"
@@ -227,7 +707,7 @@
    "exports": [
     "hitbox"
    ],
-   "lines": 126
+   "lines": 224
   },
   {
    "name": "galoomba",
@@ -235,12 +715,19 @@
    "class_name": "Galoomba",
    "extends": "Enemy",
    "functions": [
+    "_physics_process",
+    "_ready",
     "_stomped",
-    "_turned"
+    "_turned",
+    "apply_source_death",
+    "get_defeat_frame",
+    "get_defeat_sprite"
    ],
    "signals": [],
-   "exports": [],
-   "lines": 22
+   "exports": [
+    "variant"
+   ],
+   "lines": 55
   },
   {
    "name": "koopa",
@@ -248,11 +735,157 @@
    "class_name": "Koopa",
    "extends": "Enemy",
    "functions": [
-    "_turned"
+    "_physics_process",
+    "_ready",
+    "_stomped",
+    "_turned",
+    "get_defeat_sprite"
    ],
    "signals": [],
-   "exports": [],
-   "lines": 10
+   "exports": [
+    "variant"
+   ],
+   "lines": 53
+  },
+  {
+   "name": "piranha_plant",
+   "path": "scripts/level/entities/enemies/piranha_plant.gd",
+   "class_name": "PiranhaPlant",
+   "extends": "Enemy",
+   "functions": [
+    "_advance_attack",
+    "_detach_parachute",
+    "_drop_wings",
+    "_physics_process",
+    "_ready",
+    "_set_sprite",
+    "_sink",
+    "_update_aim",
+    "_update_visuals",
+    "apply_source_death",
+    "bumped_from_below",
+    "kill"
+   ],
+   "signals": [],
+   "exports": [
+    "parachute",
+    "variant",
+    "wings"
+   ],
+   "lines": 271
+  },
+  {
+   "name": "spiny",
+   "path": "scripts/level/entities/enemies/spiny.gd",
+   "class_name": "Spiny",
+   "extends": "Enemy",
+   "functions": [
+    "_advance_attack",
+    "_drop_wing",
+    "_fire_needles",
+    "_make_flipped_shell",
+    "_physics_process",
+    "_ready",
+    "bumped_from_below",
+    "get_defeat_sprite",
+    "kill"
+   ],
+   "signals": [],
+   "exports": [
+    "ceiling",
+    "variant"
+   ],
+   "lines": 144
+  },
+  {
+   "name": "enemy_defeat_style",
+   "path": "scripts/level/entities/enemy_defeat_style.gd",
+   "class_name": "EnemyDefeatStyle",
+   "extends": "Resource",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "dead_frame",
+    "dead_mask_rect",
+    "dead_offset",
+    "dead_spins",
+    "dead_sprite",
+    "dead_water_offset"
+   ],
+   "lines": 13
+  },
+  {
+   "name": "enemy_flight_physics",
+   "path": "scripts/level/entities/enemy_flight_physics.gd",
+   "class_name": "EnemyFlightPhysics",
+   "extends": "Resource",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "burst_large_hop",
+    "burst_pause",
+    "burst_small_hop",
+    "collision_recoil",
+    "editor_icon_sprite",
+    "editor_parachute_sprite",
+    "fall_speed",
+    "gravity",
+    "koopa_hop",
+    "land_delay",
+    "other_wing_dead_sprite",
+    "parachute_fall_speed",
+    "parachute_gravity",
+    "parachute_land_sprite",
+    "parachute_sprite",
+    "ride_acceleration",
+    "ride_rise_speed",
+    "ride_sink_speed",
+    "sway_acceleration",
+    "sway_distance",
+    "sway_speed",
+    "swing_degrees",
+    "swing_frequency",
+    "vertical_distance",
+    "wing_dead_sprite",
+    "wing_loss_delay"
+   ],
+   "lines": 31
+  },
+  {
+   "name": "enemy_flight_profile",
+   "path": "scripts/level/entities/enemy_flight_profile.gd",
+   "class_name": "EnemyFlightProfile",
+   "extends": "Resource",
+   "functions": [
+    "editor_options"
+   ],
+   "signals": [],
+   "exports": [
+    "editor_parachute_offset",
+    "editor_wings_offset",
+    "editor_wings_sprite",
+    "float_sprite",
+    "hover_acceleration",
+    "hover_distance",
+    "hover_speed",
+    "loaded_wings_fps",
+    "manual_walk",
+    "mirror_wings_offset",
+    "motion",
+    "parachute_fps",
+    "parachute_offset",
+    "parachute_swing",
+    "turn_after_burst",
+    "wing_body_frame",
+    "wing_body_sprite",
+    "wing_hop_speed",
+    "wing_loss_drop",
+    "wing_loss_offsets",
+    "wings_fps",
+    "wings_offset",
+    "wings_sprite"
+   ],
+   "lines": 41
   },
   {
    "name": "entity",
@@ -265,17 +898,526 @@
    "lines": 9
   },
   {
+   "name": "fire_flower",
+   "path": "scripts/level/entities/fire_flower.gd",
+   "class_name": "FireFlower",
+   "extends": "Entity",
+   "functions": [
+    "_body_entered",
+    "_physics_process",
+    "_ready",
+    "_replace_with_mushroom",
+    "bumped_from_below",
+    "uses_source_deactivation",
+    "uses_source_death_stop"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 109
+  },
+  {
+   "name": "goomba_variant",
+   "path": "scripts/level/entities/goomba_variant.gd",
+   "class_name": "GoombaVariant",
+   "extends": "Resource",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "avoid_ledges",
+    "dead_sprite",
+    "flight",
+    "held_sprite",
+    "icon",
+    "id",
+    "label",
+    "object_id",
+    "recovery_hop_speed",
+    "recovery_time",
+    "shake_time",
+    "walk_sprite"
+   ],
+   "lines": 18
+  },
+  {
+   "name": "grrrol",
+   "path": "scripts/level/entities/grrrol.gd",
+   "class_name": "Grrrol",
+   "extends": "Enemy",
+   "functions": [
+    "_below_molten_limit",
+    "_body_handling",
+    "_handle_sides",
+    "_has_support",
+    "_hit_enemy",
+    "_in_water",
+    "_is_below_world",
+    "_liquid_contact",
+    "_physics_process",
+    "_query",
+    "_ready",
+    "_turn_from_legacy",
+    "_update_visuals",
+    "bumped_by_block",
+    "get_helmet_hit_margin",
+    "hit_by_actor",
+    "hit_by_projectile",
+    "kill"
+   ],
+   "signals": [],
+   "exports": [
+    "attack_direction",
+    "variant"
+   ],
+   "lines": 260
+  },
+  {
+   "name": "grrrol_variant",
+   "path": "scripts/level/entities/grrrol_variant.gd",
+   "class_name": "GrrrolVariant",
+   "extends": "ThwompVariant",
+   "functions": [
+    "source_mask"
+   ],
+   "signals": [],
+   "exports": [
+    "block_probe",
+    "drag",
+    "editor_draw_center",
+    "left_acceleration",
+    "legacy",
+    "right_acceleration",
+    "right_drag_threshold",
+    "rotation_speed",
+    "runtime_mask",
+    "side_inset",
+    "transform_sprite",
+    "walk_speed",
+    "wall_hop",
+    "water_walk_speed"
+   ],
+   "lines": 25
+  },
+  {
+   "name": "hammer_bro",
+   "path": "scripts/level/entities/hammer_bro.gd",
+   "class_name": "HammerBro",
+   "extends": "Enemy",
+   "functions": [
+    "_block_at",
+    "_choose_small_jump",
+    "_drop_parachute",
+    "_full_water",
+    "_in_water",
+    "_one_way_only",
+    "_patrol",
+    "_physics_process",
+    "_ready",
+    "_set_art",
+    "_sink",
+    "_sledge_landing",
+    "_spawn_projectile",
+    "_stomped",
+    "_terrain_at_feet",
+    "_tick_jumping",
+    "_tick_throwing",
+    "_touches_damaging_liquid",
+    "_try_platform_landing",
+    "_update_visuals",
+    "apply_source_death",
+    "bumped_by_block",
+    "get_defeat_frame",
+    "get_defeat_sprite",
+    "hit_by_actor",
+    "hit_by_projectile",
+    "kill"
+   ],
+   "signals": [],
+   "exports": [
+    "variant"
+   ],
+   "lines": 474
+  },
+  {
+   "name": "hammer_bro_variant",
+   "path": "scripts/level/entities/hammer_bro_variant.gd",
+   "class_name": "HammerBroVariant",
+   "extends": "EnemyDefeatStyle",
+   "functions": [
+    "get_icon"
+   ],
+   "signals": [],
+   "exports": [
+    "burst_cooldown",
+    "editor_frame",
+    "editor_origin",
+    "editor_sprite",
+    "fall_speed",
+    "graphics_y",
+    "gravity",
+    "hammer_offset",
+    "id",
+    "idle_sprite",
+    "jump_big",
+    "jump_interval",
+    "jump_room_below",
+    "jump_small",
+    "jump_speed",
+    "jump_sprite",
+    "label",
+    "lower_block_probe",
+    "lower_support_probes",
+    "mask_size",
+    "max_throws",
+    "min_throws",
+    "object_id",
+    "pass_gravity",
+    "projectile",
+    "sledge",
+    "source_to_feet",
+    "throw_delay",
+    "throw_interval",
+    "throw_sprite",
+    "upper_block_probe",
+    "walk_speed",
+    "water_fall_speed",
+    "water_gravity",
+    "water_initial_walk_speed",
+    "water_jump_big",
+    "water_jump_small",
+    "water_pass_gravity",
+    "water_walk_speed",
+    "water_wing_jump_big",
+    "water_wing_jump_small",
+    "wing_jump_big",
+    "wing_jump_small"
+   ],
+   "lines": 78
+  },
+  {
+   "name": "helmet_rules",
+   "path": "scripts/level/entities/helmet_rules.gd",
+   "class_name": "HelmetRules",
+   "extends": "Resource",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "defeat_on_head",
+    "deflect_sound",
+    "equip_offset",
+    "equip_sound",
+    "equip_sprite",
+    "falling_angle",
+    "falling_rotation_speed",
+    "goal_animation",
+    "head_bounce_speed",
+    "head_center",
+    "head_ellipse",
+    "head_size",
+    "head_top",
+    "head_up_center",
+    "head_up_size",
+    "id",
+    "normal_sprite",
+    "physical_rising_bounce_extra",
+    "remove_sound",
+    "rising_bounce_extra",
+    "shell_deflect_speed",
+    "small_duck_y",
+    "small_hold_duck_y",
+    "small_up_y",
+    "small_y",
+    "spark_sprite",
+    "super_duck_y",
+    "super_hold_duck_y",
+    "super_up_y",
+    "super_y",
+    "up_sprite",
+    "walking_angle"
+   ],
+   "lines": 37
+  },
+  {
+   "name": "koopa_shell",
+   "path": "scripts/level/entities/koopa_shell.gd",
+   "class_name": "KoopaShell",
+   "extends": "Enemy",
+   "functions": [
+    "_award_combo",
+    "_body_handling",
+    "_bump_block",
+    "_dropped",
+    "_forget_holder",
+    "_hit_enemy",
+    "_physics_process",
+    "_picked_up",
+    "_ready",
+    "_restore_koopa",
+    "_touch_player",
+    "_update_pickup",
+    "_update_sprite",
+    "_wear",
+    "begin_entry",
+    "get_defeat_sprite",
+    "kill",
+    "launch"
+   ],
+   "signals": [],
+   "exports": [
+    "inverted",
+    "variant"
+   ],
+   "lines": 374
+  },
+  {
+   "name": "koopa_variant",
+   "path": "scripts/level/entities/koopa_variant.gd",
+   "class_name": "KoopaVariant",
+   "extends": "ShellVariant",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "avoid_ledges",
+    "beach_crawl_dead_sprite",
+    "beach_sprite",
+    "beach_stomp_sprite",
+    "beach_walk_dead_sprite",
+    "beach_walk_sprite",
+    "flight",
+    "icon",
+    "label",
+    "object_id",
+    "walk_fps",
+    "walk_sprite"
+   ],
+   "lines": 17
+  },
+  {
+   "name": "monty",
+   "path": "scripts/level/entities/monty.gd",
+   "class_name": "Monty",
+   "extends": "Enemy",
+   "functions": [
+    "_in_water",
+    "_physics_process",
+    "_ready",
+    "_stomped",
+    "bumped_by_block",
+    "get_defeat_frame",
+    "get_defeat_sprite",
+    "hit_by_actor",
+    "hit_by_projectile",
+    "kill"
+   ],
+   "signals": [],
+   "exports": [
+    "variant"
+   ],
+   "lines": 121
+  },
+  {
+   "name": "monty_variant",
+   "path": "scripts/level/entities/monty_variant.gd",
+   "class_name": "MontyVariant",
+   "extends": "EnemyDefeatStyle",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "acceleration",
+    "editor_frame",
+    "editor_origin",
+    "editor_sprite",
+    "flight",
+    "id",
+    "label",
+    "mask_size",
+    "object_id",
+    "walk_fps",
+    "walk_speed",
+    "walk_sprite",
+    "wall_hop",
+    "water_left_speed",
+    "water_wall_speed"
+   ],
+   "lines": 23
+  },
+  {
+   "name": "muncher",
+   "path": "scripts/level/entities/muncher.gd",
+   "class_name": "Muncher",
+   "extends": "Entity",
+   "functions": [
+    "_find_support",
+    "_full_water",
+    "_in_water",
+    "_interact",
+    "_physics_process",
+    "_process",
+    "_ready",
+    "bumped_from_below",
+    "get_helmet_hit_margin",
+    "hit_by_projectile",
+    "kill",
+    "uses_source_deactivation",
+    "uses_source_death_stop"
+   ],
+   "signals": [],
+   "exports": [
+    "variant"
+   ],
+   "lines": 184
+  },
+  {
+   "name": "muncher_variant",
+   "path": "scripts/level/entities/muncher_variant.gd",
+   "class_name": "MuncherVariant",
+   "extends": "EnemyDefeatStyle",
+   "functions": [
+    "feet_offset",
+    "footprint"
+   ],
+   "signals": [],
+   "exports": [
+    "air_drag",
+    "body_sprite",
+    "bump_speed",
+    "buzzy_helmet_margin",
+    "canvas_size",
+    "crush_sound",
+    "dark_editor_sprite",
+    "editor_dark_frame",
+    "editor_frame",
+    "editor_origin",
+    "editor_sprite",
+    "fall_speed",
+    "flight",
+    "gravity",
+    "ground_drag",
+    "icon",
+    "id",
+    "label",
+    "landing_sound",
+    "mask_size",
+    "object_id",
+    "pow_smoke_sprite",
+    "source_x_offset",
+    "spiny_helmet_margin",
+    "water_bump_speed",
+    "water_fall_speed",
+    "water_gravity"
+   ],
+   "lines": 41
+  },
+  {
    "name": "mushroom",
    "path": "scripts/level/entities/mushroom.gd",
    "class_name": "Mushroom",
    "extends": "CharacterBodyExt",
    "functions": [
     "_body_entered",
+    "_physics_process",
+    "_ready",
+    "uses_source_deactivation",
+    "uses_source_death_stop"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 40
+  },
+  {
+   "name": "note_content_release",
+   "path": "scripts/level/entities/note_content_release.gd",
+   "class_name": "NoteContentRelease",
+   "extends": "Node",
+   "functions": [
     "_physics_process"
    ],
    "signals": [],
    "exports": [],
-   "lines": 15
+   "lines": 49
+  },
+  {
+   "name": "one_up",
+   "path": "scripts/level/entities/one_up.gd",
+   "class_name": "OneUp",
+   "extends": "Entity",
+   "functions": [
+    "_collect",
+    "_physics_process",
+    "_ready",
+    "bumped_from_below",
+    "uses_source_deactivation",
+    "uses_source_death_stop"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 107
+  },
+  {
+   "name": "piranha_variant",
+   "path": "scripts/level/entities/piranha_variant.gd",
+   "class_name": "PiranhaVariant",
+   "extends": "EnemyDefeatStyle",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "aim_up_sprite",
+    "attack_recovery",
+    "attack_wait",
+    "attack_windup",
+    "editor_origin",
+    "editor_size",
+    "editor_sprite",
+    "fall_speed",
+    "fire",
+    "flight",
+    "float_fall_speed",
+    "float_gravity",
+    "gravity",
+    "horizontal_drag",
+    "icon",
+    "id",
+    "idle_fps",
+    "idle_sprite",
+    "impact_sound",
+    "initial_attack",
+    "jump_fps",
+    "jump_speed",
+    "jump_sprite",
+    "jump_wait",
+    "label",
+    "lava_splash_sprite",
+    "mask_center",
+    "mask_size",
+    "object_id",
+    "poison_splash_sprite",
+    "projectile_speed",
+    "projectile_sprite",
+    "shot_sound",
+    "smoke_sprite",
+    "sway_acceleration",
+    "sway_distance",
+    "sway_speed",
+    "water_fall_speed",
+    "water_gravity",
+    "water_jump_speed",
+    "water_projectile_speed",
+    "water_sway_speed"
+   ],
+   "lines": 48
+  },
+  {
+   "name": "plant_fireball",
+   "path": "scripts/level/entities/plant_fireball.gd",
+   "class_name": "PlantFireball",
+   "extends": "Entity",
+   "functions": [
+    "_burst",
+    "_physics_process",
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 56
   },
   {
    "name": "player",
@@ -284,29 +1426,397 @@
    "extends": "Entity",
    "functions": [
     "_attempt_correction",
+    "_can_expand_hitbox",
+    "_finish_held_item_detach",
+    "_has_hitbox_room",
     "_just_collided",
     "_notification",
     "_physics_process",
     "_process",
     "_ready",
+    "_update_camera",
+    "_update_crouch",
+    "_update_sprite_origin",
+    "_update_swimming",
     "bounce",
     "can_change_sprite",
+    "collect_coin",
+    "collect_star",
     "damage",
+    "detach_held_item",
     "drop_item",
+    "equip_buzzy_helmet",
+    "equip_shell_helmet",
+    "forget_held_item",
+    "freeze_in_ice",
+    "get_helmet_goal_animation",
     "get_powerup",
     "give_item",
+    "has_helmet",
+    "has_star",
+    "helmet_deflects",
+    "helmet_shields",
+    "is_dead",
+    "is_ducking",
+    "is_frozen",
+    "is_on_ice",
+    "is_swimming",
     "kill",
+    "play_ground_animation",
     "set_powerup",
-    "spawn_spin_thump"
+    "set_powerup_hitbox",
+    "set_powerup_sprites",
+    "slope_direction",
+    "slope_slide_check",
+    "spawn_spin_thump",
+    "star_hit",
+    "stop_held_item_turn",
+    "stun_from_landing"
    ],
    "signals": [
     "item_dropped",
     "item_given"
    ],
    "exports": [
+    "animation_rules",
+    "physics",
     "starting_powerup"
    ],
-   "lines": 330
+   "lines": 753
+  },
+  {
+   "name": "player_animation_rules",
+   "path": "scripts/level/entities/player_animation_rules.gd",
+   "class_name": "PlayerAnimationRules",
+   "extends": "Resource",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "max_locomotion_fps",
+    "pixels_per_frame",
+    "running_skid_dust_interval",
+    "running_skid_dust_lifetime",
+    "skid_dust_interval",
+    "skid_dust_min_speed"
+   ],
+   "lines": 18
+  },
+  {
+   "name": "player_fireball",
+   "path": "scripts/level/entities/player_fireball.gd",
+   "class_name": "PlayerFireball",
+   "extends": "Entity",
+   "functions": [
+    "_burst",
+    "_hit_enemy",
+    "_liquid_contact",
+    "_physics_process",
+    "_ready",
+    "_supported",
+    "uses_source_deactivation",
+    "uses_source_death_stop"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 132
+  },
+  {
+   "name": "player_physics",
+   "path": "scripts/level/entities/player_physics.gd",
+   "class_name": "PlayerPhysics",
+   "extends": "Resource",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "acceleration",
+    "damage_invulnerability",
+    "death_gravity",
+    "death_hold_time",
+    "death_launch_speed",
+    "death_retry_time",
+    "death_water_fall_speed",
+    "deceleration",
+    "fall_speed",
+    "fast_jump_speed",
+    "gravity",
+    "ice_acceleration",
+    "ice_deceleration",
+    "ice_duck_deceleration",
+    "ice_skid_deceleration",
+    "idle_jump_speed",
+    "long_jump_gravity",
+    "overspeed_deceleration",
+    "run_speed",
+    "skid_deceleration",
+    "slow_jump_speed",
+    "spin_jump_speed",
+    "walk_speed"
+   ],
+   "lines": 53
+  },
+  {
+   "name": "player_star",
+   "path": "scripts/level/entities/player_star.gd",
+   "class_name": "PlayerStar",
+   "extends": "Node",
+   "functions": [
+    "_completed",
+    "_exit_tree",
+    "_ready",
+    "_update_material",
+    "active",
+    "cancel",
+    "collect",
+    "hit",
+    "stop_music",
+    "tick"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 175
+  },
+  {
+   "name": "player_stun_rules",
+   "path": "scripts/level/entities/player_stun_rules.gd",
+   "class_name": "PlayerStunRules",
+   "extends": "Resource",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "duration",
+    "effect_fps",
+    "effect_offset",
+    "effect_sprite"
+   ],
+   "lines": 10
+  },
+  {
+   "name": "player_swim_rules",
+   "path": "scripts/level/entities/player_swim_rules.gd",
+   "class_name": "PlayerSwimRules",
+   "extends": "Resource",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "acceleration",
+    "bounce_speed",
+    "carry_buoyancy",
+    "carry_rise_speed",
+    "carry_sink_fps",
+    "floor_speed",
+    "floor_stroke_speed",
+    "gravity",
+    "reversal_extra",
+    "rise_speed",
+    "sink_speed",
+    "speed",
+    "stroke_end_frame",
+    "stroke_extra",
+    "stroke_fps",
+    "surface_jump_speed"
+   ],
+   "lines": 38
+  },
+  {
+   "name": "rocky",
+   "path": "scripts/level/entities/rocky.gd",
+   "class_name": "Rocky",
+   "extends": "Enemy",
+   "functions": [
+    "_begin_rise",
+    "_blocked_above",
+    "_fall",
+    "_has_support",
+    "_in_water",
+    "_is_below_world",
+    "_physics_process",
+    "_ready",
+    "_set_art",
+    "_settle",
+    "_sink",
+    "_solid_probe_body",
+    "_stomped",
+    "_terrain_at",
+    "_throw_wrench",
+    "_touches_damaging_liquid",
+    "_try_settle",
+    "get_defeat_frame",
+    "get_defeat_sprite",
+    "kill",
+    "pop_speed"
+   ],
+   "signals": [],
+   "exports": [
+    "variant"
+   ],
+   "lines": 286
+  },
+  {
+   "name": "rocky_variant",
+   "path": "scripts/level/entities/rocky_variant.gd",
+   "class_name": "RockyVariant",
+   "extends": "EnemyDefeatStyle",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "editor_frame",
+    "editor_origin",
+    "editor_sprite",
+    "fall_speed",
+    "gravity",
+    "high_wait_ticks",
+    "id",
+    "idle2_sprite",
+    "idle_sprite",
+    "idle_ticks",
+    "label",
+    "mask_size",
+    "object_id",
+    "pop_speed",
+    "retry_ticks",
+    "rise_speed",
+    "throw_sprite",
+    "throw_ticks",
+    "wait_ticks",
+    "water_fall_speed",
+    "water_gravity",
+    "water_pop_speed",
+    "windup_ticks",
+    "wrench_rules"
+   ],
+   "lines": 30
+  },
+  {
+   "name": "shell_physics",
+   "path": "scripts/level/entities/shell_physics.gd",
+   "class_name": "ShellPhysics",
+   "extends": "Resource",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "acceleration",
+    "beach_hop",
+    "beach_wait",
+    "combo_scores",
+    "dropped_speed",
+    "eject_deceleration",
+    "eject_invulnerability",
+    "eject_speed",
+    "enemy_gravity",
+    "fall_speed",
+    "idle_shell_gravity",
+    "kick_base_speed",
+    "kick_idle_speed",
+    "kick_idle_target",
+    "launch_immunity",
+    "reentry_hop",
+    "release_base_speed",
+    "target_limit",
+    "throw_horizontal_speed",
+    "throw_up_speed"
+   ],
+   "lines": 26
+  },
+  {
+   "name": "shell_variant",
+   "path": "scripts/level/entities/shell_variant.gd",
+   "class_name": "ShellVariant",
+   "extends": "Resource",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "dead_sprite",
+    "fireproof",
+    "helmet_rules",
+    "id",
+    "inside_sprite",
+    "mask_height",
+    "mask_width",
+    "recovery_time",
+    "reentry_time",
+    "restore_scene",
+    "shell_sprite",
+    "spiked_top",
+    "stopped_recovery_time",
+    "warning_time",
+    "wearable"
+   ],
+   "lines": 21
+  },
+  {
+   "name": "spiny_needle",
+   "path": "scripts/level/entities/spiny_needle.gd",
+   "class_name": "SpinyNeedle",
+   "extends": "Entity",
+   "functions": [
+    "_physics_process",
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [
+    "variant"
+   ],
+   "lines": 40
+  },
+  {
+   "name": "spiny_variant",
+   "path": "scripts/level/entities/spiny_variant.gd",
+   "class_name": "SpinyVariant",
+   "extends": "ShellVariant",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "attack_recover",
+    "attack_wait",
+    "attack_windup",
+    "ball_sprite",
+    "editor_sprite",
+    "empty_shell",
+    "flight",
+    "icon",
+    "label",
+    "needle_blink_time",
+    "needle_lifetime",
+    "needle_speed",
+    "needle_sprite",
+    "object_id",
+    "walk_fps",
+    "walk_sprite",
+    "winged_editor_sprite"
+   ],
+   "lines": 25
+  },
+  {
+   "name": "spring",
+   "path": "scripts/level/entities/spring.gd",
+   "class_name": "Spring",
+   "extends": "Entity",
+   "functions": [
+    "_bounce_actor",
+    "_dropped",
+    "_physics_process",
+    "_picked_up",
+    "_ready",
+    "begin_compression",
+    "detach_rider",
+    "player_launch_speed",
+    "top_y",
+    "uses_source_deactivation",
+    "uses_source_death_stop"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 149
+  },
+  {
+   "name": "sprite_collision",
+   "path": "scripts/level/entities/sprite_collision.gd",
+   "class_name": "SpriteCollision",
+   "extends": "RefCounted",
+   "functions": [],
+   "signals": [],
+   "exports": [],
+   "lines": 73
   },
   {
    "name": "player_death_state",
@@ -315,12 +1825,14 @@
    "extends": "PlayerState",
    "functions": [
     "_fall",
-    "_init",
+    "_retry",
+    "input",
+    "physics_process",
     "start"
    ],
    "signals": [],
    "exports": [],
-   "lines": 54
+   "lines": 92
   },
   {
    "name": "player_falling_state",
@@ -334,7 +1846,39 @@
    ],
    "signals": [],
    "exports": [],
-   "lines": 71
+   "lines": 73
+  },
+  {
+   "name": "player_frozen_state",
+   "path": "scripts/level/entities/states/player_frozen_state.gd",
+   "class_name": "PlayerFrozenState",
+   "extends": "PlayerState",
+   "functions": [
+    "_dispose_contact",
+    "_exit_tree",
+    "_ice_bounds",
+    "end",
+    "input",
+    "physics_process",
+    "start"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 113
+  },
+  {
+   "name": "player_goal_state",
+   "path": "scripts/level/entities/states/player_goal_state.gd",
+   "class_name": "PlayerGoalState",
+   "extends": "PlayerState",
+   "functions": [
+    "input",
+    "physics_process",
+    "start"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 45
   },
   {
    "name": "player_idle_state",
@@ -343,11 +1887,12 @@
    "extends": "PlayerState",
    "functions": [
     "input",
-    "physics_process"
+    "physics_process",
+    "start"
    ],
    "signals": [],
    "exports": [],
-   "lines": 46
+   "lines": 63
   },
   {
    "name": "player_jumping_state",
@@ -362,7 +1907,7 @@
    ],
    "signals": [],
    "exports": [],
-   "lines": 126
+   "lines": 127
   },
   {
    "name": "player_moving_state",
@@ -371,14 +1916,44 @@
    "extends": "PlayerState",
    "functions": [
     "_do_skid_smoke",
-    "do_p_meter",
+    "_update_skid_sound",
     "end",
     "input",
-    "physics_process"
+    "physics_process",
+    "stop_skid"
    ],
    "signals": [],
    "exports": [],
-   "lines": 114
+   "lines": 122
+  },
+  {
+   "name": "player_note_state",
+   "path": "scripts/level/entities/states/player_note_state.gd",
+   "class_name": "PlayerNoteState",
+   "extends": "PlayerState",
+   "functions": [
+    "end",
+    "physics_process",
+    "start"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 47
+  },
+  {
+   "name": "player_slope_slide_state",
+   "path": "scripts/level/entities/states/player_slope_slide_state.gd",
+   "class_name": "PlayerSlopeSlideState",
+   "extends": "PlayerState",
+   "functions": [
+    "hit",
+    "input",
+    "physics_process",
+    "start"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 65
   },
   {
    "name": "player_spin_jumping_state",
@@ -394,7 +1969,21 @@
    ],
    "signals": [],
    "exports": [],
-   "lines": 121
+   "lines": 123
+  },
+  {
+   "name": "player_spring_state",
+   "path": "scripts/level/entities/states/player_spring_state.gd",
+   "class_name": "PlayerSpringState",
+   "extends": "PlayerState",
+   "functions": [
+    "end",
+    "physics_process",
+    "start"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 42
   },
   {
    "name": "player_state",
@@ -403,7 +1992,9 @@
    "extends": "State",
    "functions": [
     "_init",
+    "apply_horizontal_motion",
     "end",
+    "ground_jump_check",
     "input",
     "item_dropped",
     "move_check",
@@ -412,7 +2003,42 @@
    ],
    "signals": [],
    "exports": [],
-   "lines": 95
+   "lines": 138
+  },
+  {
+   "name": "player_stunned_state",
+   "path": "scripts/level/entities/states/player_stunned_state.gd",
+   "class_name": "PlayerStunnedState",
+   "extends": "PlayerState",
+   "functions": [
+    "_dispose_effect",
+    "_exit_tree",
+    "end",
+    "input",
+    "physics_process",
+    "refresh",
+    "start"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 59
+  },
+  {
+   "name": "player_swimming_state",
+   "path": "scripts/level/entities/states/player_swimming_state.gd",
+   "class_name": "PlayerSwimmingState",
+   "extends": "PlayerState",
+   "functions": [
+    "_animate",
+    "_swim_sound",
+    "end",
+    "input",
+    "physics_process",
+    "start"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 126
   },
   {
    "name": "state",
@@ -457,11 +2083,170 @@
    "class_name": "StompedGaloomba",
    "extends": "Entity",
    "functions": [
-    "_physics_process"
+    "_physics_process",
+    "_ready",
+    "_recover",
+    "kill",
+    "uses_source_deactivation",
+    "uses_source_death_stop"
+   ],
+   "signals": [],
+   "exports": [
+    "variant"
+   ],
+   "lines": 100
+  },
+  {
+   "name": "super_star",
+   "path": "scripts/level/entities/super_star.gd",
+   "class_name": "SuperStar",
+   "extends": "Entity",
+   "functions": [
+    "_collect",
+    "_physics_process",
+    "_ready",
+    "uses_source_deactivation",
+    "uses_source_death_stop"
    ],
    "signals": [],
    "exports": [],
-   "lines": 19
+   "lines": 79
+  },
+  {
+   "name": "thwomp",
+   "path": "scripts/level/entities/thwomp.gd",
+   "class_name": "Thwomp",
+   "extends": "Enemy",
+   "functions": [
+    "_activate_blocks",
+    "_apply_masks",
+    "_body_handling",
+    "_break_block",
+    "_crush_enemies",
+    "_finish_return",
+    "_impact",
+    "_in_water",
+    "_is_below_world",
+    "_pass_breakable_blocks",
+    "_physics_process",
+    "_player_in_trigger",
+    "_ready",
+    "_restore_block_collisions",
+    "_return_obstructed",
+    "_sync_masks",
+    "_tick_splashes",
+    "_update_visuals",
+    "_vertical_motion",
+    "bumped_from_below",
+    "get_helmet_hit_margin",
+    "helmet_bounce_velocity",
+    "hit_by_projectile",
+    "kill"
+   ],
+   "signals": [],
+   "exports": [
+    "attack_direction",
+    "parachute",
+    "variant",
+    "wings"
+   ],
+   "lines": 422
+  },
+  {
+   "name": "thwomp_variant",
+   "path": "scripts/level/entities/thwomp_variant.gd",
+   "class_name": "ThwompVariant",
+   "extends": "Resource",
+   "functions": [
+    "source_position"
+   ],
+   "signals": [],
+   "exports": [
+    "alternate_editor_sprite",
+    "arrow_button",
+    "arrow_center",
+    "arrow_sprite",
+    "body_sprite",
+    "break_sprite",
+    "editor_bounds",
+    "editor_sprite",
+    "empty_break_sprite",
+    "fall_speed",
+    "giant",
+    "gravity",
+    "horizontal_sprite",
+    "id",
+    "impact_sound",
+    "impact_wait",
+    "label",
+    "mask_size",
+    "mask_sprite",
+    "object_id",
+    "parachute_fall_speed",
+    "parachute_gravity",
+    "part_to_feet",
+    "return_snap_distance",
+    "return_speed",
+    "side_acceleration",
+    "side_speed",
+    "side_trigger_bottom",
+    "side_trigger_distance",
+    "side_trigger_inset",
+    "side_trigger_top",
+    "source_to_feet",
+    "splash_first_tick",
+    "splash_fps",
+    "splash_interval",
+    "splash_sprite",
+    "vertical_trigger_margin",
+    "vertical_trigger_offset",
+    "water_fall_speed",
+    "water_gravity",
+    "water_side_speed"
+   ],
+   "lines": 53
+  },
+  {
+   "name": "wrench",
+   "path": "scripts/level/entities/wrench.gd",
+   "class_name": "Wrench",
+   "extends": "Entity",
+   "functions": [
+    "_arc",
+    "_outside_source_view",
+    "_physics_process",
+    "_ready",
+    "kill"
+   ],
+   "signals": [],
+   "exports": [
+    "direction",
+    "rules",
+    "swimming"
+   ],
+   "lines": 87
+  },
+  {
+   "name": "wrench_rules",
+   "path": "scripts/level/entities/wrench_rules.gd",
+   "class_name": "WrenchRules",
+   "extends": "EnemyDefeatStyle",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "arc_acceleration",
+    "arc_heights",
+    "arc_speed",
+    "blink_interval",
+    "blink_time",
+    "flight_fps",
+    "flight_sprite",
+    "lifetime",
+    "speed",
+    "view_margin",
+    "water_speed"
+   ],
+   "lines": 17
   },
   {
    "name": "level",
@@ -470,19 +2255,30 @@
    "extends": "Node2D",
    "functions": [
     "_camera_clamp",
+    "_clear_goal_sequence",
+    "_clear_player_death",
     "_edit",
+    "_finish_completion",
     "_init",
+    "_physics_process",
     "_play",
     "_process",
     "_ready",
     "_timeout",
+    "complete",
     "create_editor",
     "edit",
     "get_current_time",
+    "get_living_player",
+    "is_player_dying",
     "play",
-    "reload"
+    "reload",
+    "shake_camera",
+    "start_player_death"
    ],
    "signals": [
+    "completed",
+    "completion_finished",
     "editing",
     "game_style_changed",
     "playing",
@@ -505,9 +2301,173 @@
     "tag_1",
     "tag_2",
     "time",
-    "title_screen"
+    "title_screen",
+    "width"
    ],
-   "lines": 306
+   "lines": 431
+  },
+  {
+   "name": "liquid_rules",
+   "path": "scripts/level/liquid_rules.gd",
+   "class_name": "LiquidRules",
+   "extends": "Resource",
+   "functions": [],
+   "signals": [],
+   "exports": [
+    "beach_fill_sprite",
+    "beach_sprite",
+    "contact_scale",
+    "fps",
+    "hold_time",
+    "lava_fill_sprite",
+    "lava_splash_sprite",
+    "lava_sprite",
+    "poison_fill_sprite",
+    "poison_splash_sprite",
+    "poison_sprite",
+    "speeds",
+    "splash_fps",
+    "water_fill_sprite",
+    "water_splash_sprite",
+    "water_sprite"
+   ],
+   "lines": 23
+  },
+  {
+   "name": "liquid_surface",
+   "path": "scripts/level/liquid_surface.gd",
+   "class_name": "LiquidSurface",
+   "extends": "Node2D",
+   "functions": [
+    "_draw",
+    "_physics_process",
+    "_ready",
+    "is_water",
+    "reset",
+    "source_contact_bounds"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 126
+  },
+  {
+   "name": "blooper_part",
+   "path": "scripts/level/parts/blooper_part.gd",
+   "class_name": "BlooperPart",
+   "extends": "Part",
+   "functions": [
+    "build",
+    "load"
+   ],
+   "signals": [],
+   "exports": [
+    "rules"
+   ],
+   "lines": 42
+  },
+  {
+   "name": "buzzy_part",
+   "path": "scripts/level/parts/buzzy_part.gd",
+   "class_name": "BuzzyPart",
+   "extends": "Part",
+   "functions": [
+    "_process",
+    "_refresh_preview",
+    "build",
+    "get_modifiers",
+    "get_variant",
+    "get_variants",
+    "has_modifier",
+    "is_ceiling_attached",
+    "load",
+    "set_modifier",
+    "set_variant"
+   ],
+   "signals": [],
+   "exports": [
+    "parachute",
+    "variant",
+    "wings"
+   ],
+   "lines": 117
+  },
+  {
+   "name": "ceiling_attachment",
+   "path": "scripts/level/parts/ceiling_attachment.gd",
+   "class_name": "CeilingAttachment",
+   "extends": "RefCounted",
+   "functions": [],
+   "signals": [],
+   "exports": [],
+   "lines": 28
+  },
+  {
+   "name": "cheep_cheep_part",
+   "path": "scripts/level/parts/cheep_cheep_part.gd",
+   "class_name": "CheepCheepPart",
+   "extends": "Part",
+   "functions": [
+    "_refresh_preview",
+    "build",
+    "get_modifiers",
+    "get_variant",
+    "get_variants",
+    "has_modifier",
+    "is_in_water",
+    "load",
+    "set_modifier",
+    "set_variant"
+   ],
+   "signals": [],
+   "exports": [
+    "parachute",
+    "variant",
+    "wings"
+   ],
+   "lines": 101
+  },
+  {
+   "name": "chomp_part",
+   "path": "scripts/level/parts/chomp_part.gd",
+   "class_name": "ChompPart",
+   "extends": "Part",
+   "functions": [
+    "_check_validity",
+    "_draw_highlight",
+    "_is_dark",
+    "_process",
+    "_refresh_preview",
+    "_update_anchor",
+    "build",
+    "get_modifiers",
+    "get_variant",
+    "get_variant_state",
+    "has_modifier",
+    "load",
+    "restore_variant_state",
+    "set_modifier",
+    "set_variant"
+   ],
+   "signals": [],
+   "exports": [
+    "parachute",
+    "variant",
+    "wings"
+   ],
+   "lines": 149
+  },
+  {
+   "name": "cloud_part",
+   "path": "scripts/level/parts/cloud_part.gd",
+   "class_name": "CloudPart",
+   "extends": "Part",
+   "functions": [
+    "build",
+    "load"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 32
   },
   {
    "name": "coin_part",
@@ -522,6 +2482,41 @@
    "lines": 25
   },
   {
+   "name": "container_block_part",
+   "path": "scripts/level/parts/container_block_part.gd",
+   "class_name": "ContainerBlockPart",
+   "extends": "Part",
+   "functions": [
+    "_refresh_content",
+    "content_texture",
+    "default_content",
+    "get_variant",
+    "get_variants",
+    "load",
+    "make_sprout",
+    "set_variant"
+   ],
+   "signals": [],
+   "exports": [
+    "contains_mushroom",
+    "content_id"
+   ],
+   "lines": 107
+  },
+  {
+   "name": "donut_part",
+   "path": "scripts/level/parts/donut_part.gd",
+   "class_name": "DonutPart",
+   "extends": "Part",
+   "functions": [
+    "build",
+    "load"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 28
+  },
+  {
    "name": "editor_player",
    "path": "scripts/level/parts/editor_player.gd",
    "class_name": "EditorPlayer",
@@ -532,12 +2527,55 @@
     "_lets_go",
     "_process",
     "build",
+    "can_erase",
     "erase",
     "load"
    ],
    "signals": [],
    "exports": [],
-   "lines": 76
+   "lines": 84
+  },
+  {
+   "name": "enemy_part_decoration",
+   "path": "scripts/level/parts/enemy_part_decoration.gd",
+   "class_name": "EnemyPartDecoration",
+   "extends": "Node2D",
+   "functions": [
+    "_add_style_sprite",
+    "refresh"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 26
+  },
+  {
+   "name": "enemy_part_preview",
+   "path": "scripts/level/parts/enemy_part_preview.gd",
+   "class_name": "EnemyPartPreview",
+   "extends": "RefCounted",
+   "functions": [],
+   "signals": [],
+   "exports": [],
+   "lines": 35
+  },
+  {
+   "name": "fire_flower_part",
+   "path": "scripts/level/parts/fire_flower_part.gd",
+   "class_name": "FireFlowerPart",
+   "extends": "Part",
+   "functions": [
+    "_refresh",
+    "build",
+    "get_variant",
+    "get_variants",
+    "load",
+    "set_variant"
+   ],
+   "signals": [],
+   "exports": [
+    "progressive"
+   ],
+   "lines": 52
   },
   {
    "name": "galoomba_part",
@@ -552,15 +2590,63 @@
    "lines": 21
   },
   {
+   "name": "gentle_slope_part",
+   "path": "scripts/level/parts/gentle_slope_part.gd",
+   "class_name": "GentleSlopePart",
+   "extends": "SlopePart",
+   "functions": [
+    "_init"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 30
+  },
+  {
+   "name": "goal_pole_part",
+   "path": "scripts/level/parts/goal_pole_part.gd",
+   "class_name": "GoalPolePart",
+   "extends": "Part",
+   "functions": [
+    "build",
+    "can_erase",
+    "load"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 29
+  },
+  {
+   "name": "goomba_part",
+   "path": "scripts/level/parts/goomba_part.gd",
+   "class_name": "GoombaPart",
+   "extends": "GaloombaPart",
+   "functions": [
+    "_refresh_preview",
+    "build",
+    "get_modifiers",
+    "get_variant",
+    "get_variants",
+    "has_modifier",
+    "load",
+    "set_modifier",
+    "set_variant"
+   ],
+   "signals": [],
+   "exports": [
+    "parachute",
+    "variant",
+    "wings"
+   ],
+   "lines": 92
+  },
+  {
    "name": "ground_part",
    "path": "scripts/level/parts/ground_part.gd",
    "class_name": "GroundPart",
    "extends": "Part",
    "functions": [
     "_connect",
-    "_get_nearby_tiles",
     "_hold",
-    "_notify_tiles",
     "_unhold",
     "atlas",
     "build",
@@ -570,8 +2656,91 @@
     "reset_sprite"
    ],
    "signals": [],
+   "exports": [
+    "swe_atlas",
+    "swe_frame"
+   ],
+   "lines": 367
+  },
+  {
+   "name": "grrrol_part",
+   "path": "scripts/level/parts/grrrol_part.gd",
+   "class_name": "GrrrolPart",
+   "extends": "ThwompPart",
+   "functions": [
+    "_init"
+   ],
+   "signals": [],
    "exports": [],
-   "lines": 290
+   "lines": 18
+  },
+  {
+   "name": "hammer_bro_part",
+   "path": "scripts/level/parts/hammer_bro_part.gd",
+   "class_name": "HammerBroPart",
+   "extends": "Part",
+   "functions": [
+    "_check_validity",
+    "_draw_highlight",
+    "_refresh_preview",
+    "build",
+    "footprint",
+    "get_modifiers",
+    "get_variant",
+    "get_variant_state",
+    "get_variants",
+    "has_modifier",
+    "load",
+    "restore_variant_state",
+    "set_modifier",
+    "set_variant"
+   ],
+   "signals": [],
+   "exports": [
+    "parachute",
+    "variant",
+    "wings"
+   ],
+   "lines": 179
+  },
+  {
+   "name": "hard_block_part",
+   "path": "scripts/level/parts/hard_block_part.gd",
+   "class_name": "HardBlockPart",
+   "extends": "Part",
+   "functions": [
+    "build",
+    "load"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 36
+  },
+  {
+   "name": "hidden_block_part",
+   "path": "scripts/level/parts/hidden_block_part.gd",
+   "class_name": "HiddenBlockPart",
+   "extends": "ContainerBlockPart",
+   "functions": [
+    "build",
+    "load"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 39
+  },
+  {
+   "name": "ice_block_part",
+   "path": "scripts/level/parts/ice_block_part.gd",
+   "class_name": "IceBlockPart",
+   "extends": "Part",
+   "functions": [
+    "build",
+    "load"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 28
   },
   {
    "name": "koopa_part",
@@ -579,11 +2748,113 @@
    "class_name": "KoopaPart",
    "extends": "Part",
    "functions": [
-    "build"
+    "_refresh_preview",
+    "build",
+    "get_modifiers",
+    "get_variant",
+    "get_variants",
+    "has_modifier",
+    "load",
+    "set_modifier",
+    "set_variant"
+   ],
+   "signals": [],
+   "exports": [
+    "parachute",
+    "variant",
+    "wings"
+   ],
+   "lines": 96
+  },
+  {
+   "name": "monty_part",
+   "path": "scripts/level/parts/monty_part.gd",
+   "class_name": "MontyPart",
+   "extends": "Part",
+   "functions": [
+    "_refresh_preview",
+    "build",
+    "get_modifiers",
+    "has_modifier",
+    "load",
+    "set_modifier"
+   ],
+   "signals": [],
+   "exports": [
+    "parachute",
+    "variant",
+    "wings"
+   ],
+   "lines": 78
+  },
+  {
+   "name": "muncher_part",
+   "path": "scripts/level/parts/muncher_part.gd",
+   "class_name": "MuncherPart",
+   "extends": "Part",
+   "functions": [
+    "_check_validity",
+    "_draw_highlight",
+    "_is_dark",
+    "_process",
+    "_refresh_preview",
+    "build",
+    "get_modifiers",
+    "get_variant",
+    "get_variants",
+    "has_modifier",
+    "load",
+    "set_modifier",
+    "set_variant"
+   ],
+   "signals": [],
+   "exports": [
+    "parachute",
+    "variant",
+    "wings"
+   ],
+   "lines": 147
+  },
+  {
+   "name": "mushroom_part",
+   "path": "scripts/level/parts/mushroom_part.gd",
+   "class_name": "MushroomPart",
+   "extends": "Part",
+   "functions": [
+    "build",
+    "load"
    ],
    "signals": [],
    "exports": [],
-   "lines": 23
+   "lines": 29
+  },
+  {
+   "name": "note_block_part",
+   "path": "scripts/level/parts/note_block_part.gd",
+   "class_name": "NoteBlockPart",
+   "extends": "ContainerBlockPart",
+   "functions": [
+    "_init",
+    "build",
+    "default_content",
+    "load"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 37
+  },
+  {
+   "name": "one_up_part",
+   "path": "scripts/level/parts/one_up_part.gd",
+   "class_name": "OneUpPart",
+   "extends": "Part",
+   "functions": [
+    "build",
+    "load"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 28
   },
   {
    "name": "part",
@@ -599,33 +2870,227 @@
     "_draw",
     "_draw_highlight",
     "_hold",
+    "_input",
     "_input_event",
     "_mouse_update",
     "_notification",
     "_process",
     "_ready",
     "_stop_window_timer",
-    "_unhandled_input",
     "_unhold",
     "build",
+    "can_erase",
     "erase",
-    "load"
+    "get_environment_state",
+    "get_modifiers",
+    "get_variant",
+    "get_variant_state",
+    "get_variants",
+    "has_modifier",
+    "load",
+    "refresh_environment",
+    "restore_environment_state",
+    "restore_variant_state",
+    "set_modifier",
+    "set_variant"
    ],
    "signals": [],
    "exports": [],
-   "lines": 316
+   "lines": 405
+  },
+  {
+   "name": "piranha_part",
+   "path": "scripts/level/parts/piranha_part.gd",
+   "class_name": "PiranhaPart",
+   "extends": "Part",
+   "functions": [
+    "_process",
+    "_refresh_preview",
+    "attachment_orientation",
+    "build",
+    "get_environment_state",
+    "get_modifiers",
+    "get_variant",
+    "get_variants",
+    "has_modifier",
+    "load",
+    "refresh_environment",
+    "restore_environment_state",
+    "set_modifier",
+    "set_variant"
+   ],
+   "signals": [],
+   "exports": [
+    "parachute",
+    "variant",
+    "wings"
+   ],
+   "lines": 144
   },
   {
    "name": "question_block_part",
    "path": "scripts/level/parts/question_block_part.gd",
    "class_name": "QuestionBlockPart",
-   "extends": "Part",
+   "extends": "ContainerBlockPart",
    "functions": [
     "build"
    ],
    "signals": [],
    "exports": [],
    "lines": 25
+  },
+  {
+   "name": "rocky_part",
+   "path": "scripts/level/parts/rocky_part.gd",
+   "class_name": "RockyPart",
+   "extends": "Part",
+   "functions": [
+    "_refresh_preview",
+    "build",
+    "load"
+   ],
+   "signals": [],
+   "exports": [
+    "variant"
+   ],
+   "lines": 49
+  },
+  {
+   "name": "semisolid_part",
+   "path": "scripts/level/parts/semisolid_part.gd",
+   "class_name": "SemisolidPart",
+   "extends": "Part",
+   "functions": [
+    "_check_validity",
+    "_draw_highlight",
+    "_input",
+    "_input_event",
+    "_mouse_update",
+    "_process",
+    "_ready",
+    "begin_resize",
+    "build",
+    "end_resize",
+    "fits_bounds",
+    "foreground_at",
+    "get_variant",
+    "get_variant_state",
+    "get_variants",
+    "load",
+    "refresh_environment",
+    "resize_to",
+    "restore_variant_state",
+    "set_variant"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 354
+  },
+  {
+   "name": "slope_part",
+   "path": "scripts/level/parts/slope_part.gd",
+   "class_name": "SlopePart",
+   "extends": "Part",
+   "functions": [
+    "_check_validity",
+    "_draw",
+    "_draw_handles",
+    "_draw_highlight",
+    "_hold",
+    "_input",
+    "_input_event",
+    "_polygon_with_fusion",
+    "_process",
+    "_ready",
+    "_unhold",
+    "begin_resize",
+    "build",
+    "cells",
+    "covers_cell",
+    "end_resize",
+    "endpoints",
+    "fits_bounds",
+    "fusion_at",
+    "get_variant_state",
+    "load",
+    "polygon",
+    "ramp_ends",
+    "refresh_art",
+    "refresh_fusion",
+    "resize_endpoint",
+    "restore_variant_state",
+    "surface_y",
+    "update_connections",
+    "width_cells"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 523
+  },
+  {
+   "name": "spike_part",
+   "path": "scripts/level/parts/spike_part.gd",
+   "class_name": "SpikePart",
+   "extends": "Part",
+   "functions": [
+    "build",
+    "load"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 32
+  },
+  {
+   "name": "spiny_part",
+   "path": "scripts/level/parts/spiny_part.gd",
+   "class_name": "SpinyPart",
+   "extends": "Part",
+   "functions": [
+    "_process",
+    "_refresh_preview",
+    "build",
+    "get_modifiers",
+    "get_variant",
+    "get_variants",
+    "has_modifier",
+    "is_ceiling_attached",
+    "load",
+    "set_modifier",
+    "set_variant"
+   ],
+   "signals": [],
+   "exports": [
+    "parachute",
+    "variant",
+    "wings"
+   ],
+   "lines": 118
+  },
+  {
+   "name": "spring_part",
+   "path": "scripts/level/parts/spring_part.gd",
+   "class_name": "SpringPart",
+   "extends": "Part",
+   "functions": [
+    "build",
+    "load"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 31
+  },
+  {
+   "name": "star_part",
+   "path": "scripts/level/parts/star_part.gd",
+   "class_name": "StarPart",
+   "extends": "Part",
+   "functions": [
+    "build",
+    "load"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 27
   },
   {
    "name": "starting_ground",
@@ -635,29 +3100,107 @@
    "functions": [
     "_draw",
     "_hold",
+    "_input",
     "_on_grabber_input_event",
     "_process",
     "_ready",
-    "_unhandled_input",
     "_unhold",
     "build",
-    "erase"
+    "can_erase",
+    "draw_ground",
+    "erase",
+    "get_cells",
+    "refresh_regions",
+    "resize_to",
+    "update_size"
    ],
    "signals": [],
    "exports": [],
-   "lines": 120
+   "lines": 152
+  },
+  {
+   "name": "thwomp_part",
+   "path": "scripts/level/parts/thwomp_part.gd",
+   "class_name": "ThwompPart",
+   "extends": "Part",
+   "functions": [
+    "_check_validity",
+    "_draw_highlight",
+    "_hold",
+    "_input_event",
+    "_play_transform",
+    "_process",
+    "_refresh_preview",
+    "_unhold",
+    "_update_anchor",
+    "build",
+    "get_modifiers",
+    "get_variant",
+    "get_variant_state",
+    "get_variants",
+    "has_modifier",
+    "load",
+    "restore_variant_state",
+    "set_modifier",
+    "set_variant"
+   ],
+   "signals": [],
+   "exports": [
+    "attack_direction",
+    "parachute",
+    "variant",
+    "wings"
+   ],
+   "lines": 264
   },
   {
    "name": "turn_block_part",
    "path": "scripts/level/parts/turn_block_part.gd",
    "class_name": "TurnBlockPart",
-   "extends": "Part",
+   "extends": "ContainerBlockPart",
    "functions": [
-    "build"
+    "_init",
+    "build",
+    "default_content"
    ],
    "signals": [],
    "exports": [],
-   "lines": 25
+   "lines": 34
+  },
+  {
+   "name": "pixel_shadows",
+   "path": "scripts/level/pixel_shadows.gd",
+   "class_name": "PixelShadows",
+   "extends": "CanvasGroup",
+   "functions": [
+    "_exit_tree",
+    "_forget",
+    "_inherited",
+    "_invalidate",
+    "_opacity",
+    "_ready",
+    "_scan",
+    "_sync",
+    "_watch"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 175
+  },
+  {
+   "name": "fire_powerup",
+   "path": "scripts/level/powerups/fire_powerup.gd",
+   "class_name": "FirePowerup",
+   "extends": "Powerup",
+   "functions": [
+    "begin_spin",
+    "physics_process",
+    "shoot",
+    "start"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 77
   },
   {
    "name": "powerup",
@@ -672,7 +3215,25 @@
    ],
    "signals": [],
    "exports": [],
-   "lines": 55
+   "lines": 59
+  },
+  {
+   "name": "powerup_animation",
+   "path": "scripts/level/powerups/powerup_animation.gd",
+   "class_name": "PowerupAnimation",
+   "extends": "Node",
+   "functions": [
+    "_cleanup",
+    "_exit_tree",
+    "_prepare_growth",
+    "_ready",
+    "_show_growth",
+    "_show_old",
+    "cancel"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 114
   },
   {
    "name": "small_powerup",
@@ -684,7 +3245,7 @@
    ],
    "signals": [],
    "exports": [],
-   "lines": 9
+   "lines": 8
   },
   {
    "name": "super_powerup",
@@ -696,7 +3257,36 @@
    ],
    "signals": [],
    "exports": [],
-   "lines": 25
+   "lines": 11
+  },
+  {
+   "name": "smw_goal_sequence",
+   "path": "scripts/level/smw_goal_sequence.gd",
+   "class_name": "SMWGoalSequence",
+   "extends": "Node",
+   "functions": [
+    "_audio",
+    "_count_time",
+    "_physics_process",
+    "_ready"
+   ],
+   "signals": [
+    "finished"
+   ],
+   "exports": [],
+   "lines": 69
+  },
+  {
+   "name": "smw_theme",
+   "path": "scripts/level/smw_theme.gd",
+   "class_name": "SMWTheme",
+   "extends": "RefCounted",
+   "functions": [
+    "_process"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 94
   },
   {
    "name": "coin_sprout",
@@ -704,13 +3294,63 @@
    "class_name": "CoinSprout",
    "extends": "Sprout",
    "functions": [
-    "_process",
+    "_physics_process",
     "_ready",
     "start_sprout"
    ],
    "signals": [],
    "exports": [],
-   "lines": 45
+   "lines": 47
+  },
+  {
+   "name": "fire_flower_sprout",
+   "path": "scripts/level/sprouts/fire_flower_sprout.gd",
+   "class_name": "FireFlowerSprout",
+   "extends": "RiseSprout",
+   "functions": [
+    "_init",
+    "end_sprout"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 26
+  },
+  {
+   "name": "multi_coin_sprout",
+   "path": "scripts/level/sprouts/multi_coin_sprout.gd",
+   "class_name": "MultiCoinSprout",
+   "extends": "CoinSprout",
+   "functions": [
+    "_physics_process",
+    "start_sprout"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 24
+  },
+  {
+   "name": "mushroom_sprout",
+   "path": "scripts/level/sprouts/mushroom_sprout.gd",
+   "class_name": "MushroomSprout",
+   "extends": "RiseSprout",
+   "functions": [
+    "_init"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 14
+  },
+  {
+   "name": "one_up_sprout",
+   "path": "scripts/level/sprouts/one_up_sprout.gd",
+   "class_name": "OneUpSprout",
+   "extends": "RiseSprout",
+   "functions": [
+    "_init"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 11
   },
   {
    "name": "rise_sprout",
@@ -718,6 +3358,8 @@
    "class_name": "RiseSprout",
    "extends": "Sprout",
    "functions": [
+    "_exit_tree",
+    "_find_sub_area",
     "_ready",
     "_spawn",
     "end_sprout"
@@ -728,7 +3370,7 @@
     "offset",
     "texture"
    ],
-   "lines": 46
+   "lines": 67
   },
   {
    "name": "sprout",
@@ -744,23 +3386,44 @@
    "lines": 32
   },
   {
+   "name": "star_sprout",
+   "path": "scripts/level/sprouts/star_sprout.gd",
+   "class_name": "StarSprout",
+   "extends": "RiseSprout",
+   "functions": [
+    "_init"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 11
+  },
+  {
    "name": "sub_area",
    "path": "scripts/level/sub_area.gd",
    "class_name": "SubArea",
    "extends": "Node2D",
    "functions": [
     "_edit",
+    "_exit_tree",
+    "_finish_spawn",
     "_play",
+    "_refresh_environment",
     "add",
+    "add_deferred",
     "add_part",
     "freeze",
     "get_background",
     "get_foreground",
     "get_parts",
     "load",
+    "restore_theme_state",
+    "set_theme",
+    "theme_state",
     "unfreeze"
    ],
-   "signals": [],
+   "signals": [
+    "theme_changed"
+   ],
    "exports": [
     "autoscroll",
     "level_theme",
@@ -768,9 +3431,34 @@
     "meteorites",
     "min_water_height",
     "night_mode",
-    "water_speed"
+    "water_limit_y",
+    "water_speed",
+    "water_start_y"
    ],
-   "lines": 113
+   "lines": 242
+  },
+  {
+   "name": "swe_level_serializer",
+   "path": "scripts/level/swe_level_serializer.gd",
+   "class_name": "SWELevelSerializer",
+   "extends": "RefCounted",
+   "functions": [],
+   "signals": [],
+   "exports": [],
+   "lines": 335
+  },
+  {
+   "name": "cloud_platform",
+   "path": "scripts/level/tiles/cloud_platform.gd",
+   "class_name": "CloudPlatform",
+   "extends": "StaticBodyExt",
+   "functions": [
+    "_ready",
+    "crush"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 30
   },
   {
    "name": "coin",
@@ -778,11 +3466,43 @@
    "class_name": "Coin",
    "extends": "Area2D",
    "functions": [
-    "_body_entered"
+    "_body_entered",
+    "_ready"
    ],
    "signals": [],
    "exports": [],
-   "lines": 13
+   "lines": 19
+  },
+  {
+   "name": "donut_platform",
+   "path": "scripts/level/tiles/donut_platform.gd",
+   "class_name": "DonutPlatform",
+   "extends": "AnimatableBody2D",
+   "functions": [
+    "_apply_size",
+    "_loaded",
+    "_physics_process",
+    "_ready",
+    "_shake",
+    "_show_art"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 114
+  },
+  {
+   "name": "goal_gate",
+   "path": "scripts/level/tiles/goal_gate.gd",
+   "class_name": "GoalGate",
+   "extends": "Area2D",
+   "functions": [
+    "_body_entered",
+    "_physics_process",
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 41
   },
   {
    "name": "ground",
@@ -795,16 +3515,105 @@
    "lines": 188
   },
   {
+   "name": "hard_block",
+   "path": "scripts/level/tiles/hard_block.gd",
+   "class_name": "HardBlock",
+   "extends": "StaticBodyExt",
+   "functions": [
+    "_head_bump",
+    "_ready",
+    "break_from_impact",
+    "shard_name",
+    "sprite_name"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 43
+  },
+  {
+   "name": "hidden_block",
+   "path": "scripts/level/tiles/hidden_block.gd",
+   "class_name": "HiddenBlock",
+   "extends": "Area2D",
+   "functions": [
+    "_physics_process",
+    "_ready",
+    "reveal"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 53
+  },
+  {
+   "name": "ice_block",
+   "path": "scripts/level/tiles/ice_block.gd",
+   "class_name": "IceBlock",
+   "extends": "HardBlock",
+   "functions": [
+    "shard_name",
+    "sprite_name"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 13
+  },
+  {
+   "name": "note_block",
+   "path": "scripts/level/tiles/note_block.gd",
+   "class_name": "NoteBlock",
+   "extends": "StaticBodyExt",
+   "functions": [
+    "_begin",
+    "_bounce_actor",
+    "_contact",
+    "_physics_process",
+    "_ready",
+    "_release_content",
+    "detach_rider"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 117
+  },
+  {
    "name": "question_block",
    "path": "scripts/level/tiles/question_block.gd",
    "class_name": "QuestionBlock",
    "extends": "StaticBodyExt",
    "functions": [
-    "_sprout_end"
+    "_ready",
+    "_sprout_end",
+    "show_used_art"
    ],
    "signals": [],
    "exports": [],
-   "lines": 15
+   "lines": 21
+  },
+  {
+   "name": "slope_body",
+   "path": "scripts/level/tiles/slope_body.gd",
+   "class_name": "SlopeBody",
+   "extends": "StaticBody2D",
+   "functions": [
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 40
+  },
+  {
+   "name": "spike_tile",
+   "path": "scripts/level/tiles/spike_tile.gd",
+   "class_name": "SpikeTile",
+   "extends": "StaticBodyExt",
+   "functions": [
+    "_contact",
+    "_physics_process",
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 43
   },
   {
    "name": "turn_block_tile",
@@ -812,12 +3621,62 @@
    "class_name": "TurnBlockTile",
    "extends": "StaticBodyExt",
    "functions": [
+    "_ready",
     "_sprite_animation_looped",
     "_sprout_end"
    ],
    "signals": [],
    "exports": [],
-   "lines": 25
+   "lines": 44
+  },
+  {
+   "name": "world_death",
+   "path": "scripts/level/world_death.gd",
+   "class_name": "WorldDeath",
+   "extends": "Node",
+   "functions": [
+    "_physics_process",
+    "_ready",
+    "apply"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 48
+  },
+  {
+   "name": "world_presentation",
+   "path": "scripts/level/world_presentation.gd",
+   "class_name": "WorldPresentation",
+   "extends": "Node",
+   "functions": [
+    "_active",
+    "_before_physics",
+    "_exit_tree",
+    "_forget",
+    "_ready",
+    "_watch",
+    "canvas_transform_for",
+    "global_transform_for",
+    "present"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 207
+  },
+  {
+   "name": "camera_impulse",
+   "path": "scripts/other/camera_impulse.gd",
+   "class_name": "CameraImpulse",
+   "extends": "Node",
+   "functions": [
+    "_exit_tree",
+    "_physics_process",
+    "cancel",
+    "start"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 41
   },
   {
    "name": "dark_overlay",
@@ -840,11 +3699,48 @@
    "extends": "Node2D",
    "functions": [
     "_physics_process",
-    "_ready"
+    "_ready",
+    "apply_source_death"
    ],
    "signals": [],
    "exports": [],
-   "lines": 19
+   "lines": 39
+  },
+  {
+   "name": "detached_enemy_attachment",
+   "path": "scripts/other/detached_enemy_attachment.gd",
+   "class_name": "DetachedEnemyAttachment",
+   "extends": "Node2D",
+   "functions": [
+    "_physics_process"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 25
+  },
+  {
+   "name": "enemy_effect",
+   "path": "scripts/other/enemy_effect.gd",
+   "class_name": "EnemyEffect",
+   "extends": "RefCounted",
+   "functions": [],
+   "signals": [],
+   "exports": [],
+   "lines": 38
+  },
+  {
+   "name": "floating_enemy_defeat",
+   "path": "scripts/other/floating_enemy_defeat.gd",
+   "class_name": "FloatingEnemyDefeat",
+   "extends": "Node2D",
+   "functions": [
+    "_physics_process",
+    "_ready",
+    "apply_source_death"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 38
   },
   {
    "name": "grid",
@@ -879,6 +3775,47 @@
    "lines": 8
   },
   {
+   "name": "player_bubble",
+   "path": "scripts/other/player_bubble.gd",
+   "class_name": "PlayerBubble",
+   "extends": "Node2D",
+   "functions": [
+    "_physics_process",
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 48
+  },
+  {
+   "name": "sinking_enemy",
+   "path": "scripts/other/sinking_enemy.gd",
+   "class_name": "SinkingEnemy",
+   "extends": "Node2D",
+   "functions": [
+    "_physics_process",
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 60
+  },
+  {
+   "name": "skid_smoke",
+   "path": "scripts/other/skid_smoke.gd",
+   "class_name": "SkidSmoke",
+   "extends": "Node2D",
+   "functions": [
+    "_draw",
+    "_process",
+    "_ready",
+    "_update_envelope"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 45
+  },
+  {
    "name": "spin_smoke",
    "path": "scripts/other/spin_smoke.gd",
    "class_name": "SpinSmoke",
@@ -890,7 +3827,38 @@
    ],
    "signals": [],
    "exports": [],
-   "lines": 34
+   "lines": 42
+  },
+  {
+   "name": "spin_thump",
+   "path": "scripts/other/spin_thump.gd",
+   "class_name": "SpinThump",
+   "extends": "Node2D",
+   "functions": [
+    "_draw",
+    "_process",
+    "_update_size"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 29
+  },
+  {
+   "name": "swimming_enemy_defeat",
+   "path": "scripts/other/swimming_enemy_defeat.gd",
+   "class_name": "SwimmingEnemyDefeat",
+   "extends": "Node2D",
+   "functions": [
+    "_liquid_contact",
+    "_physics_process",
+    "_ready",
+    "_swimming",
+    "_water_offset",
+    "apply_source_death"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 91
   },
   {
    "name": "shadows",
@@ -929,14 +3897,13 @@
    "class_name": null,
    "extends": "Node",
    "functions": [
-    "_exists",
     "_init",
     "flag_exists",
     "reset_config"
    ],
    "signals": [],
    "exports": [],
-   "lines": 66
+   "lines": 48
   },
   {
    "name": "level_processor",
@@ -944,18 +3911,22 @@
    "class_name": null,
    "extends": "Node",
    "functions": [
+    "_exit_tree",
     "_from_swe",
     "_ready",
     "_request",
     "_run",
+    "_save_swe",
     "decode_swe",
-    "from_swe"
+    "encode_swe",
+    "from_swe",
+    "save_swe"
    ],
    "signals": [
     "_done"
    ],
    "exports": [],
-   "lines": 377
+   "lines": 672
   },
   {
    "name": "main_menu",
@@ -1006,7 +3977,7 @@
     "transition_started"
    ],
    "exports": [],
-   "lines": 144
+   "lines": 147
   },
   {
    "name": "sprite_library",
@@ -1015,6 +3986,9 @@
    "extends": "Node",
    "functions": [
     "_ready",
+    "configure_sprite",
+    "contact_draw_y",
+    "get_animations",
     "get_frames",
     "get_metadata",
     "get_origin",
@@ -1023,7 +3997,7 @@
    ],
    "signals": [],
    "exports": [],
-   "lines": 67
+   "lines": 143
   },
   {
    "name": "ui_sound_player",
@@ -1063,7 +4037,7 @@
    ],
    "signals": [],
    "exports": [],
-   "lines": 191
+   "lines": 208
   },
   {
    "name": "game_constants",
@@ -1073,7 +4047,7 @@
    "functions": [],
    "signals": [],
    "exports": [],
-   "lines": 287
+   "lines": 291
   },
   {
    "name": "control_set_controller",
@@ -1120,13 +4094,11 @@
     "_process",
     "_toggled"
    ],
-   "signals": [
-    "_level_loaded"
-   ],
+   "signals": [],
    "exports": [
     "action"
    ],
-   "lines": 58
+   "lines": 73
   },
   {
    "name": "level_card",
@@ -1229,26 +4201,80 @@
    "class_name": "Editor",
    "extends": "Control",
    "functions": [
+    "_create_history_controls",
     "_edit",
+    "_input",
     "_play",
     "_process",
     "_process_placing",
     "_ready",
+    "_remember_palette_variant",
     "_set_erasing",
     "_set_part_type",
+    "_show_save_result",
     "_unhandled_input",
+    "_update_history_controls",
+    "content_target",
+    "erase_part",
+    "get_palette_icon",
     "get_selected_part",
     "load",
-    "place"
+    "place",
+    "refresh_theme",
+    "request_save",
+    "save_to_path",
+    "set_part_modifier",
+    "set_part_variant",
+    "take_content",
+    "try_insert_content"
    ],
    "signals": [
     "erase_started",
     "erase_stopped",
     "loaded",
-    "part_type_changed"
+    "part_type_changed",
+    "save_finished"
    ],
    "exports": [],
-   "lines": 200
+   "lines": 466
+  },
+  {
+   "name": "editor_history",
+   "path": "scripts/ui/editor/editor_history.gd",
+   "class_name": "EditorHistory",
+   "extends": "Node",
+   "functions": [
+    "_begin",
+    "_commit",
+    "_move_to",
+    "_notification",
+    "_record_environment_updates",
+    "_record_part_state",
+    "_refresh_terrain",
+    "_schedule_terrain_refresh",
+    "_set_present",
+    "begin_stroke",
+    "can_redo",
+    "can_undo",
+    "clear",
+    "end_stroke",
+    "erase",
+    "record_geometry",
+    "record_move",
+    "record_place",
+    "redo",
+    "set_modifier",
+    "set_part_state",
+    "set_theme",
+    "set_variant",
+    "store_content",
+    "undo"
+   ],
+   "signals": [
+    "changed"
+   ],
+   "exports": [],
+   "lines": 229
   },
   {
    "name": "editor_panel",
@@ -1394,6 +4420,23 @@
    "signals": [],
    "exports": [],
    "lines": 46
+  },
+  {
+   "name": "level_theme_panel",
+   "path": "scripts/ui/editor/left_panel/level_theme_panel.gd",
+   "class_name": null,
+   "extends": "EditorPopout",
+   "functions": [
+    "_draw",
+    "_process",
+    "_ready",
+    "_sync",
+    "choose",
+    "refresh_effect"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 84
   },
   {
    "name": "popout_ok_btn",
@@ -1543,14 +4586,16 @@
     "_set_color",
     "_set_page_index",
     "_set_selected",
-    "get_page"
+    "choose",
+    "get_page",
+    "refresh_icons"
    ],
    "signals": [],
    "exports": [
     "category",
     "page_index"
    ],
-   "lines": 237
+   "lines": 249
   },
   {
    "name": "popout_btn",
@@ -1636,14 +4681,15 @@
     "_exited",
     "_process",
     "_ready",
-    "_toggled"
+    "_toggled",
+    "refresh_icon"
    ],
    "signals": [],
    "exports": [
     "editor",
     "part"
    ],
-   "lines": 117
+   "lines": 121
   },
   {
    "name": "palette_btn",
@@ -1690,7 +4736,9 @@
    "extends": "PanelContainer",
    "functions": [
     "_input",
+    "_modifier_toggled",
     "_ready",
+    "_take_content",
     "close",
     "select"
    ],
@@ -1698,7 +4746,7 @@
     "selected"
    ],
    "exports": [],
-   "lines": 40
+   "lines": 125
   },
   {
    "name": "button_hover_effect",
@@ -1736,7 +4784,7 @@
     "score_label",
     "time_label"
    ],
-   "lines": 19
+   "lines": 20
   },
   {
    "name": "intro",
@@ -1954,6 +5002,1243 @@
    "signals": [],
    "exports": [],
    "lines": 11
+  },
+  {
+   "name": "actor_activity_test",
+   "path": "tests/scripts/actor_activity_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "actor",
+    "check_independent_projectiles",
+    "check_modes_and_disable",
+    "check_other_families",
+    "check_region_and_cadence",
+    "check_retry",
+    "check_suspend_resume",
+    "clock",
+    "fixed_camera",
+    "point_hits"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 206
+  },
+  {
+   "name": "basic_items_blocks_test",
+   "path": "tests/scripts/basic_items_blocks_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "add_part",
+    "capture_runtime",
+    "check_actor_contacts",
+    "check_cleanup",
+    "check_containers",
+    "check_editor",
+    "check_hard",
+    "check_hidden",
+    "check_one_up",
+    "drag_into",
+    "enemy_at",
+    "park"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 524
+  },
+  {
+   "name": "blooper_test",
+   "path": "tests/scripts/blooper_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "actor_at",
+    "actors",
+    "check_blocks",
+    "check_contact",
+    "check_defeat_and_cleanup",
+    "check_editor",
+    "check_ellipse_and_solids",
+    "check_initial_height_cases",
+    "check_jet_cycle",
+    "check_projectiles_and_helmets",
+    "make_level",
+    "park"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 337
+  },
+  {
+   "name": "bro_environment_test",
+   "path": "tests/scripts/bro_environment_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "add_liquid",
+    "capture_environment",
+    "check_boomerang_armor",
+    "check_bro_sinking",
+    "check_carried_shell",
+    "check_frozen_contacts",
+    "check_frozen_held_item",
+    "check_frozen_low_ceiling",
+    "check_frozen_melting",
+    "check_head_shot",
+    "check_ice_supported_above_liquid",
+    "check_shot_liquid_boundaries",
+    "check_spawn_ownership",
+    "check_water_shots",
+    "effects",
+    "live_nodes"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 501
+  },
+  {
+   "name": "bro_platform_test",
+   "path": "tests/scripts/bro_platform_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "add_blocks",
+    "check_bottom_margin",
+    "check_choice_with_two_platforms",
+    "check_landing_clearance",
+    "check_missed_airborne_alarm",
+    "check_moving_support",
+    "check_narrow_edge",
+    "falling",
+    "platform"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 147
+  },
+  {
+   "name": "bro_projectile_test",
+   "path": "tests/scripts/bro_projectile_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "capture_status",
+    "check_boomerang_alarms",
+    "check_boomerang_lifetime",
+    "check_freeze_and_retry",
+    "check_hammer_water",
+    "check_ice_bounces",
+    "check_stun",
+    "check_view_boundaries",
+    "check_wall",
+    "make_level",
+    "shot"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 322
+  },
+  {
+   "name": "buzzy_test",
+   "path": "tests/scripts/buzzy_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "actors",
+    "beetle_at",
+    "check_ceiling",
+    "check_editor",
+    "check_projectiles_and_lifecycle",
+    "check_shell_motion_and_carry",
+    "check_stomp_and_recovery",
+    "check_wings",
+    "ground_at",
+    "make_level",
+    "park",
+    "shell_at"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 338
+  },
+  {
+   "name": "cheep_cheep_test",
+   "path": "tests/scripts/cheep_cheep_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "actor_at",
+    "actors",
+    "check_blocks",
+    "check_contact",
+    "check_defeat_and_cleanup",
+    "check_editor",
+    "check_flight",
+    "check_jumps",
+    "check_mask_and_terrain",
+    "check_partial_water",
+    "check_projectiles_and_helmets",
+    "check_swimming",
+    "click",
+    "make_level",
+    "park"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 457
+  },
+  {
+   "name": "chomp_test",
+   "path": "tests/scripts/chomp_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "capture_chomp_editor",
+    "capture_chomps",
+    "check_build_and_mask",
+    "check_chomp_activation",
+    "check_chomp_cull",
+    "check_chomp_editor",
+    "check_chomp_neighbours",
+    "check_chomp_retry",
+    "check_chomp_water_defeat",
+    "check_compound_defeat",
+    "check_death_history",
+    "check_liquid_rules",
+    "check_source_contacts",
+    "check_start_and_hops",
+    "check_trailing_links",
+    "chomp",
+    "chomp_level",
+    "click_chomp",
+    "hold_chomp_corpses",
+    "point_on_chomp",
+    "save_chomp_capture"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 653
+  },
+  {
+   "name": "editor_flow_test",
+   "path": "tests/scripts/editor_flow_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "capture_start",
+    "check_start_connection"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 180
+  },
+  {
+   "name": "editor_grounding_test",
+   "path": "tests/scripts/editor_grounding_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "check_preview",
+    "contact_side",
+    "overlap",
+    "primary",
+    "snapshot",
+    "visible_bounds"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 205
+  },
+  {
+   "name": "editor_history_test",
+   "path": "tests/scripts/editor_history_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "part_counts",
+    "shortcut"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 251
+  },
+  {
+   "name": "enemy_flight_test",
+   "path": "tests/scripts/enemy_flight_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "actor_at",
+    "add_ground",
+    "check_editor_and_save",
+    "check_flight_collisions",
+    "check_flight_patterns",
+    "check_parachutes",
+    "check_stomps_and_lifecycle",
+    "click",
+    "make_level",
+    "park",
+    "stomp"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 367
+  },
+  {
+   "name": "enemy_grounding_test",
+   "path": "tests/scripts/enemy_grounding_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "check_grounded",
+    "primary_sprite"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 151
+  },
+  {
+   "name": "fire_flower_test",
+   "path": "tests/scripts/fire_flower_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "capture_pose",
+    "check_blocks",
+    "check_collisions",
+    "check_editor",
+    "check_input",
+    "check_lifecycle",
+    "check_liquids",
+    "check_pickup",
+    "clear_shots",
+    "flower_at",
+    "flowers",
+    "make_level",
+    "park",
+    "press_fire",
+    "shot_at",
+    "shots"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 466
+  },
+  {
+   "name": "frame_pacing_test",
+   "path": "tests/scripts/frame_pacing_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "_timed_sync",
+    "stats"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 113
+  },
+  {
+   "name": "goomba_variants_test",
+   "path": "tests/scripts/goomba_variants_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "check_editor_and_save",
+    "check_runtime",
+    "enemies",
+    "write_data"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 203
+  },
+  {
+   "name": "grrrol_test",
+   "path": "tests/scripts/grrrol_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "capture_rolling",
+    "capture_rolling_editor",
+    "check_defeat_art",
+    "check_delayed_break",
+    "check_hard_contacts",
+    "check_legacy_separation",
+    "check_liquid_themes_and_cull",
+    "check_mario_and_block",
+    "check_night_and_drag",
+    "check_origins_and_masks",
+    "check_rolling_activity",
+    "check_rolling_death",
+    "check_rolling_editor",
+    "check_rolling_motion",
+    "check_water_and_liquid",
+    "click_point",
+    "click_rolling",
+    "hold_rolling_corpse",
+    "rolling",
+    "rolling_level",
+    "save_rolling_capture"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 642
+  },
+  {
+   "name": "hammer_bro_test",
+   "path": "tests/scripts/hammer_bro_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "actor",
+    "check_art_anchor",
+    "check_boomerang",
+    "check_editor",
+    "check_jump",
+    "check_patrol_and_throw",
+    "check_platform_jumps",
+    "check_sledge",
+    "check_sledge_parachute",
+    "check_stomp_and_wings",
+    "check_winged_sledge",
+    "click_at",
+    "make_level",
+    "park",
+    "projectiles"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 381
+  },
+  {
+   "name": "held_stun_test",
+   "path": "tests/scripts/held_stun_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "capture_stun",
+    "check_freeze_priority",
+    "check_impact",
+    "check_initial_immunity",
+    "check_interrupted_retry",
+    "check_recovery",
+    "check_stun_effect",
+    "hold",
+    "pause_motion"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 251
+  },
+  {
+   "name": "helmet_mask_test",
+   "path": "tests/scripts/helmet_mask_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "check_frozen_pose",
+    "check_pixels",
+    "check_poses"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 133
+  },
+  {
+   "name": "helmet_test",
+   "path": "tests/scripts/helmet_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "check_carried_equip_and_head",
+    "check_falling_equip_and_damage",
+    "check_goal",
+    "make_level",
+    "park",
+    "shell_at"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 121
+  },
+  {
+   "name": "interactions_test",
+   "path": "tests/scripts/interactions_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 151
+  },
+  {
+   "name": "koopa_test",
+   "path": "tests/scripts/koopa_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "beach_at",
+    "check_beach_contacts",
+    "check_carry",
+    "check_contacts",
+    "check_editor",
+    "check_ledge_and_stomp",
+    "check_motion_and_blocks",
+    "check_reentry",
+    "find_actors",
+    "koopa_at",
+    "make_level",
+    "park",
+    "shell_at"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 494
+  },
+  {
+   "name": "liquid_surface_test",
+   "path": "tests/scripts/liquid_surface_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "check_cycle",
+    "check_metadata"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 81
+  },
+  {
+   "name": "loader_compatibility_test",
+   "path": "tests/scripts/loader_compatibility_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "load_async",
+    "write_fixture"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 106
+  },
+  {
+   "name": "monty_test",
+   "path": "tests/scripts/monty_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "actor",
+    "check_editor",
+    "check_parachute",
+    "check_placement",
+    "check_stomp_and_wings",
+    "check_walk_and_chase",
+    "check_wall_hop",
+    "check_water_speed",
+    "check_wing_hop",
+    "click_at",
+    "make_level",
+    "park",
+    "wall"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 314
+  },
+  {
+   "name": "muncher_test",
+   "path": "tests/scripts/muncher_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_physics_process",
+    "_ready",
+    "actor",
+    "actors",
+    "check_camera_and_cleanup",
+    "check_contact",
+    "check_crush",
+    "check_editor",
+    "check_giant_landing",
+    "check_helmet",
+    "check_liquid_and_death",
+    "check_motion",
+    "check_other_crushes",
+    "check_platforms",
+    "check_shell_and_block",
+    "check_stacks",
+    "click",
+    "make_level",
+    "park"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 549
+  },
+  {
+   "name": "palette_icon_test",
+   "path": "tests/scripts/palette_icon_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "check_rendered"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 75
+  },
+  {
+   "name": "piranha_test",
+   "path": "tests/scripts/piranha_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "actor_at",
+    "actors",
+    "add_ground",
+    "check_attachments_and_support",
+    "check_blocks",
+    "check_contact",
+    "check_editor",
+    "check_fire_cycle",
+    "check_fireball_collisions",
+    "check_jumps",
+    "check_shells_and_helmets",
+    "check_sink_and_cleanup",
+    "check_topology_history",
+    "click",
+    "make_level",
+    "park",
+    "shot_at"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 550
+  },
+  {
+   "name": "pixel_shadows_test",
+   "path": "tests/scripts/pixel_shadows_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "capture_native",
+    "check_silhouette",
+    "rendered"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 204
+  },
+  {
+   "name": "platform_blocks_test",
+   "path": "tests/scripts/platform_blocks_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "add_part",
+    "capture_runtime",
+    "check_contents",
+    "check_donut",
+    "check_editor",
+    "check_note",
+    "clear_fixture",
+    "make_note",
+    "note_jump",
+    "park"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 344
+  },
+  {
+   "name": "play_slice",
+   "path": "tests/scripts/play_slice.gd",
+   "class_name": null,
+   "extends": "Node",
+   "functions": [
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 423
+  },
+  {
+   "name": "player_controls_test",
+   "path": "tests/scripts/player_controls_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "capture_braking_reel",
+    "capture_pose",
+    "check_audio_lifetime",
+    "check_braking",
+    "check_crouch",
+    "check_dust",
+    "check_dust_modes",
+    "check_dust_pixels",
+    "check_palette",
+    "clear_smoke",
+    "moving",
+    "park",
+    "smoke",
+    "start_skid"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 482
+  },
+  {
+   "name": "player_physics_test",
+   "path": "tests/scripts/player_physics_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "jump_height",
+    "sample"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 85
+  },
+  {
+   "name": "player_render_test",
+   "path": "tests/scripts/player_render_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "check_camera_bounds",
+    "check_motion"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 142
+  },
+  {
+   "name": "player_swim_test",
+   "path": "tests/scripts/player_swim_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_pixels",
+    "_ready",
+    "_sample",
+    "ground",
+    "park",
+    "snap",
+    "sprite_rect",
+    "surface_crossing"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 391
+  },
+  {
+   "name": "player_visual_test",
+   "path": "tests/scripts/player_visual_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "capture",
+    "capture_motion_sequence",
+    "check_airborne_growth",
+    "check_cadence",
+    "check_floor_overlap",
+    "check_growth",
+    "check_low_ceiling_growth",
+    "check_one_way_growth",
+    "check_origins",
+    "check_super_mushroom",
+    "check_transition_cleanup",
+    "check_transition_frames",
+    "check_transition_replacement",
+    "park"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 465
+  },
+  {
+   "name": "port_test",
+   "path": "tests/scripts/port_test.gd",
+   "class_name": null,
+   "extends": "Node",
+   "functions": [
+    "check",
+    "finish",
+    "release_input",
+    "ticks"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 32
+  },
+  {
+   "name": "recent_enemy_defeat_test",
+   "path": "tests/scripts/recent_enemy_defeat_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "capture_defeats",
+    "check_block_collision",
+    "check_corpse_motion_boundaries",
+    "check_defeat_retry",
+    "check_helmet_collision",
+    "check_hit_context",
+    "check_pow_and_spin",
+    "check_shell_collision",
+    "check_typed_defeat",
+    "check_water_launch",
+    "enemy",
+    "hold_corpse",
+    "pending_corpse"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 314
+  },
+  {
+   "name": "rocky_environment_test",
+   "path": "tests/scripts/rocky_environment_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "add_liquid",
+    "capture_environment",
+    "check_liquid_replacement",
+    "check_native_defeat",
+    "check_owned_spawns",
+    "check_settlement_edges",
+    "check_swimming_sample",
+    "check_underwater_cycle",
+    "check_wrench_arcs_and_alarms",
+    "check_wrench_art_and_mask",
+    "check_wrench_death_and_helmet",
+    "check_wrench_view_clauses",
+    "effects",
+    "live_nodes",
+    "make_wrench",
+    "platform"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 439
+  },
+  {
+   "name": "rocky_test",
+   "path": "tests/scripts/rocky_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "actor",
+    "check_air_placement",
+    "check_cycle",
+    "check_editor",
+    "check_stomp",
+    "check_support_removal",
+    "check_wrench_flight",
+    "check_wrench_hit_and_expiry",
+    "make_level",
+    "park",
+    "wrenches"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 279
+  },
+  {
+   "name": "rotation_render_test",
+   "path": "tests/scripts/rotation_render_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "capture_source_angles",
+    "check_edge_coverage",
+    "check_existing_rotating_art",
+    "rendered"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 183
+  },
+  {
+   "name": "semisolid_test",
+   "path": "tests/scripts/semisolid_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "check_art",
+    "check_modern",
+    "check_saved",
+    "park",
+    "snap"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 292
+  },
+  {
+   "name": "slice_001",
+   "path": "tests/scripts/slice_001.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 98
+  },
+  {
+   "name": "slope_fusion_test",
+   "path": "tests/scripts/slope_fusion_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "check_chain",
+    "check_irregular",
+    "put"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 185
+  },
+  {
+   "name": "slopes_test",
+   "path": "tests/scripts/slopes_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "add_part",
+    "capture_ribbons",
+    "check_actors",
+    "check_editor",
+    "check_gpu",
+    "check_join",
+    "check_jump_slide",
+    "check_reported_bugs",
+    "check_walk",
+    "make_course",
+    "park",
+    "slope"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 545
+  },
+  {
+   "name": "smw_goal_test",
+   "path": "tests/scripts/smw_goal_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 56
+  },
+  {
+   "name": "source_mask_test",
+   "path": "tests/scripts/source_mask_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "contact_at"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 78
+  },
+  {
+   "name": "spin_effects_test",
+   "path": "tests/scripts/spin_effects_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "check_contact",
+    "check_pixels",
+    "check_teardown",
+    "make_level"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 180
+  },
+  {
+   "name": "spiny_test",
+   "path": "tests/scripts/spiny_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "actors",
+    "check_block_and_recovery",
+    "check_ceiling_and_projectiles",
+    "check_contact",
+    "check_continuous_needle_contact",
+    "check_editor",
+    "check_flight_and_needles",
+    "check_goal_and_lifecycle",
+    "check_helmet",
+    "check_needle_lifetime",
+    "check_shell_top",
+    "make_level",
+    "park",
+    "shell_at",
+    "spiny_at"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 470
+  },
+  {
+   "name": "spring_test",
+   "path": "tests/scripts/spring_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_check_pixels",
+    "_ready",
+    "_sample_contact",
+    "bounce",
+    "check_modern",
+    "park",
+    "snap"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 241
+  },
+  {
+   "name": "sprite_library_test",
+   "path": "tests/scripts/sprite_library_test.gd",
+   "class_name": null,
+   "extends": "Node",
+   "functions": [
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 62
+  },
+  {
+   "name": "star_test",
+   "path": "tests/scripts/star_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "capture_colors",
+    "check_block",
+    "check_cleanup",
+    "check_contacts",
+    "check_duration",
+    "check_editor",
+    "check_motion",
+    "check_pickup",
+    "check_speed",
+    "make_level",
+    "park",
+    "star_at"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 306
+  },
+  {
+   "name": "startup_flow_test",
+   "path": "tests/scripts/startup_flow_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 84
+  },
+  {
+   "name": "swe_roundtrip_test",
+   "path": "tests/scripts/swe_roundtrip_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "async_save",
+    "counts",
+    "write_data"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 175
+  },
+  {
+   "name": "terrain_basics_test",
+   "path": "tests/scripts/terrain_basics_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "capture_runtime",
+    "check_cloud",
+    "check_editor",
+    "check_ice",
+    "check_spike_clock",
+    "check_spikes",
+    "clear_fixture",
+    "park",
+    "terrain"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 340
+  },
+  {
+   "name": "theme_switch_test",
+   "path": "tests/scripts/theme_switch_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "check_ground_frames",
+    "check_modern",
+    "put_terrain",
+    "snap"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 235
+  },
+  {
+   "name": "thwomp_environment_test",
+   "path": "tests/scripts/thwomp_environment_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "add_liquid",
+    "box",
+    "capture_environment",
+    "check_defeat_motion",
+    "check_liquid_masks",
+    "check_return_stop",
+    "check_snap_boundary",
+    "check_source_pixels",
+    "check_splash_clock",
+    "effects"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 314
+  },
+  {
+   "name": "thwomp_test",
+   "path": "tests/scripts/thwomp_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "actor",
+    "block_part",
+    "check_blocks",
+    "check_cycle",
+    "check_defeat_and_cleanup",
+    "check_editor",
+    "check_gravity",
+    "check_helmet",
+    "check_player_contact",
+    "check_triggers",
+    "click_at",
+    "make_level",
+    "park",
+    "wall"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 397
+  },
+  {
+   "name": "world_death_test",
+   "path": "tests/scripts/world_death_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_ready",
+    "actor",
+    "capture_death",
+    "check_body_stop",
+    "check_death_clock",
+    "check_held_release",
+    "check_independent_objects",
+    "check_pending_throw",
+    "check_power_pause",
+    "check_recovery_and_manual_rise",
+    "check_replacement_targets",
+    "check_retry_ownership",
+    "check_stopped_shell_contact"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 334
+  },
+  {
+   "name": "world_presentation_test",
+   "path": "tests/scripts/world_presentation_test.gd",
+   "class_name": null,
+   "extends": "\"res",
+   "functions": [
+    "_forced_presentation",
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 118
   }
  ],
  "scenes": [
@@ -2000,8 +6285,8 @@
    ]
   },
   {
-   "name": "galoomba",
-   "path": "scenes/entities/galoomba.tscn",
+   "name": "beach_koopa",
+   "path": "scenes/entities/beach_koopa.tscn",
    "format": "3",
    "nodes": 8,
    "node_types": {
@@ -2013,28 +6298,212 @@
     "Node": 2
    },
    "scripts": [
-    "res://scripts/level/entities/enemies/galoomba.gd",
+    "res://scripts/level/entities/beach_koopa.gd",
     "res://scripts/components/gravity_component.gd",
     "res://scripts/components/slide_component.gd"
+   ]
+  },
+  {
+   "name": "blooper",
+   "path": "scenes/entities/blooper.tscn",
+   "format": "3",
+   "nodes": 6,
+   "node_types": {
+    "CharacterBody2D": 1,
+    "CollisionShape2D": 2,
+    "Area2D": 1,
+    "Node2D": 1,
+    "AnimatedSprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/entities/enemies/blooper.gd"
+   ]
+  },
+  {
+   "name": "buzzy_beetle",
+   "path": "scenes/entities/buzzy_beetle.tscn",
+   "format": "3",
+   "nodes": 9,
+   "node_types": {
+    "CharacterBody2D": 1,
+    "CollisionShape2D": 2,
+    "Area2D": 1,
+    "Node2D": 1,
+    "AnimatedSprite2D": 1,
+    "Node": 3
+   },
+   "scripts": [
+    "res://scripts/level/entities/enemies/buzzy_beetle.gd",
+    "res://scripts/components/gravity_component.gd",
+    "res://scripts/components/slide_component.gd",
+    "res://scripts/components/enemy_flight_component.gd"
+   ]
+  },
+  {
+   "name": "chain_chomp",
+   "path": "scenes/entities/chain_chomp.tscn",
+   "format": "3",
+   "nodes": 7,
+   "node_types": {
+    "CharacterBody2D": 1,
+    "CollisionShape2D": 2,
+    "Area2D": 1,
+    "Node2D": 2,
+    "AnimatedSprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/entities/chain_chomp.gd"
+   ]
+  },
+  {
+   "name": "cheep_cheep",
+   "path": "scenes/entities/cheep_cheep.tscn",
+   "format": "3",
+   "nodes": 4,
+   "node_types": {
+    "CharacterBody2D": 1,
+    "Area2D": 1,
+    "Node2D": 1,
+    "AnimatedSprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/entities/enemies/cheep_cheep.gd"
+   ]
+  },
+  {
+   "name": "fire_flower",
+   "path": "scenes/entities/fire_flower.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "CharacterBody2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/entities/fire_flower.gd"
+   ]
+  },
+  {
+   "name": "galoomba",
+   "path": "scenes/entities/galoomba.tscn",
+   "format": "3",
+   "nodes": 9,
+   "node_types": {
+    "CharacterBody2D": 1,
+    "CollisionShape2D": 2,
+    "Area2D": 1,
+    "Node2D": 1,
+    "AnimatedSprite2D": 1,
+    "Node": 3
+   },
+   "scripts": [
+    "res://scripts/level/entities/enemies/galoomba.gd",
+    "res://scripts/components/gravity_component.gd",
+    "res://scripts/components/slide_component.gd",
+    "res://scripts/components/enemy_flight_component.gd"
    ]
   },
   {
    "name": "green_koopa",
    "path": "scenes/entities/green_koopa.tscn",
    "format": "3",
-   "nodes": 8,
+   "nodes": 9,
    "node_types": {
     "CharacterBody2D": 1,
     "CollisionShape2D": 2,
     "Area2D": 1,
     "Node2D": 1,
     "AnimatedSprite2D": 1,
-    "Node": 2
+    "Node": 3
    },
    "scripts": [
     "res://scripts/level/entities/enemies/koopa.gd",
     "res://scripts/components/slide_component.gd",
+    "res://scripts/components/gravity_component.gd",
+    "res://scripts/components/enemy_flight_component.gd"
+   ]
+  },
+  {
+   "name": "grrrol",
+   "path": "scenes/entities/grrrol.tscn",
+   "format": "3",
+   "nodes": 7,
+   "node_types": {
+    "CharacterBody2D": 1,
+    "CollisionShape2D": 3,
+    "Area2D": 2,
+    "AnimatedSprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/entities/grrrol.gd"
+   ]
+  },
+  {
+   "name": "hammer_bro",
+   "path": "scenes/entities/hammer_bro.tscn",
+   "format": "3",
+   "nodes": 7,
+   "node_types": {
+    "CharacterBody2D": 1,
+    "CollisionShape2D": 2,
+    "Area2D": 1,
+    "Node2D": 1,
+    "AnimatedSprite2D": 1,
+    "Node": 1
+   },
+   "scripts": [
+    "res://scripts/level/entities/hammer_bro.gd",
     "res://scripts/components/gravity_component.gd"
+   ]
+  },
+  {
+   "name": "koopa_shell",
+   "path": "scenes/entities/koopa_shell.tscn",
+   "format": "3",
+   "nodes": 10,
+   "node_types": {
+    "CharacterBody2D": 1,
+    "CollisionShape2D": 3,
+    "Area2D": 2,
+    "Node2D": 1,
+    "AnimatedSprite2D": 1,
+    "Node": 2
+   },
+   "scripts": [
+    "res://scripts/level/entities/koopa_shell.gd",
+    "res://scripts/components/gravity_component.gd",
+    "res://scripts/components/pickup_component.gd"
+   ]
+  },
+  {
+   "name": "monty",
+   "path": "scenes/entities/monty.tscn",
+   "format": "3",
+   "nodes": 9,
+   "node_types": {
+    "CharacterBody2D": 1,
+    "CollisionShape2D": 2,
+    "Area2D": 1,
+    "Node2D": 1,
+    "AnimatedSprite2D": 1,
+    "Node": 3
+   },
+   "scripts": [
+    "res://scripts/level/entities/monty.gd",
+    "res://scripts/components/gravity_component.gd",
+    "res://scripts/components/slide_component.gd",
+    "res://scripts/components/enemy_flight_component.gd"
+   ]
+  },
+  {
+   "name": "muncher",
+   "path": "scenes/entities/muncher.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "CharacterBody2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/entities/muncher.gd"
    ]
   },
   {
@@ -2056,17 +6525,44 @@
    ]
   },
   {
+   "name": "one_up",
+   "path": "scenes/entities/one_up.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "CharacterBody2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/entities/one_up.gd"
+   ]
+  },
+  {
+   "name": "piranha_plant",
+   "path": "scenes/entities/piranha_plant.tscn",
+   "format": "3",
+   "nodes": 4,
+   "node_types": {
+    "CharacterBody2D": 1,
+    "Area2D": 1,
+    "Node2D": 1,
+    "AnimatedSprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/entities/enemies/piranha_plant.gd"
+   ]
+  },
+  {
    "name": "player",
    "path": "scenes/entities/player.tscn",
    "format": "3",
-   "nodes": 14,
+   "nodes": 21,
    "node_types": {
     "CharacterBody2D": 1,
     "CollisionShape2D": 1,
     "Node2D": 1,
     "AnimatedSprite2D": 1,
     "AudioStreamPlayer": 2,
-    "Node": 8
+    "Node": 15
    },
    "scripts": [
     "res://scripts/level/entities/player.gd",
@@ -2077,7 +6573,82 @@
     "res://scripts/components/gravity_component.gd",
     "res://scripts/level/entities/states/player_falling_state.gd",
     "res://scripts/level/entities/states/player_jumping_state.gd",
-    "res://scripts/level/entities/states/player_spin_jumping_state.gd"
+    "res://scripts/level/entities/states/player_spin_jumping_state.gd",
+    "res://scripts/level/entities/states/player_goal_state.gd",
+    "res://scripts/level/entities/states/player_stunned_state.gd",
+    "res://scripts/level/entities/states/player_frozen_state.gd",
+    "res://scripts/level/entities/states/player_note_state.gd",
+    "res://scripts/level/entities/states/player_spring_state.gd",
+    "res://scripts/level/entities/states/player_slope_slide_state.gd",
+    "res://scripts/level/entities/states/player_swimming_state.gd"
+   ]
+  },
+  {
+   "name": "rocky",
+   "path": "scenes/entities/rocky.tscn",
+   "format": "3",
+   "nodes": 7,
+   "node_types": {
+    "CharacterBody2D": 1,
+    "CollisionShape2D": 2,
+    "Area2D": 1,
+    "Node2D": 1,
+    "AnimatedSprite2D": 1,
+    "Node": 1
+   },
+   "scripts": [
+    "res://scripts/level/entities/rocky.gd",
+    "res://scripts/components/gravity_component.gd"
+   ]
+  },
+  {
+   "name": "spiny",
+   "path": "scenes/entities/spiny.tscn",
+   "format": "3",
+   "nodes": 9,
+   "node_types": {
+    "CharacterBody2D": 1,
+    "CollisionShape2D": 2,
+    "Area2D": 1,
+    "Node2D": 1,
+    "AnimatedSprite2D": 1,
+    "Node": 3
+   },
+   "scripts": [
+    "res://scripts/level/entities/enemies/spiny.gd",
+    "res://scripts/components/gravity_component.gd",
+    "res://scripts/components/slide_component.gd",
+    "res://scripts/components/enemy_flight_component.gd"
+   ]
+  },
+  {
+   "name": "spiny_needle",
+   "path": "scenes/entities/spiny_needle.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "CharacterBody2D": 1,
+    "Area2D": 1,
+    "CollisionShape2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/entities/spiny_needle.gd"
+   ]
+  },
+  {
+   "name": "spring",
+   "path": "scenes/entities/spring.tscn",
+   "format": "3",
+   "nodes": 5,
+   "node_types": {
+    "CharacterBody2D": 1,
+    "CollisionShape2D": 2,
+    "Area2D": 1,
+    "Node": 1
+   },
+   "scripts": [
+    "res://scripts/level/entities/spring.gd",
+    "res://scripts/components/pickup_component.gd"
    ]
   },
   {
@@ -2100,15 +6671,39 @@
    ]
   },
   {
+   "name": "super_star",
+   "path": "scenes/entities/super_star.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "CharacterBody2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/entities/super_star.gd"
+   ]
+  },
+  {
+   "name": "thwomp",
+   "path": "scenes/entities/thwomp.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "CharacterBody2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/entities/thwomp.gd"
+   ]
+  },
+  {
    "name": "skid_smoke",
    "path": "scenes/particles/skid_smoke.tscn",
    "format": "3",
    "nodes": 1,
    "node_types": {
-    "AnimatedSprite2D": 1
+    "Node2D": 1
    },
    "scripts": [
-    "res://scripts/other/particle.gd"
+    "res://scripts/other/skid_smoke.gd"
    ]
   },
   {
@@ -2142,10 +6737,10 @@
    "format": "3",
    "nodes": 1,
    "node_types": {
-    "AnimatedSprite2D": 1
+    "Node2D": 1
    },
    "scripts": [
-    "res://scripts/other/particle.gd"
+    "res://scripts/other/spin_thump.gd"
    ]
   },
   {
@@ -2173,6 +6768,66 @@
    ]
   },
   {
+   "name": "blooper_part",
+   "path": "scenes/parts/blooper_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/blooper_part.gd"
+   ]
+  },
+  {
+   "name": "buzzy_part",
+   "path": "scenes/parts/buzzy_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/buzzy_part.gd"
+   ]
+  },
+  {
+   "name": "cheep_cheep_part",
+   "path": "scenes/parts/cheep_cheep_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/cheep_cheep_part.gd"
+   ]
+  },
+  {
+   "name": "chomp_part",
+   "path": "scenes/parts/chomp_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/chomp_part.gd"
+   ]
+  },
+  {
+   "name": "cloud_part",
+   "path": "scenes/parts/cloud_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/cloud_part.gd"
+   ]
+  },
+  {
    "name": "coin_part",
    "path": "scenes/parts/coin_part.tscn",
    "format": "3",
@@ -2182,6 +6837,18 @@
    },
    "scripts": [
     "res://scripts/level/parts/coin_part.gd"
+   ]
+  },
+  {
+   "name": "donut_part",
+   "path": "scenes/parts/donut_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/donut_part.gd"
    ]
   },
   {
@@ -2198,6 +6865,18 @@
    ]
   },
   {
+   "name": "fire_flower_part",
+   "path": "scenes/parts/fire_flower_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/fire_flower_part.gd"
+   ]
+  },
+  {
    "name": "galoomba_part",
    "path": "scenes/parts/galoomba_part.tscn",
    "format": "3",
@@ -2207,6 +6886,36 @@
    },
    "scripts": [
     "res://scripts/level/parts/galoomba_part.gd"
+   ]
+  },
+  {
+   "name": "gentle_slope_part",
+   "path": "scenes/parts/gentle_slope_part.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {},
+   "scripts": [
+    "res://scripts/level/parts/gentle_slope_part.gd"
+   ]
+  },
+  {
+   "name": "goal_pole_part",
+   "path": "scenes/parts/goal_pole_part.tscn",
+   "format": "3",
+   "nodes": 2,
+   "node_types": {},
+   "scripts": [
+    "res://scripts/level/parts/goal_pole_part.gd"
+   ]
+  },
+  {
+   "name": "goomba_part",
+   "path": "scenes/parts/goomba_part.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {},
+   "scripts": [
+    "res://scripts/level/parts/goomba_part.gd"
    ]
   },
   {
@@ -2222,6 +6931,64 @@
    ]
   },
   {
+   "name": "grrrol_part",
+   "path": "scenes/parts/grrrol_part.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {},
+   "scripts": [
+    "res://scripts/level/parts/grrrol_part.gd"
+   ]
+  },
+  {
+   "name": "hammer_bro_part",
+   "path": "scenes/parts/hammer_bro_part.tscn",
+   "format": "3",
+   "nodes": 2,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/hammer_bro_part.gd"
+   ]
+  },
+  {
+   "name": "hard_block_part",
+   "path": "scenes/parts/hard_block_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/hard_block_part.gd"
+   ]
+  },
+  {
+   "name": "hidden_block_part",
+   "path": "scenes/parts/hidden_block_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/hidden_block_part.gd"
+   ]
+  },
+  {
+   "name": "ice_block_part",
+   "path": "scenes/parts/ice_block_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/ice_block_part.gd"
+   ]
+  },
+  {
    "name": "koopa_part",
    "path": "scenes/parts/koopa_part.tscn",
    "format": "3",
@@ -2231,6 +6998,66 @@
    },
    "scripts": [
     "res://scripts/level/parts/koopa_part.gd"
+   ]
+  },
+  {
+   "name": "monty_part",
+   "path": "scenes/parts/monty_part.tscn",
+   "format": "3",
+   "nodes": 2,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/monty_part.gd"
+   ]
+  },
+  {
+   "name": "muncher_part",
+   "path": "scenes/parts/muncher_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/muncher_part.gd"
+   ]
+  },
+  {
+   "name": "mushroom_part",
+   "path": "scenes/parts/mushroom_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/mushroom_part.gd"
+   ]
+  },
+  {
+   "name": "note_block_part",
+   "path": "scenes/parts/note_block_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/note_block_part.gd"
+   ]
+  },
+  {
+   "name": "one_up_part",
+   "path": "scenes/parts/one_up_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/one_up_part.gd"
    ]
   },
   {
@@ -2248,6 +7075,18 @@
    ]
   },
   {
+   "name": "piranha_part",
+   "path": "scenes/parts/piranha_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/piranha_part.gd"
+   ]
+  },
+  {
    "name": "question_block_part",
    "path": "scenes/parts/question_block_part.tscn",
    "format": "3",
@@ -2257,6 +7096,88 @@
    },
    "scripts": [
     "res://scripts/level/parts/question_block_part.gd"
+   ]
+  },
+  {
+   "name": "rocky_part",
+   "path": "scenes/parts/rocky_part.tscn",
+   "format": "3",
+   "nodes": 2,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/rocky_part.gd"
+   ]
+  },
+  {
+   "name": "semisolid_part",
+   "path": "scenes/parts/semisolid_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/semisolid_part.gd"
+   ]
+  },
+  {
+   "name": "slope_part",
+   "path": "scenes/parts/slope_part.tscn",
+   "format": "3",
+   "nodes": 2,
+   "node_types": {},
+   "scripts": [
+    "res://scripts/level/parts/slope_part.gd"
+   ]
+  },
+  {
+   "name": "spike_part",
+   "path": "scenes/parts/spike_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/spike_part.gd"
+   ]
+  },
+  {
+   "name": "spiny_part",
+   "path": "scenes/parts/spiny_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/spiny_part.gd"
+   ]
+  },
+  {
+   "name": "spring_part",
+   "path": "scenes/parts/spring_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/spring_part.gd"
+   ]
+  },
+  {
+   "name": "star_part",
+   "path": "scenes/parts/star_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/star_part.gd"
    ]
   },
   {
@@ -2271,6 +7192,18 @@
    },
    "scripts": [
     "res://scripts/level/parts/starting_ground.gd"
+   ]
+  },
+  {
+   "name": "thwomp_part",
+   "path": "scenes/parts/thwomp_part.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/parts/thwomp_part.gd"
    ]
   },
   {
@@ -2473,6 +7406,19 @@
    ]
   },
   {
+   "name": "goal_gate",
+   "path": "scenes/tiles/goal_gate.tscn",
+   "format": "3",
+   "nodes": 2,
+   "node_types": {
+    "Area2D": 1,
+    "CollisionShape2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/tiles/goal_gate.gd"
+   ]
+  },
+  {
    "name": "ground_tile",
    "path": "scenes/tiles/ground_tile.tscn",
    "format": "3",
@@ -2631,13 +7577,14 @@
     "res://scripts/ui/editor/top_panel/part_type_btn.gd",
     "res://scripts/ui/editor/editor_panel_handle.gd",
     "res://scripts/level/parts/koopa_part.gd",
-    "res://scripts/level/parts/galoomba_part.gd",
+    "res://scripts/level/parts/goomba_part.gd",
     "res://scripts/level/parts/coin_part.gd",
     "res://scripts/level/parts/turn_block_part.gd",
     "res://scripts/level/parts/question_block_part.gd",
     "res://scripts/level/parts/ground_part.gd",
     "res://scripts/ui/editor/editor_tab.gd",
     "res://scripts/ui/editor/left_panel/level_theme_btn.gd",
+    "res://scripts/ui/editor/left_panel/level_theme_panel.gd",
     "res://scripts/ui/editor/left_panel/autoscroll_btn.gd",
     "res://scripts/ui/editor/left_panel/time_btn.gd",
     "res://scripts/ui/editor/left_panel/binary_btn.gd",
@@ -2762,11 +7709,743 @@
    "scripts": [
     "res://scripts/ui/menu_btn.gd"
    ]
+  },
+  {
+   "name": "actor_activity_test",
+   "path": "tests/scenes/actor_activity_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/actor_activity_test.gd"
+   ]
+  },
+  {
+   "name": "basic_items_blocks_test",
+   "path": "tests/scenes/basic_items_blocks_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/basic_items_blocks_test.gd"
+   ]
+  },
+  {
+   "name": "blooper_test",
+   "path": "tests/scenes/blooper_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/blooper_test.gd"
+   ]
+  },
+  {
+   "name": "bro_environment_test",
+   "path": "tests/scenes/bro_environment_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/bro_environment_test.gd"
+   ]
+  },
+  {
+   "name": "bro_platform_test",
+   "path": "tests/scenes/bro_platform_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/bro_platform_test.gd"
+   ]
+  },
+  {
+   "name": "bro_projectile_test",
+   "path": "tests/scenes/bro_projectile_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/bro_projectile_test.gd"
+   ]
+  },
+  {
+   "name": "buzzy_test",
+   "path": "tests/scenes/buzzy_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/buzzy_test.gd"
+   ]
+  },
+  {
+   "name": "cheep_cheep_test",
+   "path": "tests/scenes/cheep_cheep_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/cheep_cheep_test.gd"
+   ]
+  },
+  {
+   "name": "chomp_test",
+   "path": "tests/scenes/chomp_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/chomp_test.gd"
+   ]
+  },
+  {
+   "name": "editor_flow_test",
+   "path": "tests/scenes/editor_flow_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/editor_flow_test.gd"
+   ]
+  },
+  {
+   "name": "editor_grounding_test",
+   "path": "tests/scenes/editor_grounding_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/editor_grounding_test.gd"
+   ]
+  },
+  {
+   "name": "editor_history_test",
+   "path": "tests/scenes/editor_history_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/editor_history_test.gd"
+   ]
+  },
+  {
+   "name": "enemy_flight_test",
+   "path": "tests/scenes/enemy_flight_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/enemy_flight_test.gd"
+   ]
+  },
+  {
+   "name": "enemy_grounding_test",
+   "path": "tests/scenes/enemy_grounding_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/enemy_grounding_test.gd"
+   ]
+  },
+  {
+   "name": "fire_flower_test",
+   "path": "tests/scenes/fire_flower_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/fire_flower_test.gd"
+   ]
+  },
+  {
+   "name": "frame_pacing_test",
+   "path": "tests/scenes/frame_pacing_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/frame_pacing_test.gd"
+   ]
+  },
+  {
+   "name": "goomba_variants_test",
+   "path": "tests/scenes/goomba_variants_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/goomba_variants_test.gd"
+   ]
+  },
+  {
+   "name": "grrrol_test",
+   "path": "tests/scenes/grrrol_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/grrrol_test.gd"
+   ]
+  },
+  {
+   "name": "hammer_bro_test",
+   "path": "tests/scenes/hammer_bro_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/hammer_bro_test.gd"
+   ]
+  },
+  {
+   "name": "held_stun_test",
+   "path": "tests/scenes/held_stun_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/held_stun_test.gd"
+   ]
+  },
+  {
+   "name": "helmet_mask_test",
+   "path": "tests/scenes/helmet_mask_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/helmet_mask_test.gd"
+   ]
+  },
+  {
+   "name": "helmet_test",
+   "path": "tests/scenes/helmet_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/helmet_test.gd"
+   ]
+  },
+  {
+   "name": "interactions_test",
+   "path": "tests/scenes/interactions_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/interactions_test.gd"
+   ]
+  },
+  {
+   "name": "koopa_test",
+   "path": "tests/scenes/koopa_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/koopa_test.gd"
+   ]
+  },
+  {
+   "name": "liquid_surface_test",
+   "path": "tests/scenes/liquid_surface_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/liquid_surface_test.gd"
+   ]
+  },
+  {
+   "name": "loader_compatibility_test",
+   "path": "tests/scenes/loader_compatibility_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/loader_compatibility_test.gd"
+   ]
+  },
+  {
+   "name": "monty_test",
+   "path": "tests/scenes/monty_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/monty_test.gd"
+   ]
+  },
+  {
+   "name": "muncher_test",
+   "path": "tests/scenes/muncher_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/muncher_test.gd"
+   ]
+  },
+  {
+   "name": "palette_icon_test",
+   "path": "tests/scenes/palette_icon_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/palette_icon_test.gd"
+   ]
+  },
+  {
+   "name": "piranha_test",
+   "path": "tests/scenes/piranha_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/piranha_test.gd"
+   ]
+  },
+  {
+   "name": "pixel_shadows_test",
+   "path": "tests/scenes/pixel_shadows_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/pixel_shadows_test.gd"
+   ]
+  },
+  {
+   "name": "platform_blocks_test",
+   "path": "tests/scenes/platform_blocks_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/platform_blocks_test.gd"
+   ]
+  },
+  {
+   "name": "play_slice",
+   "path": "tests/scenes/play_slice.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/play_slice.gd"
+   ]
+  },
+  {
+   "name": "player_controls_test",
+   "path": "tests/scenes/player_controls_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/player_controls_test.gd"
+   ]
+  },
+  {
+   "name": "player_physics_test",
+   "path": "tests/scenes/player_physics_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/player_physics_test.gd"
+   ]
+  },
+  {
+   "name": "player_render_test",
+   "path": "tests/scenes/player_render_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/player_render_test.gd"
+   ]
+  },
+  {
+   "name": "player_swim_test",
+   "path": "tests/scenes/player_swim_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/player_swim_test.gd"
+   ]
+  },
+  {
+   "name": "player_visual_test",
+   "path": "tests/scenes/player_visual_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/player_visual_test.gd"
+   ]
+  },
+  {
+   "name": "recent_enemy_defeat_test",
+   "path": "tests/scenes/recent_enemy_defeat_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/recent_enemy_defeat_test.gd"
+   ]
+  },
+  {
+   "name": "rocky_environment_test",
+   "path": "tests/scenes/rocky_environment_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/rocky_environment_test.gd"
+   ]
+  },
+  {
+   "name": "rocky_test",
+   "path": "tests/scenes/rocky_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/rocky_test.gd"
+   ]
+  },
+  {
+   "name": "rotation_render_test",
+   "path": "tests/scenes/rotation_render_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/rotation_render_test.gd"
+   ]
+  },
+  {
+   "name": "semisolid_test",
+   "path": "tests/scenes/semisolid_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/semisolid_test.gd"
+   ]
+  },
+  {
+   "name": "slice_001",
+   "path": "tests/scenes/slice_001.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/slice_001.gd"
+   ]
+  },
+  {
+   "name": "slope_fusion_test",
+   "path": "tests/scenes/slope_fusion_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/slope_fusion_test.gd"
+   ]
+  },
+  {
+   "name": "slopes_test",
+   "path": "tests/scenes/slopes_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/slopes_test.gd"
+   ]
+  },
+  {
+   "name": "smw_goal_test",
+   "path": "tests/scenes/smw_goal_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/smw_goal_test.gd"
+   ]
+  },
+  {
+   "name": "source_mask_test",
+   "path": "tests/scenes/source_mask_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/source_mask_test.gd"
+   ]
+  },
+  {
+   "name": "spin_effects_test",
+   "path": "tests/scenes/spin_effects_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/spin_effects_test.gd"
+   ]
+  },
+  {
+   "name": "spiny_test",
+   "path": "tests/scenes/spiny_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/spiny_test.gd"
+   ]
+  },
+  {
+   "name": "spring_test",
+   "path": "tests/scenes/spring_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/spring_test.gd"
+   ]
+  },
+  {
+   "name": "sprite_library_test",
+   "path": "tests/scenes/sprite_library_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/sprite_library_test.gd"
+   ]
+  },
+  {
+   "name": "star_test",
+   "path": "tests/scenes/star_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/star_test.gd"
+   ]
+  },
+  {
+   "name": "startup_flow_test",
+   "path": "tests/scenes/startup_flow_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/startup_flow_test.gd"
+   ]
+  },
+  {
+   "name": "swe_roundtrip_test",
+   "path": "tests/scenes/swe_roundtrip_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/swe_roundtrip_test.gd"
+   ]
+  },
+  {
+   "name": "terrain_basics_test",
+   "path": "tests/scenes/terrain_basics_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/terrain_basics_test.gd"
+   ]
+  },
+  {
+   "name": "theme_switch_test",
+   "path": "tests/scenes/theme_switch_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/theme_switch_test.gd"
+   ]
+  },
+  {
+   "name": "thwomp_environment_test",
+   "path": "tests/scenes/thwomp_environment_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/thwomp_environment_test.gd"
+   ]
+  },
+  {
+   "name": "thwomp_test",
+   "path": "tests/scenes/thwomp_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/thwomp_test.gd"
+   ]
+  },
+  {
+   "name": "world_death_test",
+   "path": "tests/scenes/world_death_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/world_death_test.gd"
+   ]
+  },
+  {
+   "name": "world_presentation_test",
+   "path": "tests/scenes/world_presentation_test.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {
+    "Node": 1
+   },
+   "scripts": [
+    "res://tests/scripts/world_presentation_test.gd"
+   ]
   }
  ],
  "counts": {
-  "scripts": 114,
-  "scenes": 53,
-  "gd_lines_total": 8292
+  "scripts": 310,
+  "scenes": 163,
+  "gd_lines_total": 40948
  }
 }

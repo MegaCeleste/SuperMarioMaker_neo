@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="SpinyVariant" format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/spiny_variant.gd" id="1"]
+[ext_resource type="Texture2D" path="res://textures/ui/editor/parts/smw/spiny_shell.png" id="2"]
+[ext_resource type="Resource" path="res://resources/content/smw_flight_spiny.tres" id="3"]
+[ext_resource type="Resource" path="res://resources/content/smw_helmet_spiny_rules.tres" id="4"]
+
+[resource]
+script = ExtResource("1")
+id = &"spiny_empty"
+object_id = "obj_spiny_shell_res"
+label = &"EDITOR_SPINY_EMPTY"
+icon = ExtResource("2")
+walk_sprite = &"spr_shell_spiny_empty"
+editor_sprite = &"spr_spiny_shell_res"
+shell_sprite = &"spr_shell_spiny_empty"
+inside_sprite = &"spr_shell_spiny_empty"
+dead_sprite = &"spr_shell_spiny_deads"
+flight = ExtResource("3")
+empty_shell = true
+mask_width = 11.0
+mask_height = 14.0
+wearable = true
+fireproof = true
+spiked_top = true
+helmet_rules = ExtResource("4")

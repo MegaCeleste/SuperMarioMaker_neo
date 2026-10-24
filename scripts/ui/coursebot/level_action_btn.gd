@@ -1,8 +1,6 @@
 class_name LevelActionBtn
 extends Button
 
-signal _level_loaded
-
 @onready var _effect: ButtonHoverEffect
 
 @export var action: LevelView.Action
@@ -31,25 +29,42 @@ func _toggled(toggled_on: bool) -> void:
 	if not toggled_on:
 		return
 	match action:
-		LevelView.Action.EDIT:
-			UISoundPlayer.stream = preload("uid://xgqdhf77bhmt")
-			# Wrapping this in a lambda to wait for the level asynchronously
-			var level_load = func coursebot_level_edit_async():
-				_level = await LevelProcessor.from_swe(owner.path)
-				_level.status = Level.Status.EDITING
-				_level_loaded.emit()
-			level_load.call()
-			SceneManager.fade_to_callback(func coursebot_level_switch_async():
-				if _level == null:
-					await _level_loaded
-				return _level)
-		LevelView.Action.PLAY:
-			UISoundPlayer.stream = preload("uid://e1c77rl0cw86")
+		LevelView.Action.EDIT, LevelView.Action.PLAY:
+			if owner.get_meta("opening_level", false):
+				set_pressed_no_signal(false)
+				return
+			owner.set_meta("opening_level", true)
+			disabled = true
+			UISoundPlayer.stream = preload("uid://e1c77rl0cw86") if action == LevelView.Action.PLAY else preload("uid://xgqdhf77bhmt")
+			UISoundPlayer.play()
+			var status := Level.Status.PLAYING if action == LevelView.Action.PLAY else Level.Status.EDITING
+			_level = await prepare_level(owner.path, status)
+			disabled = false
+			owner.set_meta("opening_level", false)
+			if _level == null:
+				set_pressed_no_signal(false)
+				var dialog := AcceptDialog.new()
+				dialog.dialog_text = "This level could not be opened."
+				add_child(dialog)
+				dialog.confirmed.connect(dialog.queue_free)
+				dialog.popup_centered()
+				return
+			SceneManager.fade_to_node(_level)
+			return
 		LevelView.Action.EXPORT:
 			UISoundPlayer.stream = preload("uid://xgqdhf77bhmt")
 		LevelView.Action.RENAME:
 			UISoundPlayer.stream = preload("uid://xgqdhf77bhmt")
 	UISoundPlayer.play()
+
+
+## Shared by Coursebot actions and the editor-flow regression.
+static func prepare_level(path: String, status: Level.Status) -> Level:
+	var level: Level = await LevelProcessor.from_swe(path)
+	if level != null:
+		level.status = status
+		level.return_to_coursebot = status == Level.Status.PLAYING
+	return level
 
 
 func _mouse_entered() -> void:

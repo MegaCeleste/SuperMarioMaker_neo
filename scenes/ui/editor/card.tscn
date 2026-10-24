@@ -121,3 +121,4 @@ offset_right = 63.0
 offset_bottom = 63.0
 mouse_filter = 2
 expand_mode = 1
+stretch_mode = 5

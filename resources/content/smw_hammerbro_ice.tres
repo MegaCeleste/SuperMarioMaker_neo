@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="HammerBroVariant" format=3 uid="uid://dduahgy2qd8i1"]
+
+[ext_resource type="Script" uid="uid://5wa2ayfoogqa" path="res://scripts/level/entities/hammer_bro_variant.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"ice"
+object_id = "obj_icebro_res"
+label = &"EDITOR_ENEMY_ICEBRO"
+idle_sprite = &"spr_icebro"
+jump_sprite = &"spr_icebro_jump"
+throw_sprite = &"spr_icebro_throw"
+editor_sprite = &"spr_icebro_res"
+projectile = 2
+max_throws = 2
+throw_delay = 30
+burst_cooldown = 120
+lower_support_probes = null
+hammer_offset = Vector2(3, -18)
+dead_sprite = &"spr_hammerbro_deads"
+dead_offset = Vector2(0, -13)
+dead_mask_rect = Rect2(-8, -12, 16, 24)

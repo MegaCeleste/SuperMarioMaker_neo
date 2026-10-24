@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="HelmetRules" format=3 uid="uid://cn6spft5c82xj"]
+
+[ext_resource type="Script" uid="uid://b8levkh42eh1r" path="res://scripts/level/entities/helmet_rules.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"spiny"
+goal_animation = &"goal_spiny"
+defeat_on_head = true
+equip_sound = "snd_helmet_spiny_add.ogg"
+deflect_sound = "snd_helmet_spiny.ogg"
+head_size = Vector2(20, 20)
+head_center = Vector2(0, -1)
+head_top = -11.0
+head_ellipse = true
+head_up_size = Vector2(20, 20)
+head_up_center = Vector2(0, 0)
+shell_deflect_speed = 90.0
+equip_sprite = &"spr_sparkles_helmet"
+equip_offset = Vector2(-4, -18)
+normal_sprite = &"spr_helmet_spiny"
+up_sprite = &"spr_helmet_spiny_up"
+small_y = 15.0
+super_y = 9.0
+small_up_y = 16.0
+super_up_y = 12.0
+head_bounce_speed = 120.0
+rising_bounce_extra = 90.0
+physical_rising_bounce_extra = 120.0
+walking_angle = 10.0
+falling_angle = 35.0
+falling_rotation_speed = 135.0

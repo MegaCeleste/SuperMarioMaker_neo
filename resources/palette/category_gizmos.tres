@@ -4,10 +4,15 @@
 [ext_resource type="Script" uid="uid://bjs845vgkw44b" path="res://scripts/ui/editor/palette/palette_page.gd" id="1_ll0gb"]
 [ext_resource type="Script" uid="uid://c0p35artiwbxc" path="res://scripts/ui/editor/palette/palette_category.gd" id="2_78qcp"]
 [ext_resource type="Script" uid="uid://2lamiomhq6u3" path="res://scripts/ui/editor/palette/palette_item.gd" id="3_6r1nn"]
+[ext_resource type="Script" path="res://scripts/level/parts/spring_part.gd" id="4_spring"]
+
+[sub_resource type="Resource" id="SpringItem"]
+script = ExtResource("3_6r1nn")
+part = ExtResource("4_spring")
 
 [sub_resource type="Resource" id="Resource_ruryj"]
 script = ExtResource("1_ll0gb")
-items = Array[ExtResource("3_6r1nn")]([null, null, null, null, null, null, null])
+items = Array[ExtResource("3_6r1nn")]([SubResource("SpringItem"), null, null, null, null, null, null])
 metadata/_custom_type_script = "uid://bjs845vgkw44b"
 
 [resource]

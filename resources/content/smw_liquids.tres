@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="LiquidRules" format=3]
+
+[ext_resource type="Script" path="res://scripts/level/liquid_rules.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+water_sprite = &"spr_water"
+beach_sprite = &"spr_water_b"
+lava_sprite = &"spr_lava"
+poison_sprite = &"spr_lava_purple"
+water_fill_sprite = &"spr_water_down"
+beach_fill_sprite = &"spr_water_beach_down"
+lava_fill_sprite = &"spr_lava_down"
+poison_fill_sprite = &"spr_lava_purple_down"
+water_splash_sprite = &"spr_splash"
+lava_splash_sprite = &"spr_splash_lava"
+poison_splash_sprite = &"spr_splash_lava_purple"

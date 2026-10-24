@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://tests/scripts/pixel_shadows_test.gd" id="1"]
+
+[node name="PixelShadowsTest" type="Node"]
+script = ExtResource("1")

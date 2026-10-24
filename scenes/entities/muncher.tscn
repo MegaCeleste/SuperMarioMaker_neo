@@ -1,0 +1,7 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/muncher.gd" id="1"]
+
+[node name="Muncher" type="CharacterBody2D"]
+z_index = 30
+script = ExtResource("1")

@@ -1,5 +1,13 @@
 class_name TurnBlockPart
-extends Part
+extends ContainerBlockPart
+
+
+func _init() -> void:
+	content_id = &"none"
+
+
+func default_content() -> StringName:
+	return &"none"
 
 
 static func get_category() -> PaletteCategory:
@@ -21,4 +29,5 @@ static func create() -> TurnBlockPart:
 func build() -> void:
 	var tile = preload("uid://d1pyovyuwelpw").instantiate()
 	tile.global_position = global_position
+	tile.get_node("BlockComponent").sprout = make_sprout()
 	sub_area.add(tile)

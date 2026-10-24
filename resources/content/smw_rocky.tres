@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="RockyVariant" format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/rocky_variant.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+idle_sprite = &"spr_rocky_idle"
+idle2_sprite = &"spr_rocky_idle2"
+throw_sprite = &"spr_rocky_throw"
+dead_sprite = &"spr_rocky_deads"
+dead_spins = false
+editor_sprite = &"spr_rocky_res"

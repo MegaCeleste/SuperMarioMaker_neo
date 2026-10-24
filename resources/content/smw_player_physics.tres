@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="PlayerPhysics" format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/player_physics.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+walk_speed = 78.0
+run_speed = 180.0
+fall_speed = 240.0
+acceleration = 216.0
+deceleration = 180.0
+skid_deceleration = 468.0
+overspeed_deceleration = 90.0
+idle_jump_speed = 237.0
+slow_jump_speed = 243.0
+fast_jump_speed = 258.0
+spin_jump_speed = 198.0
+gravity = 1080.0
+long_jump_gravity = 360.0
+damage_invulnerability = 2.0

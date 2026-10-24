@@ -30,13 +30,13 @@ static func default() -> Vector2:
 	)
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	# absolute cinema
 	if get_parent() == null:
 		return
-	get_parent().velocity += gravity
+	get_parent().velocity += gravity * delta
 	if get_parent().velocity.y > max_fall_speed:
 		get_parent().velocity.y = max_fall_speed
-	if get_parent().is_on_floor() and bounce \
+	if bounce and get_parent().is_on_floor() \
 			and get_parent().velocity.y > minimum_bounce_velocity:
 		get_parent().velocity.y = get_parent().velocity.y * -bounce_strength

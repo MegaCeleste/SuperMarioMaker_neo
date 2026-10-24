@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="ShellPhysics" format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/shell_physics.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+kick_idle_speed = 120.0
+kick_idle_target = 150.0
+kick_base_speed = 120.0
+release_base_speed = 132.0
+target_limit = 192.0
+acceleration = 180.0
+enemy_gravity = 720.0
+idle_shell_gravity = 540.0
+fall_speed = 240.0
+throw_horizontal_speed = 30.0
+throw_up_speed = 367.5
+dropped_speed = 30.0
+launch_immunity = 0.25
+eject_speed = 180.0
+eject_deceleration = 180.0
+eject_invulnerability = 0.5
+beach_wait = 1.5
+beach_hop = 120.0
+reentry_hop = 156.0
+combo_scores = PackedInt32Array(200, 400, 800, 1000, 2000, 4000, 8000)

@@ -35,9 +35,9 @@ func _input(event: InputEvent) -> void:
 
 
 ## Forcibly changes the state machine's current state.
-func switch(state_type: Script) -> void:
+func switch(state_type: Script, restart := false) -> void:
 	if current_state != null:
-		if current_state.get_script() == state_type:
+		if current_state.get_script() == state_type and not restart:
 			return
 		current_state.end()
 	var state = Utility.find_child_by_class(self, state_type)
@@ -52,7 +52,7 @@ func _call_and_switch(method: StringName, ...args: Array) -> void:
 	if current_state == null:
 		return
 	var new_state: Script = Callable(current_state, method).callv(args)
-	if new_state == null or current_state.get_script() == new_state:
+	if new_state == null:
 		return
 	
 	current_state.end()

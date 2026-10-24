@@ -1,0 +1,17 @@
+{
+  "description": "Raw spr_ground2..6 source frames for the native 6x12 square-terrain atlas. Rendering only; SWE save-frame indices are a separate contract. All themes share basic source roles 0..46 regardless of extra source slope frames. The unused bottom-right slot is filled dirt.",
+  "rows": [
+    [9, 21, 21, 21, 21, 10],
+    [18, 43, 43, 43, 43, 24],
+    [18, 9, 10, 32, 29, 24],
+    [18, 18, 24, 31, 30, 24],
+    [18, 8, 11, 38, 37, 24],
+    [8, 27, 27, 27, 27, 11],
+    [1, 46, 46, 46, 46, 3],
+    [5, 13, 19, 20, 6, 2],
+    [12, 28, 33, 35, 14, 45],
+    [17, 34, 39, 42, 22, 0],
+    [16, 36, 40, 41, 23, 44],
+    [4, 15, 25, 26, 7, 43]
+  ]
+}

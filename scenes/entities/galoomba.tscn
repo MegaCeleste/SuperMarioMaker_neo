@@ -4,9 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://d3s6tog37hohi" path="res://textures/smw/entities/galoomba.png" id="2_jtsmq"]
 [ext_resource type="Script" uid="uid://nhyxn7n2fqbr" path="res://scripts/components/gravity_component.gd" id="4_jq00e"]
 [ext_resource type="Script" uid="uid://sv7f6f65t1eb" path="res://scripts/components/slide_component.gd" id="5_cotiu"]
+[ext_resource type="Script" path="res://scripts/components/enemy_flight_component.gd" id="6_flight"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cotiu"]
-size = Vector2(12, 15)
+size = Vector2(10, 15)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iw03a"]
 atlas = ExtResource("2_jtsmq")
@@ -66,5 +67,8 @@ metadata/_custom_type_script = "uid://nhyxn7n2fqbr"
 script = ExtResource("5_cotiu")
 speed = 30.0
 metadata/_custom_type_script = "uid://sv7f6f65t1eb"
+
+[node name="FlightComponent" type="Node" parent="."]
+script = ExtResource("6_flight")
 
 [connection signal="turned" from="SlideComponent" to="." method="_turned"]

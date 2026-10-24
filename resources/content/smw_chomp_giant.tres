@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ChompVariant" format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/chomp_variant.gd" id="1"]
+[ext_resource type="Resource" path="res://resources/content/smw_flight_chomp_editor.tres" id="2"]
+
+[resource]
+script = ExtResource("1")
+id = &"giant"
+object_id = "obj_chomp_b_res"
+label = &"EDITOR_ENEMY_CHAIN_CHOMP_GIANT"
+head_sprite = &"spr_chainchomp_b"
+chain_sprite = &"spr_chain_b"
+editor_sprite = &"spr_chainchomp_b_res"
+dark_editor_sprite = &"spr_chainchomp_night_b_res"
+editor_origin = Vector2(0, 2)
+canvas_size = Vector2(32, 32)
+mask_rect = Rect2(-10, -26, 20, 26)
+source_to_feet = 16.0
+history_length = 80
+link_spacing = 14
+hop_speed = 180.0
+water_hop_speed = 120.0
+decoration = ExtResource("2")

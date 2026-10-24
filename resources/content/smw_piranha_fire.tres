@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="PiranhaVariant" format=3 uid="uid://b4d4eojy4gbeg"]
+
+[ext_resource type="Script" uid="uid://dt0t8bbv4rfw1" path="res://scripts/level/entities/piranha_variant.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://b17w4vo4h1ts1" path="res://textures/ui/editor/parts/smw/fire_piranha_plant.png" id="2"]
+[ext_resource type="Script" uid="uid://cxed5ag6ecvv8" path="res://scripts/level/entities/enemy_flight_profile.gd" id="3"]
+
+[sub_resource type="Resource" id="Flight"]
+script = ExtResource("3")
+wings_sprite = &"spr_wings2"
+editor_wings_sprite = &"spr_wings_editor_16x16"
+editor_wings_offset = Vector2(-1, 0)
+editor_parachute_offset = Vector2(0, -23)
+wing_loss_offsets = PackedVector2Array(17, 8, -3, 8)
+
+[resource]
+script = ExtResource("1")
+id = &"fire"
+object_id = "obj_plant_fire_res"
+label = &"EDITOR_ENEMY_FIRE_PIRANHA"
+icon = ExtResource("2")
+fire = true
+editor_sprite = &"spr_plant_fire_res"
+idle_sprite = &"spr_pplant_fire_down"
+aim_up_sprite = &"spr_pplant_fire_up"
+projectile_sprite = &"spr_fireball"
+smoke_sprite = &"spr_smoke"
+lava_splash_sprite = &"spr_splash_lava"
+poison_splash_sprite = &"spr_splash_lava_purple"
+flight = SubResource("Flight")
+mask_size = Vector2(11, 24)
+mask_center = Vector2(1.5, -12)
+editor_size = Vector2(32, 32)
+editor_origin = Vector2(8, 16)
+idle_fps = 6.0
+gravity = 720.0
+fall_speed = 240.0
+water_fall_speed = 60.0
+dead_sprite = &"spr_plant_fire_deads"

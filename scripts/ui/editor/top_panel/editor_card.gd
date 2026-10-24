@@ -15,9 +15,7 @@ extends BaseButton
 			await ready
 		if editor.level == null:
 			await editor.loaded
-		%Icon.texture = part.get_part_icon(editor.level.current_sub_area)
-		%Icon.texture_filter = part.get_part_icon_filter(
-				editor.level.current_sub_area)
+		refresh_icon()
 @export var editor: Editor
 
 var _card_offset := Vector2(0, 0)
@@ -28,6 +26,11 @@ var _icon_offset_tween: Tween
 
 static func create() -> EditorCard:
 	return preload("uid://b16vc6ry30e6p").instantiate()
+
+
+func refresh_icon() -> void:
+	%Icon.texture = editor.get_palette_icon(part)
+	%Icon.texture_filter = part.get_part_icon_filter(editor.level.current_sub_area)
 
 
 func _ready() -> void:
@@ -87,7 +90,8 @@ func _toggled(toggled_on: bool) -> void:
 		_icon_offset_tween.set_loops()
 	else:
 		%SoundPlayer.stream = preload("uid://5m44h24yoh7l")
-		_icon_offset_tween.kill()
+		if _icon_offset_tween != null:
+			_icon_offset_tween.kill()
 		_icon_offset = Vector2(0, 0)
 	%SoundPlayer.play()
 

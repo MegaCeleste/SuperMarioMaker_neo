@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="EnemyFlightProfile" format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/enemy_flight_profile.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+editor_wings_sprite = &"spr_wings_editor"
+editor_wings_offset = Vector2(19, -22)
+editor_parachute_offset = Vector2(3, -16)

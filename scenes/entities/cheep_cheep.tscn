@@ -1,0 +1,20 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/enemies/cheep_cheep.gd" id="1"]
+
+[node name="CheepCheep" type="CharacterBody2D" node_paths=PackedStringArray("hitbox")]
+script = ExtResource("1")
+collision_layer = 2
+collision_mask = 0
+z_index = 30
+hitbox = NodePath("PlayerArea")
+
+[node name="PlayerArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="Graphics" type="Node2D" parent="."]
+position = Vector2(0, -16)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Graphics"]
+unique_name_in_owner = true

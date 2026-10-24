@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 class_name PickupComponent
 extends Component
 ## Makes an [Entity] holdable by the [Player].
@@ -16,6 +17,11 @@ enum ReleaseType {
 	## The item was dropped next to the player. This release type happens when
 	## the player lets go and is ducking simultaneously.
 	DROPPED,
+	## The active player body was replaced, as with obj_frozenmario. Release
+	## at the current position without a kick, upward throw or drop impulse.
+	DETACHED,
+	## A Sledge landing interrupts the hold after Mario's horizontal stop.
+	STUNNED,
 }
 
 ## Emitted when the player picks up the item. Note that the item won't be in its
@@ -37,6 +43,10 @@ var can_be_held := true
 ## for consistency across items, however you are free to create your own unique
 ## behavior if the default does not fit your needs.
 var use_default_behavior := true
+## The two source hold parents use different immunity alarms. Ordinary shells
+## clear alarm6 after 15 ticks; Galoomba has no alarm6 handler and keeps it.
+var stun_pickup_immunity := 15.0 / 60
+var pickup_immunity_left := 0.0
 ## The physics tick in which this component was ready. Used to prevent immediate
 ## pickups when the entity enters the tree.
 var start_tick: int
@@ -58,11 +68,28 @@ func get_holder() -> Player:
 	return _player
 
 
+func _physics_process(delta: float) -> void:
+	if pickup_immunity_left > 0:
+		pickup_immunity_left = maxf(0, pickup_immunity_left - delta)
+		if pickup_immunity_left < 0.00001:
+			pickup_immunity_left = 0
+	if _player != null or check_area == null or not check_area.monitoring:
+		return
+	# Source pickup probes run every Step, including after immunity ends or
+	# Run is pressed while the bodies are already overlapping.
+	for body in check_area.get_overlapping_bodies():
+		_body_entered(body)
+
+
 func _body_entered(body: Node2D) -> void:
 	var player = body as Player
+	if get_parent().is_queued_for_deletion():
+		return
+	if player != null and player.has_star() and player.star_hit(get_parent()):
+		return
 	if Engine.get_physics_frames() <= start_tick + 1:
 		return
-	if player == null or not can_be_held:
+	if player == null or not can_be_held or pickup_immunity_left > 0:
 		return
 	if not Input.is_action_pressed("player_run"):
 		return
@@ -75,7 +102,15 @@ func _picked_up(player: Player) -> void:
 
 func _dropped(player: Player, release_type: ReleaseType) -> void:
 	_player = null
+	if release_type == ReleaseType.STUNNED:
+		pickup_immunity_left = stun_pickup_immunity
+	if not use_default_behavior:
+		return
 	match release_type:
+		ReleaseType.DETACHED:
+			get_parent().velocity = Vector2.ZERO
+		ReleaseType.STUNNED:
+			get_parent().velocity = Vector2(60 * player.direction, 0)
 		ReleaseType.KICKED:
 			# i am currently just guessing values cause the code is lying to me
 			get_parent().velocity = Vector2(

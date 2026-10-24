@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="BlooperRules" format=3 uid="uid://bcedidj472d62"]
+
+[ext_resource type="Script" uid="uid://lkhrhperl6bw" path="res://scripts/level/entities/blooper_rules.gd" id="1"]
+[ext_resource type="Script" uid="uid://cxed5ag6ecvv8" path="res://scripts/level/entities/enemy_flight_profile.gd" id="2"]
+
+[sub_resource type="Resource" id="EditorDecorations"]
+script = ExtResource("2")
+editor_wings_sprite = &"spr_wings_editor"
+wing_loss_offsets = null
+
+[resource]
+script = ExtResource("1")
+swim_sprite = &"spr_blooper"
+editor_sprite = &"spr_blooper_res"
+defeat_sprite = &"spr_blooper"
+editor_decorations = SubResource("EditorDecorations")
+jet_time = 0.6666666667
+cooldown_time = 0.6666666667

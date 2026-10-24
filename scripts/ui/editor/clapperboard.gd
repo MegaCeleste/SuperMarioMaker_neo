@@ -44,7 +44,7 @@ func _draw() -> void:
 	var text: StringName
 	var texture: Texture2D
 	match %Editor.level.status:
-		Level.Status.PLAYING:
+		Level.Status.PLAYING, Level.Status.COMPLETED:
 			text = &"CLAPPERBOARD_EDIT"
 			texture = preload("uid://bl2ulwdpa8lsl")
 		Level.Status.EDITING:
@@ -68,7 +68,7 @@ func _draw() -> void:
 
 
 func _switch() -> void:
-	if %Editor.level.status == Level.Status.PLAYING:
+	if %Editor.level.status in [Level.Status.PLAYING, Level.Status.COMPLETED]:
 		%Editor.level.edit()
 	elif %Editor.level.status == Level.Status.EDITING:
 		%Editor.level.play()

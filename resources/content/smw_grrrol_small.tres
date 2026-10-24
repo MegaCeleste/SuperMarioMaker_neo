@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="GrrrolVariant" format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/grrrol_variant.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"grrrol_small"
+object_id = "obj_grrrol_new_res"
+label = &"EDITOR_ENEMY_GRRROL"
+body_sprite = &"spr_grrrol"
+editor_sprite = &"spr_grrrol"
+source_to_feet = Vector2(0, 19)
+part_to_feet = Vector2(20, 37)
+editor_draw_center = Vector2(16, 16)
+editor_bounds = Rect2(0, 0, 32, 32)
+arrow_center = Vector2(16, 16)
+arrow_button = Rect2(12, 12, 18, 18)
+runtime_mask = Rect2(-18, -38, 36, 38)
+water_gravity = 72.0
+water_fall_speed = 60.0

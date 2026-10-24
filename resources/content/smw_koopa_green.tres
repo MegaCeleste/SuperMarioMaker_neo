@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="KoopaVariant" format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/koopa_variant.gd" id="1"]
+[ext_resource type="Texture2D" path="res://textures/ui/editor/parts/smw/green_koopa.png" id="2"]
+
+[ext_resource type="Resource" path="res://resources/content/smw_flight_koopa_green.tres" id="3"]
+
+[resource]
+script = ExtResource("1")
+id = &"green"
+restore_scene = "res://scenes/entities/green_koopa.tscn"
+object_id = "obj_koopa_res"
+label = &"EDITOR_KOOPA_GREEN"
+icon = ExtResource("2")
+walk_sprite = &"spr_koopa"
+shell_sprite = &"spr_shell"
+inside_sprite = &"spr_shell_inside"
+beach_sprite = &"spr_beachkoopa"
+beach_walk_sprite = &"spr_beachkoopa_walk"
+beach_crawl_dead_sprite = &"spr_beachkoopa2_deads"
+beach_walk_dead_sprite = &"spr_beachkoopa_deads"
+beach_stomp_sprite = &"spr_koopa_sq"
+dead_sprite = &"spr_shell_deads"
+flight = ExtResource("3")
+avoid_ledges = false
+walk_fps = 6.0
+reentry_time = 1.0

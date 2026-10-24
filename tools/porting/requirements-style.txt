@@ -1,0 +1,2 @@
+# Development tool only; it is not loaded or exported by Godot.
+gdtoolkit==4.5.0

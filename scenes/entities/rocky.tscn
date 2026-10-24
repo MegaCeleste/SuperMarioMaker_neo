@@ -1,0 +1,35 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/rocky.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/components/gravity_component.gd" id="2"]
+
+[sub_resource type="RectangleShape2D" id="Shape"]
+size = Vector2(14, 16)
+
+[node name="Rocky" type="CharacterBody2D" node_paths=PackedStringArray("hitbox")]
+script = ExtResource("1")
+collision_layer = 2
+collision_mask = 1
+z_index = 30
+hitbox = NodePath("PlayerArea")
+
+[node name="CollShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("Shape")
+
+[node name="PlayerArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollShape" type="CollisionShape2D" parent="PlayerArea"]
+position = Vector2(0, -8)
+shape = SubResource("Shape")
+
+[node name="Graphics" type="Node2D" parent="."]
+position = Vector2(0, -16)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Graphics"]
+
+[node name="GravityComponent" type="Node" parent="."]
+script = ExtResource("2")
+max_fall_speed = 240.0

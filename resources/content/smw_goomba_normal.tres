@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="GoombaVariant" format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/goomba_variant.gd" id="1"]
+[ext_resource type="Texture2D" path="res://textures/ui/editor/parts/smw/galoomba.png" id="2"]
+[ext_resource type="Resource" path="res://resources/content/smw_flight_galoomba.tres" id="3"]
+
+[resource]
+script = ExtResource("1")
+id = &"galoomba"
+object_id = "obj_goomba_res"
+label = &"EDITOR_ENEMY_GALOOMBA"
+icon = ExtResource("2")
+walk_sprite = &"spr_galoomba"
+held_sprite = &"spr_galoomba_hold"
+dead_sprite = &"spr_galoomba_deads"
+flight = ExtResource("3")
+avoid_ledges = false
+recovery_time = 10.0
+shake_time = 9.0
+recovery_hop_speed = 60.0

@@ -12,6 +12,7 @@ on demand, so converted assets do not need hand-authored .tres files.
 """
 import argparse
 import json
+import math
 import re
 import shutil
 import sys
@@ -58,6 +59,13 @@ def sprite_origin(data):
     h = float(data.get("height") or 0)
     mode = int(data.get("origin") or 0)
     seq = data.get("sequence", {}) or {}
+    # The preset is editor UI state. Use the actual serialized pixel offsets;
+    # odd-sized centered sprites can store32, not width65/2 ==32.5.
+    if "xorigin" in seq and "yorigin" in seq:
+        saved = float(seq["xorigin"]), float(seq["yorigin"])
+        if not all(math.isfinite(value) for value in saved):
+            raise ValueError("Sprite origin must be finite")
+        return saved
     if mode == 9:
         return float(seq.get("xorigin", 0)), float(seq.get("yorigin", 0))
     fx, fy = ORIGIN_PRESETS.get(mode, (0.0, 0.0))

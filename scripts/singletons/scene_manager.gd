@@ -128,6 +128,9 @@ func fade_to_callback(
 
 func _change_scene(callback: Callable) -> void:
 	var scene = await callback.call()
+	if scene == null:
+		push_warning("Scene load failed; keeping the current scene.")
+		return
 	get_tree().unload_current_scene()
 	Utility.camera_scale = Vector2(1, 1)
 	Utility.camera_position = Vector2(0, 0)

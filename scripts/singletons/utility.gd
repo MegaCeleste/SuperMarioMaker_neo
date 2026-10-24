@@ -28,6 +28,20 @@ var camera_scale: Vector2:
 	get = _get_camera_scale,
 	set = _set_camera_scale
 
+## Render-only world offset; camera controllers continue to see their base position.
+var camera_effect := Vector2.ZERO:
+	set(value):
+		var base := camera_position_raw
+		camera_effect = value
+		camera_position_raw = base
+
+## Display interpolation never changes the camera used by physics/AI/culling.
+var camera_render_offset := Vector2.ZERO:
+	set(value):
+		var base := camera_position_raw
+		camera_render_offset = value
+		camera_position_raw = base
+
 ## The player's username. Based on the project setting
 ## [code]game/user/username[/code].
 var username: String:
@@ -109,30 +123,31 @@ func get_visible_rect() -> Rect2:
 ## coordinates.
 func get_bounding_box(obj: CollisionObject2D) -> Rect2:
 	var rect = Rect2()
+	var has_shape := false
 	for own in obj.get_shape_owners():
 		for idx in obj.shape_owner_get_shape_count(own):
 			var transform = obj.shape_owner_get_transform(own)
 			var shape_rect = obj.shape_owner_get_shape(own, idx).get_rect()
-			rect = rect.merge(transform * shape_rect)
+			var transformed: Rect2 = transform * shape_rect
+			rect = rect.merge(transformed) if has_shape else transformed
+			has_shape = true
 	return obj.global_transform * rect
 
 
 func _get_camera_position_raw() -> Vector2:
-	return -get_viewport().canvas_transform.origin
+	return -get_viewport().canvas_transform.origin + camera_effect * camera_scale + camera_render_offset
 
 
 func _set_camera_position_raw(v: Vector2) -> void:
-	get_viewport().canvas_transform.origin = -v
+	get_viewport().canvas_transform.origin = -v + camera_effect * camera_scale + camera_render_offset
 
 
 func _get_camera_position() -> Vector2:
-	return -get_viewport().canvas_transform.origin \
-			/ get_viewport().canvas_transform.get_scale()
+	return camera_position_raw / camera_scale
 
 
 func _set_camera_position(v: Vector2) -> void:
-	get_viewport().canvas_transform.origin = -v \
-			* get_viewport().canvas_transform.get_scale()
+	camera_position_raw = v * camera_scale
 
 
 func _get_camera_scale() -> Vector2:
@@ -140,10 +155,12 @@ func _get_camera_scale() -> Vector2:
 
 
 func _set_camera_scale(v: Vector2) -> void:
+	var effect_delta := camera_effect * (v - camera_scale)
 	get_viewport().canvas_transform.x = get_viewport().canvas_transform \
 			.x.normalized() * v.x
 	get_viewport().canvas_transform.y = get_viewport().canvas_transform \
 			.y.normalized() * v.y
+	get_viewport().canvas_transform.origin += effect_delta
 
 
 ## Iterates over a [float] range.

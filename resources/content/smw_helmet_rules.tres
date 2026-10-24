@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="HelmetRules" format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/helmet_rules.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+normal_sprite = &"spr_helmet"
+up_sprite = &"spr_SMW_helmet_up"
+spark_sprite = &"spr_starhelmet"
+small_y = 15.0
+super_y = 9.0
+small_up_y = 16.0
+super_up_y = 12.0
+head_bounce_speed = 120.0
+rising_bounce_extra = 60.0
+walking_angle = 10.0
+falling_angle = 35.0
+falling_rotation_speed = 135.0

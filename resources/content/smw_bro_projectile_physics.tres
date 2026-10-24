@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="BroProjectilePhysics" format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/bro_projectile_physics.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+horizontal_speeds = PackedFloat32Array(90, 150, 144, 120)
+launch_speeds = PackedFloat32Array(-180, 0, 0, -45)
+hammer_gravity = 450.0
+water_hammer_gravity = 180.0
+water_hammer_launch = -120.0
+hammer_spin = 900.0
+water_hammer_spin = 360.0
+fall_cap = 240.0
+molten_hammer_cap = 60.0
+shot_gravity = 720.0
+water_fire_gravity = 72.0
+water_fire_cap = 60.0
+ice_fall_cap = 180.0
+fire_bounce = -132.0
+ice_bounce = -253.5
+boomerang_alarms = PackedInt32Array(32, 15, 8)
+boomerang_turn = 270.0
+boomerang_vertical_acceleration = 180.0
+boomerang_spin = 600.0
+boomerang_blink_time = 6.0
+boomerang_expiry = 8.0
+boomerang_blink_interval = 0.116666667

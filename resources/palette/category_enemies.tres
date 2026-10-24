@@ -4,8 +4,20 @@
 [ext_resource type="Script" uid="uid://bjs845vgkw44b" path="res://scripts/ui/editor/palette/palette_page.gd" id="1_p8sr8"]
 [ext_resource type="Script" uid="uid://c0p35artiwbxc" path="res://scripts/ui/editor/palette/palette_category.gd" id="2_l1v8a"]
 [ext_resource type="Script" uid="uid://2lamiomhq6u3" path="res://scripts/ui/editor/palette/palette_item.gd" id="3_oc72v"]
-[ext_resource type="Script" uid="uid://b4s45votgxvl7" path="res://scripts/level/parts/galoomba_part.gd" id="4_oc72v"]
+[ext_resource type="Script" uid="uid://dgs4xlk7upf2v" path="res://scripts/level/parts/goomba_part.gd" id="4_oc72v"]
 [ext_resource type="Script" uid="uid://dgrnevvgtgm4b" path="res://scripts/level/parts/koopa_part.gd" id="5_pe0op"]
+[ext_resource type="Script" uid="uid://bnhtomx66vm55" path="res://scripts/level/parts/buzzy_part.gd" id="6_buzzy"]
+[ext_resource type="Script" uid="uid://i6vsus61h037" path="res://scripts/level/parts/spiny_part.gd" id="7_spiny"]
+[ext_resource type="Script" uid="uid://p16uvexlafu3" path="res://scripts/level/parts/blooper_part.gd" id="8_blooper"]
+[ext_resource type="Script" uid="uid://dbq5w6xqlps50" path="res://scripts/level/parts/cheep_cheep_part.gd" id="9_cheep"]
+[ext_resource type="Script" uid="uid://cwjwrjpa2t41" path="res://scripts/level/parts/piranha_part.gd" id="10_piranha"]
+[ext_resource type="Script" uid="uid://er1hiwcw5fl3" path="res://scripts/level/parts/muncher_part.gd" id="11_muncher"]
+[ext_resource type="Script" uid="uid://q1j55yihkyge" path="res://scripts/level/parts/thwomp_part.gd" id="12_thwomp"]
+[ext_resource type="Script" uid="uid://wp2e4iwt8oyt" path="res://scripts/level/parts/monty_part.gd" id="13_monty"]
+[ext_resource type="Script" uid="uid://debokoxe3d1bh" path="res://scripts/level/parts/rocky_part.gd" id="14_rocky"]
+[ext_resource type="Script" uid="uid://ru0pmfp1ghyd" path="res://scripts/level/parts/hammer_bro_part.gd" id="15_hammerbro"]
+[ext_resource type="Script" uid="uid://c7ypwxn2p6rkk" path="res://scripts/level/parts/chomp_part.gd" id="16_chomp"]
+[ext_resource type="Script" uid="uid://d35davkp0px7o" path="res://scripts/level/parts/grrrol_part.gd" id="17_grrrol"]
 
 [sub_resource type="Resource" id="Resource_3u3g6"]
 script = ExtResource("3_oc72v")
@@ -17,22 +29,9 @@ script = ExtResource("3_oc72v")
 part = ExtResource("5_pe0op")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
-[sub_resource type="GDScript" id="GDScript_oc72v"]
-script/source = "extends Part
-## Buzzy beetle placeholder
-
-
-static func get_category() -> PaletteCategory:
-	return load(\"uid://bisixphutjm6u\")
-
-
-static func get_part_icon(_environment: SubArea) -> Texture2D:
-	return preload(\"uid://w0md0f0jr8kl\")
-"
-
 [sub_resource type="Resource" id="Resource_lcobj"]
 script = ExtResource("3_oc72v")
-part = SubResource("GDScript_oc72v")
+part = ExtResource("6_buzzy")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_pe0op"]
@@ -54,58 +53,19 @@ part = SubResource("GDScript_pe0op")
 disabled = true
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
-[sub_resource type="GDScript" id="GDScript_3u3g6"]
-script/source = "extends Part
-## Spiny placeholder
-
-
-static func get_category() -> PaletteCategory:
-	return load(\"uid://bisixphutjm6u\")
-
-
-static func get_part_icon(_environment: SubArea) -> Texture2D:
-	return preload(\"uid://bjvtsuha6v4xn\")
-"
-
 [sub_resource type="Resource" id="Resource_8tpfy"]
 script = ExtResource("3_oc72v")
-part = SubResource("GDScript_3u3g6")
+part = ExtResource("7_spiny")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
-
-[sub_resource type="GDScript" id="GDScript_qyyxf"]
-script/source = "extends Part
-## Blooper placeholder
-
-
-static func get_category() -> PaletteCategory:
-	return load(\"uid://bisixphutjm6u\")
-
-
-static func get_part_icon(_environment: SubArea) -> Texture2D:
-	return preload(\"uid://tgk2cknx1qss\")
-"
 
 [sub_resource type="Resource" id="Resource_tws55"]
 script = ExtResource("3_oc72v")
-part = SubResource("GDScript_qyyxf")
+part = ExtResource("8_blooper")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
-
-[sub_resource type="GDScript" id="GDScript_3jr5i"]
-script/source = "extends Part
-## Cheep Cheep placeholder
-
-
-static func get_category() -> PaletteCategory:
-	return load(\"uid://bisixphutjm6u\")
-
-
-static func get_part_icon(_environment: SubArea) -> Texture2D:
-	return preload(\"uid://c4ggg7c0cx34b\")
-"
 
 [sub_resource type="Resource" id="Resource_0ghnh"]
 script = ExtResource("3_oc72v")
-part = SubResource("GDScript_3jr5i")
+part = ExtResource("9_cheep")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="Resource" id="Resource_pe0op"]
@@ -113,130 +73,39 @@ script = ExtResource("1_p8sr8")
 items = Array[ExtResource("3_oc72v")]([SubResource("Resource_3u3g6"), SubResource("Resource_qyyxf"), SubResource("Resource_lcobj"), SubResource("Resource_xmvi4"), SubResource("Resource_8tpfy"), SubResource("Resource_tws55"), SubResource("Resource_0ghnh")])
 metadata/_custom_type_script = "uid://bjs845vgkw44b"
 
-[sub_resource type="GDScript" id="GDScript_f8v0l"]
-script/source = "extends Part
-## Piranha Plant placeholder
-
-
-static func get_category() -> PaletteCategory:
-	return load(\"uid://bisixphutjm6u\")
-
-
-static func get_part_icon(_environment: SubArea) -> Texture2D:
-	return preload(\"uid://be55dhcf7owoa\")
-"
-
 [sub_resource type="Resource" id="Resource_qi5br"]
 script = ExtResource("3_oc72v")
-part = SubResource("GDScript_f8v0l")
+part = ExtResource("10_piranha")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
-
-[sub_resource type="GDScript" id="GDScript_5sx6i"]
-script/source = "extends Part
-## Muncher placeholder
-
-
-static func get_category() -> PaletteCategory:
-	return load(\"uid://bisixphutjm6u\")
-
-
-static func get_part_icon(_environment: SubArea) -> Texture2D:
-	return preload(\"uid://df1ca7bh7vtc6\")
-"
 
 [sub_resource type="Resource" id="Resource_v6v60"]
 script = ExtResource("3_oc72v")
-part = SubResource("GDScript_5sx6i")
+part = ExtResource("11_muncher")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
-
-[sub_resource type="GDScript" id="GDScript_fqrfm"]
-script/source = "extends Part
-## Thwomp placeholder
-
-
-static func get_category() -> PaletteCategory:
-	return load(\"uid://bisixphutjm6u\")
-
-
-static func get_part_icon(_environment: SubArea) -> Texture2D:
-	return preload(\"uid://wlv1iyybjggv\")
-"
 
 [sub_resource type="Resource" id="Resource_70eak"]
 script = ExtResource("3_oc72v")
-part = SubResource("GDScript_fqrfm")
+part = ExtResource("12_thwomp")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
-
-[sub_resource type="GDScript" id="GDScript_c57vx"]
-script/source = "extends Part
-## Monty Mole placeholder
-
-
-static func get_category() -> PaletteCategory:
-	return load(\"uid://bisixphutjm6u\")
-
-
-static func get_part_icon(_environment: SubArea) -> Texture2D:
-	return preload(\"uid://hgaalm06tenc\")
-"
 
 [sub_resource type="Resource" id="Resource_5a12q"]
 script = ExtResource("3_oc72v")
-part = SubResource("GDScript_c57vx")
+part = ExtResource("13_monty")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
-
-[sub_resource type="GDScript" id="GDScript_xmvi4"]
-script/source = "extends Part
-## Rocky Wrench placeholder
-
-
-static func get_category() -> PaletteCategory:
-	return load(\"uid://bisixphutjm6u\")
-
-
-static func get_part_icon(_environment: SubArea) -> Texture2D:
-	return preload(\"uid://cl1x8ewcjgbn1\")
-"
 
 [sub_resource type="Resource" id="Resource_ghqc4"]
 script = ExtResource("3_oc72v")
-part = SubResource("GDScript_xmvi4")
+part = ExtResource("14_rocky")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
-
-[sub_resource type="GDScript" id="GDScript_8tpfy"]
-script/source = "extends Part
-## Hammer Bro placeholder
-
-
-static func get_category() -> PaletteCategory:
-	return load(\"uid://bisixphutjm6u\")
-
-
-static func get_part_icon(_environment: SubArea) -> Texture2D:
-	return
-"
 
 [sub_resource type="Resource" id="Resource_2uv51"]
 script = ExtResource("3_oc72v")
-part = SubResource("GDScript_8tpfy")
+part = ExtResource("15_hammerbro")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
-
-[sub_resource type="GDScript" id="GDScript_tws55"]
-script/source = "extends Part
-## Chain Chomp placeholder
-
-
-static func get_category() -> PaletteCategory:
-	return load(\"uid://bisixphutjm6u\")
-
-
-static func get_part_icon(_environment: SubArea) -> Texture2D:
-	return preload(\"uid://bf7hqg3s8l65b\")
-"
 
 [sub_resource type="Resource" id="Resource_52iea"]
 script = ExtResource("3_oc72v")
-part = SubResource("GDScript_tws55")
+part = ExtResource("16_chomp")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_0ghnh"]
@@ -255,6 +124,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 [sub_resource type="Resource" id="Resource_cs4mw"]
 script = ExtResource("3_oc72v")
 part = SubResource("GDScript_0ghnh")
+disabled = true
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="Resource" id="Resource_3jr5i"]
@@ -278,6 +148,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 [sub_resource type="Resource" id="Resource_idq43"]
 script = ExtResource("3_oc72v")
 part = SubResource("GDScript_qi5br")
+disabled = true
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_v6v60"]
@@ -296,6 +167,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 [sub_resource type="Resource" id="Resource_hw8jr"]
 script = ExtResource("3_oc72v")
 part = SubResource("GDScript_v6v60")
+disabled = true
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_70eak"]
@@ -314,6 +186,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 [sub_resource type="Resource" id="Resource_obibg"]
 script = ExtResource("3_oc72v")
 part = SubResource("GDScript_70eak")
+disabled = true
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_5a12q"]
@@ -332,6 +205,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 [sub_resource type="Resource" id="Resource_eteww"]
 script = ExtResource("3_oc72v")
 part = SubResource("GDScript_5a12q")
+disabled = true
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_ghqc4"]
@@ -350,6 +224,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 [sub_resource type="Resource" id="Resource_alpds"]
 script = ExtResource("3_oc72v")
 part = SubResource("GDScript_ghqc4")
+disabled = true
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_2uv51"]
@@ -387,6 +262,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 [sub_resource type="Resource" id="Resource_hlxhq"]
 script = ExtResource("3_oc72v")
 part = SubResource("GDScript_52iea")
+disabled = true
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_cs4mw"]
@@ -405,6 +281,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 [sub_resource type="Resource" id="Resource_n0ckh"]
 script = ExtResource("3_oc72v")
 part = SubResource("GDScript_cs4mw")
+disabled = true
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="Resource" id="Resource_f8v0l"]
@@ -428,6 +305,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 [sub_resource type="Resource" id="Resource_hxvlo"]
 script = ExtResource("3_oc72v")
 part = SubResource("GDScript_idq43")
+disabled = true
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_hw8jr"]
@@ -446,6 +324,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 [sub_resource type="Resource" id="Resource_gg616"]
 script = ExtResource("3_oc72v")
 part = SubResource("GDScript_hw8jr")
+disabled = true
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_obibg"]
@@ -464,6 +343,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 [sub_resource type="Resource" id="Resource_ka0l8"]
 script = ExtResource("3_oc72v")
 part = SubResource("GDScript_obibg")
+disabled = true
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_eteww"]
@@ -482,6 +362,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 [sub_resource type="Resource" id="Resource_auyi0"]
 script = ExtResource("3_oc72v")
 part = SubResource("GDScript_eteww")
+disabled = true
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_alpds"]
@@ -503,6 +384,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 [sub_resource type="Resource" id="Resource_w804p"]
 script = ExtResource("3_oc72v")
 part = SubResource("GDScript_alpds")
+disabled = true
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_0pqoq"]
@@ -521,6 +403,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 [sub_resource type="Resource" id="Resource_xxfyw"]
 script = ExtResource("3_oc72v")
 part = SubResource("GDScript_0pqoq")
+disabled = true
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_hlxhq"]
@@ -539,6 +422,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 [sub_resource type="Resource" id="Resource_xrhds"]
 script = ExtResource("3_oc72v")
 part = SubResource("GDScript_hlxhq")
+disabled = true
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="Resource" id="Resource_5sx6i"]
@@ -562,6 +446,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 [sub_resource type="Resource" id="Resource_heaqc"]
 script = ExtResource("3_oc72v")
 part = SubResource("GDScript_n0ckh")
+disabled = true
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_hxvlo"]
@@ -580,6 +465,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 [sub_resource type="Resource" id="Resource_0yb7y"]
 script = ExtResource("3_oc72v")
 part = SubResource("GDScript_hxvlo")
+disabled = true
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_gg616"]
@@ -598,24 +484,12 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 [sub_resource type="Resource" id="Resource_htyj5"]
 script = ExtResource("3_oc72v")
 part = SubResource("GDScript_gg616")
+disabled = true
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
-
-[sub_resource type="GDScript" id="GDScript_ka0l8"]
-script/source = "extends Part
-## Grrrol placeholder
-
-
-static func get_category() -> PaletteCategory:
-	return load(\"uid://bisixphutjm6u\")
-
-
-static func get_part_icon(_environment: SubArea) -> Texture2D:
-	return
-"
 
 [sub_resource type="Resource" id="Resource_o0f42"]
 script = ExtResource("3_oc72v")
-part = SubResource("GDScript_ka0l8")
+part = ExtResource("17_grrrol")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_auyi0"]
@@ -653,6 +527,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 [sub_resource type="Resource" id="Resource_t3bmm"]
 script = ExtResource("3_oc72v")
 part = SubResource("GDScript_w804p")
+disabled = true
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_xxfyw"]
@@ -671,6 +546,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 [sub_resource type="Resource" id="Resource_jm0eh"]
 script = ExtResource("3_oc72v")
 part = SubResource("GDScript_xxfyw")
+disabled = true
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="Resource" id="Resource_fqrfm"]

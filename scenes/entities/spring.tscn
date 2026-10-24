@@ -1,0 +1,32 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/spring.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/components/pickup_component.gd" id="2"]
+
+[sub_resource type="RectangleShape2D" id="Body"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="Side"]
+size = Vector2(24, 8)
+
+[node name="Spring" type="CharacterBody2D"]
+script = ExtResource("1")
+collision_layer = 8
+collision_mask = 1
+z_index = 30
+
+[node name="CollShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("Body")
+
+[node name="PickupArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollShape" type="CollisionShape2D" parent="PickupArea"]
+position = Vector2(0, -6)
+shape = SubResource("Side")
+
+[node name="PickupComponent" type="Node" parent="." node_paths=PackedStringArray("check_area")]
+script = ExtResource("2")
+check_area = NodePath("../PickupArea")

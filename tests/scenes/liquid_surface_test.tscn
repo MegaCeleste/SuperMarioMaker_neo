@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://tests/scripts/liquid_surface_test.gd" id="1"]
+
+[node name="LiquidSurfaceTest" type="Node"]
+script = ExtResource("1")

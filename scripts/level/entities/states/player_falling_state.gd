@@ -1,16 +1,19 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 class_name PlayerFallingState
 extends PlayerState
 ## Provides a basic falling behavior to the player.
 
 var _coyote_timer := -1.0
+var _buffer_timer := -1.0
+var _buffer_spin := false
 
 
 func start() -> Script:
 	super()
 	# enable coyote time
-	if player.just_fell:
-		_coyote_timer = 0
-		player.just_fell = false
+	_coyote_timer = 0.0 if player.just_fell else -1.0
+	player.just_fell = false
+	_buffer_timer = -1
 	return null
 
 
@@ -18,30 +21,29 @@ func physics_process(delta: float) -> Script:
 	super(delta)
 	
 	var direction = Input.get_axis("player_left", "player_right")
-	var max_speed = player.max_run_speed \
-			if Input.is_action_pressed("player_run") \
-			else player.max_walk_speed
 	
 	if _coyote_timer != -1:
 		_coyote_timer += delta
+	if _buffer_timer >= 0:
+		_buffer_timer += delta
+	if Input.is_action_just_pressed("player_jump") \
+			or (Input.is_action_just_pressed("player_spin_jump") and not player.is_ducking()):
+		_buffer_timer = 0
+		_buffer_spin = Input.is_action_just_pressed("player_spin_jump")
 	
-	if _coyote_timer <= player.coyote_time \
-			and Input.is_action_just_pressed("player_jump"):
-		_coyote_timer = 0
-		return PlayerJumpingState
+	if _coyote_timer >= 0 and _coyote_timer <= player.coyote_time and _buffer_timer == 0:
+		_coyote_timer = -1
+		return PlayerSpinJumpingState if _buffer_spin else PlayerJumpingState
 	
 	position_held_item(direction)
 	
 	# accelerate
-	if direction != 0:
-		player.direction = int(direction)
-		player.velocity.x = move_toward(
-				player.velocity.x,
-				max_speed * direction,
-				player.acceleration)
+	apply_horizontal_motion(direction, delta)
 	
 	
 	if player.is_on_floor():
+		if _buffer_timer >= 0 and _buffer_timer <= player.jump_buffer_time:
+			return PlayerSpinJumpingState if _buffer_spin else PlayerJumpingState
 		if direction == 0:
 			return PlayerIdleState
 		else:

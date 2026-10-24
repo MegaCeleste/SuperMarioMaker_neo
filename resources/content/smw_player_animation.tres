@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="PlayerAnimationRules" format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/player_animation_rules.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+pixels_per_frame = 5.0
+max_locomotion_fps = 18.0

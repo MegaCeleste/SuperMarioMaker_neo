@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://bpy2tvh67k4oh" path="res://scripts/components/pickup_component.gd" id="6_ha18w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mhl1y"]
-size = Vector2(12, 15)
+size = Vector2(10, 15)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iw03a"]
 atlas = ExtResource("2_chdf6")
@@ -60,7 +60,7 @@ flip_v = true
 
 [node name="GravityComponent" type="Node" parent="." unique_id=1230247760]
 script = ExtResource("4_p6kv4")
-gravity = Vector2(0, 12)
+gravity = Vector2(0, 720)
 max_fall_speed = 240.0
 bounce = true
 metadata/_custom_type_script = "uid://nhyxn7n2fqbr"

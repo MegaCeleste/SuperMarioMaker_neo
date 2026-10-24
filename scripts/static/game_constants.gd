@@ -26,6 +26,8 @@ enum Layers {
 	Z_OFF_P_BLOCKS = 22,
 	## Question blocks during their bounce animation.
 	Z_ANIM_BLOCKS = 23,
+	## Liquid preview behind editor Parts.
+	Z_EDITOR_LIQUID = 24,
 	## Vines.
 	Z_VINES = 28,
 	## Burners and Fire Bars.
@@ -46,6 +48,8 @@ enum Layers {
 	Z_PARTICLES = 40,
 	## Dead enemies.
 	Z_DEAD = 45,
+	## Gameplay liquid overlays actors/effects, as in obj_lava_water.
+	Z_LIQUID = 46,
 	## The gameplay HUD.
 	Z_HUD = 50,
 	## Currently held parts in the editor.

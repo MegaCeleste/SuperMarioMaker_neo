@@ -11,8 +11,12 @@ func load(_placed_from_editor := false) -> void:
 
 
 func _process(delta: float) -> void:
+	# A cursor can enter the tree before its factory supplies Level context.
+	# Do not process editor movement while it is waiting or being torn down.
+	if not is_instance_valid(level):
+		return
 	super(delta)
-	if level.status == Level.Status.EDITING and level.editor.part_interact:
+	if level.status == Level.Status.EDITING and is_instance_valid(level.editor) and level.editor.part_interact:
 		var speed = Vector2(
 				Input.get_axis(&"player_left", &"player_right") * SPEED,
 				Input.get_axis(&"player_up", &"player_down") * SPEED)
@@ -27,7 +31,7 @@ func _process(delta: float) -> void:
 				or (speed.y > 0 and me.position.y >= area.end.y - height):
 			Utility.camera_position_raw.y += speed.y * Utility.camera_scale.y * delta
 		position += speed * delta
-	elif player != null:
+	elif is_instance_valid(player) and is_instance_valid(level.editor):
 		position = player.position - Vector2(8, 16)
 	position = position.clamp(
 			Vector2(0, -Level.LEVEL_HEIGHT * Level.GRID_SIZE.y),
@@ -48,7 +52,7 @@ func _draw():
 		else:
 			color = Color(1, 0, 0, 0.5)
 		draw_rect(rect, color)
-	elif _mouse_in and level.editor.part_interact:
+	elif _mouse_in and level.editor != null and level.editor.part_interact:
 		rect = Rect2(position, Level.GRID_SIZE)
 		rect.position -= global_position
 		draw_rect(rect, Color(0, 0, 1, 0.5))
@@ -63,6 +67,10 @@ func build() -> void:
 
 func erase(_silent := false) -> void:
 	pass
+
+
+func can_erase() -> bool:
+	return false
 
 
 func _check_validity() -> void:

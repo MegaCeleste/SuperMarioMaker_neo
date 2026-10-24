@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="EnemyFlightProfile" format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/enemy_flight_profile.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+wings_sprite = &"spr_wings2"
+float_sprite = &"spr_goomba_float"
+editor_wings_sprite = &"spr_wings_editor_16x16"

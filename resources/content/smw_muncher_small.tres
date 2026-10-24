@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="MuncherVariant" format=3 uid="uid://b2c38wpda4gk8"]
+
+[ext_resource type="Script" uid="uid://b4g720j0hebnm" path="res://scripts/level/entities/muncher_variant.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://df1ca7bh7vtc6" path="res://textures/ui/editor/parts/smw/muncher.png" id="2"]
+[ext_resource type="Script" uid="uid://cxed5ag6ecvv8" path="res://scripts/level/entities/enemy_flight_profile.gd" id="3"]
+
+[sub_resource type="Resource" id="Flight"]
+script = ExtResource("3")
+editor_wings_sprite = &"spr_wings_editor_16x16"
+editor_wings_offset = Vector2(0, 4)
+wing_loss_offsets = null
+
+[resource]
+script = ExtResource("1")
+id = &"small"
+object_id = "obj_muncher_res"
+label = &"EDITOR_ENEMY_MUNCHER"
+icon = ExtResource("2")
+body_sprite = &"spr_muncher"
+editor_sprite = &"spr_muncher_res"
+dark_editor_sprite = &"spr_muncher_night_res"
+flight = SubResource("Flight")
+dead_sprite = &"spr_muncher_deads"
+dead_frame = 4
+dead_offset = Vector2(0, -7)

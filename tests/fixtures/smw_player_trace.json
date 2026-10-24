@@ -1,0 +1,9 @@
+{
+  "description": "60Hz fixed inputs on flat SMW terrain; displacements from spawn. Constants checked against obj_mario/Other_12.gml, with Godot floor-state entry taking one tick.",
+  "walk_10": {"dx": 2.7, "vx": 32.4},
+  "walk_24": {"dx": 16.46, "vx": 78.0},
+  "run_60": {"dx": 173.22, "vx": 180.0},
+  "reverse_10": {"dx": 196.07, "vx": 102.0},
+  "reverse_30": {"dx": 204.24, "vx": -28.8},
+  "stop_30": {"dx": 201.69, "vx": 0.0}
+}

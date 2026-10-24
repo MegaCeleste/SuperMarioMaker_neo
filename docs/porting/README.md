@@ -1,5 +1,10 @@
 # OpenWE porting workspace
 
+For the current running/review entry, read [CURRENT.md](CURRENT.md).
+For feature-by-feature explanations, read
+[the Chinese implementation guide](IMPLEMENTATION-GUIDE.zh-CN.md).
+Historical source/acceptance notes remain in HANDOFF.md.
+
 This branch ports the systems of **SMM:WE (OpenWE edition)** into the
 GodotWE codebase. OpenWE's GML project is used as the behavioural
 specification; GodotWE supplies the engine-side architecture (level format,
@@ -42,6 +47,11 @@ docs/porting/
   README.md                      this file
   ARCHITECTURE.md                OpenWE resource -> Godot module mapping
   GAP_REPORT.md                  generated coverage report
+  HANDOFF.md                     project-wide handoff
+  HANDOFF-DEEPSEEK.md            2026-10-19 DeepSeek session delta and caveats
+  SLOPES-2026-10-22.md           thin ribbons and connected irregular terrain
+  SPRING-2026-10-22.md           ordinary portable SMW spring source contracts
+  THEMES-2026-10-22.md           six SMW course themes, native history and saves
   reference.lock                 pinned OpenWE revision
 scripts/singletons/
   sprite_library.gd              runtime SpriteFrames builder

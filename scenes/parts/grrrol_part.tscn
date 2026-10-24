@@ -1,0 +1,10 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/parts/thwomp_part.tscn" id="1"]
+[ext_resource type="Script" path="res://scripts/level/parts/grrrol_part.gd" id="2"]
+[ext_resource type="Resource" path="res://resources/content/smw_grrrol_small.tres" id="3"]
+
+[node name="GrrrolPart" instance=ExtResource("1")]
+script = ExtResource("2")
+variant = ExtResource("3")
+attack_direction = 2

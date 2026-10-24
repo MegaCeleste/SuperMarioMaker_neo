@@ -12,7 +12,7 @@ func start_sprout(position: Vector2, direction: Vector2) -> void:
 
 
 class Sprouter extends AnimatedSprite2D:
-	const GRAVITY = 12.0
+	const GRAVITY = 720.0
 	
 	var body: PhysicsBody2D
 	var y_speed: float
@@ -23,17 +23,19 @@ class Sprouter extends AnimatedSprite2D:
 	func _ready() -> void:
 		start_y = global_position.y
 		sprite_frames = preload("uid://bbjiq1okyrimt")
+		SpriteLibrary.configure_sprite(self, &"spr_coin", &"default", 9)
+		# Sprouter uses a centered origin; the converted coin's origin is top-left.
+		position -= Vector2(8, 8) if not centered else Vector2.ZERO
 		play()
 		if downwards:
 			y_speed = 180
 		else:
 			y_speed = -240
 		var player: Player = Utility.id(&"player")
-		player.get_node(^"%Coin").play()
-		player.coins += 1
+		player.collect_coin()
 	
 	
-	func _process(delta: float) -> void:
+	func _physics_process(delta: float) -> void:
 		if (global_position.y > start_y - 20 and y_speed > 0 and not downwards)\
 				or (global_position.y < start_y + 20 and y_speed < 0 and downwards):
 			var sparkle = preload("uid://b4pkpe44vveuw").instantiate()
@@ -41,4 +43,4 @@ class Sprouter extends AnimatedSprite2D:
 			add_sibling(sparkle)
 			queue_free()
 		global_position.y += y_speed * delta
-		y_speed += GRAVITY
+		y_speed += GRAVITY * delta

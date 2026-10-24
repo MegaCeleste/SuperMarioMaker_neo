@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 class_name PlayerSpinJumpingState
 extends PlayerState
 ## Provides a spin jumping behavior to the player.
@@ -13,6 +14,7 @@ var _long_jump := false
 var _grav_comp: GravityComponent
 var _jump_buffer: _JumpBufferType
 var _jump_buffer_timer := 0.0
+var external_launch_speed := 0.0
 
 
 func start() -> Script:
@@ -22,7 +24,10 @@ func start() -> Script:
 		return PlayerJumpingState
 	
 	_long_jump = true
+	_jump_buffer = _JumpBufferType.NONE
+	_jump_buffer_timer = 0
 	_grav_comp = Utility.find_child_by_class(player, GravityComponent)
+	_grav_comp.gravity = Vector2(0, player.long_jump_gravity)
 	
 	player.sounds.stream = preload("uid://dt7f4s3d4u5k6")
 	player.sounds.play()
@@ -33,6 +38,13 @@ func start() -> Script:
 	
 	# apply jump speed
 	player.velocity.y = -player.spin_jump_speed
+	if external_launch_speed > 0:
+		player.velocity.y = -external_launch_speed
+		external_launch_speed = 0
+		_long_jump = Input.is_action_pressed("player_spin_jump")
+		_grav_comp.gravity.y = player.long_jump_gravity if _long_jump else player.gravity
+	if player.get_powerup() is FirePowerup:
+		player.get_powerup().begin_spin()
 	
 	return
 
@@ -49,11 +61,6 @@ func physics_process(delta: float) -> Script:
 	super(delta)
 	
 	var direction = Input.get_axis("player_left", "player_right")
-	var max_speed = (
-			player.max_run_speed
-			if Input.is_action_pressed("player_run")
-			else player.max_walk_speed
-	)
 	
 	# jump buffer stuff
 	if _jump_buffer != _JumpBufferType.NONE:
@@ -64,7 +71,7 @@ func physics_process(delta: float) -> Script:
 	if Input.is_action_just_pressed("player_jump"):
 		_jump_buffer = _JumpBufferType.JUMP
 		_jump_buffer_timer = 0
-	elif Input.is_action_just_pressed("player_spin_jump"):
+	elif Input.is_action_just_pressed("player_spin_jump") and not player.is_ducking():
 		_jump_buffer = _JumpBufferType.SPIN_JUMP
 		_jump_buffer_timer = 0
 	
@@ -93,12 +100,7 @@ func physics_process(delta: float) -> Script:
 		_grav_comp.gravity = Vector2(0, player.gravity)
 	
 	# accelerate
-	if direction != 0:
-		player.direction = int(direction)
-		player.velocity.x = move_toward(
-				player.velocity.x,
-				max_speed * direction,
-				player.acceleration)
+	apply_horizontal_motion(direction, delta)
 	
 	if player.can_change_sprite():
 		player.sprite.play("spin_jump")

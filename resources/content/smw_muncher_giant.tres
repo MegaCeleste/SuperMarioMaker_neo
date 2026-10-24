@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="MuncherVariant" format=3 uid="uid://07cbvfa827tf"]
+
+[ext_resource type="Script" uid="uid://b4g720j0hebnm" path="res://scripts/level/entities/muncher_variant.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://df1ca7bh7vtc6" path="res://textures/ui/editor/parts/smw/muncher.png" id="2"]
+[ext_resource type="Script" uid="uid://cxed5ag6ecvv8" path="res://scripts/level/entities/enemy_flight_profile.gd" id="3"]
+
+[sub_resource type="Resource" id="Flight"]
+script = ExtResource("3")
+editor_wings_sprite = &"spr_wings_editor_32x32"
+editor_wings_offset = Vector2(-16, -8)
+editor_parachute_offset = Vector2(-8, -32)
+wing_loss_offsets = null
+
+[resource]
+script = ExtResource("1")
+id = &"giant"
+object_id = "obj_muncher_b_res"
+label = &"EDITOR_ENEMY_MUNCHER_GIANT"
+icon = ExtResource("2")
+body_sprite = &"spr_muncher_b"
+editor_sprite = &"spr_muncher_b_deads"
+dark_editor_sprite = &"spr_muncher_b_deads"
+editor_frame = 4
+editor_dark_frame = 4
+editor_origin = Vector2(16, 16)
+canvas_size = Vector2(32, 32)
+mask_size = Vector2(28, 32)
+source_x_offset = 16.0
+flight = SubResource("Flight")
+landing_sound = "res://assets/openwe/sounds/snd_thwomp_original.ogg"
+dead_sprite = &"spr_muncher_b_deads"
+dead_frame = 4
+dead_offset = Vector2(0, -24)
+dead_water_offset = 7.0

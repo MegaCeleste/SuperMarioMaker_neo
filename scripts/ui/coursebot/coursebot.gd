@@ -12,7 +12,7 @@ func _ready() -> void:
 	_create_head_tween()
 	if DirAccess.dir_exists_absolute(GameSettings.LEVELS_PATH):
 		for i in DirAccess.get_files_at(GameSettings.LEVELS_PATH):
-			if i.get_extension() != "swe":
+			if i.get_extension().to_lower() != "swe":
 				continue
 			var absolute = GameSettings.LEVELS_PATH.path_join(i)
 			var card = LevelCard.create(absolute, self)

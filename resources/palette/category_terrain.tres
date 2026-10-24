@@ -7,6 +7,16 @@
 [ext_resource type="Script" uid="uid://brqgrqkrdxhmf" path="res://scripts/level/parts/ground_part.gd" id="3_prh7l"]
 [ext_resource type="Script" uid="uid://ck5lib6hmitri" path="res://scripts/level/parts/turn_block_part.gd" id="5_td1aq"]
 [ext_resource type="Script" uid="uid://du2xth7h5b1gr" path="res://scripts/level/parts/question_block_part.gd" id="6_bfwuo"]
+[ext_resource type="Script" path="res://scripts/level/parts/hard_block_part.gd" id="7_hard"]
+[ext_resource type="Script" path="res://scripts/level/parts/hidden_block_part.gd" id="8_hidden"]
+[ext_resource type="Script" path="res://scripts/level/parts/spike_part.gd" id="9_spike"]
+[ext_resource type="Script" path="res://scripts/level/parts/cloud_part.gd" id="10_cloud"]
+[ext_resource type="Script" path="res://scripts/level/parts/semisolid_part.gd" id="16_semisolid"]
+[ext_resource type="Script" path="res://scripts/level/parts/ice_block_part.gd" id="11_ice"]
+[ext_resource type="Script" path="res://scripts/level/parts/donut_part.gd" id="12_donut"]
+[ext_resource type="Script" path="res://scripts/level/parts/note_block_part.gd" id="13_note"]
+[ext_resource type="Script" path="res://scripts/level/parts/slope_part.gd" id="14_slope"]
+[ext_resource type="Script" path="res://scripts/level/parts/gentle_slope_part.gd" id="15_gentle"]
 
 [sub_resource type="Resource" id="Resource_prh7l"]
 script = ExtResource("2_eebnt")
@@ -28,8 +38,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 
 [sub_resource type="Resource" id="Resource_td1aq"]
 script = ExtResource("2_eebnt")
-part = SubResource("GDScript_qhyt5")
-disabled = true
+part = ExtResource("14_slope")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_prh7l"]
@@ -47,7 +56,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 
 [sub_resource type="Resource" id="Resource_qhyt5"]
 script = ExtResource("2_eebnt")
-part = SubResource("GDScript_prh7l")
+part = ExtResource("15_gentle")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_td1aq"]
@@ -66,6 +75,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 [sub_resource type="Resource" id="Resource_d7a27"]
 script = ExtResource("2_eebnt")
 part = SubResource("GDScript_td1aq")
+disabled = true
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_bfwuo"]
@@ -83,7 +93,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 
 [sub_resource type="Resource" id="Resource_1mf7o"]
 script = ExtResource("2_eebnt")
-part = SubResource("GDScript_bfwuo")
+part = ExtResource("9_spike")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_d7a27"]
@@ -102,6 +112,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 [sub_resource type="Resource" id="Resource_nvt8u"]
 script = ExtResource("2_eebnt")
 part = SubResource("GDScript_d7a27")
+disabled = true
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_1mf7o"]
@@ -119,7 +130,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 
 [sub_resource type="Resource" id="Resource_dwnrp"]
 script = ExtResource("2_eebnt")
-part = SubResource("GDScript_1mf7o")
+part = ExtResource("16_semisolid")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_nvt8u"]
@@ -138,6 +149,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 [sub_resource type="Resource" id="Resource_hndda"]
 script = ExtResource("2_eebnt")
 part = SubResource("GDScript_nvt8u")
+disabled = true
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="Resource" id="Resource_bfwuo"]
@@ -170,7 +182,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 
 [sub_resource type="Resource" id="Resource_4c5ih"]
 script = ExtResource("2_eebnt")
-part = SubResource("GDScript_is2gh")
+part = ExtResource("7_hard")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_dwnrp"]
@@ -188,7 +200,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 
 [sub_resource type="Resource" id="Resource_is2gh"]
 script = ExtResource("2_eebnt")
-part = SubResource("GDScript_dwnrp")
+part = ExtResource("8_hidden")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_hndda"]
@@ -206,7 +218,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 
 [sub_resource type="Resource" id="Resource_5p0ud"]
 script = ExtResource("2_eebnt")
-part = SubResource("GDScript_hndda")
+part = ExtResource("12_donut")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_3pfnl"]
@@ -224,7 +236,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 
 [sub_resource type="Resource" id="Resource_u1m1b"]
 script = ExtResource("2_eebnt")
-part = SubResource("GDScript_3pfnl")
+part = ExtResource("13_note")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_g0pju"]
@@ -242,7 +254,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 
 [sub_resource type="Resource" id="Resource_8dauk"]
 script = ExtResource("2_eebnt")
-part = SubResource("GDScript_g0pju")
+part = ExtResource("10_cloud")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_4c5ih"]
@@ -260,7 +272,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 
 [sub_resource type="Resource" id="Resource_4eqib"]
 script = ExtResource("2_eebnt")
-part = SubResource("GDScript_4c5ih")
+part = ExtResource("11_ice")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="Resource" id="Resource_yiidc"]

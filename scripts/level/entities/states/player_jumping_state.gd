@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 class_name PlayerJumpingState
 extends PlayerState
 ## Provides jumping behavior to the player.
@@ -14,28 +15,37 @@ var _grav_comp: GravityComponent
 var _jump_buffer: _JumpBufferType
 var _jump_buffer_timer := 0.0
 var _was_holding_item := false
+## Consumed once by a physical spring/note launch, preserving native states.
+var external_launch_speed := 0.0
 
 
 func start() -> Script:
 	super()
-	var running = Input.is_action_pressed("player_run")
+	_jump_buffer = _JumpBufferType.NONE
+	_jump_buffer_timer = 0
 	_long_jump = true
 	_grav_comp = Utility.find_child_by_class(player, GravityComponent)
+	_grav_comp.gravity = Vector2(0, player.long_jump_gravity)
 	_was_holding_item = player.held_item != null
 	
 	player.sounds.stream = preload("uid://bhxmp70u556sv")
 	player.sounds.play()
 	
 	# apply jump speed
-	if not running and abs(player.velocity.x) < player.max_walk_speed:
+	# OpenWE checks speed, independently of the Run key: abs(hspeed)>2.8,
+	# then round(hspeed/2). The thresholds become 168 and 60 px/s.
+	if absf(player.velocity.x) < 60.0:
 		player.velocity.y = -player.idle_jump_speed
-	elif (
-			(not running and abs(player.velocity.x) >= player.max_walk_speed)
-			or (running and abs(player.velocity.x) < player.max_run_speed)
-	):
-		player.velocity.y = -player.slow_jump_speed
-	elif running and abs(player.velocity.x) >= player.max_run_speed:
+	elif absf(player.velocity.x) > 168.0:
 		player.velocity.y = -player.fast_jump_speed
+	else:
+		player.velocity.y = -player.slow_jump_speed
+	if external_launch_speed > 0:
+		player.velocity.y = -external_launch_speed
+		external_launch_speed = 0
+		_long_jump = Input.is_action_pressed("player_jump")
+		_grav_comp.gravity.y = player.long_jump_gravity if _long_jump else player.gravity
+		player.sounds.stop()
 	
 	return null
 
@@ -49,9 +59,6 @@ func end() -> void:
 
 func physics_process(delta: float) -> Script:
 	var direction = Input.get_axis("player_left", "player_right")
-	var max_speed = player.max_run_speed \
-			if Input.is_action_pressed("player_run") \
-			else player.max_walk_speed
 	
 	# jump buffer stuff
 	if _jump_buffer != _JumpBufferType.NONE:
@@ -62,7 +69,7 @@ func physics_process(delta: float) -> Script:
 	if Input.is_action_just_pressed("player_jump"):
 		_jump_buffer = _JumpBufferType.JUMP
 		_jump_buffer_timer = 0
-	elif Input.is_action_just_pressed("player_spin_jump"):
+	elif Input.is_action_just_pressed("player_spin_jump") and not player.is_ducking():
 		_jump_buffer = _JumpBufferType.SPIN_JUMP
 		_jump_buffer_timer = 0
 	
@@ -92,13 +99,7 @@ func physics_process(delta: float) -> Script:
 	position_held_item(direction)
 	
 	# accelerate
-	if direction != 0:
-		player.direction = int(direction)
-		player.velocity.x = move_toward(
-				player.velocity.x,
-				max_speed * direction,
-				player.acceleration
-		)
+	apply_horizontal_motion(direction, delta)
 	
 	if player.can_change_sprite():
 		# animations

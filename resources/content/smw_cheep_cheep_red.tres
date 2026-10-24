@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="CheepCheepVariant" format=3 uid="uid://b73jym1p7e1nh"]
+
+[ext_resource type="Script" uid="uid://c6c0sdx4ap35y" path="res://scripts/level/entities/cheep_cheep_variant.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://c4ggg7c0cx34b" path="res://textures/ui/editor/parts/smw/cheep_cheep.png" id="2"]
+[ext_resource type="Script" uid="uid://cxed5ag6ecvv8" path="res://scripts/level/entities/enemy_flight_profile.gd" id="3"]
+
+[sub_resource type="Resource" id="Decorations"]
+script = ExtResource("3")
+wings_sprite = &"spr_wings"
+editor_wings_sprite = &"spr_wings_editor"
+editor_wings_offset = Vector2(17, -20)
+wing_loss_offsets = null
+
+[resource]
+script = ExtResource("1")
+id = &"red"
+object_id = "obj_cheepcheep_res"
+label = &"EDITOR_ENEMY_CHEEP_CHEEP"
+icon = ExtResource("2")
+swim_sprite = &"spr_cheepcheep"
+editor_sprite = &"spr_cheepcheep_res"
+flight = SubResource("Decorations")
+dead_sprite = &"spr_cheepcheep_deads"
