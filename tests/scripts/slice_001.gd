@@ -41,7 +41,7 @@ func _ready() -> void:
 			break
 	var ground_texture: Texture2D = loaded_ground.get_node("%Sprite").texture
 	check(ground_texture is AtlasTexture and ground_texture.atlas.resource_path ==
-			"res://textures/tiles/ground.png", "Terrain bypassed GodotWE's native atlas")
+			"res://textures/styles/smw/tiles/ground/overworld.png", "Terrain bypassed GodotWE's native atlas")
 	for part in sub.get_parts().get_children():
 		if part is GroundPart:
 			check(part.swe_atlas.y == 0 and part.swe_atlas.x >= 16,

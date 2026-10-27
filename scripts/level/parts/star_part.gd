@@ -12,7 +12,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 
 
 static func create() -> StarPart:
-	return load("res://scenes/parts/star_part.tscn").instantiate()
+	return load("res://scenes/level/parts/star_part.tscn").instantiate()
 
 
 func load(placed_from_editor := false) -> void:

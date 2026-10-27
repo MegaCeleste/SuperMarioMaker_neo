@@ -1,6 +1,8 @@
 class_name LevelThemeBtn
 extends PopoutBtn
 
+const POPOUT_CLOSE = preload("uid://dy8hcmykup336")
+
 
 func _draw() -> void:
 	super()
@@ -43,3 +45,8 @@ func get_icon() -> Texture2D:
 				return preload("uid://kn5i6sbqd82i")
 		_:
 			return preload("uid://ctrkdmxglq366")
+
+
+func _toggled(toggled_on: bool) -> void:
+	popout.close_sound = POPOUT_CLOSE
+	super(toggled_on)

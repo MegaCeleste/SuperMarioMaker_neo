@@ -34,8 +34,8 @@ func _ready() -> void:
 
 
 func enemy(level: Level, index: int, at := Vector2(480, -160), facing := -1, wings := false) -> Enemy:
-	var body: Enemy = load("res://scenes/entities/monty.tscn" if index == 0
-			else "res://scenes/entities/hammer_bro.tscn").instantiate()
+	var body: Enemy = load("res://scenes/level/entities/monty.tscn" if index == 0
+			else "res://scenes/level/entities/hammer_bro.tscn").instantiate()
 	body.variant = PROFILES[index]
 	body.position = at
 	body.direction = facing
@@ -227,7 +227,7 @@ func check_shell_collision(index: int) -> void:
 	var level := await make_level()
 	var area := level.current_sub_area
 	var body := enemy(level, index, Vector2(480, -96), -1)
-	var shell: KoopaShell = load("res://scenes/entities/koopa_shell.tscn").instantiate()
+	var shell: KoopaShell = load("res://scenes/level/entities/koopa_shell.tscn").instantiate()
 	shell.position = Vector2(450, -96)
 	area.add(shell)
 	level.hud.player.direction = 1

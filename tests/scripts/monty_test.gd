@@ -45,7 +45,7 @@ func park(player: Player, at := Vector2(64, -16)) -> void:
 
 
 func actor(level: Level, at: Vector2, wings := false, parachute := false) -> Monty:
-	var body: Monty = load("res://scenes/entities/monty.tscn").instantiate()
+	var body: Monty = load("res://scenes/level/entities/monty.tscn").instantiate()
 	body.wings = wings
 	body.parachute = parachute
 	body.position = at

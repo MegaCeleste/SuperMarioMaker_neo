@@ -1,5 +1,5 @@
 {
- "root": "C:\\Working\\新建文件夹\\GodotWE",
+ "root": "C:\\Working\\SMMneo\\SuperMarioMakerNeo",
  "project": {
   "application": {
    "config/name": "GodotWE",
@@ -399,7 +399,7 @@
     "sink_speed",
     "swim_sprite"
    ],
-   "lines": 26
+   "lines": 25
   },
   {
    "name": "bro_projectile",
@@ -618,7 +618,7 @@
    "exports": [
     "rules"
    ],
-   "lines": 93
+   "lines": 92
   },
   {
    "name": "buzzy_beetle",
@@ -795,7 +795,7 @@
     "ceiling",
     "variant"
    ],
-   "lines": 144
+   "lines": 143
   },
   {
    "name": "enemy_defeat_style",
@@ -1756,7 +1756,7 @@
    "exports": [
     "variant"
    ],
-   "lines": 40
+   "lines": 39
   },
   {
    "name": "spiny_variant",
@@ -1784,7 +1784,7 @@
     "walk_sprite",
     "winged_editor_sprite"
    ],
-   "lines": 25
+   "lines": 23
   },
   {
    "name": "spring",
@@ -1820,7 +1820,7 @@
   },
   {
    "name": "player_death_state",
-   "path": "scripts/level/entities/states/player_death_state.gd",
+   "path": "scripts/level/entities/states/player/player_death_state.gd",
    "class_name": "PlayerDeathState",
    "extends": "PlayerState",
    "functions": [
@@ -1836,7 +1836,7 @@
   },
   {
    "name": "player_falling_state",
-   "path": "scripts/level/entities/states/player_falling_state.gd",
+   "path": "scripts/level/entities/states/player/player_falling_state.gd",
    "class_name": "PlayerFallingState",
    "extends": "PlayerState",
    "functions": [
@@ -1850,7 +1850,7 @@
   },
   {
    "name": "player_frozen_state",
-   "path": "scripts/level/entities/states/player_frozen_state.gd",
+   "path": "scripts/level/entities/states/player/player_frozen_state.gd",
    "class_name": "PlayerFrozenState",
    "extends": "PlayerState",
    "functions": [
@@ -1868,7 +1868,7 @@
   },
   {
    "name": "player_goal_state",
-   "path": "scripts/level/entities/states/player_goal_state.gd",
+   "path": "scripts/level/entities/states/player/player_goal_state.gd",
    "class_name": "PlayerGoalState",
    "extends": "PlayerState",
    "functions": [
@@ -1882,7 +1882,7 @@
   },
   {
    "name": "player_idle_state",
-   "path": "scripts/level/entities/states/player_idle_state.gd",
+   "path": "scripts/level/entities/states/player/player_idle_state.gd",
    "class_name": "PlayerIdleState",
    "extends": "PlayerState",
    "functions": [
@@ -1896,7 +1896,7 @@
   },
   {
    "name": "player_jumping_state",
-   "path": "scripts/level/entities/states/player_jumping_state.gd",
+   "path": "scripts/level/entities/states/player/player_jumping_state.gd",
    "class_name": "PlayerJumpingState",
    "extends": "PlayerState",
    "functions": [
@@ -1911,7 +1911,7 @@
   },
   {
    "name": "player_moving_state",
-   "path": "scripts/level/entities/states/player_moving_state.gd",
+   "path": "scripts/level/entities/states/player/player_moving_state.gd",
    "class_name": "PlayerMovingState",
    "extends": "PlayerState",
    "functions": [
@@ -1928,7 +1928,7 @@
   },
   {
    "name": "player_note_state",
-   "path": "scripts/level/entities/states/player_note_state.gd",
+   "path": "scripts/level/entities/states/player/player_note_state.gd",
    "class_name": "PlayerNoteState",
    "extends": "PlayerState",
    "functions": [
@@ -1942,7 +1942,7 @@
   },
   {
    "name": "player_slope_slide_state",
-   "path": "scripts/level/entities/states/player_slope_slide_state.gd",
+   "path": "scripts/level/entities/states/player/player_slope_slide_state.gd",
    "class_name": "PlayerSlopeSlideState",
    "extends": "PlayerState",
    "functions": [
@@ -1957,7 +1957,7 @@
   },
   {
    "name": "player_spin_jumping_state",
-   "path": "scripts/level/entities/states/player_spin_jumping_state.gd",
+   "path": "scripts/level/entities/states/player/player_spin_jumping_state.gd",
    "class_name": "PlayerSpinJumpingState",
    "extends": "PlayerState",
    "functions": [
@@ -1973,7 +1973,7 @@
   },
   {
    "name": "player_spring_state",
-   "path": "scripts/level/entities/states/player_spring_state.gd",
+   "path": "scripts/level/entities/states/player/player_spring_state.gd",
    "class_name": "PlayerSpringState",
    "extends": "PlayerState",
    "functions": [
@@ -1987,7 +1987,7 @@
   },
   {
    "name": "player_state",
-   "path": "scripts/level/entities/states/player_state.gd",
+   "path": "scripts/level/entities/states/player/player_state.gd",
    "class_name": "PlayerState",
    "extends": "State",
    "functions": [
@@ -2007,7 +2007,7 @@
   },
   {
    "name": "player_stunned_state",
-   "path": "scripts/level/entities/states/player_stunned_state.gd",
+   "path": "scripts/level/entities/states/player/player_stunned_state.gd",
    "class_name": "PlayerStunnedState",
    "extends": "PlayerState",
    "functions": [
@@ -2025,7 +2025,7 @@
   },
   {
    "name": "player_swimming_state",
-   "path": "scripts/level/entities/states/player_swimming_state.gd",
+   "path": "scripts/level/entities/states/player/player_swimming_state.gd",
    "class_name": "PlayerSwimmingState",
    "extends": "PlayerState",
    "functions": [
@@ -2296,6 +2296,7 @@
     "file_path",
     "game_style",
     "level_name",
+    "music",
     "online_id",
     "status",
     "tag_1",
@@ -2304,7 +2305,7 @@
     "title_screen",
     "width"
    ],
-   "lines": 431
+   "lines": 437
   },
   {
    "name": "liquid_rules",
@@ -2363,7 +2364,7 @@
    "exports": [
     "rules"
    ],
-   "lines": 42
+   "lines": 41
   },
   {
    "name": "buzzy_part",
@@ -2399,7 +2400,7 @@
    "functions": [],
    "signals": [],
    "exports": [],
-   "lines": 28
+   "lines": 26
   },
   {
    "name": "cheep_cheep_part",
@@ -2896,7 +2897,7 @@
    ],
    "signals": [],
    "exports": [],
-   "lines": 405
+   "lines": 408
   },
   {
    "name": "piranha_part",
@@ -3064,7 +3065,7 @@
     "variant",
     "wings"
    ],
-   "lines": 118
+   "lines": 116
   },
   {
    "name": "spring_part",
@@ -3233,7 +3234,7 @@
    ],
    "signals": [],
    "exports": [],
-   "lines": 114
+   "lines": 113
   },
   {
    "name": "small_powerup",
@@ -3435,7 +3436,7 @@
     "water_speed",
     "water_start_y"
    ],
-   "lines": 242
+   "lines": 244
   },
   {
    "name": "swe_level_serializer",
@@ -3740,7 +3741,7 @@
    ],
    "signals": [],
    "exports": [],
-   "lines": 38
+   "lines": 37
   },
   {
    "name": "grid",
@@ -3772,7 +3773,7 @@
    ],
    "signals": [],
    "exports": [],
-   "lines": 8
+   "lines": 9
   },
   {
    "name": "player_bubble",
@@ -3827,7 +3828,7 @@
    ],
    "signals": [],
    "exports": [],
-   "lines": 42
+   "lines": 43
   },
   {
    "name": "spin_thump",
@@ -3889,7 +3890,7 @@
    ],
    "signals": [],
    "exports": [],
-   "lines": 70
+   "lines": 71
   },
   {
    "name": "game_settings",
@@ -3934,7 +3935,6 @@
    "class_name": null,
    "extends": "CanvasLayer",
    "functions": [
-    "_input",
     "_ready",
     "_scene_changed",
     "close",
@@ -3942,7 +3942,7 @@
    ],
    "signals": [],
    "exports": [],
-   "lines": 62
+   "lines": 53
   },
   {
    "name": "music_player",
@@ -4033,11 +4033,13 @@
     "get_visible_rect",
     "group",
     "id",
-    "rangef"
+    "query_rect",
+    "rangef",
+    "shake"
    ],
    "signals": [],
    "exports": [],
-   "lines": 208
+   "lines": 226
   },
   {
    "name": "game_constants",
@@ -4185,6 +4187,7 @@
    "functions": [
     "_draw",
     "_editor_loaded",
+    "_input",
     "_level_state_changed",
     "_pressed",
     "_process",
@@ -4193,7 +4196,7 @@
    ],
    "signals": [],
    "exports": [],
-   "lines": 99
+   "lines": 104
   },
   {
    "name": "editor",
@@ -4402,11 +4405,32 @@
    "extends": "PopoutBtn",
    "functions": [
     "_draw",
-    "_game_style_changed"
+    "_game_style_changed",
+    "_toggled"
    ],
    "signals": [],
    "exports": [],
-   "lines": 23
+   "lines": 27
+  },
+  {
+   "name": "game_style_popout_btn",
+   "path": "scripts/ui/editor/left_panel/game_style_popout_btn.gd",
+   "class_name": "GameStylePopoutBtn",
+   "extends": "TextureButton",
+   "functions": [
+    "_draw",
+    "_mouse_entered",
+    "_mouse_exited",
+    "_pressed",
+    "_process",
+    "_ready",
+    "_set_game_style"
+   ],
+   "signals": [],
+   "exports": [
+    "game_style"
+   ],
+   "lines": 47
   },
   {
    "name": "level_theme_btn",
@@ -4415,11 +4439,12 @@
    "extends": "PopoutBtn",
    "functions": [
     "_draw",
+    "_toggled",
     "get_icon"
    ],
    "signals": [],
    "exports": [],
-   "lines": 46
+   "lines": 53
   },
   {
    "name": "level_theme_panel",
@@ -4437,6 +4462,44 @@
    "signals": [],
    "exports": [],
    "lines": 84
+  },
+  {
+   "name": "level_theme_popout_btn",
+   "path": "scripts/ui/editor/left_panel/level_theme_popout_btn.gd",
+   "class_name": "LevelThemePopoutBtn",
+   "extends": "TextureButton",
+   "functions": [
+    "_draw",
+    "_mouse_entered",
+    "_mouse_exited",
+    "_pressed",
+    "_process",
+    "_ready",
+    "_set_level_theme",
+    "get_card"
+   ],
+   "signals": [],
+   "exports": [
+    "level_theme"
+   ],
+   "lines": 83
+  },
+  {
+   "name": "night_mode_btn",
+   "path": "scripts/ui/editor/left_panel/night_mode_btn.gd",
+   "class_name": "NightModeBtn",
+   "extends": "BaseButton",
+   "functions": [
+    "_draw",
+    "_mouse_entered",
+    "_mouse_exited",
+    "_pressed",
+    "_process",
+    "_ready"
+   ],
+   "signals": [],
+   "exports": [],
+   "lines": 47
   },
   {
    "name": "popout_ok_btn",
@@ -5792,7 +5855,7 @@
    ],
    "signals": [],
    "exports": [],
-   "lines": 465
+   "lines": 464
   },
   {
    "name": "port_test",
@@ -6264,7 +6327,7 @@
   },
   {
    "name": "background",
-   "path": "scenes/backgrounds/background.tscn",
+   "path": "scenes/level/backgrounds/background.tscn",
    "format": "3",
    "nodes": 1,
    "node_types": {
@@ -6274,7 +6337,7 @@
   },
   {
    "name": "overworld",
-   "path": "scenes/backgrounds/smw/overworld.tscn",
+   "path": "scenes/level/backgrounds/smw/overworld.tscn",
    "format": "3",
    "nodes": 2,
    "node_types": {
@@ -6286,7 +6349,7 @@
   },
   {
    "name": "beach_koopa",
-   "path": "scenes/entities/beach_koopa.tscn",
+   "path": "scenes/level/entities/beach_koopa.tscn",
    "format": "3",
    "nodes": 8,
    "node_types": {
@@ -6305,7 +6368,7 @@
   },
   {
    "name": "blooper",
-   "path": "scenes/entities/blooper.tscn",
+   "path": "scenes/level/entities/blooper.tscn",
    "format": "3",
    "nodes": 6,
    "node_types": {
@@ -6321,7 +6384,7 @@
   },
   {
    "name": "buzzy_beetle",
-   "path": "scenes/entities/buzzy_beetle.tscn",
+   "path": "scenes/level/entities/buzzy_beetle.tscn",
    "format": "3",
    "nodes": 9,
    "node_types": {
@@ -6341,7 +6404,7 @@
   },
   {
    "name": "chain_chomp",
-   "path": "scenes/entities/chain_chomp.tscn",
+   "path": "scenes/level/entities/chain_chomp.tscn",
    "format": "3",
    "nodes": 7,
    "node_types": {
@@ -6357,7 +6420,7 @@
   },
   {
    "name": "cheep_cheep",
-   "path": "scenes/entities/cheep_cheep.tscn",
+   "path": "scenes/level/entities/cheep_cheep.tscn",
    "format": "3",
    "nodes": 4,
    "node_types": {
@@ -6372,7 +6435,7 @@
   },
   {
    "name": "fire_flower",
-   "path": "scenes/entities/fire_flower.tscn",
+   "path": "scenes/level/entities/fire_flower.tscn",
    "format": "3",
    "nodes": 1,
    "node_types": {
@@ -6384,7 +6447,7 @@
   },
   {
    "name": "galoomba",
-   "path": "scenes/entities/galoomba.tscn",
+   "path": "scenes/level/entities/galoomba.tscn",
    "format": "3",
    "nodes": 9,
    "node_types": {
@@ -6404,7 +6467,7 @@
   },
   {
    "name": "green_koopa",
-   "path": "scenes/entities/green_koopa.tscn",
+   "path": "scenes/level/entities/green_koopa.tscn",
    "format": "3",
    "nodes": 9,
    "node_types": {
@@ -6424,7 +6487,7 @@
   },
   {
    "name": "grrrol",
-   "path": "scenes/entities/grrrol.tscn",
+   "path": "scenes/level/entities/grrrol.tscn",
    "format": "3",
    "nodes": 7,
    "node_types": {
@@ -6439,7 +6502,7 @@
   },
   {
    "name": "hammer_bro",
-   "path": "scenes/entities/hammer_bro.tscn",
+   "path": "scenes/level/entities/hammer_bro.tscn",
    "format": "3",
    "nodes": 7,
    "node_types": {
@@ -6457,7 +6520,7 @@
   },
   {
    "name": "koopa_shell",
-   "path": "scenes/entities/koopa_shell.tscn",
+   "path": "scenes/level/entities/koopa_shell.tscn",
    "format": "3",
    "nodes": 10,
    "node_types": {
@@ -6476,7 +6539,7 @@
   },
   {
    "name": "monty",
-   "path": "scenes/entities/monty.tscn",
+   "path": "scenes/level/entities/monty.tscn",
    "format": "3",
    "nodes": 9,
    "node_types": {
@@ -6496,7 +6559,7 @@
   },
   {
    "name": "muncher",
-   "path": "scenes/entities/muncher.tscn",
+   "path": "scenes/level/entities/muncher.tscn",
    "format": "3",
    "nodes": 1,
    "node_types": {
@@ -6508,7 +6571,7 @@
   },
   {
    "name": "mushroom",
-   "path": "scenes/entities/mushroom.tscn",
+   "path": "scenes/level/entities/mushroom.tscn",
    "format": "3",
    "nodes": 7,
    "node_types": {
@@ -6526,7 +6589,7 @@
   },
   {
    "name": "one_up",
-   "path": "scenes/entities/one_up.tscn",
+   "path": "scenes/level/entities/one_up.tscn",
    "format": "3",
    "nodes": 1,
    "node_types": {
@@ -6538,7 +6601,7 @@
   },
   {
    "name": "piranha_plant",
-   "path": "scenes/entities/piranha_plant.tscn",
+   "path": "scenes/level/entities/piranha_plant.tscn",
    "format": "3",
    "nodes": 4,
    "node_types": {
@@ -6553,7 +6616,7 @@
   },
   {
    "name": "player",
-   "path": "scenes/entities/player.tscn",
+   "path": "scenes/level/entities/player.tscn",
    "format": "3",
    "nodes": 21,
    "node_types": {
@@ -6566,26 +6629,26 @@
    },
    "scripts": [
     "res://scripts/level/entities/player.gd",
-    "res://scripts/level/entities/states/player_death_state.gd",
+    "res://scripts/level/entities/states/player/player_death_state.gd",
     "res://scripts/level/entities/states/state_machine.gd",
-    "res://scripts/level/entities/states/player_moving_state.gd",
-    "res://scripts/level/entities/states/player_idle_state.gd",
+    "res://scripts/level/entities/states/player/player_moving_state.gd",
+    "res://scripts/level/entities/states/player/player_idle_state.gd",
     "res://scripts/components/gravity_component.gd",
-    "res://scripts/level/entities/states/player_falling_state.gd",
-    "res://scripts/level/entities/states/player_jumping_state.gd",
-    "res://scripts/level/entities/states/player_spin_jumping_state.gd",
-    "res://scripts/level/entities/states/player_goal_state.gd",
-    "res://scripts/level/entities/states/player_stunned_state.gd",
-    "res://scripts/level/entities/states/player_frozen_state.gd",
-    "res://scripts/level/entities/states/player_note_state.gd",
-    "res://scripts/level/entities/states/player_spring_state.gd",
-    "res://scripts/level/entities/states/player_slope_slide_state.gd",
-    "res://scripts/level/entities/states/player_swimming_state.gd"
+    "res://scripts/level/entities/states/player/player_falling_state.gd",
+    "res://scripts/level/entities/states/player/player_jumping_state.gd",
+    "res://scripts/level/entities/states/player/player_spin_jumping_state.gd",
+    "res://scripts/level/entities/states/player/player_goal_state.gd",
+    "res://scripts/level/entities/states/player/player_stunned_state.gd",
+    "res://scripts/level/entities/states/player/player_frozen_state.gd",
+    "res://scripts/level/entities/states/player/player_note_state.gd",
+    "res://scripts/level/entities/states/player/player_spring_state.gd",
+    "res://scripts/level/entities/states/player/player_slope_slide_state.gd",
+    "res://scripts/level/entities/states/player/player_swimming_state.gd"
    ]
   },
   {
    "name": "rocky",
-   "path": "scenes/entities/rocky.tscn",
+   "path": "scenes/level/entities/rocky.tscn",
    "format": "3",
    "nodes": 7,
    "node_types": {
@@ -6603,7 +6666,7 @@
   },
   {
    "name": "spiny",
-   "path": "scenes/entities/spiny.tscn",
+   "path": "scenes/level/entities/spiny.tscn",
    "format": "3",
    "nodes": 9,
    "node_types": {
@@ -6623,7 +6686,7 @@
   },
   {
    "name": "spiny_needle",
-   "path": "scenes/entities/spiny_needle.tscn",
+   "path": "scenes/level/entities/spiny_needle.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -6637,7 +6700,7 @@
   },
   {
    "name": "spring",
-   "path": "scenes/entities/spring.tscn",
+   "path": "scenes/level/entities/spring.tscn",
    "format": "3",
    "nodes": 5,
    "node_types": {
@@ -6653,7 +6716,7 @@
   },
   {
    "name": "stomped_galoomba",
-   "path": "scenes/entities/stomped_galoomba.tscn",
+   "path": "scenes/level/entities/stomped_galoomba.tscn",
    "format": "3",
    "nodes": 8,
    "node_types": {
@@ -6672,7 +6735,7 @@
   },
   {
    "name": "super_star",
-   "path": "scenes/entities/super_star.tscn",
+   "path": "scenes/level/entities/super_star.tscn",
    "format": "3",
    "nodes": 1,
    "node_types": {
@@ -6684,7 +6747,7 @@
   },
   {
    "name": "thwomp",
-   "path": "scenes/entities/thwomp.tscn",
+   "path": "scenes/level/entities/thwomp.tscn",
    "format": "3",
    "nodes": 1,
    "node_types": {
@@ -6696,7 +6759,7 @@
   },
   {
    "name": "skid_smoke",
-   "path": "scenes/particles/skid_smoke.tscn",
+   "path": "scenes/level/particles/skid_smoke.tscn",
    "format": "3",
    "nodes": 1,
    "node_types": {
@@ -6708,7 +6771,7 @@
   },
   {
    "name": "sparkle",
-   "path": "scenes/particles/sparkle.tscn",
+   "path": "scenes/level/particles/sparkle.tscn",
    "format": "3",
    "nodes": 1,
    "node_types": {
@@ -6720,7 +6783,7 @@
   },
   {
    "name": "spin_smoke",
-   "path": "scenes/particles/spin_smoke.tscn",
+   "path": "scenes/level/particles/spin_smoke.tscn",
    "format": "3",
    "nodes": 2,
    "node_types": {
@@ -6733,7 +6796,7 @@
   },
   {
    "name": "spin_thump",
-   "path": "scenes/particles/spin_thump.tscn",
+   "path": "scenes/level/particles/spin_thump.tscn",
    "format": "3",
    "nodes": 1,
    "node_types": {
@@ -6745,7 +6808,7 @@
   },
   {
    "name": "touch_effect",
-   "path": "scenes/particles/touch_effect.tscn",
+   "path": "scenes/level/particles/touch_effect.tscn",
    "format": "3",
    "nodes": 1,
    "node_types": {
@@ -6757,7 +6820,7 @@
   },
   {
    "name": "transform_effect",
-   "path": "scenes/particles/transform_effect.tscn",
+   "path": "scenes/level/particles/transform_effect.tscn",
    "format": "3",
    "nodes": 1,
    "node_types": {
@@ -6769,7 +6832,7 @@
   },
   {
    "name": "blooper_part",
-   "path": "scenes/parts/blooper_part.tscn",
+   "path": "scenes/level/parts/blooper_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -6781,7 +6844,7 @@
   },
   {
    "name": "buzzy_part",
-   "path": "scenes/parts/buzzy_part.tscn",
+   "path": "scenes/level/parts/buzzy_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -6793,7 +6856,7 @@
   },
   {
    "name": "cheep_cheep_part",
-   "path": "scenes/parts/cheep_cheep_part.tscn",
+   "path": "scenes/level/parts/cheep_cheep_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -6805,7 +6868,7 @@
   },
   {
    "name": "chomp_part",
-   "path": "scenes/parts/chomp_part.tscn",
+   "path": "scenes/level/parts/chomp_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -6817,7 +6880,7 @@
   },
   {
    "name": "cloud_part",
-   "path": "scenes/parts/cloud_part.tscn",
+   "path": "scenes/level/parts/cloud_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -6829,7 +6892,7 @@
   },
   {
    "name": "coin_part",
-   "path": "scenes/parts/coin_part.tscn",
+   "path": "scenes/level/parts/coin_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -6841,7 +6904,7 @@
   },
   {
    "name": "donut_part",
-   "path": "scenes/parts/donut_part.tscn",
+   "path": "scenes/level/parts/donut_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -6853,7 +6916,7 @@
   },
   {
    "name": "editor_player",
-   "path": "scenes/parts/editor_player.tscn",
+   "path": "scenes/level/parts/editor_player.tscn",
    "format": "3",
    "nodes": 4,
    "node_types": {
@@ -6866,7 +6929,7 @@
   },
   {
    "name": "fire_flower_part",
-   "path": "scenes/parts/fire_flower_part.tscn",
+   "path": "scenes/level/parts/fire_flower_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -6878,7 +6941,7 @@
   },
   {
    "name": "galoomba_part",
-   "path": "scenes/parts/galoomba_part.tscn",
+   "path": "scenes/level/parts/galoomba_part.tscn",
    "format": "3",
    "nodes": 2,
    "node_types": {
@@ -6890,7 +6953,7 @@
   },
   {
    "name": "gentle_slope_part",
-   "path": "scenes/parts/gentle_slope_part.tscn",
+   "path": "scenes/level/parts/gentle_slope_part.tscn",
    "format": "3",
    "nodes": 1,
    "node_types": {},
@@ -6900,7 +6963,7 @@
   },
   {
    "name": "goal_pole_part",
-   "path": "scenes/parts/goal_pole_part.tscn",
+   "path": "scenes/level/parts/goal_pole_part.tscn",
    "format": "3",
    "nodes": 2,
    "node_types": {},
@@ -6910,7 +6973,7 @@
   },
   {
    "name": "goomba_part",
-   "path": "scenes/parts/goomba_part.tscn",
+   "path": "scenes/level/parts/goomba_part.tscn",
    "format": "3",
    "nodes": 1,
    "node_types": {},
@@ -6920,7 +6983,7 @@
   },
   {
    "name": "ground_part",
-   "path": "scenes/parts/ground_part.tscn",
+   "path": "scenes/level/parts/ground_part.tscn",
    "format": "3",
    "nodes": 4,
    "node_types": {
@@ -6932,7 +6995,7 @@
   },
   {
    "name": "grrrol_part",
-   "path": "scenes/parts/grrrol_part.tscn",
+   "path": "scenes/level/parts/grrrol_part.tscn",
    "format": "3",
    "nodes": 1,
    "node_types": {},
@@ -6942,7 +7005,7 @@
   },
   {
    "name": "hammer_bro_part",
-   "path": "scenes/parts/hammer_bro_part.tscn",
+   "path": "scenes/level/parts/hammer_bro_part.tscn",
    "format": "3",
    "nodes": 2,
    "node_types": {
@@ -6954,7 +7017,7 @@
   },
   {
    "name": "hard_block_part",
-   "path": "scenes/parts/hard_block_part.tscn",
+   "path": "scenes/level/parts/hard_block_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -6966,7 +7029,7 @@
   },
   {
    "name": "hidden_block_part",
-   "path": "scenes/parts/hidden_block_part.tscn",
+   "path": "scenes/level/parts/hidden_block_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -6978,7 +7041,7 @@
   },
   {
    "name": "ice_block_part",
-   "path": "scenes/parts/ice_block_part.tscn",
+   "path": "scenes/level/parts/ice_block_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -6990,7 +7053,7 @@
   },
   {
    "name": "koopa_part",
-   "path": "scenes/parts/koopa_part.tscn",
+   "path": "scenes/level/parts/koopa_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -7002,7 +7065,7 @@
   },
   {
    "name": "monty_part",
-   "path": "scenes/parts/monty_part.tscn",
+   "path": "scenes/level/parts/monty_part.tscn",
    "format": "3",
    "nodes": 2,
    "node_types": {
@@ -7014,7 +7077,7 @@
   },
   {
    "name": "muncher_part",
-   "path": "scenes/parts/muncher_part.tscn",
+   "path": "scenes/level/parts/muncher_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -7026,7 +7089,7 @@
   },
   {
    "name": "mushroom_part",
-   "path": "scenes/parts/mushroom_part.tscn",
+   "path": "scenes/level/parts/mushroom_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -7038,7 +7101,7 @@
   },
   {
    "name": "note_block_part",
-   "path": "scenes/parts/note_block_part.tscn",
+   "path": "scenes/level/parts/note_block_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -7050,7 +7113,7 @@
   },
   {
    "name": "one_up_part",
-   "path": "scenes/parts/one_up_part.tscn",
+   "path": "scenes/level/parts/one_up_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -7062,7 +7125,7 @@
   },
   {
    "name": "part",
-   "path": "scenes/parts/part.tscn",
+   "path": "scenes/level/parts/part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -7076,7 +7139,7 @@
   },
   {
    "name": "piranha_part",
-   "path": "scenes/parts/piranha_part.tscn",
+   "path": "scenes/level/parts/piranha_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -7088,7 +7151,7 @@
   },
   {
    "name": "question_block_part",
-   "path": "scenes/parts/question_block_part.tscn",
+   "path": "scenes/level/parts/question_block_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -7100,7 +7163,7 @@
   },
   {
    "name": "rocky_part",
-   "path": "scenes/parts/rocky_part.tscn",
+   "path": "scenes/level/parts/rocky_part.tscn",
    "format": "3",
    "nodes": 2,
    "node_types": {
@@ -7112,7 +7175,7 @@
   },
   {
    "name": "semisolid_part",
-   "path": "scenes/parts/semisolid_part.tscn",
+   "path": "scenes/level/parts/semisolid_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -7124,7 +7187,7 @@
   },
   {
    "name": "slope_part",
-   "path": "scenes/parts/slope_part.tscn",
+   "path": "scenes/level/parts/slope_part.tscn",
    "format": "3",
    "nodes": 2,
    "node_types": {},
@@ -7134,7 +7197,7 @@
   },
   {
    "name": "spike_part",
-   "path": "scenes/parts/spike_part.tscn",
+   "path": "scenes/level/parts/spike_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -7146,7 +7209,7 @@
   },
   {
    "name": "spiny_part",
-   "path": "scenes/parts/spiny_part.tscn",
+   "path": "scenes/level/parts/spiny_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -7158,7 +7221,7 @@
   },
   {
    "name": "spring_part",
-   "path": "scenes/parts/spring_part.tscn",
+   "path": "scenes/level/parts/spring_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -7170,7 +7233,7 @@
   },
   {
    "name": "star_part",
-   "path": "scenes/parts/star_part.tscn",
+   "path": "scenes/level/parts/star_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -7182,7 +7245,7 @@
   },
   {
    "name": "starting_ground",
-   "path": "scenes/parts/starting_ground.tscn",
+   "path": "scenes/level/parts/starting_ground.tscn",
    "format": "3",
    "nodes": 6,
    "node_types": {
@@ -7196,7 +7259,7 @@
   },
   {
    "name": "thwomp_part",
-   "path": "scenes/parts/thwomp_part.tscn",
+   "path": "scenes/level/parts/thwomp_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -7208,7 +7271,7 @@
   },
   {
    "name": "turn_block_part",
-   "path": "scenes/parts/turn_block_part.tscn",
+   "path": "scenes/level/parts/turn_block_part.tscn",
    "format": "3",
    "nodes": 3,
    "node_types": {
@@ -7216,6 +7279,118 @@
    },
    "scripts": [
     "res://scripts/level/parts/turn_block_part.gd"
+   ]
+  },
+  {
+   "name": "mushroom_sprout",
+   "path": "scenes/level/sprouts/mushroom_sprout.tscn",
+   "format": "3",
+   "nodes": 1,
+   "node_types": {},
+   "scripts": []
+  },
+  {
+   "name": "rise_sprout",
+   "path": "scenes/level/sprouts/rise_sprout.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Node2D": 1,
+    "Sprite2D": 1,
+    "AudioStreamPlayer": 1
+   },
+   "scripts": [
+    "res://scripts/level/sprouts/rise_sprout.gd"
+   ]
+  },
+  {
+   "name": "coin",
+   "path": "scenes/level/tiles/coin.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "Area2D": 1,
+    "CollisionShape2D": 1,
+    "AnimatedSprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/tiles/coin.gd"
+   ]
+  },
+  {
+   "name": "empty_block",
+   "path": "scenes/level/tiles/empty_block.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "StaticBody2D": 1,
+    "CollisionShape2D": 1,
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/ext/static_body_ext.gd"
+   ]
+  },
+  {
+   "name": "goal_gate",
+   "path": "scenes/level/tiles/goal_gate.tscn",
+   "format": "3",
+   "nodes": 2,
+   "node_types": {
+    "Area2D": 1,
+    "CollisionShape2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/tiles/goal_gate.gd"
+   ]
+  },
+  {
+   "name": "ground_tile",
+   "path": "scenes/level/tiles/ground_tile.tscn",
+   "format": "3",
+   "nodes": 3,
+   "node_types": {
+    "StaticBody2D": 1,
+    "CollisionShape2D": 1,
+    "Sprite2D": 1
+   },
+   "scripts": [
+    "res://scripts/level/tiles/ground.gd"
+   ]
+  },
+  {
+   "name": "question_block",
+   "path": "scenes/level/tiles/question_block.tscn",
+   "format": "3",
+   "nodes": 5,
+   "node_types": {
+    "StaticBody2D": 1,
+    "CollisionShape2D": 1,
+    "Node2D": 1,
+    "AnimatedSprite2D": 1,
+    "Node": 1
+   },
+   "scripts": [
+    "res://scripts/level/tiles/question_block.gd",
+    "res://scripts/components/block_component.gd",
+    "res://scripts/level/sprouts/coin_sprout.gd"
+   ]
+  },
+  {
+   "name": "turn_block_tile",
+   "path": "scenes/level/tiles/turn_block_tile.tscn",
+   "format": "3",
+   "nodes": 6,
+   "node_types": {
+    "StaticBody2D": 1,
+    "CollisionShape2D": 2,
+    "Area2D": 1,
+    "AnimatedSprite2D": 1,
+    "Node": 1
+   },
+   "scripts": [
+    "res://scripts/level/tiles/turn_block_tile.gd",
+    "res://scripts/components/block_component.gd"
    ]
   },
   {
@@ -7329,28 +7504,6 @@
    ]
   },
   {
-   "name": "mushroom_sprout",
-   "path": "scenes/sprouts/mushroom_sprout.tscn",
-   "format": "3",
-   "nodes": 1,
-   "node_types": {},
-   "scripts": []
-  },
-  {
-   "name": "rise_sprout",
-   "path": "scenes/sprouts/rise_sprout.tscn",
-   "format": "3",
-   "nodes": 3,
-   "node_types": {
-    "Node2D": 1,
-    "Sprite2D": 1,
-    "AudioStreamPlayer": 1
-   },
-   "scripts": [
-    "res://scripts/level/sprouts/rise_sprout.gd"
-   ]
-  },
-  {
    "name": "level_template",
    "path": "scenes/templates/level_template.tscn",
    "format": "3",
@@ -7375,96 +7528,6 @@
    },
    "scripts": [
     "res://scripts/level/sub_area.gd"
-   ]
-  },
-  {
-   "name": "coin",
-   "path": "scenes/tiles/coin.tscn",
-   "format": "3",
-   "nodes": 3,
-   "node_types": {
-    "Area2D": 1,
-    "CollisionShape2D": 1,
-    "AnimatedSprite2D": 1
-   },
-   "scripts": [
-    "res://scripts/level/tiles/coin.gd"
-   ]
-  },
-  {
-   "name": "empty_block",
-   "path": "scenes/tiles/empty_block.tscn",
-   "format": "3",
-   "nodes": 3,
-   "node_types": {
-    "StaticBody2D": 1,
-    "CollisionShape2D": 1,
-    "Sprite2D": 1
-   },
-   "scripts": [
-    "res://scripts/ext/static_body_ext.gd"
-   ]
-  },
-  {
-   "name": "goal_gate",
-   "path": "scenes/tiles/goal_gate.tscn",
-   "format": "3",
-   "nodes": 2,
-   "node_types": {
-    "Area2D": 1,
-    "CollisionShape2D": 1
-   },
-   "scripts": [
-    "res://scripts/level/tiles/goal_gate.gd"
-   ]
-  },
-  {
-   "name": "ground_tile",
-   "path": "scenes/tiles/ground_tile.tscn",
-   "format": "3",
-   "nodes": 3,
-   "node_types": {
-    "StaticBody2D": 1,
-    "CollisionShape2D": 1,
-    "Sprite2D": 1
-   },
-   "scripts": [
-    "res://scripts/level/tiles/ground.gd"
-   ]
-  },
-  {
-   "name": "question_block",
-   "path": "scenes/tiles/question_block.tscn",
-   "format": "3",
-   "nodes": 5,
-   "node_types": {
-    "StaticBody2D": 1,
-    "CollisionShape2D": 1,
-    "Node2D": 1,
-    "AnimatedSprite2D": 1,
-    "Node": 1
-   },
-   "scripts": [
-    "res://scripts/level/tiles/question_block.gd",
-    "res://scripts/components/block_component.gd",
-    "res://scripts/level/sprouts/coin_sprout.gd"
-   ]
-  },
-  {
-   "name": "turn_block_tile",
-   "path": "scenes/tiles/turn_block_tile.tscn",
-   "format": "3",
-   "nodes": 6,
-   "node_types": {
-    "StaticBody2D": 1,
-    "CollisionShape2D": 2,
-    "Area2D": 1,
-    "AnimatedSprite2D": 1,
-    "Node": 1
-   },
-   "scripts": [
-    "res://scripts/level/tiles/turn_block_tile.gd",
-    "res://scripts/components/block_component.gd"
    ]
   },
   {
@@ -7545,20 +7608,20 @@
    "name": "editor",
    "path": "scenes/ui/editor/editor.tscn",
    "format": "3",
-   "nodes": 79,
+   "nodes": 98,
    "node_types": {
     "CanvasLayer": 2,
     "Control": 11,
     "Panel": 2,
-    "ColorRect": 2,
+    "ColorRect": 3,
     "MarginContainer": 1,
     "TextureRect": 8,
-    "TextureButton": 21,
+    "TextureButton": 38,
     "HBoxContainer": 2,
     "AudioStreamPlayer": 3,
     "NinePatchRect": 2,
     "Button": 3,
-    "BaseButton": 3,
+    "BaseButton": 4,
     "Label": 1
    },
    "scripts": [
@@ -7586,8 +7649,11 @@
     "res://scripts/ui/editor/left_panel/level_theme_btn.gd",
     "res://scripts/ui/editor/left_panel/level_theme_panel.gd",
     "res://scripts/ui/editor/left_panel/autoscroll_btn.gd",
+    "res://scripts/ui/editor/left_panel/game_style_popout_btn.gd",
     "res://scripts/ui/editor/left_panel/time_btn.gd",
     "res://scripts/ui/editor/left_panel/binary_btn.gd",
+    "res://scripts/ui/editor/left_panel/level_theme_popout_btn.gd",
+    "res://scripts/ui/editor/left_panel/night_mode_btn.gd",
     "res://scripts/ui/editor/left_panel/clear_condition_btn.gd",
     "res://scripts/ui/editor/left_panel/time_guy.gd",
     "res://scripts/ui/editor/left_panel/time_change_btn.gd"
@@ -8444,8 +8510,8 @@
   }
  ],
  "counts": {
-  "scripts": 310,
+  "scripts": 313,
   "scenes": 163,
-  "gd_lines_total": 40948
+  "gd_lines_total": 41150
  }
 }

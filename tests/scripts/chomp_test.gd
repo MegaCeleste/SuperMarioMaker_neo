@@ -45,7 +45,7 @@ func chomp_level() -> Level:
 
 
 func chomp(level: Level, data: ChompVariant, at := Vector2(480, -176), automatic := false) -> ChainChomp:
-	var body: ChainChomp = load("res://scenes/entities/chain_chomp.tscn").instantiate()
+	var body: ChainChomp = load("res://scenes/level/entities/chain_chomp.tscn").instantiate()
 	body.variant = data
 	body.position = at
 	level.current_sub_area.add(body)
@@ -402,7 +402,7 @@ func check_source_contacts(data: ChompVariant) -> void:
 	check(not body.is_queued_for_deletion() and player.velocity.y < 0,
 			"Spin jump must recoil from a Chomp without killing the head or chains")
 	player.state_machine.switch(PlayerIdleState)
-	var block: QuestionBlock = load("res://scenes/tiles/question_block.tscn").instantiate()
+	var block: QuestionBlock = load("res://scenes/level/tiles/question_block.tscn").instantiate()
 	block.position = Vector2(528, -176)
 	area.add(block)
 	body.queue_free()
@@ -421,7 +421,7 @@ func check_source_contacts(data: ChompVariant) -> void:
 	level = await chomp_level()
 	area = level.current_sub_area
 	body = chomp(level, data, Vector2(480, -96))
-	var shell: KoopaShell = load("res://scenes/entities/koopa_shell.tscn").instantiate()
+	var shell: KoopaShell = load("res://scenes/level/entities/koopa_shell.tscn").instantiate()
 	shell.position = Vector2(450, -96)
 	area.add(shell)
 	level.hud.player.direction = 1
@@ -492,7 +492,7 @@ func check_chomp_neighbours() -> void:
 	var level := await chomp_level()
 	var body := chomp(level, SMALL, Vector2(480, -160))
 	var neighbour := chomp(level, SMALL, Vector2(484, -160))
-	var held: StompedGaloomba = load("res://scenes/entities/stomped_galoomba.tscn").instantiate()
+	var held: StompedGaloomba = load("res://scenes/level/entities/stomped_galoomba.tscn").instantiate()
 	held.position = Vector2(476, -160)
 	level.current_sub_area.add(held)
 	held.set_physics_process(false)

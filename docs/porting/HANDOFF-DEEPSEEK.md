@@ -95,8 +95,8 @@ Create/Step_0/Other_10/11/Alarm_10/Draw_0, `scr_edit_to_play` 1329-1340,
 Files: `scripts/level/entities/monty_variant.gd`,
 `scripts/level/entities/monty.gd`, `scripts/level/parts/monty_part.gd`,
 `resources/content/smw_monty.tres`,
-`resources/content/smw_flight_monty.tres`, `scenes/entities/monty.tscn`,
-`scenes/parts/monty_part.tscn`, `tests/scripts/monty_test.gd`,
+`resources/content/smw_flight_monty.tres`, `scenes/level/entities/monty.tscn`,
+`scenes/level/parts/monty_part.tscn`, `tests/scripts/monty_test.gd`,
 `tests/scenes/monty_test.tscn`.
 
 ### 3. Rocky Wrench (new)
@@ -119,7 +119,7 @@ Create/Step_0/Collision_obj_mario/Alarms 0,1, `scr_edit_to_play`.
 Files: `scripts/level/entities/rocky_variant.gd`,
 `scripts/level/entities/rocky.gd`, `scripts/level/entities/wrench.gd`,
 `scripts/level/parts/rocky_part.gd`, `resources/content/smw_rocky.tres`,
-`scenes/entities/rocky.tscn`, `scenes/parts/rocky_part.tscn`,
+`scenes/level/entities/rocky.tscn`, `scenes/level/parts/rocky_part.tscn`,
 `tests/scripts/rocky_test.gd`, `tests/scenes/rocky_test.tscn`.
 
 ### 4. Hammer Bro family, five types (new)
@@ -151,7 +151,7 @@ Files: `scripts/level/entities/hammer_bro_variant.gd`,
 `scripts/level/entities/bro_projectile.gd`,
 `scripts/level/parts/hammer_bro_part.gd`,
 `resources/content/smw_hammerbro_{hammer,fire,ice,boomerang,sledge}.tres`,
-`scenes/entities/hammer_bro.tscn`, `scenes/parts/hammer_bro_part.tscn`,
+`scenes/level/entities/hammer_bro.tscn`, `scenes/level/parts/hammer_bro_part.tscn`,
 `tests/scripts/hammer_bro_test.gd`, `tests/scenes/hammer_bro_test.tscn`.
 
 ### 5. Shared framework changes

@@ -44,7 +44,7 @@ source differences, and the review records the fixes and remaining gaps.
 Quick orientation:
 
 - Branch: `SMMneo` (created from `port/openwe`, preserving local work)
-- Base: GodotWE (`NCubss/GodotWE`, GPL-3.0), commit `4a836e6`
+- Base: GodotWE (`NCubss/GodotWE`, GPL-3.0), originally `4a836e6`, merged with `b029b73` (see `docs/porting/UPSTREAM-SYNC-2026-10-27.md`)
 - Spec reference: sibling checkout `../openwe-ref`, OpenWE commit
   `2f84414054c576bf7ca03dfa33b244ee730d57da` (AGPL-3.0, reference only)
 - Engine: Godot 4.7.2 portable at

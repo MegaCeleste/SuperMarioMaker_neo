@@ -50,6 +50,10 @@ var _moved_out: bool
 # The process tick this part was spawned on. Used to prevent the part being
 # immediately held once placed. (I'm sure there's a better way to handle this.)
 var _start_frame := Engine.get_process_frames()
+# The editor's press count when this part was spawned. Physics picking can
+# deliver the placing press on a later frame (a high refresh rate frame without
+# a physics tick), so that press must not grab the part either.
+var _start_press := Editor.presses
 var _coll_layers: int
 var _window: EditorWindow
 var _window_timer: SceneTreeTimer
@@ -156,7 +160,7 @@ func _input(event: InputEvent) -> void:
 
 func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int
 		) -> void:
-	if Engine.get_process_frames() == _start_frame:
+	if _is_placing_press():
 		return
 	if not is_instance_valid(level) or not is_instance_valid(level.editor) or not level.editor.part_interact:
 		return
@@ -170,6 +174,9 @@ func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int
 		return
 	if event.button_index == MouseButton.MOUSE_BUTTON_LEFT and event.pressed:
 		held = true
+	elif event.button_index == MOUSE_BUTTON_MIDDLE and event.pressed:
+		_stop_window_timer()
+		_create_window()
 
 
 func _notification(what: int) -> void:
@@ -389,12 +396,17 @@ func _create_touch_effect() -> void:
 	level.editor.touch_effect.global_position = get_global_mouse_position()
 
 
+# Whether the current mouse press is the one that placed this part.
+func _is_placing_press() -> bool:
+	return Engine.get_process_frames() == _start_frame or Editor.presses == _start_press
+
+
 func _create_window() -> void:
 	if (get_variants().is_empty() and get_modifiers().is_empty()) or not held or not is_inside_tree():
 		return
 	_window = preload("uid://dyw1evq8k8n58").instantiate()
 	_window.part = self
-	_window.target_position = Level.from_grid(_original_pos) + Level.GRID_SIZE / 2
+	_window.target_position = Level.from_grid(_grid_pos) + Level.GRID_SIZE / 2
 	level.editor.get_node(^"%WindowLayer").add_child(_window)
 
 

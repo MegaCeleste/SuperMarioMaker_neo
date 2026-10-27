@@ -182,7 +182,7 @@ func check_editor(modern: bool) -> void:
 
 
 func enemy_at(level: Level, scene: String, at: Vector2, direction: int) -> Enemy:
-	var enemy: Enemy = load("res://scenes/entities/%s.tscn" % scene).instantiate()
+	var enemy: Enemy = load("res://scenes/level/entities/%s.tscn" % scene).instantiate()
 	enemy.position = at
 	enemy.get_node("SlideComponent").direction = direction
 	level.current_sub_area.add(enemy)
@@ -228,7 +228,7 @@ func check_actor_contacts(level: Level) -> void:
 	b.queue_free()
 	await ticks(2)
 	# Stationary shells turn walkers and powerups; attacking shells keep their kill path.
-	var shell: KoopaShell = load("res://scenes/entities/koopa_shell.tscn").instantiate()
+	var shell: KoopaShell = load("res://scenes/level/entities/koopa_shell.tscn").instantiate()
 	shell.position = Vector2(450, -16)
 	shell._grace = 0
 	level.current_sub_area.add(shell)
@@ -244,7 +244,7 @@ func check_actor_contacts(level: Level) -> void:
 	item.queue_free()
 	shell.queue_free()
 	await ticks(2)
-	shell = load("res://scenes/entities/koopa_shell.tscn").instantiate()
+	shell = load("res://scenes/level/entities/koopa_shell.tscn").instantiate()
 	shell.position = Vector2(400, -16)
 	shell.motion = KoopaShell.Motion.MOVING
 	shell.velocity.x = 180
@@ -258,7 +258,7 @@ func check_actor_contacts(level: Level) -> void:
 	shell.queue_free()
 	await ticks(2)
 	# A thrown flipped Galoomba hits; a carried one sacrifices itself as a shield.
-	var flipped: StompedGaloomba = load("res://scenes/entities/stomped_galoomba.tscn").instantiate()
+	var flipped: StompedGaloomba = load("res://scenes/level/entities/stomped_galoomba.tscn").instantiate()
 	flipped.position = Vector2(420, -60)
 	flipped.velocity = Vector2(150, -90)
 	level.current_sub_area.add(flipped)
@@ -267,7 +267,7 @@ func check_actor_contacts(level: Level) -> void:
 	check(not is_instance_valid(a) and is_instance_valid(flipped), "Thrown Galoomba did not defeat a contacted enemy")
 	if is_instance_valid(flipped): flipped.queue_free()
 	await ticks(2)
-	flipped = load("res://scenes/entities/stomped_galoomba.tscn").instantiate()
+	flipped = load("res://scenes/level/entities/stomped_galoomba.tscn").instantiate()
 	flipped.position = Vector2(350, -16)
 	level.current_sub_area.add(flipped)
 	await ticks(16)
@@ -287,7 +287,7 @@ func check_actor_contacts(level: Level) -> void:
 	item = OneUp.new()
 	item.position = Vector2(420, -16)
 	level.current_sub_area.add(item)
-	var mushroom: Mushroom = load("res://scenes/entities/mushroom.tscn").instantiate()
+	var mushroom: Mushroom = load("res://scenes/level/entities/mushroom.tscn").instantiate()
 	mushroom.position = Vector2(468, -16)
 	mushroom.get_node("SlideComponent").direction = -1
 	level.current_sub_area.add(mushroom)
@@ -415,7 +415,7 @@ func check_hard(level: Level) -> void:
 	Input.action_release("player_jump")
 	check(is_instance_valid(block) and player.position.y > -55, "Normal head bump broke/passed through a hard block")
 	park(player)
-	var giant: Thwomp = load("res://scenes/entities/thwomp.tscn").instantiate()
+	var giant: Thwomp = load("res://scenes/level/entities/thwomp.tscn").instantiate()
 	giant.variant = load("res://resources/content/smw_thwomp_giant.tres")
 	giant.position = Vector2(448, -128)
 	level.current_sub_area.add(giant)

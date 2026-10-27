@@ -14,7 +14,7 @@ var _decoration: EnemyPartDecoration
 
 
 static func create() -> ChompPart:
-	return load("res://scenes/parts/chomp_part.tscn").instantiate()
+	return load("res://scenes/level/parts/chomp_part.tscn").instantiate()
 
 
 static func get_category() -> PaletteCategory:
@@ -64,7 +64,7 @@ func _refresh_preview() -> void:
 
 
 func build() -> void:
-	var body: ChainChomp = load("res://scenes/entities/chain_chomp.tscn").instantiate()
+	var body: ChainChomp = load("res://scenes/level/entities/chain_chomp.tscn").instantiate()
 	body.variant = variant
 	body.position = position + variant.part_to_feet()
 	# scr_edit_to_play passes neither flag; both runtime Creates set them to 0.

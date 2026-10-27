@@ -7,7 +7,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	# SceneManager may unload the current scene. Keep this test beside it.
 	get_tree().current_scene = null
-	var cursor: EditorPlayer = load("res://scenes/parts/editor_player.tscn").instantiate()
+	var cursor: EditorPlayer = load("res://scenes/level/parts/editor_player.tscn").instantiate()
 	add_child(cursor)
 	await ticks(2)
 	check(cursor.level == null, "Unbound cursor probe unexpectedly acquired a Level")

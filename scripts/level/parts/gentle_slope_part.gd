@@ -8,7 +8,7 @@ func _init() -> void:
 
 
 static func create() -> GentleSlopePart:
-	return load("res://scenes/parts/gentle_slope_part.tscn").instantiate()
+	return load("res://scenes/level/parts/gentle_slope_part.tscn").instantiate()
 
 
 static func get_part_name(_environment: SubArea) -> String:

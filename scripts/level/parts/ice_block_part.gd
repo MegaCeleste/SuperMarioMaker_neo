@@ -12,7 +12,7 @@ static func is_multiplaceable() -> bool:
 
 
 static func create() -> IceBlockPart:
-	return load("res://scenes/parts/ice_block_part.tscn").instantiate()
+	return load("res://scenes/level/parts/ice_block_part.tscn").instantiate()
 
 
 func load(placed_from_editor := false) -> void:

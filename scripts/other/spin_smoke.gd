@@ -19,6 +19,7 @@ static func create() -> SpinSmoke:
 
 
 func _ready() -> void:
+	reset_physics_interpolation.call_deferred()
 	z_index = GameConstants.Layers.Z_PARTICLES
 	animation_finished.connect(func(): _smoke_finished = true)
 	_tween = create_tween()

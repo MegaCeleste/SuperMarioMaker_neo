@@ -39,7 +39,7 @@ func make_level(ledge := false) -> Level:
 
 
 func shell_at(level: Level, pos := Vector2(320, -96), variant := GREEN) -> KoopaShell:
-	var shell: KoopaShell = load("res://scenes/entities/koopa_shell.tscn").instantiate()
+	var shell: KoopaShell = load("res://scenes/level/entities/koopa_shell.tscn").instantiate()
 	shell.variant = variant
 	shell.position = pos
 	level.current_sub_area.add(shell)
@@ -47,7 +47,7 @@ func shell_at(level: Level, pos := Vector2(320, -96), variant := GREEN) -> Koopa
 
 
 func koopa_at(level: Level, pos: Vector2, variant := GREEN) -> Koopa:
-	var koopa: Koopa = load("res://scenes/entities/green_koopa.tscn").instantiate()
+	var koopa: Koopa = load("res://scenes/level/entities/green_koopa.tscn").instantiate()
 	koopa.variant = variant
 	koopa.position = pos
 	level.current_sub_area.add(koopa)
@@ -55,7 +55,7 @@ func koopa_at(level: Level, pos: Vector2, variant := GREEN) -> Koopa:
 
 
 func beach_at(level: Level, pos: Vector2, variant := GREEN) -> BeachKoopa:
-	var beach: BeachKoopa = load("res://scenes/entities/beach_koopa.tscn").instantiate()
+	var beach: BeachKoopa = load("res://scenes/level/entities/beach_koopa.tscn").instantiate()
 	beach.variant = variant
 	beach.position = pos
 	level.current_sub_area.add(beach)
@@ -328,7 +328,7 @@ func check_contacts() -> void:
 	var player := level.hud.player
 	var shell := shell_at(level)
 	for x in [390, 450]:
-		var enemy: Galoomba = load("res://scenes/entities/galoomba.tscn").instantiate()
+		var enemy: Galoomba = load("res://scenes/level/entities/galoomba.tscn").instantiate()
 		enemy.position = Vector2(x, -96)
 		level.current_sub_area.add(enemy)
 	await ticks(20)
@@ -339,7 +339,7 @@ func check_contacts() -> void:
 	check(find_actors(level, Galoomba).is_empty() and player.score == 600,
 			"Physical shell hits failed to defeat enemies or award the 200/400 chain")
 	for index in 6:
-		var enemy: Galoomba = load("res://scenes/entities/galoomba.tscn").instantiate()
+		var enemy: Galoomba = load("res://scenes/level/entities/galoomba.tscn").instantiate()
 		enemy.position = shell.position + Vector2(80 + 50 * index, 0)
 		level.current_sub_area.add(enemy)
 	await ticks(150)
@@ -486,7 +486,7 @@ func check_reentry() -> void:
 		await ticks(8)
 		check(find_actors(level, Koopa).is_empty() and find_actors(level, KoopaShell).is_empty(),
 				"A pending shell restoration leaked into a restarted course")
-		var pending: Koopa = load("res://scenes/entities/green_koopa.tscn").instantiate()
+		var pending: Koopa = load("res://scenes/level/entities/green_koopa.tscn").instantiate()
 		sub.add_deferred(pending)
 		level.free()
 		await ticks(2)

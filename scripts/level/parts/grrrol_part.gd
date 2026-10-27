@@ -10,7 +10,7 @@ func _init() -> void:
 
 
 static func create() -> ThwompPart:
-	return load("res://scenes/parts/grrrol_part.tscn").instantiate()
+	return load("res://scenes/level/parts/grrrol_part.tscn").instantiate()
 
 
 static func get_part_icon(_environment: SubArea) -> Texture2D:

@@ -37,7 +37,7 @@ func _toggled(toggled_on: bool) -> void:
 	# TODO
 	match type:
 		Type.MUSIC:
-			pass
+			%Editor.level.music = toggled_on
 		Type.TRAIL:
 			pass
 		Type.METEORITES:

@@ -17,7 +17,7 @@ var _orientation := 0
 
 
 static func create() -> PiranhaPart:
-	return load("res://scenes/parts/piranha_part.tscn").instantiate()
+	return load("res://scenes/level/parts/piranha_part.tscn").instantiate()
 
 
 static func get_category() -> PaletteCategory:
@@ -75,7 +75,7 @@ func _refresh_preview() -> void:
 
 func build() -> void:
 	refresh_environment()
-	var enemy: PiranhaPlant = load("res://scenes/entities/piranha_plant.tscn").instantiate()
+	var enemy: PiranhaPlant = load("res://scenes/level/entities/piranha_plant.tscn").instantiate()
 	enemy.variant = variant
 	enemy.wings = wings
 	enemy.parachute = parachute

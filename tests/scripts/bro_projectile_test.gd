@@ -158,7 +158,7 @@ func check_boomerang_alarms(direction: int) -> void:
 	await ticks(1)
 	check(is_equal_approx(body.velocity.x, 115.5 * direction), "Boomerang must accelerate into its turn, not reverse instantly")
 	check(absf(body._sprite.rotation_degrees) > 500, "Boomerang art never rotated")
-	var owner: HammerBro = load("res://scenes/entities/hammer_bro.tscn").instantiate()
+	var owner: HammerBro = load("res://scenes/level/entities/hammer_bro.tscn").instantiate()
 	owner.position = Vector2(700 if direction > 0 else 100, -96)
 	level.current_sub_area.add(owner)
 	owner.set_physics_process(false)
@@ -234,7 +234,7 @@ func check_freeze_and_retry() -> void:
 	check(player.is_frozen() and not is_instance_valid(body), "Ice overlap should freeze Mario and consume the snowball")
 	check(player.get_powerup() is SuperPowerup and player.has_helmet(), "Freezing consumed Mario's power or helmet like generic damage")
 	# Native Areas can still deliver a contact queued before layer0 was applied.
-	var stale: HammerBro = load("res://scenes/entities/hammer_bro.tscn").instantiate()
+	var stale: HammerBro = load("res://scenes/level/entities/hammer_bro.tscn").instantiate()
 	stale.position = player.position + Vector2(0, 16)
 	level.current_sub_area.add(stale)
 	stale.set_physics_process(false)
@@ -301,7 +301,7 @@ func capture_status() -> void:
 	var level := await make_level()
 	var player := level.hud.player
 	player.equip_buzzy_helmet()
-	var bro: HammerBro = load("res://scenes/entities/hammer_bro.tscn").instantiate()
+	var bro: HammerBro = load("res://scenes/level/entities/hammer_bro.tscn").instantiate()
 	bro.variant = preload("res://resources/content/smw_hammerbro_sledge.tres")
 	bro.wings = true
 	bro.position = Vector2(304, -96)

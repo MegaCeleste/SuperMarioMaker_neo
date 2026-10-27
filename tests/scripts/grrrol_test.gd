@@ -49,7 +49,7 @@ func rolling_level() -> Level:
 
 
 func rolling(level: Level, data: GrrrolVariant = SMALL, at := Vector2(480, -224), automatic := false, direction := 2) -> Grrrol:
-	var body: Grrrol = load("res://scenes/entities/grrrol.tscn").instantiate()
+	var body: Grrrol = load("res://scenes/level/entities/grrrol.tscn").instantiate()
 	body.variant = data
 	body.attack_direction = direction
 	body.position = at
@@ -427,7 +427,7 @@ func check_hard_contacts(data: GrrrolVariant) -> void:
 	body._stomped(player)
 	check(not body.is_queued_for_deletion() and player.velocity.y < 0 and player.score == 0, "Spin jump must recoil from Grrrol without defeat points")
 	player.state_machine.switch(PlayerIdleState)
-	var shell: KoopaShell = load("res://scenes/entities/koopa_shell.tscn").instantiate()
+	var shell: KoopaShell = load("res://scenes/level/entities/koopa_shell.tscn").instantiate()
 	shell.position = Vector2(430, -96)
 	area.add(shell)
 	player.direction = 1
@@ -436,7 +436,7 @@ func check_hard_contacts(data: GrrrolVariant) -> void:
 	await ticks(18)
 	check(not is_instance_valid(shell) and is_instance_valid(body) and player.score == 0, "Moving shell defeated Grrrol, survived contact or awarded a combo")
 	body.position = Vector2(480, -160)
-	var monty: Monty = load("res://scenes/entities/monty.tscn").instantiate()
+	var monty: Monty = load("res://scenes/level/entities/monty.tscn").instantiate()
 	monty.position = body.position
 	area.add(monty)
 	monty.set_physics_process(false)
@@ -464,7 +464,7 @@ func check_hard_contacts(data: GrrrolVariant) -> void:
 func check_delayed_break(retry: bool) -> void:
 	var level := await rolling_level()
 	var area := level.current_sub_area
-	var block: QuestionBlock = load("res://scenes/tiles/question_block.tscn").instantiate()
+	var block: QuestionBlock = load("res://scenes/level/tiles/question_block.tscn").instantiate()
 	block.position = Vector2(528, -128)
 	area.add(block)
 	await ticks(2)
@@ -516,7 +516,7 @@ func check_mario_and_block(data: GrrrolVariant) -> void:
 	level = await rolling_level()
 	area = level.current_sub_area
 	player = level.hud.player
-	var block: QuestionBlock = load("res://scenes/tiles/question_block.tscn").instantiate()
+	var block: QuestionBlock = load("res://scenes/level/tiles/question_block.tscn").instantiate()
 	block.position = Vector2(480, -176)
 	area.add(block)
 	body = rolling(level, data, Vector2(488, Utility.get_bounding_box(block).position.y))

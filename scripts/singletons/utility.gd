@@ -134,6 +134,24 @@ func get_bounding_box(obj: CollisionObject2D) -> Rect2:
 	return obj.global_transform * rect
 
 
+func query_rect(center: Vector2, size: Vector2) -> PhysicsShapeQueryParameters2D:
+	var query = PhysicsShapeQueryParameters2D.new()
+	query.shape = RectangleShape2D.new()
+	query.shape.size = size
+	query.transform.origin = center
+	return query
+
+
+## Creates a tween that shakes [param node].
+func shake(node: Node2D) -> Tween:
+	var tween = node.create_tween()
+	tween.set_loops()
+	tween.tween_property(node, ^"position:x", node.position.x + 1, 0.025)
+	tween.tween_property(node, ^"position:x", node.position.x - 1, 0.05)
+	tween.tween_property(node, ^"position:x", node.position.x, 0.025)
+	return tween
+
+
 func _get_camera_position_raw() -> Vector2:
 	return -get_viewport().canvas_transform.origin + camera_effect * camera_scale + camera_render_offset
 

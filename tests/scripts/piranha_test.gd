@@ -54,7 +54,7 @@ func park(player: Player, pos := Vector2(64, -16)) -> void:
 
 
 func actor_at(level: Level, variant := JUMP, pos := Vector2(200, -96), wings := false, parachute := false) -> PiranhaPlant:
-	var body: PiranhaPlant = load("res://scenes/entities/piranha_plant.tscn").instantiate()
+	var body: PiranhaPlant = load("res://scenes/level/entities/piranha_plant.tscn").instantiate()
 	body.variant = variant
 	body.position = pos
 	body.wings = wings
@@ -460,7 +460,7 @@ func check_shells_and_helmets() -> void:
 	var player := level.hud.player
 	var body := actor_at(level, JUMP, Vector2(500, -96))
 	body.set_physics_process(false)
-	var shell: KoopaShell = load("res://scenes/entities/koopa_shell.tscn").instantiate()
+	var shell: KoopaShell = load("res://scenes/level/entities/koopa_shell.tscn").instantiate()
 	shell.position = Vector2(440, -96)
 	level.current_sub_area.add(shell)
 	await ticks(20)

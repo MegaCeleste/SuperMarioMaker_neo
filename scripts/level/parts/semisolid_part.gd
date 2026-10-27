@@ -25,7 +25,7 @@ var _ordered_y := INF
 
 ## Instantiates the native editor scene; the area supplies context when inserting it.
 static func create() -> SemisolidPart:
-	return load("res://scenes/parts/semisolid_part.tscn").instantiate()
+	return load("res://scenes/level/parts/semisolid_part.tscn").instantiate()
 
 
 ## Returns the palette/search name shared by the three appearances.

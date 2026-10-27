@@ -1,6 +1,6 @@
 # SMMneo: running and reviewing
 
-This is a local SMW-focused development branch based on GodotWE `4a836e6`.
+This is a local SMW-focused development branch based on GodotWE `4a836e6`, merged with upstream `b029b73` (UPSTREAM-SYNC-2026-10-27.md).
 It adds native gameplay, editor/history and SWE preservation. It is not a
 complete SMM:WE replacement or an online client, and upstream acceptance has
 not been agreed. The detailed historical record remains in HANDOFF.md.

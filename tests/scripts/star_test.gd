@@ -176,7 +176,7 @@ func check_contacts(level: Level) -> void:
 	var before := player.score
 	var lives := player.extra_lives
 	for index in 8:
-		var enemy: Enemy = load("res://scenes/entities/galoomba.tscn").instantiate()
+		var enemy: Enemy = load("res://scenes/level/entities/galoomba.tscn").instantiate()
 		enemy.position = player.position
 		level.current_sub_area.add(enemy)
 		await ticks(3)
@@ -184,12 +184,12 @@ func check_contacts(level: Level) -> void:
 	check(player.score == before + 16400 and player.extra_lives == lives + 1, "Star combo did not progress200..8000 then1UP")
 	check(not player.is_dead() and not player.state_machine.current_state is PlayerJumpingState, "Star contacts became ordinary damage/stomps")
 	for scene in ["buzzy_beetle", "thwomp", "chain_chomp", "koopa_shell"]:
-		var enemy: Enemy = load("res://scenes/entities/%s.tscn" % scene).instantiate()
+		var enemy: Enemy = load("res://scenes/level/entities/%s.tscn" % scene).instantiate()
 		enemy.position = player.position
 		level.current_sub_area.add(enemy)
 		await ticks(3)
 		check(not is_instance_valid(enemy), "Star incorrectly inherited ordinary fire/shell resistance: " + scene)
-	var flipped: StompedGaloomba = load("res://scenes/entities/stomped_galoomba.tscn").instantiate()
+	var flipped: StompedGaloomba = load("res://scenes/level/entities/stomped_galoomba.tscn").instantiate()
 	flipped.position = player.position
 	level.current_sub_area.add(flipped)
 	await ticks(3)

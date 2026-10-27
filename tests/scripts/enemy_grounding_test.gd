@@ -58,7 +58,7 @@ func primary_sprite(body: Node) -> AnimatedSprite2D:
 
 
 func check_grounded(level: Level, scene_name: String, resource_name: String, inverted := false, ceiling := false) -> void:
-	var body: CharacterBody2D = load("res://scenes/entities/%s.tscn" % scene_name).instantiate()
+	var body: CharacterBody2D = load("res://scenes/level/entities/%s.tscn" % scene_name).instantiate()
 	body.set("variant", load("res://resources/content/%s.tres" % resource_name))
 	if body is KoopaShell:
 		body.inverted = inverted

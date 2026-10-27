@@ -39,8 +39,8 @@ func make_level() -> Level:
 
 
 func actor_at(level: Level, variant: Resource, pos: Vector2, wings := true, parachute := false) -> Enemy:
-	var actor: Enemy = load("res://scenes/entities/galoomba.tscn" if variant is GoombaVariant
-			else "res://scenes/entities/green_koopa.tscn").instantiate()
+	var actor: Enemy = load("res://scenes/level/entities/galoomba.tscn" if variant is GoombaVariant
+			else "res://scenes/level/entities/green_koopa.tscn").instantiate()
 	actor.variant = variant
 	actor.position = pos
 	actor.get_node("FlightComponent").wings = wings

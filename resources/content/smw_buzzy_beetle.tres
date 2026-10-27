@@ -18,6 +18,6 @@ inside_sprite = &"spr_shell_buzzy"
 dead_sprite = &"spr_shell_buzzy_deads"
 flight = ExtResource("3")
 mask_width = 12.0
-restore_scene = "res://scenes/entities/buzzy_beetle.tscn"
+restore_scene = "res://scenes/level/entities/buzzy_beetle.tscn"
 recovery_time = 10.6666666667
 fireproof = true

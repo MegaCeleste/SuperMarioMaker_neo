@@ -16,7 +16,7 @@ var _decoration: EnemyPartDecoration
 
 
 static func create() -> CheepCheepPart:
-	return load("res://scenes/parts/cheep_cheep_part.tscn").instantiate()
+	return load("res://scenes/level/parts/cheep_cheep_part.tscn").instantiate()
 
 
 static func get_category() -> PaletteCategory:
@@ -52,7 +52,7 @@ func is_in_water() -> bool:
 
 
 func build() -> void:
-	var enemy: CheepCheep = load("res://scenes/entities/cheep_cheep.tscn").instantiate()
+	var enemy: CheepCheep = load("res://scenes/level/entities/cheep_cheep.tscn").instantiate()
 	enemy.variant = variant
 	enemy.wings = wings
 	enemy.parachute = parachute

@@ -12,7 +12,7 @@ static func is_multiplaceable() -> bool:
 
 
 static func create() -> CloudPart:
-	return load("res://scenes/parts/cloud_part.tscn").instantiate()
+	return load("res://scenes/level/parts/cloud_part.tscn").instantiate()
 
 
 static func texture_for(area: SubArea) -> Texture2D:

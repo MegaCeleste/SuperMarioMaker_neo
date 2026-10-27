@@ -8,7 +8,7 @@
 [resource]
 script = ExtResource("1")
 id = &"red"
-restore_scene = "res://scenes/entities/green_koopa.tscn"
+restore_scene = "res://scenes/level/entities/green_koopa.tscn"
 object_id = "obj_koopa_red_res"
 label = &"EDITOR_KOOPA_RED"
 icon = ExtResource("2")

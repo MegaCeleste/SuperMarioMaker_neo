@@ -13,7 +13,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 
 
 static func create() -> MushroomPart:
-	return load("res://scenes/parts/mushroom_part.tscn").instantiate()
+	return load("res://scenes/level/parts/mushroom_part.tscn").instantiate()
 
 
 func load(placed_from_editor := false) -> void:
@@ -23,6 +23,6 @@ func load(placed_from_editor := false) -> void:
 
 
 func build() -> void:
-	var mushroom: Mushroom = preload("res://scenes/entities/mushroom.tscn").instantiate()
+	var mushroom: Mushroom = preload("res://scenes/level/entities/mushroom.tscn").instantiate()
 	mushroom.position = position + Vector2(8, 16)
 	sub_area.add(mushroom)

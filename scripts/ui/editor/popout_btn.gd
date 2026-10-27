@@ -34,7 +34,6 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
-
 	effect.check_redraw()
 	if _tween != null and _tween.is_valid():
 		queue_redraw()
@@ -85,5 +84,6 @@ func _popout_status_changed(_old_status: EditorPopout.Status) -> void:
 			_tween.tween_property(self, "_progress", 1, 0.1)
 		EditorPopout.Status.CLOSING:
 			set_pressed_no_signal(false)
-			_tween.kill()
+			if _tween != null:
+				_tween.kill()
 			_progress = 0

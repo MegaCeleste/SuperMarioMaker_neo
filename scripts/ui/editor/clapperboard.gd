@@ -26,6 +26,11 @@ func _process(_delta: float) -> void:
 	_effect.check_redraw()
 
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed(&"pause"):
+		_pressed()
+
+
 func _pressed() -> void:
 	_tween = create_tween()
 	_tween.set_trans(Tween.TRANS_SINE)

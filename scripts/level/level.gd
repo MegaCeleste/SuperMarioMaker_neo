@@ -146,6 +146,8 @@ const LEVEL_HEIGHT = 27
 		time_changed.emit()
 ## The clear condition for this level.
 @export var clear_condition := ClearCondition.NONE
+## Whether this level has music enabled.
+@export var music := true
 ## The current [SubArea], that is, the [SubArea] in which entities are active
 ## and the player is in.
 @export var current_sub_area: SubArea
@@ -229,7 +231,7 @@ func _ready() -> void:
 					if part is GoalPolePart:
 						has_goal = true
 				if not has_goal:
-					var goal: GoalPolePart = load("res://scenes/parts/goal_pole_part.tscn").instantiate()
+					var goal: GoalPolePart = load("res://scenes/level/parts/goal_pole_part.tscn").instantiate()
 					var start: StartingGround = i.get_parts().get_node_or_null("StartingGround")
 					goal.position = Vector2(width - 112, (start.position.y if start != null else -32) - 137)
 					i.add_part(goal)
@@ -248,6 +250,7 @@ func _ready() -> void:
 		create_editor()
 		_edit()
 	Utility.camera_scale = Vector2(3, 3)
+	_camera_clamp()
 
 
 func _process(_delta: float) -> void:
@@ -395,26 +398,29 @@ func _play() -> void:
 	hud.show()
 	if editor != null:
 		editor.music_offset = MusicPlayer.get_playback_position()
-	if title_screen:
-		var date = Time.get_datetime_dict_from_system()
-		if date.month == Time.MONTH_DECEMBER:
-			if date.day == 24 or date.day == 25:
-				MusicPlayer.stream = preload("uid://bn00oxygr85n7")
+	if music:
+		if title_screen:
+			var date = Time.get_datetime_dict_from_system()
+			if date.month == Time.MONTH_DECEMBER:
+				if date.day == 24 or date.day == 25:
+					MusicPlayer.stream = preload("uid://bn00oxygr85n7")
+				else:
+					MusicPlayer.stream = preload("uid://6x74u4b7w0al")
 			else:
-				MusicPlayer.stream = preload("uid://6x74u4b7w0al")
+				match game_style:
+					GameStyle.SMB:
+						MusicPlayer.stream = preload("uid://dha58dtfupqng")
+					GameStyle.SMB3:
+						MusicPlayer.stream = preload("uid://dha58dtfupqng")
+					GameStyle.SMW:
+						MusicPlayer.stream = preload("uid://bxnvgrgxf685m")
+					GameStyle.NSMBU:
+						MusicPlayer.stream = preload("uid://chlmxxg0dw2t3")
 		else:
-			match game_style:
-				GameStyle.SMB:
-					MusicPlayer.stream = preload("uid://dha58dtfupqng")
-				GameStyle.SMB3:
-					MusicPlayer.stream = preload("uid://dha58dtfupqng")
-				GameStyle.SMW:
-					MusicPlayer.stream = preload("uid://bxnvgrgxf685m")
-				GameStyle.NSMBU:
-					MusicPlayer.stream = preload("uid://chlmxxg0dw2t3")
+			MusicPlayer.stream = SMWTheme.music_for(current_sub_area, false)
+		MusicPlayer.play()
 	else:
-		MusicPlayer.stream = SMWTheme.music_for(current_sub_area, false)
-	MusicPlayer.play()
+		MusicPlayer.stop()
 
 
 func _edit() -> void:

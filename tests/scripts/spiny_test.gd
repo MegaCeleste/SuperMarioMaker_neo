@@ -54,7 +54,7 @@ func park(player: Player, pos := Vector2(64, -16)) -> void:
 
 
 func spiny_at(level: Level, pos := Vector2(480, -96), wings := false) -> Spiny:
-	var body: Spiny = load("res://scenes/entities/spiny.tscn").instantiate()
+	var body: Spiny = load("res://scenes/level/entities/spiny.tscn").instantiate()
 	body.position = pos
 	body.get_node("FlightComponent").wings = wings
 	level.current_sub_area.add(body)
@@ -62,7 +62,7 @@ func spiny_at(level: Level, pos := Vector2(480, -96), wings := false) -> Spiny:
 
 
 func shell_at(level: Level, pos: Vector2, variant := EMPTY) -> KoopaShell:
-	var shell: KoopaShell = load("res://scenes/entities/koopa_shell.tscn").instantiate()
+	var shell: KoopaShell = load("res://scenes/level/entities/koopa_shell.tscn").instantiate()
 	shell.position = pos
 	shell.variant = variant
 	level.current_sub_area.add(shell)
@@ -316,7 +316,7 @@ func check_flight_and_needles() -> void:
 
 func check_needle_lifetime() -> void:
 	var level := await make_level()
-	var needle: SpinyNeedle = load("res://scenes/entities/spiny_needle.tscn").instantiate()
+	var needle: SpinyNeedle = load("res://scenes/level/entities/spiny_needle.tscn").instantiate()
 	needle.position = Vector2(100, -96)
 	level.current_sub_area.add(needle)
 	await ticks(361)
@@ -330,7 +330,7 @@ func check_needle_lifetime() -> void:
 	level.current_sub_area.add_part(wall)
 	wall.load()
 	wall.build()
-	needle = load("res://scenes/entities/spiny_needle.tscn").instantiate()
+	needle = load("res://scenes/level/entities/spiny_needle.tscn").instantiate()
 	needle.position = Vector2(100, -104)
 	needle.velocity.x = 42
 	level.current_sub_area.add(needle)
@@ -338,7 +338,7 @@ func check_needle_lifetime() -> void:
 	check(is_instance_valid(needle) and needle.position.x > 148,
 			"Independent needle collided with solid native terrain")
 	needle.queue_free()
-	needle = load("res://scenes/entities/spiny_needle.tscn").instantiate()
+	needle = load("res://scenes/level/entities/spiny_needle.tscn").instantiate()
 	needle.position = Vector2(10000, -96)
 	level.current_sub_area.add(needle)
 	await ticks(2)
@@ -364,7 +364,7 @@ func check_helmet() -> void:
 	check(not is_instance_valid(shell) and player.has_helmet() and player.score == 400,
 			"Spiny helmet did not defeat the shell-specific stationary object")
 	Input.action_press("player_run")
-	shell = load("res://scenes/entities/koopa_shell.tscn").instantiate()
+	shell = load("res://scenes/level/entities/koopa_shell.tscn").instantiate()
 	shell.variant = NORMAL
 	shell.motion = KoopaShell.Motion.MOVING
 	shell.position = Vector2(400, -180)
@@ -373,7 +373,7 @@ func check_helmet() -> void:
 	check(not is_instance_valid(shell) and player.has_helmet() and player.score == 600,
 			"Holding Run incorrectly disabled the Spiny helmet against moving shells")
 	release_input()
-	var carried: StompedGaloomba = load("res://scenes/entities/stomped_galoomba.tscn").instantiate()
+	var carried: StompedGaloomba = load("res://scenes/level/entities/stomped_galoomba.tscn").instantiate()
 	carried.position = Vector2(400, -180)
 	level.current_sub_area.add(carried)
 	var deflected := false
@@ -401,7 +401,7 @@ func check_helmet() -> void:
 	await ticks(1)
 	player.state_machine.switch(PlayerSpinJumpingState)
 	player.velocity.y = 0
-	var needle: SpinyNeedle = load("res://scenes/entities/spiny_needle.tscn").instantiate()
+	var needle: SpinyNeedle = load("res://scenes/level/entities/spiny_needle.tscn").instantiate()
 	needle.position = player.position + Vector2(0, -9)
 	level.current_sub_area.add(needle)
 	await ticks(3)
@@ -435,7 +435,7 @@ func check_continuous_needle_contact() -> void:
 	var player := level.hud.player
 	park(player, Vector2(400, -96))
 	player.equip_shell_helmet(EMPTY.helmet_rules)
-	var needle: SpinyNeedle = load("res://scenes/entities/spiny_needle.tscn").instantiate()
+	var needle: SpinyNeedle = load("res://scenes/level/entities/spiny_needle.tscn").instantiate()
 	needle.position = player.position + Vector2(0, -9)
 	level.current_sub_area.add(needle)
 	await ticks(3)

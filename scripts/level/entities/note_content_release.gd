@@ -17,12 +17,12 @@ func _physics_process(_delta: float) -> void:
 	var item: CharacterBodyExt
 	var player := sub_area.level.hud.player
 	match content_id:
-		&"mushroom": item = load("res://scenes/entities/mushroom.tscn").instantiate()
+		&"mushroom": item = load("res://scenes/level/entities/mushroom.tscn").instantiate()
 		&"one_up": item = OneUp.new()
 		&"star": item = SuperStar.new()
 		&"flower", &"progressive_flower":
 			if content_id == &"progressive_flower" and is_instance_valid(player) and player.get_powerup() is SmallPowerup:
-				item = load("res://scenes/entities/mushroom.tscn").instantiate()
+				item = load("res://scenes/level/entities/mushroom.tscn").instantiate()
 			else:
 				item = FireFlower.new()
 	if item != null:

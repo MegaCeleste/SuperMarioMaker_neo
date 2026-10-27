@@ -124,7 +124,7 @@ func _ready() -> void:
 		stomped.queue_free()
 	check(player.score == 1600, "A normal stomp awarded score more than once")
 
-	var spin_enemy := preload("res://scenes/entities/galoomba.tscn").instantiate()
+	var spin_enemy := preload("res://scenes/level/entities/galoomba.tscn").instantiate()
 	spin_enemy.position = Vector2(600, -16)
 	level.current_sub_area.add(spin_enemy)
 	player.position = Vector2(600, -90)

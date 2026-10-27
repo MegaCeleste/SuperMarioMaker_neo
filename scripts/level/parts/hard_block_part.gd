@@ -16,7 +16,7 @@ static func is_multiplaceable() -> bool:
 
 
 static func create() -> HardBlockPart:
-	return load("res://scenes/parts/hard_block_part.tscn").instantiate()
+	return load("res://scenes/level/parts/hard_block_part.tscn").instantiate()
 
 
 static func sprite_for(area: SubArea) -> StringName:

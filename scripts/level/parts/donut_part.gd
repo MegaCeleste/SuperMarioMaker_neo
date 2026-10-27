@@ -12,7 +12,7 @@ static func is_multiplaceable() -> bool:
 
 
 static func create() -> DonutPart:
-	return load("res://scenes/parts/donut_part.tscn").instantiate()
+	return load("res://scenes/level/parts/donut_part.tscn").instantiate()
 
 
 func load(placed_from_editor := false) -> void:

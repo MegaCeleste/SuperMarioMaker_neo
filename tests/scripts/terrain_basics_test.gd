@@ -224,7 +224,7 @@ func check_cloud(level: Level) -> void:
 	check(player.position.x > 425, "Cloud underside/side obstructed Mario")
 	release_input()
 	park(player)
-	var enemy: Enemy = load("res://scenes/entities/galoomba.tscn").instantiate()
+	var enemy: Enemy = load("res://scenes/level/entities/galoomba.tscn").instantiate()
 	enemy.position = Vector2(456, -130)
 	enemy.get_node("SlideComponent").direction = 1
 	level.current_sub_area.add(enemy)
@@ -326,7 +326,7 @@ func capture_runtime(level: Level) -> void:
 		terrain(level, SpikeTile, Vector2(608 + i * 16, -32))
 	for i in 7:
 		terrain(level, CloudPlatform, Vector2(480 + i * 16, -96))
-	var enemy: Enemy = load("res://scenes/entities/galoomba.tscn").instantiate()
+	var enemy: Enemy = load("res://scenes/level/entities/galoomba.tscn").instantiate()
 	enemy.position = Vector2(560, -17)
 	level.current_sub_area.add(enemy)
 	var item := OneUp.new()

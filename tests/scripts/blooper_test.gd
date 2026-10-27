@@ -47,7 +47,7 @@ func park(player: Player, pos := Vector2(64, -16)) -> void:
 
 
 func actor_at(level: Level, pos := Vector2(480, -96)) -> Blooper:
-	var actor: Blooper = load("res://scenes/entities/blooper.tscn").instantiate()
+	var actor: Blooper = load("res://scenes/level/entities/blooper.tscn").instantiate()
 	actor.position = pos
 	level.current_sub_area.add(actor)
 	return actor
@@ -248,7 +248,7 @@ func check_projectiles_and_helmets() -> void:
 	check(body.hit_by_projectile(&"fire", 1), "Blooper incorrectly acquired fire resistance")
 	body = actor_at(level, Vector2(500, -96))
 	body.set_physics_process(false)
-	var shell: KoopaShell = load("res://scenes/entities/koopa_shell.tscn").instantiate()
+	var shell: KoopaShell = load("res://scenes/level/entities/koopa_shell.tscn").instantiate()
 	shell.position = Vector2(440, -96)
 	level.current_sub_area.add(shell)
 	await ticks(20)

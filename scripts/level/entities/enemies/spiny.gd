@@ -81,7 +81,7 @@ func _fire_needles() -> void:
 		specs = [[Vector2(14, -7), Vector2(1, -1), 315], [Vector2(14, 23), Vector2(1, 1), 225],
 			[Vector2(-14, 23), Vector2(-1, 1), 135], [Vector2(-14, -7), Vector2(-1, -1), 45]]
 	for spec in specs:
-		var needle: SpinyNeedle = load("res://scenes/entities/spiny_needle.tscn").instantiate()
+		var needle: SpinyNeedle = load("res://scenes/level/entities/spiny_needle.tscn").instantiate()
 		needle.variant = variant
 		needle.position = sub_area.get_foreground().to_local(global_position + Vector2(0, -16) + spec[0])
 		needle.velocity = spec[1] * variant.needle_speed
@@ -130,7 +130,7 @@ func _drop_wing() -> void:
 
 
 func _make_flipped_shell() -> KoopaShell:
-	var shell: KoopaShell = load("res://scenes/entities/koopa_shell.tscn").instantiate()
+	var shell: KoopaShell = load("res://scenes/level/entities/koopa_shell.tscn").instantiate()
 	shell.variant = variant
 	shell.inverted = true
 	shell.facing_direction = $SlideComponent.direction

@@ -33,7 +33,7 @@ func _ready() -> void:
 
 
 func actor(level: Level, scene: String, at := Vector2(480, -180)) -> CharacterBodyExt:
-	var body: CharacterBodyExt = load("res://scenes/entities/" + scene + ".tscn").instantiate()
+	var body: CharacterBodyExt = load("res://scenes/level/entities/" + scene + ".tscn").instantiate()
 	body.position = at
 	level.current_sub_area.add(body)
 	return body
@@ -120,7 +120,7 @@ func check_independent_objects() -> void:
 
 func check_pending_throw(kind: StringName) -> void:
 	var level := await make_level()
-	var body: HammerBro = load("res://scenes/entities/hammer_bro.tscn").instantiate()
+	var body: HammerBro = load("res://scenes/level/entities/hammer_bro.tscn").instantiate()
 	body.variant = load("res://resources/content/smw_hammerbro_" + String(kind) + ".tres")
 	body.position = Vector2(480.4, -96)
 	level.current_sub_area.add(body)
@@ -168,7 +168,7 @@ func check_replacement_targets() -> void:
 	var mole: Monty = actor(level, "monty", Vector2(320, -96))
 	var rocky: Rocky = actor(level, "rocky", Vector2(320, -160))
 	var bro: HammerBro = actor(level, "hammer_bro", Vector2(320, -96))
-	var plant: PiranhaPlant = load("res://scenes/entities/piranha_plant.tscn").instantiate()
+	var plant: PiranhaPlant = load("res://scenes/level/entities/piranha_plant.tscn").instantiate()
 	plant.variant = preload("res://resources/content/smw_piranha_fire.tres")
 	plant.position = Vector2(320, -96)
 	level.current_sub_area.add(plant)

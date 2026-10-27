@@ -350,7 +350,7 @@ ActorActivity按屏幕附近的活动带管理部分对象的暂停与恢复，�
 顶部高度排序。此前直接把源深度算成很小的Godot z值，会让平台画到自身
 阴影下面变暗，真实GPU检查发现后已修正。
 
-入口：`parts/semisolid_part.gd`、`scenes/parts/semisolid_part.tscn`。
+入口：`parts/semisolid_part.gd`、`scenes/level/parts/semisolid_part.tscn`。
 验证放置/拉伸/外观/撤销、两种保存集合、奇偶宽全部主题、真实穿过/落地、
 怪物和蘑菇站立、重叠后移动排序及60/120fps画面。
 

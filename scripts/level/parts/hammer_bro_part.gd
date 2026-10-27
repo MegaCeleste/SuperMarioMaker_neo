@@ -18,7 +18,7 @@ var _decoration: EnemyPartDecoration
 
 
 static func create() -> HammerBroPart:
-	return load("res://scenes/parts/hammer_bro_part.tscn").instantiate()
+	return load("res://scenes/level/parts/hammer_bro_part.tscn").instantiate()
 
 
 static func get_category() -> PaletteCategory:
@@ -60,7 +60,7 @@ func _refresh_preview() -> void:
 
 
 func build() -> void:
-	var body: HammerBro = load("res://scenes/entities/hammer_bro.tscn").instantiate()
+	var body: HammerBro = load("res://scenes/level/entities/hammer_bro.tscn").instantiate()
 	body.variant = variant
 	body.wings = wings
 	body.parachute = parachute if variant.sledge else false

@@ -17,7 +17,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 	return ImageTexture.create_from_image(icon)
 
 static func create() -> SpringPart:
-	return load("res://scenes/parts/spring_part.tscn").instantiate()
+	return load("res://scenes/level/parts/spring_part.tscn").instantiate()
 
 func load(placed_from_editor := false) -> void:
 	super(placed_from_editor)
@@ -25,6 +25,6 @@ func load(placed_from_editor := false) -> void:
 	$Graphics/Sprite.position.y = 1
 
 func build() -> void:
-	var spring := load("res://scenes/entities/spring.tscn").instantiate() as Spring
+	var spring := load("res://scenes/level/entities/spring.tscn").instantiate() as Spring
 	spring.position = position + Vector2(8, 16)
 	sub_area.add(spring)

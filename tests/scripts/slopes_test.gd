@@ -397,7 +397,7 @@ func check_jump_slide(level: Level) -> void:
 	await ticks(12)
 	Input.action_press("player_down")
 	await ticks(10)
-	var enemy: Galoomba = load("res://scenes/entities/galoomba.tscn").instantiate()
+	var enemy: Galoomba = load("res://scenes/level/entities/galoomba.tscn").instantiate()
 	enemy.position = player.position + Vector2(12, 3)
 	level.current_sub_area.add(enemy)
 	await ticks(5)

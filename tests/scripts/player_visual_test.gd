@@ -120,7 +120,7 @@ func check_growth(level: Level, player: Player, direction: int) -> void:
 	await ticks(3)
 	Input.action_press("player_right" if direction > 0 else "player_left")
 	await ticks(15)
-	var mushroom: Mushroom = load("res://scenes/entities/mushroom.tscn").instantiate()
+	var mushroom: Mushroom = load("res://scenes/level/entities/mushroom.tscn").instantiate()
 	mushroom.position = player.position + Vector2(direction * 12, -8)
 	level.current_sub_area.add(mushroom)
 	var before := player.position
@@ -185,7 +185,7 @@ func check_airborne_growth(level: Level, player: Player) -> void:
 	player.position.y = -160
 	player.state_machine.switch(PlayerFallingState)
 	player.velocity.y = -120
-	var mushroom: Mushroom = load("res://scenes/entities/mushroom.tscn").instantiate()
+	var mushroom: Mushroom = load("res://scenes/level/entities/mushroom.tscn").instantiate()
 	mushroom.position = player.position
 	level.current_sub_area.add(mushroom)
 	await ticks(3)
@@ -220,7 +220,7 @@ func check_low_ceiling_growth(level: Level, player: Player) -> void:
 	await ticks(4)
 	var before := player.position
 	await capture("growth_before", player)
-	var mushroom: Mushroom = load("res://scenes/entities/mushroom.tscn").instantiate()
+	var mushroom: Mushroom = load("res://scenes/level/entities/mushroom.tscn").instantiate()
 	mushroom.position = player.position
 	level.current_sub_area.add(mushroom)
 	var saw_crouched_growth := false
@@ -312,7 +312,7 @@ func check_one_way_growth(level: Level, player: Player) -> void:
 	level.current_sub_area.add(platform)
 	await ticks(3)
 	var before := player.position
-	var mushroom: Mushroom = load("res://scenes/entities/mushroom.tscn").instantiate()
+	var mushroom: Mushroom = load("res://scenes/level/entities/mushroom.tscn").instantiate()
 	mushroom.position = player.position
 	level.current_sub_area.add(mushroom)
 	await ticks(45)
@@ -364,7 +364,7 @@ func check_super_mushroom(level: Level, player: Player) -> void:
 	player.set_powerup(SuperPowerup.new(), false)
 	await ticks(3)
 	var score := player.score
-	var mushroom: Mushroom = load("res://scenes/entities/mushroom.tscn").instantiate()
+	var mushroom: Mushroom = load("res://scenes/level/entities/mushroom.tscn").instantiate()
 	mushroom.position = player.position
 	level.current_sub_area.add(mushroom)
 	await ticks(3)
@@ -410,7 +410,7 @@ func capture_motion_sequence(level: Level, player: Player, direction: int) -> vo
 	Input.action_press("player_right" if direction > 0 else "player_left")
 	for frame in 120:
 		if frame == 22:
-			var mushroom: Mushroom = load("res://scenes/entities/mushroom.tscn").instantiate()
+			var mushroom: Mushroom = load("res://scenes/level/entities/mushroom.tscn").instantiate()
 			mushroom.position = player.position + Vector2(direction * 12, -8)
 			level.current_sub_area.add(mushroom)
 		if frame == 80:

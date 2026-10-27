@@ -51,7 +51,7 @@ func make_level(theme := Level.LevelTheme.OVERWORLD, night := false) -> Level:
 
 
 func actor_at(level: Level, variant := RED, pos := Vector2(480, -96), wings := false, parachute := false) -> CheepCheep:
-	var body: CheepCheep = load("res://scenes/entities/cheep_cheep.tscn").instantiate()
+	var body: CheepCheep = load("res://scenes/level/entities/cheep_cheep.tscn").instantiate()
 	body.variant = variant
 	body.position = pos
 	body.wings = wings
@@ -377,7 +377,7 @@ func check_projectiles_and_helmets() -> void:
 	check(body.hit_by_projectile(&"fire", 1), "Cheep Cheep incorrectly acquired fire resistance")
 	body = actor_at(level, YELLOW, Vector2(500, -96))
 	body.set_physics_process(false)
-	var shell: KoopaShell = load("res://scenes/entities/koopa_shell.tscn").instantiate()
+	var shell: KoopaShell = load("res://scenes/level/entities/koopa_shell.tscn").instantiate()
 	shell.position = Vector2(440, -96)
 	level.current_sub_area.add(shell)
 	await ticks(20)

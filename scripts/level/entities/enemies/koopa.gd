@@ -28,10 +28,10 @@ func _stomped(player: Player) -> void:
 		return
 	if $FlightComponent.strip_wings():
 		return
-	var shell: KoopaShell = load("res://scenes/entities/koopa_shell.tscn").instantiate()
+	var shell: KoopaShell = load("res://scenes/level/entities/koopa_shell.tscn").instantiate()
 	shell.variant = variant
 	shell.position = sub_area.get_foreground().to_local(global_position)
-	var beach: BeachKoopa = load("res://scenes/entities/beach_koopa.tscn").instantiate()
+	var beach: BeachKoopa = load("res://scenes/level/entities/beach_koopa.tscn").instantiate()
 	beach.variant = variant
 	beach.position = shell.position
 	beach.direction = 1 if player.global_position.x <= global_position.x else -1

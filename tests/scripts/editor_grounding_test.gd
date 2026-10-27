@@ -99,7 +99,7 @@ func contact_side(part: Part) -> int:
 
 func check_preview(level: Level, entry: Dictionary) -> void:
 	var area := level.current_sub_area
-	var part: Part = load("res://scenes/parts/%s_part.tscn" % entry.scene).instantiate()
+	var part: Part = load("res://scenes/level/parts/%s_part.tscn" % entry.scene).instantiate()
 	if entry.variant != null:
 		part.set("variant", entry.variant)
 		if entry.variant is GrrrolVariant:

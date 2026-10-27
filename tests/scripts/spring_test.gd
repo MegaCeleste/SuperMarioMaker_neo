@@ -103,7 +103,7 @@ func _ready() -> void:
 	check(normal > 34 and high > normal + 50 and absf(spin_high - high) < 1,
 		"Holding Jump/Spin did not produce the higher spring launch")
 	park(player, Vector2(160, -64))
-	var item: Mushroom = load("res://scenes/entities/mushroom.tscn").instantiate()
+	var item: Mushroom = load("res://scenes/level/entities/mushroom.tscn").instantiate()
 	item.position = spring.position + Vector2(0, -30)
 	item.get_node("SlideComponent").speed = 0
 	level.current_sub_area.add(item)

@@ -85,7 +85,7 @@ func _replace_with_mushroom() -> void:
 	_collected = true
 	# ActorContacts references both powerup controllers. Resolve the replacement
 	# at runtime so that dependency does not preload an unfinished PackedScene.
-	var mushroom: Mushroom = load("res://scenes/entities/mushroom.tscn").instantiate()
+	var mushroom: Mushroom = load("res://scenes/level/entities/mushroom.tscn").instantiate()
 	mushroom.position = position
 	sub_area.add_deferred(mushroom)
 	queue_free()

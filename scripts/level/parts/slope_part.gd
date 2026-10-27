@@ -18,7 +18,7 @@ var _handles: Node2D
 static var _surfaces: Dictionary = {}
 var _art_key: Array = []
 var _fusion_floors: Dictionary[int, float] = {}
-const GROUND = preload("res://textures/tiles/ground.png")
+const GROUND = preload("res://textures/styles/smw/tiles/ground/overworld.png")
 const MAX_RISE := 11
 
 
@@ -39,7 +39,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 
 
 static func create() -> SlopePart:
-	return load("res://scenes/parts/slope_part.tscn").instantiate()
+	return load("res://scenes/level/parts/slope_part.tscn").instantiate()
 
 
 static func is_placeable(grid_pos: Vector2i, world: World2D) -> bool:

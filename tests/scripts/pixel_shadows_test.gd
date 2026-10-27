@@ -157,7 +157,7 @@ func capture_native() -> void:
 			floor_y = part.position.y
 			break
 	for row in [["koopa", 272], ["monty", 368], ["hammer_bro", 448], ["grrrol", 512]]:
-		var part: Part = load("res://scenes/parts/%s_part.tscn" % row[0]).instantiate()
+		var part: Part = load("res://scenes/level/parts/%s_part.tscn" % row[0]).instantiate()
 		part.position = Vector2(row[1], floor_y - (32 if row[0] == "grrrol" else 16))
 		level.current_sub_area.add_part(part)
 		part.load()

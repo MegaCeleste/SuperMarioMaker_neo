@@ -169,8 +169,9 @@ func add(node: Node) -> void:
 			if part is SlopePart:
 				SlopeBody.configure(node)
 				break
-	if node is Entity:
+	if "level" in node:
 		node.level = level
+	if "sub_area" in node:
 		node.sub_area = self
 	%Foreground.add_child(node)
 	if node is CharacterBodyExt and actor_activity != null:
@@ -222,6 +223,7 @@ func _play() -> void:
 		if i is not Part:
 			continue
 		i.build()
+	reset_physics_interpolation.call_deferred()
 	%Parts.hide()
 	%Parts.process_mode = Node.PROCESS_MODE_DISABLED
 

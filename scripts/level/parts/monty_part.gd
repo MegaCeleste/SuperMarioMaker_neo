@@ -11,7 +11,7 @@ var _decoration: EnemyPartDecoration
 
 
 static func create() -> MontyPart:
-	return load("res://scenes/parts/monty_part.tscn").instantiate()
+	return load("res://scenes/level/parts/monty_part.tscn").instantiate()
 
 
 static func get_category() -> PaletteCategory:
@@ -46,7 +46,7 @@ func _refresh_preview() -> void:
 
 
 func build() -> void:
-	var body: Monty = load("res://scenes/entities/monty.tscn").instantiate()
+	var body: Monty = load("res://scenes/level/entities/monty.tscn").instantiate()
 	body.variant = variant
 	body.wings = wings
 	body.parachute = parachute

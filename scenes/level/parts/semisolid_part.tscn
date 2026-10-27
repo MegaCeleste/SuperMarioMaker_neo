@@ -1,0 +1,10 @@
+[gd_scene format=3]
+[ext_resource type="PackedScene" path="res://scenes/level/parts/part.tscn" id="1"]
+[ext_resource type="Script" path="res://scripts/level/parts/semisolid_part.gd" id="2"]
+[node name="SemisolidPart" instance=ExtResource("1")]
+script = ExtResource("2")
+[node name="Graphics" parent="." index="1"]
+position = Vector2(0, 0)
+z_index = 0
+[node name="Sprite" type="Sprite2D" parent="Graphics" index="0"]
+centered = false

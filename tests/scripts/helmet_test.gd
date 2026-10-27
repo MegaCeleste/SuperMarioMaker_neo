@@ -31,7 +31,7 @@ func park(player: Player, pos := Vector2(400, -16)) -> void:
 
 
 func shell_at(level: Level, pos: Vector2, variant := EMPTY) -> KoopaShell:
-	var shell: KoopaShell = load("res://scenes/entities/koopa_shell.tscn").instantiate()
+	var shell: KoopaShell = load("res://scenes/level/entities/koopa_shell.tscn").instantiate()
 	shell.variant = variant
 	shell.position = pos
 	level.current_sub_area.add(shell)

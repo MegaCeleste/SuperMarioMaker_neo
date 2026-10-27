@@ -50,6 +50,17 @@ func _ready() -> void:
 			terrain += 1
 	check(goals == 1 and terrain == 1, "New-course goal or painted terrain was lost")
 	reopened.free()
+	# Physics picking can deliver the placing press on a later frame at high refresh rates.
+	var press := InputEventMouseButton.new()
+	press.button_index = MOUSE_BUTTON_LEFT
+	press.pressed = true
+	ground._input_event(get_viewport(), press, 0)
+	check(not ground.held and fresh.editor.held_part == null, "The press that placed terrain grabbed it on a later frame")
+	Editor.presses += 1
+	ground._input_event(get_viewport(), press, 0)
+	check(ground.held, "A new press could not grab placed terrain")
+	ground.held = false
+	await ticks(2)
 	var left := GroundPart.create()
 	left.position = Vector2(128, -32)
 	fresh.current_sub_area.add_part(left)

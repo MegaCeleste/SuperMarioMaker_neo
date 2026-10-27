@@ -6,8 +6,8 @@ extends RiseSprout
 
 func _init() -> void:
 	resource_local_to_scene = true
-	item = preload("res://scenes/entities/mushroom.tscn")
-	texture = preload("res://textures/smw/entities/mushroom.png")
+	item = preload("res://scenes/level/entities/mushroom.tscn")
+	texture = preload("res://textures/styles/smw/entities/mushroom.png")
 	if SpriteLibrary.has_sprite(&"spr_mushroom"):
 		texture = SpriteLibrary.get_frames(&"spr_mushroom").get_frame_texture(&"default", 0)
 	offset = Vector2(0, 8)

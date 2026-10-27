@@ -90,7 +90,7 @@ func _recover() -> void:
 	if _recovering:
 		return
 	_recovering = true
-	var enemy: Galoomba = load("res://scenes/entities/galoomba.tscn").instantiate()
+	var enemy: Galoomba = load("res://scenes/level/entities/galoomba.tscn").instantiate()
 	enemy.variant = variant
 	enemy.position = sub_area.get_foreground().to_local(global_position)
 	enemy.get_node("SlideComponent").direction = recovery_direction

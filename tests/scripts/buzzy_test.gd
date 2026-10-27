@@ -46,7 +46,7 @@ func ground_at(level: Level, pos: Vector2) -> void:
 
 
 func beetle_at(level: Level, pos := Vector2(480, -96), wings := false, parachute := false) -> BuzzyBeetle:
-	var body: BuzzyBeetle = load("res://scenes/entities/buzzy_beetle.tscn").instantiate()
+	var body: BuzzyBeetle = load("res://scenes/level/entities/buzzy_beetle.tscn").instantiate()
 	body.position = pos
 	body.get_node("FlightComponent").wings = wings
 	body.get_node("FlightComponent").parachute = parachute
@@ -55,7 +55,7 @@ func beetle_at(level: Level, pos := Vector2(480, -96), wings := false, parachute
 
 
 func shell_at(level: Level, pos := Vector2(480, -96), variant := BEETLE) -> KoopaShell:
-	var shell: KoopaShell = load("res://scenes/entities/koopa_shell.tscn").instantiate()
+	var shell: KoopaShell = load("res://scenes/level/entities/koopa_shell.tscn").instantiate()
 	shell.position = pos
 	shell.variant = variant
 	level.current_sub_area.add(shell)

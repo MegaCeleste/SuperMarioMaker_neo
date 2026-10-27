@@ -16,7 +16,7 @@ var _ceiling := false
 
 
 static func create() -> SpinyPart:
-	return load("res://scenes/parts/spiny_part.tscn").instantiate()
+	return load("res://scenes/level/parts/spiny_part.tscn").instantiate()
 
 
 static func get_category() -> PaletteCategory:
@@ -60,12 +60,12 @@ func _refresh_preview() -> void:
 
 func build() -> void:
 	if variant.empty_shell:
-		var shell: KoopaShell = load("res://scenes/entities/koopa_shell.tscn").instantiate()
+		var shell: KoopaShell = load("res://scenes/level/entities/koopa_shell.tscn").instantiate()
 		shell.variant = variant
 		shell.position = position + Vector2(8, 16)
 		sub_area.add(shell)
 	else:
-		var enemy: Spiny = load("res://scenes/entities/spiny.tscn").instantiate()
+		var enemy: Spiny = load("res://scenes/level/entities/spiny.tscn").instantiate()
 		enemy.variant = variant
 		enemy.position = position + Vector2(8, 16)
 		enemy.ceiling = is_ceiling_attached()

@@ -157,11 +157,11 @@ func _ready() -> void:
 	release_input()
 	check(player.position.x > 280 and player.position.y > -80, "Platform side or decorative body blocked movement")
 	park(player, Vector2(176, -32))
-	var item: Mushroom = load("res://scenes/entities/mushroom.tscn").instantiate()
+	var item: Mushroom = load("res://scenes/level/entities/mushroom.tscn").instantiate()
 	item.position = Vector2(240, -144)
 	item.get_node("SlideComponent").speed = 0
 	area.add(item)
-	var enemy: Galoomba = load("res://scenes/entities/galoomba.tscn").instantiate()
+	var enemy: Galoomba = load("res://scenes/level/entities/galoomba.tscn").instantiate()
 	enemy.position = Vector2(260, -144)
 	enemy.get_node("SlideComponent").speed = 0
 	area.add(enemy)

@@ -458,7 +458,7 @@ func set_powerup_sprites(big: bool, animate: bool, skin: StringName = &"") -> vo
 	var frames := SpriteLibrary.get_animations(_sprite_mapping)
 	if frames == null:
 		_sprite_mapping = {}
-		sprite.sprite_frames = load("res://textures/player/mario/%s.tres" % ("super" if big else "small"))
+		sprite.sprite_frames = load("res://textures/styles/smw/entities/player/mario/%s.tres" % ("super" if big else "small"))
 		sprite.centered = true
 		sprite.offset = Vector2.ZERO
 		sprite.position = Vector2(0, -15)

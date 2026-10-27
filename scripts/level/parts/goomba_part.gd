@@ -18,7 +18,7 @@ var _decoration: EnemyPartDecoration
 
 
 static func create() -> GoombaPart:
-	return load("res://scenes/parts/goomba_part.tscn").instantiate()
+	return load("res://scenes/level/parts/goomba_part.tscn").instantiate()
 
 
 func load(placed_from_editor := false) -> void:
@@ -83,7 +83,7 @@ func set_modifier(id: StringName, enabled: bool) -> void:
 
 
 func build() -> void:
-	var enemy := preload("res://scenes/entities/galoomba.tscn").instantiate()
+	var enemy := preload("res://scenes/level/entities/galoomba.tscn").instantiate()
 	enemy.variant = variant
 	enemy.get_node("FlightComponent").wings = wings
 	enemy.get_node("FlightComponent").parachute = parachute

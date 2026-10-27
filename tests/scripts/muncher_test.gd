@@ -59,7 +59,7 @@ func park(player: Player, at := Vector2(64, -16)) -> void:
 
 
 func actor(level: Level, variant := SMALL, at := Vector2(320, -96)) -> Muncher:
-	var body: Muncher = load("res://scenes/entities/muncher.tscn").instantiate()
+	var body: Muncher = load("res://scenes/level/entities/muncher.tscn").instantiate()
 	body.variant = variant
 	body.position = at
 	level.current_sub_area.add(body)
@@ -311,7 +311,7 @@ func check_shell_and_block() -> void:
 	var level := await make_level()
 	var body := actor(level)
 	check(not body.hit_by_projectile(&"fire") and not body.hit_by_projectile(&"shell"), "Ordinary projectiles must not defeat Munchers")
-	var shell: KoopaShell = load("res://scenes/entities/koopa_shell.tscn").instantiate()
+	var shell: KoopaShell = load("res://scenes/level/entities/koopa_shell.tscn").instantiate()
 	shell.position = Vector2(260, -96)
 	level.current_sub_area.add(shell)
 	shell.launch(level.hud.player)
@@ -458,17 +458,17 @@ func check_platforms() -> void:
 
 func check_other_crushes() -> void:
 	var level := await make_level()
-	var enemy: Galoomba = load("res://scenes/entities/galoomba.tscn").instantiate()
+	var enemy: Galoomba = load("res://scenes/level/entities/galoomba.tscn").instantiate()
 	enemy.position = Vector2(320, -96)
 	level.current_sub_area.add(enemy)
 	enemy.get_node("SlideComponent").speed = 0
-	var mushroom: Mushroom = load("res://scenes/entities/mushroom.tscn").instantiate()
+	var mushroom: Mushroom = load("res://scenes/level/entities/mushroom.tscn").instantiate()
 	mushroom.position = Vector2(448, -96)
 	level.current_sub_area.add(mushroom)
 	mushroom.get_node("SlideComponent").speed = 0
 	var flipped: Array[StompedGaloomba] = []
 	for index in 2:
-		var item: StompedGaloomba = load("res://scenes/entities/stomped_galoomba.tscn").instantiate()
+		var item: StompedGaloomba = load("res://scenes/level/entities/stomped_galoomba.tscn").instantiate()
 		item.variant = GoombaPart.VARIANTS[index]
 		item.position = Vector2(576 + index * 64, -96)
 		level.current_sub_area.add(item)
@@ -484,7 +484,7 @@ func check_other_crushes() -> void:
 		check(not is_instance_valid(item), "Physical-solid crush failed a flipped carryable Galoomba/Goombud")
 	check(level.hud.player.score == 0, "Environmental crush incorrectly credited Mario")
 	for variant in GoombaPart.VARIANTS:
-		var carried: StompedGaloomba = load("res://scenes/entities/stomped_galoomba.tscn").instantiate()
+		var carried: StompedGaloomba = load("res://scenes/level/entities/stomped_galoomba.tscn").instantiate()
 		carried.variant = variant
 		level.current_sub_area.add(carried)
 		Input.action_press("player_run")

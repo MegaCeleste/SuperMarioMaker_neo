@@ -205,7 +205,7 @@ func check_pickup(level: Level) -> void:
 	await ticks(3)
 	check(player.score == score + 1000 and player.get_powerup() is FirePowerup and not get_tree().paused,
 			"A second flower replayed the transformation or downgraded Fire Mario")
-	var mushroom: Mushroom = load("res://scenes/entities/mushroom.tscn").instantiate()
+	var mushroom: Mushroom = load("res://scenes/level/entities/mushroom.tscn").instantiate()
 	mushroom.position = player.position
 	level.current_sub_area.add(mushroom)
 	await ticks(3)
@@ -321,7 +321,7 @@ func check_collisions(level: Level) -> void:
 	await ticks(2)
 	check(not is_instance_valid(shot), "Fireball spawned embedded in terrain without bursting")
 	for resistant in [false, true]:
-		var enemy: Enemy = load("res://scenes/entities/buzzy_beetle.tscn" if resistant else "res://scenes/entities/galoomba.tscn").instantiate()
+		var enemy: Enemy = load("res://scenes/level/entities/buzzy_beetle.tscn" if resistant else "res://scenes/level/entities/galoomba.tscn").instantiate()
 		enemy.position = Vector2(420, -16)
 		level.current_sub_area.add(enemy)
 		# Disable AI only; PhysicsServer keeps the actual native body contact.
@@ -378,7 +378,7 @@ func check_blocks(level: Level) -> void:
 		part.queue_free()
 		await ticks(2)
 	# A flower already sitting on a block responds to the real bump query.
-	var block: QuestionBlock = load("res://scenes/tiles/question_block.tscn").instantiate()
+	var block: QuestionBlock = load("res://scenes/level/tiles/question_block.tscn").instantiate()
 	block.position = Vector2(480, -64)
 	level.current_sub_area.add(block)
 	var resting := flower_at(level, Vector2(488, -64))

@@ -14,7 +14,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 
 
 static func create() -> FireFlowerPart:
-	return load("res://scenes/parts/fire_flower_part.tscn").instantiate()
+	return load("res://scenes/level/parts/fire_flower_part.tscn").instantiate()
 
 
 func load(placed_from_editor := false) -> void:

@@ -239,7 +239,7 @@ func check_note(level: Level) -> void:
 			check(item.position.y < -80 and item.velocity.y < 0, "Actual head bump did not eject the stored1UP upward")
 			item.queue_free()
 	check(released == 1 and block.content_id == &"none", "Actual note contact did not consume its stored item once")
-	var enemy: Enemy = load("res://scenes/entities/galoomba.tscn").instantiate()
+	var enemy: Enemy = load("res://scenes/level/entities/galoomba.tscn").instantiate()
 	enemy.position = Vector2(448, -81)
 	level.current_sub_area.add(enemy)
 	await ticks(4)

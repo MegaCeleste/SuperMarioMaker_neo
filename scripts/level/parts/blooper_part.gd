@@ -8,7 +8,7 @@ var _decoration: EnemyPartDecoration
 
 
 static func create() -> BlooperPart:
-	return load("res://scenes/parts/blooper_part.tscn").instantiate()
+	return load("res://scenes/level/parts/blooper_part.tscn").instantiate()
 
 
 static func get_category() -> PaletteCategory:
@@ -34,7 +34,7 @@ func load(placed_from_editor := false) -> void:
 
 
 func build() -> void:
-	var enemy: Blooper = load("res://scenes/entities/blooper.tscn").instantiate()
+	var enemy: Blooper = load("res://scenes/level/entities/blooper.tscn").instantiate()
 	enemy.rules = rules
 	enemy.position = position + Vector2(8, 16)
 	sub_area.add(enemy)

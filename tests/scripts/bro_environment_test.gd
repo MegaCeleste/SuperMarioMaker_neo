@@ -121,7 +121,7 @@ func check_carried_shell(kind: BroProjectile.Kind) -> void:
 	var level := await make_level()
 	var player := level.hud.player
 	Input.action_press("player_run")
-	var shell: KoopaShell = load("res://scenes/entities/koopa_shell.tscn").instantiate()
+	var shell: KoopaShell = load("res://scenes/level/entities/koopa_shell.tscn").instantiate()
 	shell.position = Vector2(600, -96)
 	level.current_sub_area.add(shell)
 	await ticks(17)
@@ -265,7 +265,7 @@ func check_bro_sinking() -> void:
 		var level := await make_level()
 		var area := level.current_sub_area
 		var liquid := add_liquid(level, Level.LevelTheme.CASTLE, -160)
-		var bro: HammerBro = load("res://scenes/entities/hammer_bro.tscn").instantiate()
+		var bro: HammerBro = load("res://scenes/level/entities/hammer_bro.tscn").instantiate()
 		if sledge:
 			bro.variant = preload("res://resources/content/smw_hammerbro_sledge.tres")
 		bro.position = Vector2(520, liquid.position.y - 3)
@@ -353,8 +353,8 @@ func check_frozen_held_item(small: bool, held_kind: StringName) -> void:
 	if small:
 		player.set_powerup(SmallPowerup.new(), false)
 	Input.action_press("player_run")
-	var item: Entity = load("res://scenes/entities/stomped_galoomba.tscn" \
-			if held_kind == &"galoomba" else "res://scenes/entities/koopa_shell.tscn").instantiate()
+	var item: Entity = load("res://scenes/level/entities/stomped_galoomba.tscn" \
+			if held_kind == &"galoomba" else "res://scenes/level/entities/koopa_shell.tscn").instantiate()
 	if held_kind == &"buzzy":
 		item.variant = preload("res://resources/content/smw_buzzy_empty.tres")
 	elif held_kind == &"spiny":
@@ -444,7 +444,7 @@ func check_frozen_low_ceiling() -> void:
 func check_spawn_ownership() -> void:
 	var level := await make_level()
 	var area := level.current_sub_area
-	var bro: HammerBro = load("res://scenes/entities/hammer_bro.tscn").instantiate()
+	var bro: HammerBro = load("res://scenes/level/entities/hammer_bro.tscn").instantiate()
 	bro.variant = preload("res://resources/content/smw_hammerbro_boomerang.tres")
 	bro.position = Vector2(460, -96)
 	area.add(bro)
@@ -458,7 +458,7 @@ func check_spawn_ownership() -> void:
 		boom._age = 2
 		await ticks(2)
 		check(is_instance_valid(boom), "Returning shot failed after its owner was freed")
-	bro = load("res://scenes/entities/hammer_bro.tscn").instantiate()
+	bro = load("res://scenes/level/entities/hammer_bro.tscn").instantiate()
 	bro.position = Vector2(600, -96)
 	area.add(bro)
 	bro._spawn_projectile()
@@ -483,7 +483,7 @@ func capture_environment() -> void:
 			break
 	check(ice.velocity.y < 0 and player.has_helmet() and not player.is_frozen(), "Capture missed the actual ice/helmet rebound")
 	var liquid := add_liquid(level, Level.LevelTheme.FOREST, -144, true)
-	var bro: HammerBro = load("res://scenes/entities/hammer_bro.tscn").instantiate()
+	var bro: HammerBro = load("res://scenes/level/entities/hammer_bro.tscn").instantiate()
 	bro.position = Vector2(304, liquid.position.y - 2.5)
 	level.current_sub_area.add(bro)
 	await ticks(3)

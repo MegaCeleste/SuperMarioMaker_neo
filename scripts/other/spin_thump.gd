@@ -3,7 +3,7 @@ class_name SpinThump
 extends Node2D
 ## Continuous contact flash, centered on the impact rather than on a moving foot.
 
-const TEXTURE = preload("res://textures/spin_thump.png")
+const TEXTURE = preload("res://textures/styles/smw/particles/spin_thump.png")
 const LIFETIME := 4.0 / 21
 var _age := 0.0
 var pulse_size := 0.2

@@ -44,7 +44,7 @@ func park(player: Player, at := Vector2(64, -16)) -> void:
 
 
 func actor(level: Level, at: Vector2) -> Rocky:
-	var body: Rocky = load("res://scenes/entities/rocky.tscn").instantiate()
+	var body: Rocky = load("res://scenes/level/entities/rocky.tscn").instantiate()
 	body.position = at
 	level.current_sub_area.add(body)
 	return body

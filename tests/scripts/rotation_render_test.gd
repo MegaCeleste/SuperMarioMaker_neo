@@ -33,11 +33,11 @@ func rendered(view: Viewport) -> Image:
 func check_existing_rotating_art() -> void:
 	var level := await rolling_level()
 	await ticks(40)
-	var enemy: Galoomba = load("res://scenes/entities/galoomba.tscn").instantiate()
+	var enemy: Galoomba = load("res://scenes/level/entities/galoomba.tscn").instantiate()
 	enemy.position = Vector2(340, -150)
 	level.current_sub_area.add(enemy)
 	enemy.kill(1)
-	var shell: KoopaShell = load("res://scenes/entities/koopa_shell.tscn").instantiate()
+	var shell: KoopaShell = load("res://scenes/level/entities/koopa_shell.tscn").instantiate()
 	shell.position = Vector2(450, -96)
 	level.current_sub_area.add(shell)
 	await ticks(1)

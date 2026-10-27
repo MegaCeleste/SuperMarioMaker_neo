@@ -73,7 +73,7 @@ func _stomped(player: Player) -> void:
 
 
 func _make_shell() -> KoopaShell:
-	var shell: KoopaShell = load("res://scenes/entities/koopa_shell.tscn").instantiate()
+	var shell: KoopaShell = load("res://scenes/level/entities/koopa_shell.tscn").instantiate()
 	shell.variant = variant
 	shell.facing_direction = $SlideComponent.direction
 	shell.position = sub_area.get_foreground().to_local(global_position)

@@ -20,7 +20,7 @@ static func is_multiplaceable() -> bool:
 
 
 static func create() -> NoteBlockPart:
-	return load("res://scenes/parts/note_block_part.tscn").instantiate()
+	return load("res://scenes/level/parts/note_block_part.tscn").instantiate()
 
 
 func load(placed_from_editor := false) -> void:

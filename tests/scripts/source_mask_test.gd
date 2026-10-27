@@ -9,17 +9,17 @@ func _ready() -> void:
 	var area := level.current_sub_area
 	var bodies: Array[Entity] = []
 	for sledge in [false, true]:
-		var bro: HammerBro = load("res://scenes/entities/hammer_bro.tscn").instantiate()
+		var bro: HammerBro = load("res://scenes/level/entities/hammer_bro.tscn").instantiate()
 		if sledge:
 			bro.variant = preload("res://resources/content/smw_hammerbro_sledge.tres")
 		bro.position = Vector2(280 + 60 * int(sledge), -176)
 		area.add(bro)
 		bodies.append(bro)
-	var monty: Monty = load("res://scenes/entities/monty.tscn").instantiate()
+	var monty: Monty = load("res://scenes/level/entities/monty.tscn").instantiate()
 	monty.position = Vector2(400, -176)
 	area.add(monty)
 	bodies.append(monty)
-	var rocky: Rocky = load("res://scenes/entities/rocky.tscn").instantiate()
+	var rocky: Rocky = load("res://scenes/level/entities/rocky.tscn").instantiate()
 	rocky.position = Vector2(460, -176)
 	area.add(rocky)
 	bodies.append(rocky)

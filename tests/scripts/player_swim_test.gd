@@ -140,7 +140,7 @@ func _ready() -> void:
 	# Portable object buoyancy and automatic forward motion use the real
 	# PickupComponent/reparent/release path.
 	await park(Vector2(208, -192))
-	var spring: Spring = load("res://scenes/entities/spring.tscn").instantiate()
+	var spring: Spring = load("res://scenes/level/entities/spring.tscn").instantiate()
 	spring.position = Vector2(232, -176)
 	area.add(spring)
 	Input.action_press("player_run")
@@ -166,7 +166,7 @@ func _ready() -> void:
 	player.bounce()
 	check(player.is_swimming() and absf(player.velocity.y + 100.5) < 0.01, "Water stomp rebound used the land jump impulse/state")
 	await park(Vector2(248, -94))
-	var enemy: Galoomba = load("res://scenes/entities/galoomba.tscn").instantiate()
+	var enemy: Galoomba = load("res://scenes/level/entities/galoomba.tscn").instantiate()
 	enemy.position = Vector2(248, -64)
 	enemy.get_node("SlideComponent").speed = 0
 	area.add(enemy)

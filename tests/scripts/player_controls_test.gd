@@ -184,7 +184,7 @@ func check_crouch(level: Level, big: bool) -> void:
 	# Both crouch poses must carry the existing shell and helmet with them.
 	Input.action_press("player_down")
 	Input.action_press("player_run")
-	var shell: KoopaShell = load("res://scenes/entities/koopa_shell.tscn").instantiate()
+	var shell: KoopaShell = load("res://scenes/level/entities/koopa_shell.tscn").instantiate()
 	shell.position = Vector2(700, -16)
 	level.current_sub_area.add(shell)
 	await ticks(20) # Native shell spawn immunity must expire before pickup.
@@ -212,7 +212,7 @@ func check_dust(level: Level) -> void:
 		if node is DeadEntity:
 			node.queue_free() # Prior helmet-drop checks must not cover the cloud.
 	await ticks(2)
-	var puff: SkidSmoke = load("res://scenes/particles/skid_smoke.tscn").instantiate()
+	var puff: SkidSmoke = load("res://scenes/level/particles/skid_smoke.tscn").instantiate()
 	puff.position = player.position + Vector2(40, 1)
 	level.current_sub_area.add(puff)
 	var anchor := puff.global_position
@@ -381,7 +381,7 @@ func check_dust_pixels() -> void:
 	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	add_child(viewport)
 	viewport.canvas_transform = Transform2D(Vector2(8, 0), Vector2(0, 8), Vector2(80, 80))
-	var puff: SkidSmoke = load("res://scenes/particles/skid_smoke.tscn").instantiate()
+	var puff: SkidSmoke = load("res://scenes/level/particles/skid_smoke.tscn").instantiate()
 	viewport.add_child(puff)
 	puff.set_process(false)
 	var times := [0.0, 0.02, 0.05, 0.10, 0.16, 0.23, 0.28, 0.31]

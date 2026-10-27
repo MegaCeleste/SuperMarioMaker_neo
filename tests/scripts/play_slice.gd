@@ -202,10 +202,10 @@ func _ready() -> void:
 	if blooper_runtime:
 		for frame in 20:
 			await get_tree().physics_frame
-		var rising: Blooper = load("res://scenes/entities/blooper.tscn").instantiate()
+		var rising: Blooper = load("res://scenes/level/entities/blooper.tscn").instantiate()
 		rising.position = Vector2(296, -80)
 		level.current_sub_area.add(rising)
-		var defeated: Blooper = load("res://scenes/entities/blooper.tscn").instantiate()
+		var defeated: Blooper = load("res://scenes/level/entities/blooper.tscn").instantiate()
 		defeated.position = Vector2(224, -128)
 		level.current_sub_area.add(defeated)
 		defeated.kill()
@@ -213,7 +213,7 @@ func _ready() -> void:
 		for frame in 6:
 			await get_tree().physics_frame
 		for spec in [[Vector2(184, -224), 1, 0], [Vector2(264, -96), 2, 1], [Vector2(344, -96), 3, 1]]:
-			var body: Thwomp = load("res://scenes/entities/thwomp.tscn").instantiate()
+			var body: Thwomp = load("res://scenes/level/entities/thwomp.tscn").instantiate()
 			body.variant = ThwompPart.VARIANTS[spec[2]]
 			body.attack_direction = spec[1]
 			body.position = spec[0]
@@ -225,7 +225,7 @@ func _ready() -> void:
 			await get_tree().physics_frame
 		for spec in [[Vector2(160, -96), false, false], [Vector2(320, -96), true, false],
 				[Vector2(256, -128), false, true]]:
-			var body: Monty = load("res://scenes/entities/monty.tscn").instantiate()
+			var body: Monty = load("res://scenes/level/entities/monty.tscn").instantiate()
 			body.wings = spec[1]
 			body.parachute = spec[2]
 			body.position = spec[0]
@@ -233,7 +233,7 @@ func _ready() -> void:
 	if rocky_runtime:
 		for frame in 6:
 			await get_tree().physics_frame
-		var rocky: Rocky = load("res://scenes/entities/rocky.tscn").instantiate()
+		var rocky: Rocky = load("res://scenes/level/entities/rocky.tscn").instantiate()
 		rocky.position = Vector2(240, -96)
 		level.current_sub_area.add(rocky)
 		var wrench := Wrench.new()
@@ -246,7 +246,7 @@ func _ready() -> void:
 		var specs := [[Vector2(128, -96), 0], [Vector2(184, -96), 1],
 				[Vector2(240, -96), 2], [Vector2(296, -96), 3], [Vector2(352, -96), 4]]
 		for spec in specs:
-			var bro: HammerBro = load("res://scenes/entities/hammer_bro.tscn").instantiate()
+			var bro: HammerBro = load("res://scenes/level/entities/hammer_bro.tscn").instantiate()
 			bro.variant = HammerBroPart.VARIANTS[spec[1]]
 			bro.position = spec[0]
 			level.current_sub_area.add(bro)
@@ -264,10 +264,10 @@ func _ready() -> void:
 		for frame in 20:
 			await get_tree().physics_frame
 	if koopa_runtime:
-		var shell: KoopaShell = load("res://scenes/entities/koopa_shell.tscn").instantiate()
+		var shell: KoopaShell = load("res://scenes/level/entities/koopa_shell.tscn").instantiate()
 		shell.position = Vector2(192, -16)
 		level.current_sub_area.add(shell)
-		var beach: BeachKoopa = load("res://scenes/entities/beach_koopa.tscn").instantiate()
+		var beach: BeachKoopa = load("res://scenes/level/entities/beach_koopa.tscn").instantiate()
 		beach.position = Vector2(240, -16)
 		level.current_sub_area.add(beach)
 		for frame in 20:

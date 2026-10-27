@@ -8,7 +8,7 @@ const VARIANT = preload("res://resources/content/smw_rocky.tres")
 
 
 static func create() -> RockyPart:
-	return load("res://scenes/parts/rocky_part.tscn").instantiate()
+	return load("res://scenes/level/parts/rocky_part.tscn").instantiate()
 
 
 static func get_category() -> PaletteCategory:
@@ -38,7 +38,7 @@ func _refresh_preview() -> void:
 
 
 func build() -> void:
-	var body: Rocky = load("res://scenes/entities/rocky.tscn").instantiate()
+	var body: Rocky = load("res://scenes/level/entities/rocky.tscn").instantiate()
 	body.variant = variant
 	body.position = position + Vector2(8, 16)
 	sub_area.add(body)

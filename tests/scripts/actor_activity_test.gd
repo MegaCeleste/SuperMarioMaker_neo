@@ -22,7 +22,7 @@ func fixed_camera(level: Level, x := 0.0) -> void:
 
 
 func actor(level: Level, kind: StringName, at: Vector2) -> Enemy:
-	var body: Enemy = load("res://scenes/entities/%s.tscn" % (
+	var body: Enemy = load("res://scenes/level/entities/%s.tscn" % (
 			"hammer_bro" if kind == &"bro" else String(kind))).instantiate()
 	body.position = at
 	level.current_sub_area.add(body)
@@ -52,7 +52,7 @@ func check_suspend_resume(kind: StringName) -> void:
 	fixed_camera(level)
 	var body: Entity
 	if kind == &"held":
-		body = load("res://scenes/entities/stomped_galoomba.tscn").instantiate()
+		body = load("res://scenes/level/entities/stomped_galoomba.tscn").instantiate()
 		body.position = Vector2(900, -160)
 		level.current_sub_area.add(body)
 	else:
@@ -102,7 +102,7 @@ func check_other_families() -> void:
 	for scene in ["galoomba", "green_koopa", "beach_koopa", "koopa_shell", "buzzy_beetle", "spiny", "blooper", "cheep_cheep", "piranha_plant", "muncher", "thwomp", "mushroom", "grrrol"]:
 		var level := await make_level()
 		fixed_camera(level)
-		var body: CharacterBodyExt = load("res://scenes/entities/%s.tscn" % scene).instantiate()
+		var body: CharacterBodyExt = load("res://scenes/level/entities/%s.tscn" % scene).instantiate()
 		body.position = Vector2(900, -160)
 		if scene == "mushroom":
 			# RiseSprout uses the existing sibling factory rather than SubArea.add.

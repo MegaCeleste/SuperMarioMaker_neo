@@ -21,8 +21,8 @@ func _ready() -> void:
 
 
 func hold(level: Level, kind: StringName) -> Entity:
-	var item: Entity = load("res://scenes/entities/stomped_galoomba.tscn" \
-			if kind in [&"galoomba", &"goombud"] else "res://scenes/entities/koopa_shell.tscn").instantiate()
+	var item: Entity = load("res://scenes/level/entities/stomped_galoomba.tscn" \
+			if kind in [&"galoomba", &"goombud"] else "res://scenes/level/entities/koopa_shell.tscn").instantiate()
 	if kind == &"buzzy":
 		item.variant = preload("res://resources/content/smw_buzzy_empty.tres")
 	elif kind == &"spiny":
@@ -60,7 +60,7 @@ func check_impact(small: bool, direction: int, kind: StringName) -> void:
 	var before := item.global_position
 	var player_before := player.global_position
 	player.velocity.x = 180 * direction
-	var bro: HammerBro = load("res://scenes/entities/hammer_bro.tscn").instantiate()
+	var bro: HammerBro = load("res://scenes/level/entities/hammer_bro.tscn").instantiate()
 	bro.variant = preload("res://resources/content/smw_hammerbro_sledge.tres")
 	bro.position = Vector2(520, -100)
 	level.current_sub_area.add(bro)
@@ -149,7 +149,7 @@ func check_recovery(level: Level, item: StompedGaloomba) -> void:
 func check_initial_immunity() -> void:
 	var level := await make_level()
 	var player := level.hud.player
-	var item: StompedGaloomba = load("res://scenes/entities/stomped_galoomba.tscn").instantiate()
+	var item: StompedGaloomba = load("res://scenes/level/entities/stomped_galoomba.tscn").instantiate()
 	item.position = player.position
 	level.current_sub_area.add(item)
 	await ticks(3)
@@ -225,7 +225,7 @@ func capture_stun() -> void:
 	player.equip_buzzy_helmet()
 	var item := await hold(level, &"spiny")
 	player.state_machine.switch(PlayerIdleState, true)
-	var bro: HammerBro = load("res://scenes/entities/hammer_bro.tscn").instantiate()
+	var bro: HammerBro = load("res://scenes/level/entities/hammer_bro.tscn").instantiate()
 	bro.variant = preload("res://resources/content/smw_hammerbro_sledge.tres")
 	bro.position = Vector2(304, -100)
 	level.current_sub_area.add(bro)

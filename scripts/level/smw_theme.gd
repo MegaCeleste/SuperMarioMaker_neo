@@ -5,7 +5,7 @@ extends RefCounted
 
 const CHOICES = [Level.LevelTheme.OVERWORLD, Level.LevelTheme.UNDERGROUND,
 	Level.LevelTheme.UNDERWATER, Level.LevelTheme.MANSION, Level.LevelTheme.AIRSHIP, Level.LevelTheme.CASTLE]
-const GROUND = preload("res://textures/tiles/ground.png")
+const GROUND = preload("res://textures/styles/smw/tiles/ground/overworld.png")
 static var _data: Dictionary = {}
 static var _atlases: Dictionary = {}
 static var _music: Dictionary = {}

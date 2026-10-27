@@ -77,7 +77,7 @@ folder_colors={
 "res://scripts/": "green",
 "res://shaders/": "teal",
 "res://textures/": "blue",
-"res://textures/player/mario/": "red",
+"res://textures/styles/smw/entities/player/mario/": "red",
 "res://translations/": "purple"
 }
 

@@ -14,7 +14,7 @@ editor, entities, UI).
 
 | | Repository | Revision | License |
 |---|---|---|---|
-| Base | [NCubss/GodotWE](https://github.com/NCubss/GodotWE) | `4a836e6` | GPL-3.0 |
+| Base | [NCubss/GodotWE](https://github.com/NCubss/GodotWE) | `4a836e6`, merged with `b029b73` | GPL-3.0 |
 | Spec | [Sicraftails/SMM-WE-OpenWE](https://github.com/Sicraftails/SMM-WE-OpenWE) | see `reference.lock` | AGPL-3.0 |
 
 The OpenWE checkout is a local reference only and is not committed to this

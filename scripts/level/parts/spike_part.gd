@@ -12,7 +12,7 @@ static func is_multiplaceable() -> bool:
 
 
 static func create() -> SpikePart:
-	return load("res://scenes/parts/spike_part.tscn").instantiate()
+	return load("res://scenes/level/parts/spike_part.tscn").instantiate()
 
 
 static func sprite_for(area: SubArea) -> StringName:

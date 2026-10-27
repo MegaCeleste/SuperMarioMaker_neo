@@ -19,5 +19,5 @@ dead_sprite = &"spr_shell_spiny_deads"
 ball_sprite = &"spr_spiny_ball"
 needle_sprite = &"spr_spiny_espina"
 flight = ExtResource("3")
-restore_scene = "res://scenes/entities/spiny.tscn"
+restore_scene = "res://scenes/level/entities/spiny.tscn"
 recovery_time = 10.6666666667

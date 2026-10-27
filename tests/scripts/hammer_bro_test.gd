@@ -54,7 +54,7 @@ func park(player: Player, at := Vector2(64, -16)) -> void:
 
 
 func actor(level: Level, at: Vector2, variant: HammerBroVariant = HAMMER, wings := false) -> HammerBro:
-	var body: HammerBro = load("res://scenes/entities/hammer_bro.tscn").instantiate()
+	var body: HammerBro = load("res://scenes/level/entities/hammer_bro.tscn").instantiate()
 	body.variant = variant
 	body.wings = wings
 	body.position = at
@@ -362,7 +362,7 @@ func check_winged_sledge() -> void:
 
 func check_sledge_parachute() -> void:
 	var level := await make_level()
-	var body: HammerBro = load("res://scenes/entities/hammer_bro.tscn").instantiate()
+	var body: HammerBro = load("res://scenes/level/entities/hammer_bro.tscn").instantiate()
 	body.variant = SLEDGE
 	body.parachute = true
 	body.position = Vector2(400, -176)

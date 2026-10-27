@@ -24,6 +24,10 @@ enum PartType {
 	SOUNDS,
 }
 
+## Number of left mouse presses seen so far. A [Part] compares it with the value
+## at its creation to ignore the press that placed it.
+static var presses := 0
+
 ## The level this [Editor] is associated with.
 var level: Level
 ## The currently held part.
@@ -96,6 +100,8 @@ func _process(_delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		presses += 1
 	if event is InputEventMouseButton and not event.pressed and history != null:
 		# A contents drag also ends in Part._input on this same mouse release.
 		history.end_stroke.call_deferred()

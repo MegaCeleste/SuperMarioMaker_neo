@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cxkfed5ltcp7y" path="res://scripts/level/level.gd" id="1_f53rw"]
 [ext_resource type="PackedScene" uid="uid://cmjolsltwwkx1" path="res://scenes/templates/sub_area_template.tscn" id="2_j0h5q"]
-[ext_resource type="PackedScene" uid="uid://dl475ic48ilql" path="res://scenes/parts/editor_player.tscn" id="3_j0h5q"]
-[ext_resource type="PackedScene" uid="uid://di2ei4ammvd8g" path="res://scenes/parts/starting_ground.tscn" id="4_j0h5q"]
+[ext_resource type="PackedScene" uid="uid://dl475ic48ilql" path="res://scenes/level/parts/editor_player.tscn" id="3_j0h5q"]
+[ext_resource type="PackedScene" uid="uid://di2ei4ammvd8g" path="res://scenes/level/parts/starting_ground.tscn" id="4_j0h5q"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_f147y"]
 

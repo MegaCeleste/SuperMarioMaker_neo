@@ -42,7 +42,7 @@ func reveal(activator: PhysicsBody2D) -> QuestionBlock:
 	if revealed:
 		return null
 	revealed = true
-	var tile: QuestionBlock = preload("res://scenes/tiles/question_block.tscn").instantiate()
+	var tile: QuestionBlock = preload("res://scenes/level/tiles/question_block.tscn").instantiate()
 	tile.position = position
 	tile.get_node("%BlockComponent").sprout = sprout
 	sub_area.add(tile)

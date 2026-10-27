@@ -18,7 +18,7 @@ var _decoration: EnemyPartDecoration
 
 
 static func create() -> ThwompPart:
-	return load("res://scenes/parts/thwomp_part.tscn").instantiate()
+	return load("res://scenes/level/parts/thwomp_part.tscn").instantiate()
 
 
 static func get_category() -> PaletteCategory:
@@ -99,7 +99,7 @@ func _unhold() -> void:
 
 func _input_event(viewport: Viewport, event: InputEvent, shape_index: int) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT \
-			and Engine.get_process_frames() != _start_frame and level.editor != null \
+			and not _is_placing_press() and level.editor != null \
 			and level.editor.part_interact and level.editor.erasing == Editor.EraseMode.NONE:
 		var point: Vector2 = get_global_transform_with_canvas().affine_inverse() * event.position
 		var button := variant.arrow_button
@@ -117,14 +117,14 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_index: int) -> vo
 
 func build() -> void:
 	if variant is GrrrolVariant:
-		var rolling: Grrrol = load("res://scenes/entities/grrrol.tscn").instantiate()
+		var rolling: Grrrol = load("res://scenes/level/entities/grrrol.tscn").instantiate()
 		rolling.variant = variant
 		rolling.attack_direction = attack_direction
 		rolling.position = position + variant.part_to_feet
 		# scr_edit_to_play copies only direct_t, never either attachment flag.
 		sub_area.add(rolling)
 		return
-	var body: Thwomp = load("res://scenes/entities/thwomp.tscn").instantiate()
+	var body: Thwomp = load("res://scenes/level/entities/thwomp.tscn").instantiate()
 	body.variant = variant
 	body.attack_direction = attack_direction
 	body.wings = wings

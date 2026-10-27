@@ -39,7 +39,7 @@ func make_level() -> Level:
 func check_contact(kind: String) -> void:
 	var level := await make_level()
 	var area := level.current_sub_area
-	var body: Enemy = load("res://scenes/entities/%s.tscn" % ("koopa_shell" if kind == "spiny_shell" else kind)).instantiate()
+	var body: Enemy = load("res://scenes/level/entities/%s.tscn" % ("koopa_shell" if kind == "spiny_shell" else kind)).instantiate()
 	if kind == "spiny_shell":
 		body.variant = preload("res://resources/content/smw_spiny_empty.tres")
 	body.position = Vector2(480, -96)
@@ -143,7 +143,7 @@ func check_pixels() -> void:
 	var times := [0.0, 0.025, 0.06, 0.10, 0.15, 0.185, 0.26, 0.28]
 	var sheet := Image.create(1280, 200, false, Image.FORMAT_RGBA8)
 	for stars in [false, true]:
-		var effect: Node2D = SpinSmoke.create() if stars else load("res://scenes/particles/spin_thump.tscn").instantiate()
+		var effect: Node2D = SpinSmoke.create() if stars else load("res://scenes/level/particles/spin_thump.tscn").instantiate()
 		viewport.add_child(effect)
 		effect.set_process(false)
 		if stars:

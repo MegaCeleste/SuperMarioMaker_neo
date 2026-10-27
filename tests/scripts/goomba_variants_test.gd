@@ -186,7 +186,7 @@ func check_runtime() -> void:
 		await ticks(20)
 		check(enemies(level).is_empty() and player.score == 400,
 				"Spin stomp did not destroy Goombud and award points once")
-	var retiring: StompedGaloomba = load("res://scenes/entities/stomped_galoomba.tscn").instantiate()
+	var retiring: StompedGaloomba = load("res://scenes/level/entities/stomped_galoomba.tscn").instantiate()
 	retiring.variant = GOOMBUD
 	retiring.position = Vector2(240, -96)
 	sub.add(retiring)
@@ -195,7 +195,7 @@ func check_runtime() -> void:
 	await ticks(8)
 	check(enemies(level).size() == 2, "A queued recovery leaked an enemy into the restarted course")
 	release_input()
-	var pending: Galoomba = load("res://scenes/entities/galoomba.tscn").instantiate()
+	var pending: Galoomba = load("res://scenes/level/entities/galoomba.tscn").instantiate()
 	sub.add_deferred(pending)
 	level.free()
 	await ticks(2)

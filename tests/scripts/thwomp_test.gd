@@ -52,7 +52,7 @@ func park(player: Player, at := Vector2(64, -16)) -> void:
 
 
 func actor(level: Level, variant: ThwompVariant, direction: int, at: Vector2) -> Thwomp:
-	var body: Thwomp = load("res://scenes/entities/thwomp.tscn").instantiate()
+	var body: Thwomp = load("res://scenes/level/entities/thwomp.tscn").instantiate()
 	body.variant = variant
 	body.attack_direction = direction
 	body.position = at

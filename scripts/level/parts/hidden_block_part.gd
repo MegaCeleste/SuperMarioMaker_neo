@@ -16,7 +16,7 @@ static func is_multiplaceable() -> bool:
 
 
 static func create() -> HiddenBlockPart:
-	return load("res://scenes/parts/hidden_block_part.tscn").instantiate()
+	return load("res://scenes/level/parts/hidden_block_part.tscn").instantiate()
 
 
 func load(placed_from_editor := false) -> void:

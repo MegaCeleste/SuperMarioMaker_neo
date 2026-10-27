@@ -6,7 +6,7 @@ extends Part
 
 
 static func create() -> GoalPolePart:
-	return load("res://scenes/parts/goal_pole_part.tscn").instantiate()
+	return load("res://scenes/level/parts/goal_pole_part.tscn").instantiate()
 
 
 func can_erase() -> bool:
@@ -22,7 +22,7 @@ func load(placed_from_editor := false) -> void:
 
 
 func build() -> void:
-	var gate := preload("res://scenes/tiles/goal_gate.tscn").instantiate()
+	var gate := preload("res://scenes/level/tiles/goal_gate.tscn").instantiate()
 	gate.level = level
 	gate.position = position
 	sub_area.add(gate)

@@ -1,0 +1,7 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/level/parts/slope_part.tscn" id="1"]
+[ext_resource type="Script" path="res://scripts/level/parts/gentle_slope_part.gd" id="2"]
+
+[node name="GentleSlopePart" instance=ExtResource("1")]
+script = ExtResource("2")

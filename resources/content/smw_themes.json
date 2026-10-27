@@ -1,5 +1,5 @@
 {
-  "OVERWORLD": {"key":"overworld", "label":"COURSE_THEME_OVERWORLD", "ground":"spr_ground", "backgrounds":[], "edit":"res://audio/smw/music/overworld/edit.ogg", "play":"res://audio/smw/music/overworld/play.ogg"},
+  "OVERWORLD": {"key":"overworld", "label":"COURSE_THEME_OVERWORLD", "ground":"spr_ground", "backgrounds":[], "edit":"res://audio/styles/smw/music/overworld/edit.ogg", "play":"res://audio/styles/smw/music/overworld/play.ogg"},
   "UNDERGROUND": {"key":"underground", "label":"COURSE_THEME_UNDERGROUND", "ground":"spr_ground2", "backgrounds":["bg_underground_1","bg_underground_2","bg_underground_3","bg_underground_4"]},
   "UNDERWATER": {"key":"underwater", "label":"COURSE_THEME_UNDERWATER", "ground":"spr_ground4", "backgrounds":["bg_underwater_1","bg_underwater_2","bg_underwater_3","bg_underwater_4"]},
   "MANSION": {"key":"ghost", "label":"COURSE_THEME_MANSION", "ground":"spr_ground5", "backgrounds":["bg_ghost_house_1","bg_ghost_house_2","bg_ghost_house_3","bg_ghost_house_2"]},

@@ -17,7 +17,7 @@ var _dark := false
 
 
 static func create() -> MuncherPart:
-	return load("res://scenes/parts/muncher_part.tscn").instantiate()
+	return load("res://scenes/level/parts/muncher_part.tscn").instantiate()
 
 
 static func get_category() -> PaletteCategory:
@@ -69,7 +69,7 @@ func _refresh_preview() -> void:
 
 
 func build() -> void:
-	var body: Muncher = load("res://scenes/entities/muncher.tscn").instantiate()
+	var body: Muncher = load("res://scenes/level/entities/muncher.tscn").instantiate()
 	body.variant = variant
 	body.position = position + variant.feet_offset()
 	# scr_edit_to_play deliberately passes neither flag to this physics solid.
