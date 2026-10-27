@@ -60,7 +60,7 @@ func _ready() -> void:
 		var before_environment := area.theme_state()
 		panel.open()
 		await ticks(18)
-		check(panel.choices.size() == 6 and not panel.choices[theme].disabled, "Native theme panel lacks one of SMM1's six choices")
+		check(panel.choices.size() == 10 and not panel.choices[theme].disabled, "Native theme panel lacks one of SMM2's ten choices")
 		check(panel.choices[theme].text.is_empty() and panel.choices[theme].size.x > panel.choices[theme].size.y,
 			"Theme menu regressed to text buttons instead of landscape cards")
 		if capture and theme == Level.LevelTheme.UNDERGROUND:
@@ -74,8 +74,9 @@ func _ready() -> void:
 		check(ground.swe_atlas == region and ground._tex.atlas == SMWTheme.atlas(area), "Theme replaced native terrain rules or kept stale art")
 		check((start.terrain_textures[Vector2i.ZERO] as AtlasTexture).atlas == ground._tex.atlas, "Starting and authored ground disagree on theme")
 		check(MusicPlayer.stream == SMWTheme.music_for(area, true), "Theme edit music did not switch")
-		check(is_instance_valid(area.liquid) == (theme == Level.LevelTheme.CASTLE), "Theme switch retained/omitted a liquid surface")
-		if theme == Level.LevelTheme.CASTLE:
+		check(is_instance_valid(area.liquid) == (theme in [Level.LevelTheme.CASTLE, Level.LevelTheme.FOREST]),
+			"Theme switch retained/omitted a liquid surface")
+		if theme in [Level.LevelTheme.CASTLE, Level.LevelTheme.FOREST]:
 			check(area.water_start_y == -16 and area.liquid.position.y == -4, "Entering castle reused a stale non-liquid water height")
 		if theme != before:
 			editor.history.undo()
@@ -107,6 +108,7 @@ func _ready() -> void:
 		await ticks(4)
 		check(MusicPlayer.stream == SMWTheme.music_for(area, true), "Editor return kept play music")
 		check(area.get_foreground().get_child_count() == 0, "Theme play/return retained runtime bodies")
+	await check_night(level, panel)
 	if not capture:
 		await check_modern(level)
 	if capture:
@@ -128,7 +130,7 @@ func check_ground_frames(area: SubArea) -> void:
 		return
 	# Independent source roles: scr_auto_tile returns43 for filled dirt,44 for
 	# isolated,45 vertical and46 horizontal. SWE's saved-frame table differs.
-	var source := SpriteLibrary.get_frames(SMWTheme.info(area.level_theme).ground)
+	var source := SpriteLibrary.get_frames(SMWTheme.ground_sprite(area))
 	var pixels := SMWTheme.atlas(area).get_image()
 	var roles := {Vector2i(5, 10): 44, Vector2i(5, 8): 45,
 		Vector2i(0, 0): 9, Vector2i(5, 0): 10, Vector2i(0, 5): 8, Vector2i(5, 5): 11}
@@ -152,6 +154,65 @@ func check_ground_frames(area: SubArea) -> void:
 		actual.convert(Image.FORMAT_RGBA8)
 		expected.convert(Image.FORMAT_RGBA8)
 		check(actual.get_data() == expected.get_data(), "Connected theme terrain at%s has wrong material/edge role%d" % [probe.tile.position, probe.frame])
+
+func check_night(level: Level, panel) -> void:
+	var area := level.current_sub_area
+	var editor := level.editor
+	var semisolid := SemisolidPart.create()
+	semisolid.position = Vector2(480, -64)
+	area.add_part(semisolid)
+	semisolid.load()
+	await ticks(2)
+	for theme: Level.LevelTheme in SMWTheme.CHOICES:
+		panel.choose(theme)
+		await ticks(18)
+		var data := SMWTheme.info(theme)
+		var day_music := SMWTheme.music_for(area, true)
+		var before := area.theme_state()
+		panel.open()
+		await ticks(18)
+		check(not panel.night_toggle.disabled and not panel.night_toggle.night, "Night toggle missing or stuck on night")
+		panel.night_toggle.pressed.emit()
+		await ticks(18)
+		check(area.night_mode and area.level_theme == theme and editor.part_interact, "Night toggle did not apply or close its popout")
+		check(MusicPlayer.stream == day_music, "Night toggle changed edit music, which has no night variant")
+		check(SMWTheme.ground_sprite(area) == data.get("night_ground", data.ground), "Night ground sprite rule wrong for " + data.key)
+		if theme != Level.LevelTheme.OVERWORLD:
+			check_ground_frames(area)
+		if capture:
+			await snap("editor_night_%s" % data.key, level)
+		var backdrop := area.background.get_child(0) as SMWTheme.ThemeBackground
+		check(backdrop != null and backdrop.frames.size() == data.night_backgrounds.size()
+				and backdrop.frames[0] == SpriteLibrary.get_frames(data.night_backgrounds[0]).get_frame_texture(&"default", 0),
+			"Night background missing or not the source loop for " + data.key)
+		var ssp := String(SemisolidPart.sprite_name(area, 0))
+		check(SpriteLibrary.has_sprite(ssp) and (ssp == "spr_ssp1_snow_night") == (theme == Level.LevelTheme.SNOW),
+			"Night semisolid art rule wrong for " + data.key)
+		if theme == Level.LevelTheme.FOREST:
+			check(is_instance_valid(area.liquid) and not area.liquid.is_water() and area.water_start_y == before.start,
+				"Forest night did not turn its water to poison at the same height")
+		editor.history.undo()
+		check(area.theme_state() == before, "Night undo lost the day environment")
+		editor.history.redo()
+		check(area.night_mode, "Night redo failed")
+		var path := "res://.godot/porting-tests/theme_%s_night.swe" % data.key
+		var saved := await editor.save_to_path(path)
+		check(saved.error == OK, "Night save failed")
+		var reopened := await LevelProcessor.from_swe(path)
+		check(reopened.current_sub_area.level_theme == theme and reopened.current_sub_area.night_mode,
+			"SWE reopening lost night mode")
+		reopened.free()
+		level.play()
+		await ticks(20)
+		check(MusicPlayer.stream == SMWTheme.music_for(area, false)
+				and MusicPlayer.stream.resource_path.ends_with("_night.ogg"), "Night play music did not switch for " + data.key)
+		level.edit()
+		await ticks(4)
+		panel.toggle_night()
+		await ticks(18)
+		check(not area.night_mode, "Night toggle did not return to day")
+	semisolid.erase(true)
+	await ticks(2)
 
 func check_modern(level: Level) -> void:
 	var data: Dictionary = level.source_swe.MAIN
@@ -213,7 +274,7 @@ func snap(label: String, _level: Level) -> void:
 		var terrain_matched := 0
 		var terrain_total := 0
 		var area := _level.current_sub_area
-		var source_frames := SpriteLibrary.get_frames(SMWTheme.info(area.level_theme).ground)
+		var source_frames := SpriteLibrary.get_frames(SMWTheme.ground_sprite(area))
 		for probe in terrain_samples:
 			var expected: Image = probe.tile.get_node("%Sprite").texture.get_image() if area.level_theme == Level.LevelTheme.OVERWORLD else source_frames.get_frame_texture(&"default", probe.frame).get_image()
 			# Stay clear of editor grid lines and exterior shadows; compare actual

@@ -22,6 +22,12 @@ physics interpolation are different implementations; compare them before
 porting rendering changes. This separation does not select new gameplay scope.
 
 
+**Latest selected round (2026-10-27):** after merging upstream `b029b73`
+(docs/porting/UPSTREAM-SYNC-2026-10-27.md), the user selected SMM2's four extra
+themes and a day/night toggle, appearance and music only
+(docs/porting/THEMES-SMM2-NIGHT-2026-10-27.md). SMM:WE-only themes and night
+gameplay rules remain unselected.
+
 **Latest user quality direction (2026-10-23):** fewer additions are acceptable;
 conformance to the original project's contribution rules takes priority.
 Explain every implemented feature to the user: intended rule, native control/

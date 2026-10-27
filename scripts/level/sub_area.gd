@@ -78,13 +78,26 @@ func load() -> void:
 
 ## Edit-time theme replacement preserves authored objects and their history.
 func set_theme(next: Level.LevelTheme, reset_water := true) -> void:
-	if next == level_theme or not is_instance_valid(level) or level.status != Level.Status.EDITING:
+	set_environment(next, night_mode, reset_water)
+
+
+## Edit-time day/night replacement; see [method set_environment].
+func set_night_mode(night: bool) -> void:
+	set_environment(level_theme, night)
+
+
+## Replaces theme and day/night together, keeping authored objects.
+func set_environment(next: Level.LevelTheme, night: bool, reset_water := true) -> void:
+	if (next == level_theme and night == night_mode) or not is_instance_valid(level) 			or level.status != Level.Status.EDITING:
 		return
 	var old := level_theme
+	var had_liquid := LiquidSurface.supports(level_theme, night_mode)
 	level_theme = next
-	if reset_water and LiquidSurface.supports(next, night_mode):
+	night_mode = night
+	if reset_water and LiquidSurface.supports(next, night) and (next != old or not had_liquid):
 		# obj_bg1/Mouse_4 creates a new surface at room_height-4. An old
 		# non-liquid SWE's unused0 value must not flood a newly chosen castle.
+		# Toggling night over an existing surface keeps its authored height.
 		water_start_y = -16
 		water_limit_y = -16
 		water_speed = Level.WaterSpeed.SLOW
@@ -100,14 +113,15 @@ func set_theme(next: Level.LevelTheme, reset_water := true) -> void:
 
 
 func theme_state() -> Dictionary:
-	return {"theme": level_theme, "start": water_start_y, "limit": water_limit_y, "speed": water_speed}
+	return {"theme": level_theme, "night": night_mode, "start": water_start_y, "limit": water_limit_y,
+			"speed": water_speed}
 
 
 func restore_theme_state(state: Dictionary) -> void:
 	water_start_y = state.start
 	water_limit_y = state.limit
 	water_speed = state.speed
-	set_theme(state.theme, false)
+	set_environment(state.theme, state.night, false)
 
 
 func _refresh_environment() -> void:

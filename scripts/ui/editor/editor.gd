@@ -358,9 +358,12 @@ func _create_history_controls() -> void:
 
 
 func refresh_theme() -> void:
-	music_offset = 0
-	MusicPlayer.stream = SMWTheme.music_for(level.current_sub_area, true)
-	MusicPlayer.play()
+	var music := SMWTheme.music_for(level.current_sub_area, true)
+	# Editor music has no night variant; a day/night toggle keeps it playing.
+	if MusicPlayer.stream != music or not MusicPlayer.playing:
+		music_offset = 0
+		MusicPlayer.stream = music
+		MusicPlayer.play()
 	get_node("LeftPanel/LevelThemeBtn").queue_redraw()
 	get_node("PaletteMenu/RingContainer/Control/PaletteRing").refresh_icons()
 	for card in find_children("*", "BaseButton", true, false):

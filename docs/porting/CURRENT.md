@@ -85,7 +85,8 @@ and may fail. Do not present the seven-file result as whole-project compliance.
 ## Scope and review boundaries
 
 Current features include SMW movement/powers/swimming, the documented enemy
-subset, native palette/history/contents, terrain and slopes, six course themes,
+subset, native palette/history/contents, terrain and slopes, ten SMM2 course
+themes with a day/night toggle (night gameplay effects not yet ported),
 ordinary springs/platforms, SWE subset round-tripping and display improvements.
 The Chinese implementation guide itemizes them and identifies incomplete parts.
 

@@ -75,6 +75,18 @@ func set_theme(area: SubArea, theme: Level.LevelTheme) -> void:
 	_commit()
 
 
+func set_night_mode(area: SubArea, night: bool) -> void:
+	if area.night_mode == night:
+		return
+	end_stroke()
+	_begin("Change day/night")
+	var before := area.theme_state()
+	area.set_night_mode(night)
+	_undo.add_do_method(area.restore_theme_state.bind(area.theme_state()))
+	_undo.add_undo_method(area.restore_theme_state.bind(before))
+	_commit()
+
+
 ## Insertion consumes the loose Part and changes contents as one undo action.
 func store_content(block: ContainerBlockPart, item: Part, original: Vector2) -> void:
 	var before := block.get_variant_state()

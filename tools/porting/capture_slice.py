@@ -78,7 +78,7 @@ MODES = {
     "slopes": "capture endpoint-edited steep/gentle slopes and native terrain movement",
     "slope-fusion": "verify corner-touch single-cell stairs against real editor/runtime pixels",
     "spring": "verify ordinary portable SMW spring placement, carrying, compression and launches",
-    "theme-switch": "verify six native SMM1 SMW theme choices, terrain, backgrounds, music and saves",
+    "theme-switch": "verify ten native SMM2 SMW theme choices, terrain, backgrounds, music and saves",
     "player-swim": "verify SMW swimming, held buoyancy, water entry/exit and actual original sprite pixels",
     "semisolid": "verify native semisolid resize, styles, signed platform collections and one-way contacts",
 }

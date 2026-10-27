@@ -1,8 +1,12 @@
 {
-  "OVERWORLD": {"key":"overworld", "label":"COURSE_THEME_OVERWORLD", "ground":"spr_ground", "backgrounds":[], "edit":"res://audio/styles/smw/music/overworld/edit.ogg", "play":"res://audio/styles/smw/music/overworld/play.ogg"},
-  "UNDERGROUND": {"key":"underground", "label":"COURSE_THEME_UNDERGROUND", "ground":"spr_ground2", "backgrounds":["bg_underground_1","bg_underground_2","bg_underground_3","bg_underground_4"]},
-  "UNDERWATER": {"key":"underwater", "label":"COURSE_THEME_UNDERWATER", "ground":"spr_ground4", "backgrounds":["bg_underwater_1","bg_underwater_2","bg_underwater_3","bg_underwater_4"]},
-  "MANSION": {"key":"ghost", "label":"COURSE_THEME_MANSION", "ground":"spr_ground5", "backgrounds":["bg_ghost_house_1","bg_ghost_house_2","bg_ghost_house_3","bg_ghost_house_2"]},
-  "AIRSHIP": {"key":"airship", "label":"COURSE_THEME_AIRSHIP", "ground":"spr_ground6", "backgrounds":["bg_airship"]},
-  "CASTLE": {"key":"castle", "label":"COURSE_THEME_CASTLE", "ground":"spr_ground3", "backgrounds":["bg_castle"]}
+  "OVERWORLD": {"key":"overworld", "music":"ground", "label":"COURSE_THEME_OVERWORLD", "ground":"spr_ground", "backgrounds":[], "night_backgrounds":["bg_night_1","bg_night_2","bg_night_3","bg_night_4"], "edit":"res://audio/styles/smw/music/overworld/edit.ogg", "play":"res://audio/styles/smw/music/overworld/play.ogg"},
+  "UNDERGROUND": {"key":"underground", "label":"COURSE_THEME_UNDERGROUND", "ground":"spr_ground2", "backgrounds":["bg_underground_1","bg_underground_2","bg_underground_3","bg_underground_4"], "night_backgrounds":["bg_night_1","bg_night_2","bg_night_3","bg_night_4"]},
+  "UNDERWATER": {"key":"underwater", "label":"COURSE_THEME_UNDERWATER", "ground":"spr_ground4", "night_ground":"spr_ground4_night", "backgrounds":["bg_underwater_1","bg_underwater_2","bg_underwater_3","bg_underwater_4"], "night_backgrounds":["bg_underwater_night_1","bg_underwater_night_2","bg_underwater_night_3","bg_underwater_night_4"]},
+  "DESERT": {"key":"desert", "label":"COURSE_THEME_DESERT", "ground":"spr_ground9", "backgrounds":["bg_desert"], "night_backgrounds":["bg_night_1","bg_night_2","bg_night_3","bg_night_4"]},
+  "SNOW": {"key":"snow", "label":"COURSE_THEME_SNOW", "ground":"spr_ground10", "night_ground":"spr_ground10_night", "backgrounds":["bg_snow"], "night_backgrounds":["bg_night_1","bg_night_2","bg_night_3","bg_night_4"]},
+  "SKY": {"key":"sky", "label":"COURSE_THEME_SKY", "ground":"spr_ground8", "backgrounds":["bg_airship"], "night_backgrounds":["bg_night_1","bg_night_2","bg_night_3","bg_night_4"]},
+  "FOREST": {"key":"forest", "label":"COURSE_THEME_FOREST", "ground":"spr_ground7", "backgrounds":["bg_forest"], "night_backgrounds":["bg_night_1","bg_night_2","bg_night_3","bg_night_4"]},
+  "MANSION": {"key":"ghost", "label":"COURSE_THEME_MANSION", "ground":"spr_ground5", "backgrounds":["bg_ghost_house_1","bg_ghost_house_2","bg_ghost_house_3","bg_ghost_house_2"], "night_backgrounds":["bg_ghost_house_night"]},
+  "AIRSHIP": {"key":"airship", "label":"COURSE_THEME_AIRSHIP", "ground":"spr_ground6", "backgrounds":["bg_airship"], "night_backgrounds":["bg_sky_night_1","bg_sky_night_2","bg_sky_night_3","bg_sky_night_2"]},
+  "CASTLE": {"key":"castle", "label":"COURSE_THEME_CASTLE", "ground":"spr_ground3", "backgrounds":["bg_castle"], "night_backgrounds":["bg_night_1","bg_night_2","bg_night_3","bg_night_4"]}
 }

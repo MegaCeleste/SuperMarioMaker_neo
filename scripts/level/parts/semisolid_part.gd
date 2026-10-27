@@ -41,6 +41,12 @@ static func is_placeable(_grid_pos: Vector2i, _world: World2D) -> bool:
 ## Resolves the original twelve-frame atlas for an area's theme and appearance 0..2.
 static func sprite_name(area: SubArea, style: int) -> StringName:
 	var theme: String = SMWTheme.info(area.level_theme).get("key", "overworld")
+	# scr_semisolid_platform1_sprites has no SMW sky set and reuses overworld;
+	# all three appearances switch to a night set in snow only.
+	if theme == "sky" and style == 0:
+		theme = "overworld"
+	elif theme == "snow" and area.night_mode:
+		theme = "snow_night"
 	return StringName("spr_ssp%d_%s" % [style + 1, theme])
 
 

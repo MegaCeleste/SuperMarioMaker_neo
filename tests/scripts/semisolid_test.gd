@@ -188,7 +188,11 @@ func _ready() -> void:
 
 
 func check_art(part: SemisolidPart, theme: Level.LevelTheme) -> void:
-	var source := SpriteLibrary.get_frames(StringName("spr_ssp%d_%s" % [part.appearance + 1, SMWTheme.info(theme).key]))
+	var key: String = SMWTheme.info(theme).key
+	# scr_semisolid_platform1_sprites returns spr_ssp1_overworld for SMW sky.
+	if key == "sky" and part.appearance == 0:
+		key = "overworld"
+	var source := SpriteLibrary.get_frames(StringName("spr_ssp%d_%s" % [part.appearance + 1, key]))
 	var actual: Image = part.get_node("Graphics/Sprite").texture.get_image()
 	actual.convert(Image.FORMAT_RGBA8)
 	var originals: Array[Image] = []

@@ -40,10 +40,13 @@ SOUNDS = {
 }
 for name in ["snd_kick", *[f"snd_kick{i}" for i in range(2, 8)], "snd_kick_1up"]:
     SOUNDS[name] = (name, name + ".ogg", b"OggS")
-for theme in ("underground", "underwater", "ghost", "airship", "castle"):
+for theme in ("underground", "underwater", "desert", "snow", "sky", "forest", "ghost", "airship", "castle"):
     for prefix in ("snd_editor_", "snd_music_"):
         name = prefix + theme
         SOUNDS[name] = (name, name + ".ogg", b"OggS")
+for theme in ("ground", "underground", "underwater", "desert", "snow", "sky", "forest", "ghost", "airship", "castle"):
+    name = f"snd_music_{theme}_night"
+    SOUNDS[name] = (name, name + ".ogg", b"OggS")
 
 
 def main():
@@ -72,12 +75,18 @@ def main():
                   "spr_hammerbro", "spr_hammerbro_jump", "spr_hammerbro_throw", "spr_hammerbro_res",
                   "spr_frozenblock_32x32_2", "spr_frozenblock_32x48", "spr_smokespin",
                   "spr_NSMBU_snowball_destroy", "spr_bubble", "spr_bubble2"})
-    names.update({f"spr_ground{i}" for i in range(2, 7)})
+    names.update({f"spr_ground{i}" for i in range(2, 11)})
+    names.update({"spr_ground4_night", "spr_ground10_night"})
     names.update({f"spr_ssp{i}_{theme}" for i in (1, 2, 3)
-                  for theme in ("overworld", "underground", "underwater", "ghost", "airship", "castle")})
+                  for theme in ("overworld", "underground", "underwater", "desert", "snow", "snow_night",
+                                "forest", "ghost", "airship", "castle")})
+    names.update({"spr_ssp2_sky", "spr_ssp3_sky"})
     names.add("spr_move_semisolid")
     names.update({"bg_castle", "bg_airship", *[f"bg_underground_{i}" for i in range(1, 5)],
-                  *[f"bg_underwater_{i}" for i in range(1, 5)], *[f"bg_ghost_house_{i}" for i in range(1, 4)]})
+                  *[f"bg_underwater_{i}" for i in range(1, 5)], *[f"bg_ghost_house_{i}" for i in range(1, 4)],
+                  "bg_desert", "bg_snow", "bg_forest", "bg_ghost_house_night",
+                  *[f"bg_night_{i}" for i in range(1, 5)], *[f"bg_sky_night_{i}" for i in range(1, 4)],
+                  *[f"bg_underwater_night_{i}" for i in range(1, 5)]})
     command = [sys.executable, "-I", str(ROOT / "tools/porting/port_sprites.py"),
                str(args.reference.resolve()), str(ROOT)]
     for name in sorted(names):
