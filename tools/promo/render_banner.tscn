@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://tools/promo/render_banner.gd" id="1_banner"]
+
+[node name="RenderBanner" type="Node"]
+script = ExtResource("1_banner")

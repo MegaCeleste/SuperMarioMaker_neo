@@ -1,5 +1,7 @@
 # SMMneo / SuperMarioMaker_neo
 
+![SMMneo banner: the Super Mario Maker neo logo over an SMW overworld course, with the ten course theme cards](docs/images/banner.png)
+
 An independent GodotWE-based project developing a playable Super Mario World
 subset of Super Mario Maker-style gameplay and course editing.
 
@@ -16,9 +18,9 @@ The `SMMneo` branch contains the current GodotWE-based implementation. Existing
 
 Implemented systems include the documented SMW player powers and swimming,
 enemy subset, editor placement and history, block contents, terrain and slopes,
-six course themes, springs, semisolid platforms and a subset of SWE loading and
-saving. Feature parity, all object combinations, other game styles, area travel
-and online services remain incomplete.
+ten SMM2 course themes with a day/night toggle, springs, semisolid platforms and
+a subset of SWE loading and saving. Feature parity, all object combinations,
+other game styles, area travel and online services remain incomplete.
 
 - [Current setup and review guide](docs/porting/CURRENT.md)
 - [Implementation explanations in Chinese](docs/porting/IMPLEMENTATION-GUIDE.zh-CN.md)
