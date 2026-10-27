@@ -49,6 +49,16 @@ func erase(part: Part) -> void:
 	_commit()
 
 
+## Erases several Parts as one undo step (both doors of a pair).
+func erase_together(parts: Array) -> void:
+	var own := not _stroke
+	begin_stroke("Erase")
+	for part: Part in parts:
+		erase(part)
+	if own:
+		end_stroke()
+
+
 func record_move(part: Part, before: Vector2, after: Vector2) -> void:
 	if before == after:
 		return

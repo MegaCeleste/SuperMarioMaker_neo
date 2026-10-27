@@ -241,10 +241,14 @@ func set_part_modifier(part: Part, id: StringName, enabled: bool) -> void:
 
 
 ## Removes an editor Part while retaining it for native UndoRedo restoration.
+## Both doors of a pair go together, in one undo step.
 func erase_part(part: Part) -> void:
 	if not part.can_erase():
 		return
-	history.erase(part)
+	if part is DoorPart and part.get_exit() != null:
+		history.erase_together([part, part.get_exit()])
+	else:
+		history.erase(part)
 	UISoundPlayer.stream = preload("uid://2axkkfi5xrx8")
 	UISoundPlayer.play()
 

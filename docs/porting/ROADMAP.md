@@ -1,5 +1,8 @@
 # Roadmap
 
+Latest explicit selection (2026-10-27): ordinary SMW door pairs (DOORS-2026-10-27.md).
+Pipes and sub-area travel were rolled back after review and are not selected now.
+
 Latest explicit selection(2026-10-23): ordinary SMW semisolid platforms now.
 Native resizing/three looks/overlap/history/separate platform SWE collections
 and one-way runtime contacts are implemented; see SEMISOLIDS-2026-10-23.md

@@ -81,6 +81,7 @@ MODES = {
     "theme-switch": "verify ten native SMM2 SMW theme choices, terrain, backgrounds, music and saves",
     "player-swim": "verify SMW swimming, held buoyancy, water entry/exit and actual original sprite pixels",
     "semisolid": "verify native semisolid resize, styles, signed platform collections and one-way contacts",
+    "doors": "verify door pairs, the door trip and the circle curtain on real frames",
 }
 
 
@@ -119,6 +120,7 @@ def main():
                else "res://tests/scenes/theme_switch_test.tscn" if args.mode == "theme-switch"
                else "res://tests/scenes/player_swim_test.tscn" if args.mode == "player-swim"
                else "res://tests/scenes/semisolid_test.tscn" if args.mode == "semisolid"
+               else "res://tests/scenes/doors_test.tscn" if args.mode == "doors"
                else "res://tests/scenes/bro_projectile_test.tscn" if args.mode == "bro-status"
                else "res://tests/scenes/bro_environment_test.tscn" if args.mode == "bro-environment"
                else "res://tests/scenes/rocky_environment_test.tscn" if args.mode == "rocky-environment"

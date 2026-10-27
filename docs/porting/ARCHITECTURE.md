@@ -105,6 +105,7 @@ Level (Node2D)
 | `Scripts/Sounds`, `Scripts/Music` | `scripts/singletons/music_player.gd`, audio bus | partial |
 | `Scripts/Misc` | scattered; classify per function during port | partial |
 | `Sprites/*` | `assets/openwe/` via `tools/porting/port_sprites.py` | tooling ready |
+| `obj_door_res`, `obj_door`, `obj_doormario*`, `obj_curtainin` | `DoorPart`, `WarpDoor`, `PlayerDoorState`, `CurtainTransition` | ordinary doors |
 | `Sounds/*` | `assets/openwe/sounds/` via `prepare_slice.py`; code names sounds through `SoundLibrary` (`scripts/other/sound_library.gd`) | partial |
 
 ## Level data flow

@@ -76,6 +76,7 @@ static func snapshot(level: Level, object_table: Dictionary, ground_table: Array
 	var object_records: Array[Dictionary] = []
 	var terrain_records: Array[Dictionary] = []
 	var platform_records: Array[Dictionary] = []
+	var door_records: Array[Dictionary] = []
 	var has_goal := false
 	for part: Part in level.current_sub_area.get_parts().get_children():
 		if part.is_queued_for_deletion():
@@ -96,6 +97,11 @@ static func snapshot(level: Level, object_table: Dictionary, ground_table: Array
 			map.ground3_y = part.position.y + 432 + 137
 			continue
 		var entry: Dictionary = part.swe_data.duplicate(true)
+		if part is DoorPart:
+			# One record per pair, stored on the primary door.
+			if part.primary or part.get_exit() == null:
+				door_records.append({"part": part, "entry": _door_entry(part, entry)})
+			continue
 		_set_alias(entry, "xx", "x_pos", part.position.x)
 		_set_alias(entry, "yy", "y_pos", part.position.y + 432)
 		if part is SemisolidPart:
@@ -207,8 +213,26 @@ static func snapshot(level: Level, object_table: Dictionary, ground_table: Array
 		level.swe_revision
 	)
 	_set_alias(wrapper, "S7", "PLATAFORMAS", platforms.entries)
-	var bindings: Array = terrain.bindings + objects.bindings + platforms.bindings
+	var door_source: Variant = wrapper.get("PUERTAS", [])
+	if door_source is not Array:
+		return _failure("The original door collection cannot be preserved safely.")
+	# Key and P-switch door rows are not represented and stay as they were.
+	var doors := _merge(door_source, door_records, {"obj_door_res": true}, false, level.swe_revision)
+	wrapper.PUERTAS = doors.entries
+	var bindings: Array = terrain.bindings + objects.bindings + platforms.bindings + doors.bindings
 	return {"error": OK, "message": "", "data": data, "bindings": bindings}
+
+
+## One PUERTAS row: the door and its partner, both by the middle of the door,
+## in OpenWE's obj_door_res layout.
+static func _door_entry(door: DoorPart, entry: Dictionary) -> Dictionary:
+	var exit := door.get_exit() if door.get_exit() != null else door
+	entry.object = "obj_door_res"
+	entry.x_pos = door.position.x
+	entry.y_pos = door.position.y + 448
+	entry.door_x = exit.position.x
+	entry.door_y = exit.position.y + 448
+	return entry
 
 
 ## Retains unknown rows and source ordering, replacing only represented rows.
