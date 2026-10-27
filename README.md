@@ -1,6 +1,6 @@
 # SMMneo / SuperMarioMaker_neo
 
-![SMMneo banner: the Super Mario Maker neo logo over an SMW overworld course, with the ten course theme cards](docs/images/banner.png)
+![SMMneo banner: the Super Mario Maker neo title on SMM2 yellow, with SMW Mario, a ? block and a Galoomba](docs/images/banner.png)
 
 An independent GodotWE-based project developing a playable Super Mario World
 subset of Super Mario Maker-style gameplay and course editing.

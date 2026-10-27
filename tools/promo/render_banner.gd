@@ -1,47 +1,49 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 extends Node
-## Renders the README banner from art already tracked in this repository.
-## Converted OpenWE assets are deliberately not used; see docs/porting/LICENSING.md.
-## Run: Godot --path . res://tools/promo/render_banner.tscn
+## Renders the README banner in the layout of GodotWE's own banner, with SMM2's
+## yellow. Only art tracked in this repository is drawn; converted OpenWE assets
+## are not used (see docs/porting/LICENSING.md). The tag font (SMM2's MARIOMAKER
+## by default) is read from a gitignored local file and never committed.
+## Run: Godot --path . res://tools/promo/render_banner.tscn [-- --font=path]
 
-const SIZE := Vector2i(1280, 640)
-const SCALE := 3.0
-const TILE := 16 * SCALE
+const SIZE := Vector2i(1152, 384)
 const OUTPUT := "res://docs/images/banner.png"
-const BACKGROUND = preload("res://textures/styles/smw/backgrounds/overworld/background.png")
-const GROUND = preload("res://textures/styles/smw/tiles/ground/overworld.png")
+const FONTS := ["assets/fonts/MARIOMAKER.otf", "../openwe-ref/datafiles/fontcjk.ttf"]
+const YELLOW := Color("#facd00")
+const ORANGE := Color("#f7a600")
+const DARK := Color("#5d1c1c")
+const RED := Color("#e60012")
+const MARIO = preload("res://textures/styles/smw/entities/player/mario/super/jump.png")
 const QUESTION = preload("res://textures/styles/smw/tiles/question_block.png")
-const TURN = preload("res://textures/styles/smw/tiles/turn_block.png")
-const COIN = preload("res://textures/styles/smw/tiles/coin.png")
-const MUSHROOM = preload("res://textures/styles/smw/entities/mushroom.png")
 const GALOOMBA = preload("res://textures/styles/smw/entities/galoomba.png")
-const KOOPA = preload("res://textures/styles/smw/entities/green_koopa.png")
-const SHELL = preload("res://textures/styles/smw/entities/green_koopa_shell.png")
-const MARIO_JUMP = preload("res://textures/styles/smw/entities/player/mario/super/jump.png")
-const FONT = preload("res://resources/ui/text.ttf")
-# Native ground atlas cells (column, row), as checked by theme_switch_test.
-const TOP_LEFT := Vector2i(0, 0)
-const TOP := Vector2i(1, 0)
-const TOP_RIGHT := Vector2i(5, 0)
-const LEFT := Vector2i(0, 1)
-const FILL := Vector2i(1, 1)
-const RIGHT := Vector2i(5, 1)
-const BOTTOM_LEFT := Vector2i(0, 5)
-const BOTTOM := Vector2i(1, 5)
-const BOTTOM_RIGHT := Vector2i(5, 5)
+const COIN = preload("res://textures/styles/smw/tiles/coin.png")
+const TWO_TONE := """
+shader_type canvas_item;
+uniform vec3 lower : source_color;
+void fragment() {
+	if (UV.y > 0.56) {
+		COLOR.rgb *= lower;
+	}
+}
+"""
 
+var _font: Font = preload("res://resources/ui/text.ttf")
 var _world: Node2D
 
 
 func _ready() -> void:
+	_load_font()
 	var viewport := SubViewport.new()
 	viewport.size = SIZE
 	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	viewport.canvas_item_default_texture_filter = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST
+	viewport.msaa_2d = Viewport.MSAA_4X
 	add_child(viewport)
 	_world = Node2D.new()
 	viewport.add_child(_world)
-	_build()
+	_world.add_child(Backdrop.new())
+	_sprites()
+	_title(Vector2(276, 48), 0.92)
 	for i in 4:
 		await RenderingServer.frame_post_draw
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUTPUT.get_base_dir()))
@@ -50,113 +52,148 @@ func _ready() -> void:
 	get_tree().quit()
 
 
-func _build() -> void:
-	for x in [0, 1024]:
-		_sprite(BACKGROUND, Vector2(x, SIZE.y - 864 + 48), 2.0)
-	var floor_y := SIZE.y - 2 * TILE
-	for column in ceili(SIZE.x / TILE):
-		_ground(TOP, Vector2(column * TILE, floor_y))
-		_ground(FILL, Vector2(column * TILE, floor_y + TILE))
-	_platform(Vector2(48, 400), Vector2i(4, 2))
-	_platform(Vector2(864, 400), Vector2i(6, 2))
-	for i in 4:
-		_frame(TURN if i % 2 else QUESTION, 4, 0, Vector2(384 + i * TILE, 336))
-	for i in 3:
-		_frame(COIN, 4, i, Vector2(72 + i * 56, 320 - (24 if i == 1 else 0)))
-	_frame(MUSHROOM, 1, 0, Vector2(384, 288))
-	_frame(MARIO_JUMP, 1, 0, Vector2(360, 386), Vector2(32, 32))
-	_frame(SHELL, 2, 0, Vector2(640, floor_y - TILE), Vector2(16, 16))
-	_frame(GALOOMBA, 2, 0, Vector2(744, floor_y - TILE), Vector2(16, 16), true)
-	_frame(KOOPA, 2, 0, Vector2(1010, 400 - 2 * TILE), Vector2(16, 32), true)
-	_themes(Vector2(0, floor_y + 18))
-	_logo()
+func _load_font() -> void:
+	var paths: Array = FONTS.map(func(path): return ProjectSettings.globalize_path("res://").path_join(path))
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--font="):
+			paths = [arg.trim_prefix("--font=")]
+	for path: String in paths:
+		var font := FontFile.new()
+		if FileAccess.file_exists(path) and font.load_dynamic_font(path) == OK:
+			_font = font
+			print("BANNER_FONT ", path)
+			return
+	push_warning("No tag font found; using the bundled UI font")
 
 
-func _logo() -> void:
-	var origin := Vector2((SIZE.x - 627) / 2.0, 34)
-	# A black copy offset in eight directions outlines the white letters.
-	for angle in 8:
-		var outline := _make_logo(false)
-		outline.position = origin + Vector2.from_angle(angle * TAU / 8) * 6
-		outline.modulate = Color(0, 0, 0, 0.85)
-	var logo := _make_logo(true)
-	logo.position = origin
-	var neo := Label.new()
-	neo.text = "neo"
-	neo.add_theme_font_override(&"font", FONT)
-	neo.add_theme_font_size_override(&"font_size", 104)
-	neo.add_theme_color_override(&"font_color", Utility.COLOR_YELLOW)
-	neo.add_theme_color_override(&"font_outline_color", Color.BLACK)
-	neo.add_theme_constant_override(&"outline_size", 22)
-	neo.position = origin + Vector2(470, 138)
-	neo.rotation_degrees = -8
-	_world.add_child(neo)
+func _sprites() -> void:
+	_shadowed(_frame(MARIO, 1, 0, Vector2(32, 32)), Vector2(70, 120), 6.0)
+	_shadowed(_frame(QUESTION, 4, 0), Vector2(1000, 64), 5.0)
+	_shadowed(_frame(COIN, 4, 0), Vector2(926, 74), 4.0)
+	_shadowed(_frame(GALOOMBA, 2, 0), Vector2(986, 266), 5.0, true)
 
 
-# The ten course theme cards from the editor, on a dark strip over the floor.
-func _themes(at: Vector2) -> void:
-	const KEYS = ["overworld", "underground", "underwater", "desert", "snow", "sky", "forest",
-			"mansion", "airship", "castle"]
-	const CARD := Vector2(76, 45)
-	const GAP := 10.0
-	var width := KEYS.size() * (CARD.x + GAP) - GAP
-	var strip := Panel.new()
+# Draws the game's own title letters with GodotWE's banner treatment: a two-tone
+# fill, a thick dark outline and a solid drop shadow.
+func _title(at: Vector2, size: float) -> void:
+	var outline := 9.0
+	for layer in 2:
+		var offset := Vector2(0, 12) if layer == 0 else Vector2.ZERO
+		for angle in 24:
+			var logo := _make_logo(at + offset + Vector2.from_angle(angle * TAU / 24) * outline, size)
+			logo.modulate = DARK.darkened(0.45) if layer == 0 else DARK
+	var fill := _make_logo(at, size)
+	var material := ShaderMaterial.new()
+	material.shader = Shader.new()
+	material.shader.code = TWO_TONE
+	material.set_shader_parameter(&"lower", Color("#ffe9a8"))
+	fill.material = material
+	_tag("neo", at + Vector2(430, 196) * size, -6.0)
+
+
+# An SMM2-style rounded label, as on course tags and editor buttons.
+func _tag(text: String, at: Vector2, angle: float) -> void:
+	var holder := Node2D.new()
+	holder.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	holder.position = at
+	holder.rotation_degrees = angle
+	_world.add_child(holder)
+	var font_size := 88
+	var width := _font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
+	var panel := Panel.new()
 	var box := StyleBoxFlat.new()
-	box.bg_color = Color(0, 0, 0, 0.55)
-	box.set_corner_radius_all(14)
-	strip.add_theme_stylebox_override(&"panel", box)
-	strip.size = Vector2(width + 28, CARD.y + 20)
-	strip.position = at + Vector2((SIZE.x - strip.size.x) / 2, 0)
-	_world.add_child(strip)
-	for i in KEYS.size():
-		var card := TextureRect.new()
-		card.texture = load("res://textures/ui/editor/left_panel/theme_cards/wide/%s.svg" % KEYS[i])
-		card.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		card.size = CARD
-		card.position = strip.position + Vector2(14 + i * (CARD.x + GAP), 10)
-		_world.add_child(card)
+	box.bg_color = RED
+	box.set_corner_radius_all(30)
+	box.border_color = DARK
+	box.set_border_width_all(8)
+	box.shadow_color = DARK.darkened(0.45)
+	box.shadow_offset = Vector2(0, 10)
+	box.shadow_size = 1
+	panel.add_theme_stylebox_override(&"panel", box)
+	panel.size = Vector2(width + 56, 96)
+	holder.add_child(panel)
+	var label := Label.new()
+	label.text = text
+	label.add_theme_font_override(&"font", _font)
+	label.add_theme_font_size_override(&"font_size", font_size)
+	label.add_theme_color_override(&"font_color", Color.WHITE)
+	label.size = Vector2(panel.size.x, 0)
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	# Centre the lowercase x-height, not the line box: fonts reserve very different
+	# space above Latin glyphs. Godot draws the baseline at the font's ascent.
+	var x_height := _x_height(font_size)
+	label.position = Vector2(0, panel.size.y / 2 - _font.get_ascent(font_size) + x_height / 2)
+	panel.add_child(label)
 
 
-func _make_logo(white: bool) -> Logo:
+# Measures the drawn height of "x" by rendering it into a throwaway image.
+func _x_height(font_size: int) -> float:
+	var text_server := TextServerManager.get_primary_interface()
+	var rid := _font.get_rids()[0]
+	var glyph := text_server.font_get_glyph_index(rid, font_size, "x".unicode_at(0), 0)
+	var size := text_server.font_get_glyph_size(rid, Vector2i(font_size, 0), glyph)
+	return size.y if size.y > 0 else font_size * 0.5
+
+
+func _make_logo(at: Vector2, size: float) -> Logo:
 	var logo := Logo.new()
+	# Vector letters and fonts scale smoothly; only the pixel sprites stay nearest.
+	logo.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	logo.world_engine = false
-	logo.white = white
+	logo.white = true
+	logo.position = at
+	logo.scale = Vector2(size, size)
 	_world.add_child(logo)
 	return logo
 
 
-func _platform(at: Vector2, size: Vector2i) -> void:
-	for y in size.y:
-		for x in size.x:
-			var row := 0 if y == 0 else 2 if y == size.y - 1 else 1
-			var column := 0 if x == 0 else 2 if x == size.x - 1 else 1
-			var role: Vector2i = [
-				[TOP_LEFT, TOP, TOP_RIGHT], [LEFT, FILL, RIGHT], [BOTTOM_LEFT, BOTTOM, BOTTOM_RIGHT]
-			][row][column]
-			_ground(role, at + Vector2(x, y) * TILE)
-
-
-func _ground(role: Vector2i, at: Vector2) -> void:
-	var texture := AtlasTexture.new()
-	texture.atlas = GROUND
-	texture.region = Rect2(Vector2(role) * 16, Vector2(16, 16))
-	_sprite(texture, at, SCALE)
-
-
-func _frame(sheet: Texture2D, frames: int, index: int, at: Vector2, size := Vector2(16, 16),
-		flip := false) -> void:
+func _frame(sheet: Texture2D, frames: int, index: int, size := Vector2(16, 16)) -> AtlasTexture:
 	var texture := AtlasTexture.new()
 	texture.atlas = sheet
 	texture.region = Rect2(Vector2(index * sheet.get_width() / frames, 0), size)
-	var sprite := _sprite(texture, at, SCALE)
-	sprite.flip_h = flip
+	return texture
 
 
-func _sprite(texture: Texture2D, at: Vector2, scale: float) -> Sprite2D:
-	var sprite := Sprite2D.new()
-	sprite.texture = texture
-	sprite.centered = false
-	sprite.position = at
-	sprite.scale = Vector2(scale, scale)
-	_world.add_child(sprite)
-	return sprite
+# A pixel sprite over a soft dark copy, so it reads on yellow.
+func _shadowed(texture: Texture2D, at: Vector2, scale: float, flip := false) -> void:
+	for shadow in [true, false]:
+		var sprite := Sprite2D.new()
+		sprite.texture = texture
+		sprite.centered = false
+		sprite.flip_h = flip
+		sprite.position = at + (Vector2(0, 8) if shadow else Vector2.ZERO)
+		sprite.scale = Vector2(scale, scale)
+		if shadow:
+			sprite.modulate = Color(DARK, 0.35)
+		_world.add_child(sprite)
+
+
+# SMM2 yellow with GodotWE's banner motif: diagonal bands and large tilted squares.
+class Backdrop extends Node2D:
+	func _draw() -> void:
+		var size := Vector2(SIZE)
+		draw_polygon(
+			PackedVector2Array([Vector2.ZERO, Vector2(size.x, 0), size, Vector2(0, size.y)]),
+			PackedColorArray([YELLOW, YELLOW, ORANGE, ORANGE])
+		)
+		for i in 14:
+			var x := -200.0 + i * 110
+			var band := PackedVector2Array([
+				Vector2(x, size.y), Vector2(x + 60, size.y), Vector2(x + 200, 0), Vector2(x + 140, 0)
+			])
+			draw_colored_polygon(band, Color(1, 1, 1, 0.09))
+		var square := StyleBoxFlat.new()
+		square.set_corner_radius_all(26)
+		for spec in [[Vector2(580, 190), 330.0, 14.0, 0.10], [Vector2(560, 200), 230.0, -9.0, 0.08],
+				[Vector2(120, 330), 220.0, 20.0, 0.07], [Vector2(1060, 70), 200.0, -16.0, 0.08]]:
+			square.bg_color = Color(DARK, spec[3])
+			draw_set_transform(spec[0], deg_to_rad(spec[2]))
+			draw_style_box(square, Rect2(-Vector2.ONE * spec[1] / 2, Vector2.ONE * spec[1]))
+		draw_set_transform(Vector2.ZERO)
+		# SMM2's caution stripes along the bottom edge.
+		draw_rect(Rect2(0, size.y - 22, size.x, 22), DARK)
+		for i in 60:
+			var x := i * 28.0
+			draw_colored_polygon(PackedVector2Array([
+				Vector2(x, size.y), Vector2(x + 14, size.y), Vector2(x + 30, size.y - 16), Vector2(x + 16, size.y - 16)
+			]), YELLOW)

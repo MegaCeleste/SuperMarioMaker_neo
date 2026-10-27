@@ -13,3 +13,6 @@ assets/openwe/
 
 # Local slope templates derived from converted third-party art
 /textures/tiles/slopes/templates/
+
+# Local fonts (Nintendo fonts may not be redistributed); used only for rendering
+/assets/fonts/
