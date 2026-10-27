@@ -82,7 +82,7 @@ func _physics_process(delta: float) -> void:
 			velocity.x = -incoming.x
 			if incoming.y == 0:
 				velocity.y = -variant.wall_hop
-			EnemyEffect.sound_once(sub_area, "res://assets/openwe/sounds/snd_bump.ogg")
+			EnemyEffect.sound_once(sub_area, SoundLibrary.path("snd_bump"))
 		if is_on_floor() and incoming.y > 0:
 			_land_speed = incoming.y
 	for enemy in $EnemyArea.get_overlapping_bodies():
@@ -144,7 +144,7 @@ func _handle_sides() -> void:
 		velocity.x *= -1
 		if velocity.y == 0:
 			velocity.y = -variant.wall_hop
-		EnemyEffect.sound_once(sub_area, "res://assets/openwe/sounds/snd_bump.ogg")
+		EnemyEffect.sound_once(sub_area, SoundLibrary.path("snd_bump"))
 		break
 
 
@@ -199,10 +199,10 @@ func _hit_enemy(body: Node2D) -> void:
 		return
 	if body is Enemy and body.hardness < 99:
 		if body.hit_by_actor(&"crush", self, signf(velocity.x)):
-			EnemyEffect.sound_once(sub_area, "res://assets/openwe/sounds/snd_klock.ogg")
+			EnemyEffect.sound_once(sub_area, SoundLibrary.path("snd_klock"))
 	elif body is StompedGaloomba:
 		body.kill(signf(velocity.x))
-		EnemyEffect.sound_once(sub_area, "res://assets/openwe/sounds/snd_klock.ogg")
+		EnemyEffect.sound_once(sub_area, SoundLibrary.path("snd_klock"))
 
 
 func _body_handling(entering: bool, body: Node2D) -> void:

@@ -26,7 +26,7 @@ var _warning_ticks := 0
 func _ready() -> void:
 	music = AudioStreamPlayer.new()
 	music.process_mode = Node.PROCESS_MODE_ALWAYS
-	music.stream = load("res://assets/openwe/sounds/snd_starman.ogg").duplicate()
+	music.stream = SoundLibrary.stream("snd_starman").duplicate()
 	music.stream.loop = true
 	add_child(music)
 	player.level.completed.connect(_completed)
@@ -96,7 +96,7 @@ func tick() -> void:
 	if _warning_ticks > 0:
 		_warning_ticks -= 1
 		if _warning_ticks == 0:
-			EnemyEffect.sound_once(player.sub_area, "res://assets/openwe/sounds/snd_switchalert.ogg")
+			EnemyEffect.sound_once(player.sub_area, SoundLibrary.path("snd_switchalert"))
 	_flash_alpha += 0.15 if _brightening else -0.15
 	if _flash_alpha < 0.3:
 		_brightening = true
@@ -140,7 +140,7 @@ func hit(body: Node2D) -> bool:
 	else:
 		player.extra_lives += 1
 	var suffix := "" if combo == 0 else str(combo + 1) if combo < 7 else "_1up"
-	EnemyEffect.sound_once(player.sub_area, "res://assets/openwe/sounds/snd_kick%s.ogg" % suffix)
+	EnemyEffect.sound_once(player.sub_area, SoundLibrary.path("snd_kick" + suffix))
 	combo += 1
 	return true
 

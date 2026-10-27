@@ -32,7 +32,7 @@ func physics_process(delta: float) -> Script:
 		var state: PlayerState = Utility.find_child_by_class(player.state_machine, next)
 		state.set("external_launch_speed", spring.player_launch_speed())
 		player.position.y -= 1
-		EnemyEffect.sound_once(player.sub_area, "res://assets/openwe/sounds/snd_spring.ogg")
+		EnemyEffect.sound_once(player.sub_area, SoundLibrary.path("snd_spring"))
 		return next
 	position_held_item()
 	player.velocity.x = 0

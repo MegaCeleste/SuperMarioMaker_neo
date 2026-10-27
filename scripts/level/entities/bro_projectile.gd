@@ -60,7 +60,7 @@ func _ready() -> void:
 	if kind == Kind.HAMMER and sub_area.level_theme != Level.LevelTheme.BEACH and _in_water(14):
 		velocity.y = rules.water_hammer_launch
 	if kind == Kind.FIRE:
-		EnemyEffect.sound_once(sub_area, "res://assets/openwe/sounds/snd_fireball.ogg")
+		EnemyEffect.sound_once(sub_area, SoundLibrary.path("snd_fireball"))
 	if collision_mask != 0:
 		var query := PhysicsShapeQueryParameters2D.new()
 		query.collision_mask = 1
@@ -324,5 +324,5 @@ func _burst() -> void:
 	var art: StringName = &"spr_NSMBU_snowball_destroy" if nsmb_ice else &"spr_smoke"
 	EnemyEffect.play_once(sub_area, art, global_position + Vector2(-8, 0), 18)
 	if nsmb_ice:
-		EnemyEffect.sound_once(sub_area, "res://assets/openwe/sounds/snd_NSMBU_snowball_break.ogg")
+		EnemyEffect.sound_once(sub_area, SoundLibrary.path("snd_NSMBU_snowball_break"))
 	queue_free()

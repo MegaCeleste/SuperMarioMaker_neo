@@ -26,7 +26,7 @@ extends EnemyDefeatStyle
 @export var bump_speed := 180.0
 @export var water_bump_speed := 108.0
 @export var landing_sound := ""
-@export var crush_sound := "res://assets/openwe/sounds/snd_klock.ogg"
+@export var crush_sound := "snd_klock"
 @export var pow_smoke_sprite: StringName = &"spr_spinthump"
 @export var buzzy_helmet_margin := 8.0
 @export var spiny_helmet_margin := 5.0

@@ -90,7 +90,7 @@ func physics_process(delta: float) -> Script:
 
 func _swim_sound() -> void:
 	player.sounds.stop()
-	player.sounds.stream = load("res://assets/openwe/sounds/snd_swim.ogg")
+	player.sounds.stream = SoundLibrary.stream("snd_swim")
 	player.sounds.play()
 
 

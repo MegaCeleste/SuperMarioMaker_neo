@@ -22,7 +22,7 @@ func _ready() -> void:
 	_state.finish_x = finish_x
 	player.state_machine.switch(PlayerGoalState)
 	MusicPlayer.stop()
-	MusicPlayer.stream = _audio("bgm_smwclear.ogg")
+	MusicPlayer.stream = SoundLibrary.stream("bgm_smwclear")
 	if MusicPlayer.stream != null:
 		MusicPlayer.play()
 	_counter = AudioStreamPlayer.new()
@@ -45,7 +45,7 @@ func _physics_process(delta: float) -> void:
 
 func _count_time() -> void:
 	if _tick == 240:
-		_counter.stream = _audio("snd_count.wav")
+		_counter.stream = SoundLibrary.stream("snd_count")
 		if _counter.stream != null:
 			_counter.play()
 	if remaining_time > 4:
@@ -58,11 +58,6 @@ func _count_time() -> void:
 		_next_count = _tick + 2
 	if remaining_time == 0:
 		_counter.stop()
-		_counter.stream = _audio("snd_countend.wav")
+		_counter.stream = SoundLibrary.stream("snd_countend")
 		if _counter.stream != null:
 			_counter.play()
-
-
-func _audio(file_name: String) -> AudioStream:
-	var path := "res://assets/openwe/sounds/" + file_name
-	return load(path) as AudioStream if ResourceLoader.exists(path) else null

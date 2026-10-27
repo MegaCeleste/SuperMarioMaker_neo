@@ -35,7 +35,7 @@ func _head_bump(hit: KinematicCollision2D) -> void:
 		if player.has_helmet() and player._helmet.rules.id == &"spiny":
 			break_from_impact()
 		else:
-			EnemyEffect.sound_once(sub_area, "res://assets/openwe/sounds/snd_bump.ogg")
+			EnemyEffect.sound_once(sub_area, SoundLibrary.path("snd_bump"))
 
 
 func break_from_impact() -> void:

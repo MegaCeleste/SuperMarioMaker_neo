@@ -82,5 +82,5 @@ func kill(launch_direction := 0.0) -> void:
 	effect.velocity.x = 60 * signf(launch_direction)
 	effect.position = sub_area.get_foreground().to_local(global_position + Vector2(0, 8))
 	sub_area.add_deferred(effect)
-	EnemyEffect.sound_once(sub_area, "res://assets/openwe/sounds/snd_stomp.ogg")
+	EnemyEffect.sound_once(sub_area, SoundLibrary.path("snd_stomp"))
 	queue_free()

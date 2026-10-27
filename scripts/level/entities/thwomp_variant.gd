@@ -45,7 +45,7 @@ extends Resource
 @export var side_trigger_inset := 4.0
 @export var side_trigger_top := 40.0
 @export var side_trigger_bottom := 7.0
-@export var impact_sound := "res://assets/openwe/sounds/snd_thwomp_original.ogg"
+@export var impact_sound := "snd_thwomp_original"
 
 
 func source_position(feet: Vector2) -> Vector2:

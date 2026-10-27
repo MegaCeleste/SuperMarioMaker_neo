@@ -5,9 +5,9 @@ extends Resource
 @export var id: StringName = &"buzzy"
 @export var goal_animation: StringName = &"goal_buzzy"
 @export var defeat_on_head := false
-@export var equip_sound := "snd_helmet_add.ogg"
-@export var deflect_sound := "snd_helmet.ogg"
-@export var remove_sound := "snd_helmet_remove.ogg"
+@export var equip_sound := "snd_helmet_add"
+@export var deflect_sound := "snd_helmet"
+@export var remove_sound := "snd_helmet_remove"
 @export var head_size := Vector2(20, 17)
 @export var head_center := Vector2(0, 0.5)
 @export var head_top := -8.0

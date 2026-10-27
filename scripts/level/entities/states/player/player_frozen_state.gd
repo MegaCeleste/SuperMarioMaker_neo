@@ -56,7 +56,7 @@ func start() -> Script:
 	_ice_body.position = player.sub_area.get_foreground().to_local(_ice_bounds().get_center())
 	player.sub_area.add_deferred(_ice_body)
 	EnemyEffect.sound_once(player.sub_area,
-			"res://assets/openwe/sounds/snd_NSMBU_snowball_freeze.ogg")
+			SoundLibrary.path("snd_NSMBU_snowball_freeze"))
 	return null
 
 
@@ -90,7 +90,7 @@ func end() -> void:
 	player.set_deferred("collision_layer", _layer)
 	EnemyEffect.play_once(player.sub_area, &"spr_smokespin", player.global_position + Vector2(-8, -24), 12)
 	EnemyEffect.sound_once(player.sub_area,
-			"res://assets/openwe/sounds/snd_estalactita_break.ogg")
+			SoundLibrary.path("snd_estalactita_break"))
 	super()
 
 

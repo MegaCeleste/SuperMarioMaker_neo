@@ -358,7 +358,7 @@ func _update_visuals() -> void:
 
 
 func _sledge_landing() -> void:
-	EnemyEffect.sound_once(sub_area, "res://assets/openwe/sounds/snd_thwomp_original.ogg")
+	EnemyEffect.sound_once(sub_area, SoundLibrary.path("snd_thwomp_original"))
 	level.shake_camera(1)
 	if is_instance_valid(level.hud.player):
 		level.hud.player.stun_from_landing()

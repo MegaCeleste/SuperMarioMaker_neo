@@ -95,7 +95,7 @@ func _bounce_actor() -> void:
 			speed /= 2
 		body.velocity.y = -speed
 		_begin(1)
-		EnemyEffect.sound_once(sub_area, "res://assets/openwe/sounds/snd_spring.ogg")
+		EnemyEffect.sound_once(sub_area, SoundLibrary.path("snd_spring"))
 		return
 
 

@@ -67,7 +67,7 @@ func _physics_process(delta: float) -> void:
 		if is_on_floor():
 			_gravity = 0
 			if not was_grounded and before_velocity_y > 0 and not variant.landing_sound.is_empty():
-				EnemyEffect.sound_once(sub_area, variant.landing_sound)
+				EnemyEffect.sound_once(sub_area, SoundLibrary.path(variant.landing_sound))
 				level.shake_camera(2)
 	_interact(before, incoming_y if global_position.y > before.end.y + 0.0001 else 0.0, delta)
 	super(delta)
@@ -132,7 +132,7 @@ func _interact(before: Rect2, incoming_y: float, delta: float) -> void:
 					var direction := signf(velocity.x)
 					if direction == 0:
 						direction = signf(bounds.position.x - Utility.get_bounding_box(self).position.x)
-					EnemyEffect.sound_once(sub_area, variant.crush_sound)
+					EnemyEffect.sound_once(sub_area, SoundLibrary.path(variant.crush_sound))
 					if body is Enemy:
 						body.hit_by_actor(&"crush", self, direction)
 					else:

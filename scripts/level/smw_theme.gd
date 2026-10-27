@@ -22,10 +22,10 @@ static func supports(area: SubArea) -> bool:
 static func music_for(area: SubArea, editing: bool) -> AudioStream:
 	var data := info(area.level_theme) if supports(area) else info(Level.LevelTheme.OVERWORLD)
 	var mode := "edit" if editing else "play"
-	var path: String = data.get(mode, "res://assets/openwe/sounds/snd_%s_%s.ogg" % ["editor" if editing else "music", data.key])
+	var path: String = data.get(mode, SoundLibrary.path("snd_%s_%s" % ["editor" if editing else "music", data.key]))
 	if not editing and supports(area) and area.night_mode:
 		# scr_snd_<theme>: night swaps play music only; scr_snd_editor_<theme> has no night branch.
-		path = "res://assets/openwe/sounds/snd_music_%s_night.ogg" % data.get("music", data.key)
+		path = SoundLibrary.path("snd_music_%s_night" % data.get("music", data.key))
 	if not _music.has(path):
 		var stream: AudioStream = load(path)
 		if stream is AudioStreamOggVorbis:

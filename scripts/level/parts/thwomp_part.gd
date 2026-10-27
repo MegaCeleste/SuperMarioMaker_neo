@@ -108,7 +108,7 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_index: int) -> vo
 			var state := get_variant_state()
 			state.direction = (3 if attack_direction == 2 else 2) if variant is GrrrolVariant else attack_direction % 3 + 1
 			level.editor.history.set_part_state(self, state, "Change direction")
-			UISoundPlayer.stream = load("res://assets/openwe/sounds/snd_change_arrow.ogg")
+			UISoundPlayer.stream = SoundLibrary.stream("snd_change_arrow")
 			UISoundPlayer.play()
 			viewport.set_input_as_handled()
 			return

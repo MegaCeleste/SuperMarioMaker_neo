@@ -85,7 +85,7 @@ func _collect(body: Node2D) -> void:
 		return
 	_collected = true
 	body.extra_lives += 1
-	EnemyEffect.sound_once(sub_area, "res://assets/openwe/sounds/snd_1up.ogg")
+	EnemyEffect.sound_once(sub_area, SoundLibrary.path("snd_1up"))
 	var popup := LifePopup.new()
 	popup.texture = SpriteLibrary.get_frames(&"spr_points").get_frame_texture(&"default", 8)
 	popup.position = position + Vector2(0, -24)

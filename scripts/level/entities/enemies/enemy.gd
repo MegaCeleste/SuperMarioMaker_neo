@@ -98,7 +98,7 @@ func source_block_defeat(block: PhysicsBody2D) -> void:
 	if is_queued_for_deletion() or velocity.y < 0:
 		return
 	if hit_by_actor(&"block", block):
-		EnemyEffect.sound_once(sub_area, "res://assets/openwe/sounds/snd_klock.ogg")
+		EnemyEffect.sound_once(sub_area, SoundLibrary.path("snd_klock"))
 		if is_instance_valid(level.hud.player) and not level.hud.player.is_dead() and level.status == Level.Status.PLAYING:
 			level.hud.player.score += 200
 

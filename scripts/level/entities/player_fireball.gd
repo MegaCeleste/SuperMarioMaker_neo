@@ -35,7 +35,7 @@ func _ready() -> void:
 	SpriteCollision.add_shapes(area, _shapes)
 	area.body_entered.connect(_hit_enemy)
 	add_child(area)
-	EnemyEffect.sound_once(sub_area, "res://assets/openwe/sounds/snd_fireball.ogg")
+	EnemyEffect.sound_once(sub_area, SoundLibrary.path("snd_fireball"))
 	var query := PhysicsShapeQueryParameters2D.new()
 	query.collision_mask = 1
 	query.transform = global_transform
@@ -127,5 +127,5 @@ func _burst() -> void:
 	if is_queued_for_deletion():
 		return
 	EnemyEffect.play_once(sub_area, &"spr_smoke", global_position + Vector2(-8, 0), 18)
-	EnemyEffect.sound_once(sub_area, "res://assets/openwe/sounds/snd_bump.ogg")
+	EnemyEffect.sound_once(sub_area, SoundLibrary.path("snd_bump"))
 	queue_free()

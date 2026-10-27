@@ -168,7 +168,7 @@ func _advance_attack(delta: float) -> void:
 			var speed := variant.water_projectile_speed if swimming else variant.projectile_speed
 			shot.velocity = Vector2(speed.x * direction, -speed.y if aiming_up else speed.y)
 			sub_area.add_deferred(shot)
-			EnemyEffect.sound_once(sub_area, variant.shot_sound)
+			EnemyEffect.sound_once(sub_area, SoundLibrary.path(variant.shot_sound))
 		Attack.RECOVERY:
 			attack = Attack.IDLE
 			_attack_left += variant.attack_wait

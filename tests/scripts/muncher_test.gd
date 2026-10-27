@@ -515,7 +515,7 @@ func check_giant_landing() -> void:
 		await ticks(1)
 		shook = shook or Utility.camera_effect != Vector2.ZERO
 		var sounds := level.current_sub_area.get_foreground().get_children().filter(func(node):
-			return node is AudioStreamPlayer and node.stream.resource_path == GIANT.landing_sound)
+			return node is AudioStreamPlayer and node.stream.resource_path == SoundLibrary.path(GIANT.landing_sound))
 		sound_count = maxi(sound_count, sounds.size())
 	check(body.is_on_floor() and shook and sound_count == 1, "Giant landing must emit one original thwomp sound and camera impulse")
 	var player := level.hud.player

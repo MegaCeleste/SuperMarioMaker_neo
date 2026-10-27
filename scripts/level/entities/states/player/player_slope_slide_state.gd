@@ -59,6 +59,6 @@ func hit(enemy: Enemy) -> bool:
 		player.score += scores[combo]
 	else:
 		player.extra_lives += 1
-	EnemyEffect.sound_once(player.sub_area, "res://assets/openwe/sounds/snd_kick%s.ogg" % ("" if combo == 0 else str(combo + 1) if combo < 7 else "_1up"))
+	EnemyEffect.sound_once(player.sub_area, SoundLibrary.path("snd_kick" + ("" if combo == 0 else str(combo + 1) if combo < 7 else "_1up")))
 	combo += 1
 	return true

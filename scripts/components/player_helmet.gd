@@ -300,8 +300,8 @@ func _spawn_effect(sprite: StringName, point: Vector2, fps: float) -> void:
 	spark.play("spark")
 
 
-func _play_sound(file_name: String) -> void:
-	var path := "res://assets/openwe/sounds/" + file_name
-	if ResourceLoader.exists(path):
-		_sound.stream = load(path)
+func _play_sound(sound: String) -> void:
+	var stream := SoundLibrary.stream(sound)
+	if stream != null:
+		_sound.stream = stream
 		_sound.play()

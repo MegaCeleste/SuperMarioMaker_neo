@@ -149,7 +149,7 @@ func _tick_splashes(delta: float) -> void:
 		if _splash_alarm <= 0.00001 and _splash_contact and is_instance_valid(liquid):
 			if liquid.velocity != 0:
 				if sub_area.level_theme != Level.LevelTheme.FOREST:
-					EnemyEffect.sound_if_idle(sub_area, "res://assets/openwe/sounds/snd_podoboo.ogg")
+					EnemyEffect.sound_if_idle(sub_area, SoundLibrary.path("snd_podoboo"))
 				for offset in [-16, 16]:
 					EnemyEffect.play_once(sub_area, variant.splash_sprite,
 							Vector2(variant.source_position(global_position).x + offset, liquid.global_position.y - 16), variant.splash_fps, false)
@@ -212,7 +212,7 @@ func _impact() -> void:
 	velocity.x = 0
 	if attack_direction == 1:
 		velocity.y = 0
-	EnemyEffect.sound_once(sub_area, variant.impact_sound)
+	EnemyEffect.sound_once(sub_area, SoundLibrary.path(variant.impact_sound))
 	level.shake_camera(1)
 	var bounds := Utility.get_bounding_box(self)
 	for x in [bounds.position.x - 8, bounds.end.x - 9]:

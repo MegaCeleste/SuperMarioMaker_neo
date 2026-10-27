@@ -43,5 +43,5 @@ extends EnemyDefeatStyle
 @export var attack_recovery := 40.0 / 60
 @export var projectile_speed := Vector2(60, 30)
 @export var water_projectile_speed := Vector2(30, 15)
-@export var shot_sound := "res://assets/openwe/sounds/snd_podoboo.ogg"
-@export var impact_sound := "res://assets/openwe/sounds/snd_bump.ogg"
+@export var shot_sound := "snd_podoboo"
+@export var impact_sound := "snd_bump"

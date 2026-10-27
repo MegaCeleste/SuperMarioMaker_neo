@@ -144,5 +144,5 @@ func _bounce_actor() -> void:
 		body.velocity.y = -30 if body.test_move(body.global_transform, Vector2.UP) else -313.5
 		body.velocity.x = 0
 		begin_compression()
-		EnemyEffect.sound_once(sub_area, "res://assets/openwe/sounds/snd_spring.ogg")
+		EnemyEffect.sound_once(sub_area, SoundLibrary.path("snd_spring"))
 		return

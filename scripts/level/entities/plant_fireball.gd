@@ -51,5 +51,5 @@ func _burst() -> void:
 	if is_queued_for_deletion():
 		return
 	EnemyEffect.play_once(sub_area, variant.smoke_sprite, global_position + Vector2(-8, 0), 18)
-	EnemyEffect.sound_once(sub_area, variant.impact_sound)
+	EnemyEffect.sound_once(sub_area, SoundLibrary.path(variant.impact_sound))
 	queue_free()

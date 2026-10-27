@@ -64,7 +64,7 @@ static func break_now(area: SubArea, body: PhysicsBody2D, art: StringName, empty
 		shard.velocity = Vector2.from_angle(-deg_to_rad(angles[index])) * (360 if stronger else 300)
 		shard.spin_direction = 1 if index < 2 else -1
 		area.add_deferred(shard)
-	EnemyEffect.sound_once(area, "res://assets/openwe/sounds/snd_break.ogg")
+	EnemyEffect.sound_once(area, SoundLibrary.path("snd_break"))
 	body.collision_layer = 0
 	body.collision_mask = 0
 	body.queue_free()
