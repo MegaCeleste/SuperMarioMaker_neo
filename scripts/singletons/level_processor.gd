@@ -573,6 +573,28 @@ func _from_swe(path: String, meta_only := false) -> Level:
 					_float_value(_get_value(entry, "yy", "y_pos"), 432) - 432))
 			sub.add_part(platform)
 			platform.owner = lvl
+	# Door pairs have their own source collection, like platforms. One row
+	# holds both doors, each by the middle of its 16x32 body.
+	var doors: Variant = wrapper.get("PUERTAS", [])
+	if doors is Array:
+		for source_index in doors.size():
+			var entry: Variant = doors[source_index]
+			if entry is not Dictionary or str(_get_value(entry, "ID", "object")) != "obj_door_res":
+				continue
+			var door := DoorPart.create()
+			door.swe_data = entry.duplicate(true)
+			door.swe_source_index = source_index
+			door.position = Level.snap(Vector2(_float_value(entry.get("x_pos")),
+					_float_value(entry.get("y_pos"), 432) - 448))
+			var exit := DoorPart.create()
+			exit.primary = false
+			exit.position = Level.snap(Vector2(_float_value(entry.get("door_x"), door.position.x + 16),
+					_float_value(entry.get("door_y"), door.position.y + 448) - 448))
+			door.partner = exit
+			exit.partner = door
+			for part in [door, exit]:
+				sub.add_part(part)
+				part.owner = lvl
 	for id: String in unknown_ids:
 		push_warning("Unsupported SWE object '%s' (%d instance(s)) in %s" %
 				[id, unknown_ids[id], path])

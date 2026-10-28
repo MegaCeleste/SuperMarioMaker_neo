@@ -103,6 +103,13 @@ static func is_placeable(grid_pos: Vector2i, world: World2D) -> bool:
 	return _check_rect(Rect2i(grid_pos, Vector2i(1, 1)), world)
 
 
+## Whether the palette may place another one of this part in [param area].
+## Parts with a per-course limit (such as doors) override this.
+@warning_ignore("unused_parameter")
+static func can_place_more(area: SubArea) -> bool:
+	return true
+
+
 ## Creates an instance of this [Part].
 static func create() -> Part:
 	return load("uid://jr7c4ykh8awq").instantiate()

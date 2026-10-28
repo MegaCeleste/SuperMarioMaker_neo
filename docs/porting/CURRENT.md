@@ -7,7 +7,8 @@ not been agreed. The detailed historical record remains in HANDOFF.md.
 
 ## Project boundaries (2026-10-25)
 
-- SMMneo development: `C:/Working/SMMneo/GodotWE`, branch `SMMneo`.
+- SMMneo development: `C:/Working/SMMneo/SuperMarioMakerNeo`, branch `SMMneo`;
+  each task is developed on its own branch and merged after the user's review.
 - Focused GodotWE upstream contributions: the separate `C:/Working/GodotWE`
   repository, using its own feature branches.
 
@@ -64,7 +65,7 @@ python -I tools/porting/capture_slice.py --semisolid --fps 60
 python -I tools/porting/capture_slice.py --semisolid --fps 120
 ```
 
-Headless tests check 57 native scenes, plus import and sprite metadata guards.
+Headless tests check 58 native scenes, plus import and sprite metadata guards.
 Actual-render checks are separate and feature-specific. Logs/screenshots stay
 under ignored `.godot/porting-tests/`; exit resource diagnostics retained there
 must not be described as an absence of all leaks.
@@ -87,6 +88,7 @@ and may fail. Do not present the seven-file result as whole-project compliance.
 Current features include SMW movement/powers/swimming, the documented enemy
 subset, native palette/history/contents, terrain and slopes, ten SMM2 course
 themes with a day/night toggle (night gameplay effects not yet ported),
+ordinary door pairs,
 ordinary springs/platforms, SWE subset round-tripping and display improvements.
 The Chinese implementation guide itemizes them and identifies incomplete parts.
 

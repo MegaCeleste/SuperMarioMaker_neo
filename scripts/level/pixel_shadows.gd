@@ -50,8 +50,9 @@ func _watch(node: Node) -> void:
 		return
 	if not (sub_area.get_foreground().is_ancestor_of(node) or sub_area.get_parts().is_ancestor_of(node)):
 		return
-	# Editor controls and the starting arrow are visual aids, not world art.
-	if node.name in [&"Direction", &"GrabberSprite", &"StartArrow"]:
+	# Editor controls, door pair symbols and the starting arrow are visual aids,
+	# not world art.
+	if node.name in [&"Direction", &"GrabberSprite", &"StartArrow", &"DoorSymbol"]:
 		return
 	var copy := Node2D.new()
 	copy.name = "Silhouette"

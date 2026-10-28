@@ -47,6 +47,12 @@ func _process(_delta: float) -> void:
 		queue_redraw()
 	%Cutout.position = _card_offset + Vector2(0, 3)
 	%Icon.position = _icon_offset + Vector2(3, 3)
+	# A part at its course limit (such as a sixth door) grays its card out.
+	if part != null and is_instance_valid(editor) and is_instance_valid(editor.level):
+		var full: bool = not part.can_place_more(editor.level.current_sub_area)
+		if full != disabled:
+			disabled = full
+			queue_redraw()
 
 
 func _draw() -> void:
@@ -57,10 +63,11 @@ func _draw() -> void:
 		color = Color.GRAY
 	draw_texture(preload("uid://bcyyrpipyld5c"), _card_offset, color)
 	var texture: Texture2D
-	if button_pressed:
-		texture = preload("uid://c5s72xcashr6u")
-	elif disabled:
+	# Gray wins over selected, so a selected card at its limit still reads as full.
+	if disabled:
 		texture = preload("uid://cw2n8bqdit13t")
+	elif button_pressed:
+		texture = preload("uid://c5s72xcashr6u")
 	else:
 		texture = preload("uid://5mh6wpqqoc7e")
 	draw_texture(texture, _card_offset + Vector2(0, 6))

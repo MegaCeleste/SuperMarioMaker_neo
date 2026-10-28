@@ -243,13 +243,13 @@ func _physics_process(delta: float) -> void:
 	sprite.modulate.a = 0.4 if invulnerability_left > 0 \
 			and int(invulnerability_left * 15) % 2 == 0 else 1.0
 	state_machine._physics_process(delta)
-	if is_ducking() and not is_dead() and not is_frozen() \
+	if is_ducking() and not is_dead() and not is_frozen() and not is_traveling() \
 			and not state_machine.current_state is PlayerStunnedState and not state_machine.current_state is PlayerSlopeSlideState \
 			and level.status == Level.Status.PLAYING:
 		sprite.speed_scale = 1
 		sprite.play(&"hold_duck" if held_item != null else &"duck")
 		sprite.flip_h = direction < 0
-	if not is_frozen():
+	if not is_frozen() and not is_traveling():
 		_gravity._physics_process(delta)
 		_powerup.physics_process(delta)
 		_attempt_correction(delta, 2)
@@ -364,6 +364,25 @@ func is_frozen() -> bool:
 
 func is_swimming() -> bool:
 	return state_machine.current_state is PlayerSwimmingState
+
+
+## Whether a door currently moves Mario instead of physics.
+func is_traveling() -> bool:
+	return state_machine.current_state is PlayerDoorState
+
+
+## Starts the scripted trip through [param entry] to its partner door.
+func enter_door(entry: WarpDoor) -> void:
+	var state: PlayerDoorState = Utility.find_child_by_class(state_machine, PlayerDoorState)
+	state.entry = entry
+	state_machine.switch(PlayerDoorState, true)
+
+
+## Centres the camera on Mario at once, as after going through a door.
+func snap_camera() -> void:
+	var size = get_viewport().get_visible_rect().size / Utility.camera_scale
+	Utility.camera_position = global_position - size / 2
+	level._camera_clamp()
 
 
 ## Full underwater themes are water everywhere. The existing surface supports

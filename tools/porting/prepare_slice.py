@@ -37,6 +37,8 @@ SOUNDS = {
     "snd_1up": ("snd_1up", "snd_1up.ogg", b"OggS"),
     "snd_spring": ("snd_spring", "snd_spring.ogg", b"OggS"),
     "snd_swim": ("snd_swim", "snd_swim.ogg", b"OggS"),
+    "snd_door": ("snd_door", "snd_door.ogg", b"OggS"),
+    "snd_door_close": ("snd_door_close", "snd_door_close.ogg", b"OggS"),
 }
 for name in ["snd_kick", *[f"snd_kick{i}" for i in range(2, 8)], "snd_kick_1up"]:
     SOUNDS[name] = (name, name + ".ogg", b"OggS")
@@ -82,6 +84,7 @@ def main():
                                 "forest", "ghost", "airship", "castle")})
     names.update({"spr_ssp2_sky", "spr_ssp3_sky"})
     names.add("spr_move_semisolid")
+    names.update({"spr_door", "spr_door_close", "spr_door_symbols"})
     names.update({"bg_castle", "bg_airship", *[f"bg_underground_{i}" for i in range(1, 5)],
                   *[f"bg_underwater_{i}" for i in range(1, 5)], *[f"bg_ghost_house_{i}" for i in range(1, 4)],
                   "bg_desert", "bg_snow", "bg_forest", "bg_ghost_house_night",

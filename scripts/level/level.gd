@@ -311,9 +311,9 @@ func is_player_dying() -> bool:
 
 func get_living_player() -> Player:
 	var player := hud.player if is_instance_valid(hud) else null
-	# Source AI queries obj_mario; ice/death/goal use separate replacements.
+	# Source AI queries obj_mario; ice/death/goal/door use separate replacements.
 	return player if is_instance_valid(player) and not player.is_dead() and not player.is_frozen() \
-			and status == Status.PLAYING else null
+			and not player.is_traveling() and status == Status.PLAYING else null
 
 
 func start_player_death() -> void:

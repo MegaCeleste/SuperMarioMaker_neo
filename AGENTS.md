@@ -1,9 +1,11 @@
 # Agent handoff
 
 **Project separation (user direction, 2026-10-25):** this is SMMneo, an
-independent development project at `C:/Working/SMMneo/GodotWE`, on branch
-`SMMneo`. The former workspace folder `C:/Working/新建文件夹` was renamed to
-`C:/Working/SMMneo`; the inner `GodotWE` folder name is unchanged.
+independent development project at `C:/Working/SMMneo/SuperMarioMakerNeo`, on
+branch `SMMneo`. The former workspace folder `C:/Working/新建文件夹` was renamed to
+`C:/Working/SMMneo`; the inner folder was later renamed from `GodotWE`.
+User direction (2026-10-27): develop each task on its own branch from `SMMneo`;
+merge into `SMMneo` and push only after the user approves.
 `C:/Working/GodotWE` is a separate repository for focused upstream PRs.
 Both projects remain active. Select the repository according to the user's
 requested project; do not mix their working trees or automatically merge the
@@ -22,7 +24,13 @@ physics interpolation are different implementations; compare them before
 porting rendering changes. This separation does not select new gameplay scope.
 
 
-**Latest selected round (2026-10-27):** after merging upstream `b029b73`
+**Latest selected round (2026-10-27, branch `feat/doors`):** the user selected
+pipes and doors with sub-area travel, rejected the first implementation, and kept
+only ordinary SMW door pairs (docs/porting/DOORS-2026-10-27.md). The sub-world and
+pipe code was rolled back; it stays on the unmerged `feat/pipes-doors` branch.
+The user will review the doors next.
+
+**Previous round (2026-10-27):** after merging upstream `b029b73`
 (docs/porting/UPSTREAM-SYNC-2026-10-27.md), the user selected SMM2's four extra
 themes and a day/night toggle, appearance and music only
 (docs/porting/THEMES-SMM2-NIGHT-2026-10-27.md). SMM:WE-only themes and night
