@@ -31,10 +31,12 @@ func _ready() -> void:
 	ring.category = load("res://resources/palette/category_gizmos.tres")
 	check(ring.choose(1) and editor.get_selected_part() == DoorPart, "Door palette entry is not usable")
 	editor.history.begin_stroke("Place")
-	var door := editor.place(Vector2i(15, -6)) as DoorPart
+	# The clicked cell is the door's bottom cell; the partner stands beside it.
+	var door := editor.place(Vector2i(15, -5)) as DoorPart
 	editor.history.end_stroke()
 	var partner := door.get_exit() if door != null else null
-	check(partner != null and partner.position == door.position + Vector2(32, 0), "Door did not add its partner")
+	check(door != null and door.position == Vector2(240, -96), "Door does not stand on the clicked cell")
+	check(partner != null and partner.position == door.position + Vector2(16, 0), "Door did not add its partner")
 	check(door.get_node("Graphics/Sprite").texture != null, "Door has no source art")
 	editor.history.undo()
 	check(door.get_parent() == null and partner.get_parent() == null, "Door placement undo kept a door")
@@ -45,6 +47,34 @@ func _ready() -> void:
 	editor.history.undo()
 	check(door.get_exit() == partner, "Door erase undo did not restore the pair")
 	partner.position = Vector2(400, -96)
+
+	# Pairs fit up to MAX_DOORS doors, then the card grays out.
+	var card: EditorCard
+	for candidate in editor.find_children("*", "EditorCard", true, false):
+		if candidate.part == DoorPart and candidate.button_pressed:
+			card = candidate
+	var extra: Array[DoorPart] = []
+	var x := 19
+	while 2 + extra.size() * 2 < DoorPart.MAX_DOORS:
+		check(DoorPart.can_place_more(area), "Door limit blocked a pair below MAX_DOORS")
+		editor.history.begin_stroke("Place")
+		extra.append(editor.place(Vector2i(x, -5)) as DoorPart)
+		editor.history.end_stroke()
+		x += 3
+	await ticks(1)
+	check(not DoorPart.can_place_more(area) and card != null and card.disabled, "Door card did not gray out at MAX_DOORS")
+	# Each pair takes the first free source symbol; both doors show it.
+	check(door.get_symbol() == 0 and partner.get_symbol() == 0 and extra[0].get_symbol() == 1
+			and extra[0].get_exit().get_symbol() == 1 and extra[1].get_symbol() == 2 and extra[2].get_symbol() == 3,
+			"Door pairs do not share distinct symbols")
+	editor.erase_part(extra[-1])
+	await ticks(1)
+	check(DoorPart.can_place_more(area) and not card.disabled, "Erasing a pair did not free the door limit")
+	editor.history.undo()
+	await ticks(1)
+	check(card.disabled, "Undoing the erase did not fill the door limit again")
+	for pair in extra:
+		editor.erase_part(pair)
 
 	# One OpenWE obj_door_res row stores the pair.
 	var path := "res://.godot/porting-tests/doors.swe"
@@ -105,8 +135,29 @@ func snap(label: String, level: Level) -> void:
 	if level.status == Level.Status.EDITING:
 		Utility.camera_position = Vector2(96, -230)
 		await ticks(26)
+	var symbols := []
+	var sample := func():
+		for node in level.current_sub_area.find_children("DoorSymbol", "Sprite2D", true, false):
+			if node.is_visible_in_tree():
+				symbols.append({"image": node.texture.get_image(), "transform": node.get_global_transform_with_canvas()})
+	RenderingServer.frame_pre_draw.connect(sample, CONNECT_ONE_SHOT)
 	await RenderingServer.frame_post_draw
 	var image := get_viewport().get_texture().get_image()
+	if label == "editor":
+		# The pair symbol must reach the screen above the door (lower right).
+		var pixels := 0
+		var matches := 0
+		for entry: Dictionary in symbols:
+			var art: Image = entry.image
+			for y in art.get_height():
+				for x in art.get_width():
+					if art.get_pixel(x, y).a < 1:
+						continue
+					pixels += 1
+					var at := Vector2i(entry.transform * (Vector2(x + 0.5, y + 0.5) - Vector2(art.get_size()) / 2))
+					matches += int(image.get_pixelv(at).is_equal_approx(art.get_pixel(x, y)))
+		print("DOORS_SYMBOL_PIXELS ", matches, "/", pixels)
+		check(symbols.size() == 2 and pixels > 0 and matches == pixels, "Door symbols are not drawn: %d/%d" % [matches, pixels])
 	if label.begins_with("curtain"):
 		# Black first, then a hole around the arrival door (source obj_curtainin).
 		var arrival := Vector2i(level.get_global_transform_with_canvas() * level.hud.player.global_position)

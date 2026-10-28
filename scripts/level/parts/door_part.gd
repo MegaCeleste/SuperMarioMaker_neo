@@ -2,17 +2,25 @@
 class_name DoorPart
 extends Part
 ## SMW door (source obj_door_res). Doors come in pairs inside one world:
-## entering either door brings Mario out of the other. Placing a door adds its
-## partner two cells to the right; both move freely and are erased together.
+## entering either door brings Mario out of the other. A door stands on the
+## clicked cell and its partner is placed right beside it; both move freely and
+## are erased together. An area holds at most [constant MAX_DOORS] doors.
 ## One source record holds the pair (x_pos/y_pos and door_x/door_y).
+
+## Most doors one area may hold; each placement adds a pair. Source limit:
+## four pairs, one per spr_door_symbols frame (door_symbol_1..4).
+const MAX_DOORS := 8
 
 ## The other door of this pair; set for both doors.
 var partner: DoorPart
 ## The door whose source record stores the pair. Its partner is written as
 ## the record's door_x/door_y.
 var primary := true
+## Editor symbol index of the pair, kept on the primary door; see [method get_symbol].
+var symbol := -1
 ## The runtime door built for play; the partner's entry hands Mario to it.
 var runtime: WarpDoor
+var _symbol_sprite: Sprite2D
 
 
 static func create() -> DoorPart:
@@ -27,10 +35,21 @@ static func get_part_name(_area: SubArea) -> String:
 	return "Door"
 
 
-## A new door needs room for itself and for its partner two cells away.
+## A new pair needs a free 2x2 block: the clicked cell and the cell above it,
+## for this door and its partner beside it.
 static func is_placeable(grid_pos: Vector2i, world: World2D) -> bool:
-	return _check_rect(Rect2i(grid_pos, Vector2i(1, 2)), world) \
-			and _check_rect(Rect2i(grid_pos + Vector2i(2, 0), Vector2i(1, 2)), world)
+	var top = grid_pos - Vector2i(0, 1)
+	return _check_rect(Rect2i(top, Vector2i(2, 2)), world)
+
+
+## Whether another pair still fits under [constant MAX_DOORS]. Erased doors
+## leave the Parts node, so erasing or undoing frees the slots again.
+static func can_place_more(area: SubArea) -> bool:
+	var count := 0
+	for part in area.get_parts().get_children():
+		if part is DoorPart:
+			count += 1
+	return count + 2 <= MAX_DOORS
 
 
 static func get_part_icon(_area: SubArea) -> Texture2D:
@@ -47,18 +66,25 @@ func _ready() -> void:
 	super()
 	$CollShape.shape = $CollShape.shape.duplicate()
 	$CollShape.shape.size = Vector2(14, 30)
+	_symbol_sprite = Sprite2D.new()
+	_symbol_sprite.name = "DoorSymbol"  # PixelShadows skips editor aids by name.
+	_symbol_sprite.visible = false
+	$Graphics.add_child(_symbol_sprite)
 
 
 func load(placed_from_editor := false) -> void:
+	if placed_from_editor and partner == null:
+		position.y -= Level.GRID_SIZE.y
 	super(placed_from_editor)
 	$Graphics/Sprite.texture = SpriteLibrary.get_frames(&"spr_door").get_frame_texture(&"default", 0)
 	if placed_from_editor and partner == null:
+		symbol = _free_symbol()
 		_add_partner()
 
 
 func _add_partner() -> void:
 	var other := DoorPart.create()
-	other.position = position + Vector2(32, 0)
+	other.position = position + Vector2(16, 0)
 	other.primary = false
 	partner = other
 	other.partner = self
@@ -80,29 +106,37 @@ static func _placed(door: DoorPart) -> bool:
 	return door.sub_area != null and door.get_parent() == door.sub_area.get_parts()
 
 
-## Small number badge shared by both doors of a pair.
-func pair_number() -> int:
-	var number := 0
+## The pair's editor symbol, a spr_door_symbols frame shared by both doors.
+## Source door_symbol_1..4: a pair takes the first symbol free when it is
+## placed and keeps it; loaded pairs take theirs in order when first drawn.
+func get_symbol() -> int:
+	var keeper := self if primary or get_exit() == null else partner
+	if keeper.symbol < 0:
+		keeper.symbol = keeper._free_symbol()
+	return keeper.symbol
+
+
+func _free_symbol() -> int:
+	var used: Array[int] = []
 	for part in get_parent().get_children():
-		if part is DoorPart and part.primary:
-			number += 1
-			if part == (self if primary else partner):
-				return number
-	return number
-
-
-func _draw() -> void:
-	super()
-	if level != null and level.status == Level.Status.EDITING and not held and get_exit() != null:
-		var font := ThemeDB.fallback_font
-		draw_circle(Vector2(8, -5), 6, Color(1, 1, 1, 0.9))
-		draw_string(font, Vector2(4, -1), str(pair_number()), HORIZONTAL_ALIGNMENT_CENTER, 8, 9, Color.BLACK)
+		if part is DoorPart and part != self and part.primary and part.symbol >= 0:
+			used.append(part.symbol)
+	for candidate in SpriteLibrary.get_frames(&"spr_door_symbols").get_frame_count(&"default"):
+		if candidate not in used:
+			return candidate
+	return 0
 
 
 func _process(delta: float) -> void:
 	super(delta)
-	if level != null and level.status == Level.Status.EDITING:
-		queue_redraw()
+	# Source obj_door_res Draw: the symbol overlay shares the door's 16x32 frame,
+	# so its art sits in the lower-right corner. It lives in Graphics, above the
+	# door sprite (a Part's own drawing is below it), and moves with a held door.
+	var paired := level != null and level.status == Level.Status.EDITING and get_exit() != null
+	_symbol_sprite.visible = paired
+	if paired:
+		_symbol_sprite.texture = SpriteLibrary.get_frames(&"spr_door_symbols") \
+				.get_frame_texture(&"default", get_symbol())
 
 
 func _draw_highlight(at: Vector2, color: Color) -> void:

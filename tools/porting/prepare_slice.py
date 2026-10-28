@@ -84,7 +84,7 @@ def main():
                                 "forest", "ghost", "airship", "castle")})
     names.update({"spr_ssp2_sky", "spr_ssp3_sky"})
     names.add("spr_move_semisolid")
-    names.update({"spr_door", "spr_door_close"})
+    names.update({"spr_door", "spr_door_close", "spr_door_symbols"})
     names.update({"bg_castle", "bg_airship", *[f"bg_underground_{i}" for i in range(1, 5)],
                   *[f"bg_underwater_{i}" for i in range(1, 5)], *[f"bg_ghost_house_{i}" for i in range(1, 4)],
                   "bg_desert", "bg_snow", "bg_forest", "bg_ghost_house_night",

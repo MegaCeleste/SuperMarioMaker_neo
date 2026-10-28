@@ -78,4 +78,5 @@ func _animation_finished() -> void:
 	if _sprite.animation == &"close":
 		_sprite.animation = &"open"
 		_sprite.frame = 0
-		EnemyEffect.sound_once(part.sub_area, SoundLibrary.path("snd_door_close"))
+		## EnemyEffect.sound_once(part.sub_area, SoundLibrary.path("snd_door_close"))
+		##  The sound is in the source, but it is not heard in the original game. It is probably a bug.

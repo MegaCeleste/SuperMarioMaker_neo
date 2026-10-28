@@ -398,6 +398,8 @@ func _process_placing(process_multiplaceables: bool) -> void:
 		return
 	if held_part != null:
 		return
+	if not selected.can_place_more(level.current_sub_area):
+		return
 	# Slopes may overlap terrain, but clicking an existing slope must reach its
 	# body/endpoint input instead of creating another copy before physics picking.
 	if hovered_part is SlopePart or (hovered_part is SemisolidPart and selected == SemisolidPart):
