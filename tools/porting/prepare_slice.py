@@ -39,6 +39,12 @@ SOUNDS = {
     "snd_swim": ("snd_swim", "snd_swim.ogg", b"OggS"),
     "snd_door": ("snd_door", "snd_door.ogg", b"OggS"),
     "snd_door_close": ("snd_door_close", "snd_door_close.ogg", b"OggS"),
+    "snd_switchsong": ("snd_switchsong", "snd_switchsong.ogg", b"OggS"),
+    "snd_warning": ("snd_warning", "snd_warning.ogg", b"OggS"),
+    "snd_pow": ("snd_pow", "snd_pow.ogg", b"OggS"),
+    "snd_SMB3_explode": ("snd_SMB3_explode", "snd_SMB3_explode.ogg", b"OggS"),
+    "snd_NSMBU_boo_stop": ("snd_NSMBU_boo_stop", "snd_NSMBU_boo_stop.ogg", b"OggS"),
+    "snd_explode": ("snd_explode.wav", "snd_explode.wav", b"RIFF"),
 }
 for name in ["snd_kick", *[f"snd_kick{i}" for i in range(2, 8)], "snd_kick_1up"]:
     SOUNDS[name] = (name, name + ".ogg", b"OggS")
@@ -85,6 +91,14 @@ def main():
     names.update({"spr_ssp2_sky", "spr_ssp3_sky"})
     names.add("spr_move_semisolid")
     names.update({"spr_door", "spr_door_close", "spr_door_symbols"})
+    # SMM1 gizmos and enemies round (2026-11-09).
+    names.update({"spr_pswitch", "spr_pswitch_press", "spr_block_pow", "spr_pow_explode",
+                  "spr_bullebill_base", "spr_bulletbill", "spr_bulletbill_base_deads", "spr_firebar",
+                  "spr_firebar_base", "spr_firebar_editor", "spr_platform", "spr_platform_blue",
+                  "spr_puente", "spr_puente_night", "spr_puente_snow", "spr_puente_snow_night",
+                  "spr_boo", "spr_boo_res", "spr_bobomb", "spr_bobomb_ready", "spr_bobomb_deads",
+                  "spr_bobomb_ready_deads", "spr_bobomb_res", "spr_explosion", "spr_drybones",
+                  "spr_drybones_crumble", "spr_drybones_deads", "spr_drybones_res"})
     names.update({"bg_castle", "bg_airship", *[f"bg_underground_{i}" for i in range(1, 5)],
                   *[f"bg_underwater_{i}" for i in range(1, 5)], *[f"bg_ghost_house_{i}" for i in range(1, 4)],
                   "bg_desert", "bg_snow", "bg_forest", "bg_ghost_house_night",

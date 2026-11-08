@@ -99,6 +99,8 @@ const SWE_OBJECT_TABLE = {
 	"obj_donut_res": preload("res://scenes/level/parts/donut_part.tscn"),
 	"obj_noteblock_res": preload("res://scenes/level/parts/note_block_part.tscn"),
 	"obj_spring_res": preload("res://scenes/level/parts/spring_part.tscn"),
+	"obj_pow_res": preload("res://scenes/level/parts/pow_part.tscn"),
+	"obj_pswitch_res": preload("res://scenes/level/parts/p_switch_part.tscn"),
 	# The pinned OpenWE has unfinished slopes and no endpoint save contract.
 	# Keep this explicit extension instead of misidentifying its ground objects.
 	"godotwe_slope": preload("res://scenes/level/parts/slope_part.tscn"),

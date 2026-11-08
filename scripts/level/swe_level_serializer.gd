@@ -285,6 +285,10 @@ static func _set_alias(dict: Dictionary, modern: String, legacy: String, value: 
 static func _object_id(part: Part) -> String:
 	if part is SpringPart:
 		return "obj_spring_res"
+	if part is PowPart:
+		return "obj_pow_res"
+	if part is PSwitchPart:
+		return "obj_pswitch_res"
 	if part is SlopePart:
 		return "godotwe_gentle_slope" if part.gentle else "godotwe_slope"
 	if part is CoinPart:

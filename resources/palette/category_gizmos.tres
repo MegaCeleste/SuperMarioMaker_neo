@@ -6,6 +6,16 @@
 [ext_resource type="Script" uid="uid://2lamiomhq6u3" path="res://scripts/ui/editor/palette/palette_item.gd" id="3_6r1nn"]
 [ext_resource type="Script" path="res://scripts/level/parts/spring_part.gd" id="4_spring"]
 [ext_resource type="Script" path="res://scripts/level/parts/door_part.gd" id="5_door"]
+[ext_resource type="Script" path="res://scripts/level/parts/p_switch_part.gd" id="PSwitchPart_script"]
+[ext_resource type="Script" path="res://scripts/level/parts/pow_part.gd" id="PowPart_script"]
+
+[sub_resource type="Resource" id="PowPartItem"]
+script = ExtResource("3_6r1nn")
+part = ExtResource("PowPart_script")
+
+[sub_resource type="Resource" id="PSwitchPartItem"]
+script = ExtResource("3_6r1nn")
+part = ExtResource("PSwitchPart_script")
 
 [sub_resource type="Resource" id="SpringItem"]
 script = ExtResource("3_6r1nn")
@@ -17,7 +27,7 @@ part = ExtResource("5_door")
 
 [sub_resource type="Resource" id="Resource_ruryj"]
 script = ExtResource("1_ll0gb")
-items = Array[ExtResource("3_6r1nn")]([SubResource("SpringItem"), SubResource("DoorItem"), null, null, null, null, null])
+items = Array[ExtResource("3_6r1nn")]([SubResource("SpringItem"), SubResource("DoorItem"), SubResource("PSwitchPartItem"), SubResource("PowPartItem"), null, null, null])
 metadata/_custom_type_script = "uid://bjs845vgkw44b"
 
 [resource]
