@@ -1,6 +1,6 @@
 """Render a local slice screenshot using Godot's real OpenGL renderer.
 
-Creates a temporary off-screen window, captures, and exits within 30 seconds.
+Creates a temporary off-screen window, captures, and exits within 60 seconds.
 Usage: python -I tools/porting/capture_slice.py [--godot path]
 """
 import argparse
@@ -150,7 +150,7 @@ def main():
     with output_path.open("w", encoding="utf-8") as output:
         try:
             result = subprocess.run(command, cwd=ROOT, stdout=output,
-                                    stderr=subprocess.STDOUT, timeout=30)
+                                    stderr=subprocess.STDOUT, timeout=60)
         except subprocess.TimeoutExpired:
             print(f"FAIL capture: timed out; see {output_path}")
             return 1

@@ -33,6 +33,14 @@ func _ready() -> void:
 	check(editor.get_node("HistoryControls/World").text == tr("EDITOR_SUB_WORLD"), "World button does not name the sub-world")
 	check(editor.switch_world() and level.current_sub_area == main, "Editor world switch did not return to the main world")
 	check(Utility.camera_position.is_equal_approx(main_camera), "Main world camera was not restored")
+	# A sub-world theme of its own must not show over the main world: its
+	# background is a CanvasLayer, which ignores the frozen world's visibility.
+	editor.switch_world()
+	sub.set_theme(Level.LevelTheme.MANSION)
+	editor.switch_world()
+	var leaked := sub.find_children("*", "CanvasLayer", true, false).any(func(layer): return layer.visible)
+	check(not leaked, "The frozen sub-world's background still draws over the main world")
+	sub.set_theme(main.level_theme)
 
 	for area in [main, sub]:
 		for candidate in area.get_parts().get_children():
@@ -274,6 +282,24 @@ func _ready() -> void:
 		if let_out:
 			break
 	check(let_out, "The pipe did not let its mushroom out")
+	if capture:
+		# A side exit, for checking where Mario's feet sit in the opening.
+		var side: WarpPipe
+		for node in main.get_foreground().get_children():
+			if node is WarpPipe and node.part.facing == PipePart.Facing.RIGHT:
+				side = node
+		if side != null:
+			player.enter_pipe(pipe.runtime, side)
+			for tick in 400:
+				await ticks(1)
+				var st = player.state_machine.current_state
+				if st is PlayerPipeState and st._phase == PlayerPipeState.Phase.EXIT and st._ticks == 10:
+					break
+			Utility.camera_position = side.global_position - Vector2(80, 60)
+			await snap("view_side_exit", level)
+			var mouth := side.part.mouth_rect()
+			print("SIDE_EXIT feet=", player.global_position.y, " mouth_end=", mouth.end.y, " sprite_bottom=",
+					player.sprite.global_position.y + player.sprite.offset.y + 32)
 
 	# Returning to the editor resumes in the world Mario ended in.
 	level.edit()

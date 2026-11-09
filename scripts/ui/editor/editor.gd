@@ -720,7 +720,9 @@ func refresh_theme() -> void:
 func _update_history_controls() -> void:
 	if history == null:
 		return
-	_history_controls.visible = level.status == Level.Status.EDITING and _linking_pipe == null
+	# SMM2 has no on-screen area/undo/redo buttons: Undodog and pipes cover
+	# them. The controls stay for keyboard shortcuts and tests, hidden.
+	_history_controls.visible = false
 	var available := part_interact and held_part == null and not _saving
 	_world_button.disabled = not available
 	_undo_button.disabled = not available or not history.can_undo()

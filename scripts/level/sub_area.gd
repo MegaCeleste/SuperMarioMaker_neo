@@ -143,6 +143,8 @@ func _refresh_environment() -> void:
 		liquid.name = "LiquidSurface"
 		liquid.sub_area = self
 		add_child(liquid)
+	if not visible:
+		_set_layers_visible(self, false)
 
 
 func get_background() -> Node2D:
@@ -167,11 +169,22 @@ func get_parts() -> Node2D:
 func freeze() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED
 	hide()
+	_set_layers_visible(self, false)
 
 
 func unfreeze() -> void:
 	process_mode = Node.PROCESS_MODE_INHERIT
 	show()
+	_set_layers_visible(self, true)
+
+
+# CanvasLayers (the theme background) ignore their parent's visibility, so a
+# frozen world's background would otherwise draw over the shown one.
+func _set_layers_visible(node: Node, shown: bool) -> void:
+	for child in node.get_children():
+		if child is CanvasLayer:
+			child.visible = shown
+		_set_layers_visible(child, shown)
 
 
 ## Adds a node to this sub-area's foreground. If the node is an [Entity],

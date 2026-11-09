@@ -332,6 +332,13 @@ func switch_area(area: SubArea) -> void:
 	old.freeze()
 	current_sub_area = area
 	area.unfreeze()
+	# In play each world plays its own theme's music, unless a special song
+	# (Star, P-switch) has replaced the course music.
+	if status == Status.PLAYING and MusicPlayer.stream == SMWTheme.music_for(old, false):
+		var music := SMWTheme.music_for(area, false)
+		if music != MusicPlayer.stream:
+			MusicPlayer.stream = music
+			MusicPlayer.play()
 	# Test-play starts from the cursor, and editing resumes where Mario was.
 	var cursor := get_editor_player()
 	if cursor != null and cursor.sub_area != area:

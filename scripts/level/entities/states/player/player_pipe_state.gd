@@ -24,6 +24,9 @@ const EXIT_WAIT_TICKS := 12
 const SIDE_TRAVEL := 24.0
 const UP_TRAVEL := 32.0
 const DOWN_TRAVEL := 20.0
+## A side pipe's body is about 2px shorter than its lip at the bottom, so Mario
+## travels that much above the opening's bottom edge to keep his feet hidden.
+const SIDE_LIFT := 2.0
 
 enum Phase { ENTER, FADE, BLACK, WAIT, EXIT }
 
@@ -102,6 +105,9 @@ func physics_process(delta: float) -> Script:
 				_phase = Phase.EXIT
 				_ticks = 0
 				_start = player.global_position
+				# SMM2 plays the pipe sound again as Mario comes out.
+				player.sounds.stream = SoundLibrary.stream("snd_warp")
+				player.sounds.play()
 		Phase.EXIT:
 			var out := PipePart.axis(exit.part.facing)
 			_step(out, delta, exit)
@@ -123,10 +129,10 @@ func _cross() -> void:
 		PipePart.Facing.DOWN:
 			at = Vector2(at.x, mouth.end.y)
 		PipePart.Facing.RIGHT:
-			at = Vector2(mouth.end.x - 16, mouth.end.y)
+			at = Vector2(mouth.end.x - 16, mouth.end.y - SIDE_LIFT)
 			player.direction = 1
 		PipePart.Facing.LEFT:
-			at = Vector2(mouth.position.x + 16, mouth.end.y)
+			at = Vector2(mouth.position.x + 16, mouth.end.y - SIDE_LIFT)
 			player.direction = -1
 	player.move_to_area(exit.part.sub_area, at)
 	player.visible = true
@@ -141,6 +147,8 @@ func _cross() -> void:
 
 func _step(way: Vector2, delta: float, pipe: WarpPipe) -> void:
 	player.global_position += way * (SIDE_SPEED if _side(pipe) else VERTICAL_SPEED) * delta
+	if _side(pipe) and _phase == Phase.ENTER:
+		player.global_position.y = move_toward(player.global_position.y, pipe.part.mouth_rect().end.y - SIDE_LIFT, 1)
 	if not _side(pipe):
 		# Vertical travel pulls Mario onto the pipe's centre line.
 		var center := pipe.part.mouth_rect().get_center().x
