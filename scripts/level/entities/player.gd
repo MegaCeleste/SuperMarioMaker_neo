@@ -676,7 +676,9 @@ func give_item(item: Entity) -> void:
 	# has no new start() call to place an item picked up during that state.
 	item.set_deferred("position", Vector2(HELD_ITEM_OFFSET.x * direction, HELD_ITEM_OFFSET.y))
 	_held_z = held_item.z_index
-	held_item.z_index = GameConstants.Layers.Z_AFTER_PLAYER
+	# SMM2 draws Mario over the item he carries. The item is Mario's child, so
+	# its relative z keeps it just under his sprite (Z_BEFORE_PLAYER overall).
+	held_item.z_index = GameConstants.Layers.Z_BEFORE_PLAYER - GameConstants.Layers.Z_PLAYER
 	pickup.picked_up.emit.call_deferred(self)
 	item_given.emit.call_deferred()
 

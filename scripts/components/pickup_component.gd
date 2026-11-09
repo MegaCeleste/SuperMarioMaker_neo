@@ -24,6 +24,20 @@ enum ReleaseType {
 	STUNNED,
 }
 
+## SMM2 (SMW style) carry items share one throw and one free motion: the
+## spring, P-switch, POW block, stunned Galoomba and lit Bob-omb. Shells have
+## their own. Measured from SMM2 at 60 fps.
+## Gravity 3/16 px/frame^2, falling at most 4 px/frame.
+const CARRY_GRAVITY := 675.0
+const CARRY_MAX_FALL := 240.0
+## A kicked item stops about 10 frames after landing.
+const CARRY_FLOOR_FRICTION := 900.0
+## Kick: 2.625 px/frame plus Mario's speed, with a 1.75 px/frame hop.
+const KICK_SPEED := 157.5
+const KICK_HOP := -105.0
+## Up throw: 6.4 px/frame, straight up when Mario stands still.
+const THROW_UP_SPEED := -384.0
+
 ## Emitted when the player picks up the item. Note that the item won't be in its
 ## held position yet when the signal is emitted. There isn't a convenient way to
 ## get this position, as you would have to wait until the next frame ends.
@@ -106,24 +120,20 @@ func _dropped(player: Player, release_type: ReleaseType) -> void:
 		pickup_immunity_left = stun_pickup_immunity
 	if not use_default_behavior:
 		return
+	get_parent().velocity = throw_velocity(player, release_type)
+
+
+## The shared SMM2 carry-item release velocity. Holding Down sets the item
+## down in front of Mario with no speed.
+static func throw_velocity(player: Player, release_type: ReleaseType) -> Vector2:
 	match release_type:
-		ReleaseType.DETACHED:
-			get_parent().velocity = Vector2.ZERO
-		ReleaseType.STUNNED:
-			get_parent().velocity = Vector2(60 * player.direction, 0)
 		ReleaseType.KICKED:
-			# i am currently just guessing values cause the code is lying to me
-			get_parent().velocity = Vector2(
-				(120 + absf(player.velocity.x)) * player.direction,
-				-90
-			)
+			return Vector2((KICK_SPEED + absf(player.velocity.x)) * player.direction, KICK_HOP)
 		ReleaseType.THROWN_UP:
-			get_parent().velocity = Vector2(
-				30 * player.direction,
-				-367.5
-			)
-			if player.velocity.x == 0:
-				get_parent().velocity.x = 0
+			return Vector2(30 * player.direction if player.velocity.x != 0 else 0, THROW_UP_SPEED)
+		ReleaseType.STUNNED:
+			return Vector2(60 * player.direction, 0)
+	return Vector2.ZERO
 
 
 func _set_check_area(v: Area2D) -> void:

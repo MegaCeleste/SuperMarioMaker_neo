@@ -104,6 +104,15 @@ static func snapshot(level: Level, object_table: Dictionary, ground_table: Array
 			continue
 		_set_alias(entry, "xx", "x_pos", part.position.x)
 		_set_alias(entry, "yy", "y_pos", part.position.y + 432)
+		if part.has_method("write_platform"):
+			# Cannons, fire bars, lifts and bridges share the PLATAFORMAS layout.
+			part.write_platform(entry)
+			for key in ["width", "height", "color", "direct_t", "wings"]:
+				if not entry.has(key):
+					entry[key] = 0
+			entry.depth = entry.get("depth", 0)
+			platform_records.append({"part": part, "entry": entry})
+			continue
 		if part is SemisolidPart:
 			_set_alias(entry, "ID", "object", "obj_semisolid_platform1")
 			entry.width = part.dimensions.x
@@ -208,7 +217,7 @@ static func snapshot(level: Level, object_table: Dictionary, ground_table: Array
 	var platforms := _merge(
 		platform_source,
 		platform_records,
-		{"obj_semisolid_platform1": true},
+		_platform_table(),
 		false,
 		level.swe_revision
 	)
@@ -233,6 +242,14 @@ static func _door_entry(door: DoorPart, entry: Dictionary) -> Dictionary:
 	entry.door_x = exit.position.x
 	entry.door_y = exit.position.y + 448
 	return entry
+
+
+## Every PLATAFORMAS object id that SMMneo represents; other rows are kept.
+static func _platform_table() -> Dictionary:
+	var table := {"obj_semisolid_platform1": true}
+	for id in LevelProcessor.PLATFORM_PARTS:
+		table[id] = true
+	return table
 
 
 ## Retains unknown rows and source ordering, replacing only represented rows.
@@ -285,6 +302,16 @@ static func _set_alias(dict: Dictionary, modern: String, legacy: String, value: 
 static func _object_id(part: Part) -> String:
 	if part is SpringPart:
 		return "obj_spring_res"
+	if part is DryBonesPart:
+		return "obj_drybones_res"
+	if part is BobOmbPart:
+		return "obj_bobomb_res"
+	if part is BooPart:
+		return "obj_boo_res"
+	if part is PowPart:
+		return "obj_pow_res"
+	if part is PSwitchPart:
+		return "obj_pswitch_res"
 	if part is SlopePart:
 		return "godotwe_gentle_slope" if part.gentle else "godotwe_slope"
 	if part is CoinPart:

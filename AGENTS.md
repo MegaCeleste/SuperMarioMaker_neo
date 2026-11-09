@@ -24,7 +24,12 @@ physics interpolation are different implementations; compare them before
 porting rendering changes. This separation does not select new gameplay scope.
 
 
-**Latest selected round (2026-10-27, branch `feat/doors`):** the user selected
+**Latest selected round (2026-11-09, branch `feat/smm1-gizmos-enemies`):** four
+SMM1 SMW groups in one round: P-switch and POW, Bill Blaster and Fire Bar, lifts
+and bridge, Boo/Bob-omb/Dry Bones (docs/porting/SMM1-GIZMOS-ENEMIES-2026-11-09.md).
+Not merged; the user reviews it.
+
+**Earlier round (2026-10-27, branch `feat/doors`):** the user selected
 pipes and doors with sub-area travel, rejected the first implementation, and kept
 only ordinary SMW door pairs (docs/porting/DOORS-2026-10-27.md). The sub-world and
 pipe code was rolled back; it stays on the unmerged `feat/pipes-doors` branch.

@@ -168,9 +168,12 @@ func check_runtime() -> void:
 	await ticks(620)
 	check(is_instance_valid(flipped) and player.held_item == flipped,
 			"Goombud recovered while being carried instead of resetting its warning timer")
+	# Set it down in place (Down held) so it recovers on this ledge.
+	Input.action_press("player_down")
 	Input.action_release("player_run")
 	player.drop_item()
 	await ticks(2)
+	Input.action_release("player_down")
 	player.position = Vector2(64, -16)
 	player.velocity = Vector2.ZERO
 	await ticks(610)

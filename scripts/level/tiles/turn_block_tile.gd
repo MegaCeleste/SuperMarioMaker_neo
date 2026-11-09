@@ -26,6 +26,13 @@ func _ready() -> void:
 		$Sprite.play("idle")
 
 
+## A turn block with no contents, not spinning and not used up; only these
+## trade places with coins under a P-switch.
+func is_plain() -> bool:
+	var block := $BlockComponent
+	return block.sprout == null and block.enabled and not turning
+
+
 func _sprout_end(_eject_direction: Vector2, _activator: PhysicsBody2D, _empty: bool) -> void:
 	if $BlockComponent.sprout != null:
 		if not _empty:

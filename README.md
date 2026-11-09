@@ -18,8 +18,9 @@ The `SMMneo` branch contains the current GodotWE-based implementation. Existing
 
 Implemented systems include the documented SMW player powers and swimming,
 enemy subset, editor placement and history, block contents, terrain and slopes,
-ten SMM2 course themes with a day/night toggle, springs, semisolid platforms and
-a subset of SWE loading and saving. Feature parity, all object combinations,
+ten SMM2 course themes with a day/night toggle, door pairs, P-switches, POW
+blocks, Bill Blasters, Fire Bars, lifts, bridges, Boos, Bob-ombs, Dry Bones,
+springs, semisolid platforms and a subset of SWE loading and saving. Feature parity, all object combinations,
 other game styles, area travel and online services remain incomplete.
 
 - [Current setup and review guide](docs/porting/CURRENT.md)

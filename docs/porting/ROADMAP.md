@@ -1,5 +1,8 @@
 # Roadmap
 
+Latest explicit selection (2026-11-09): P-switch, POW, Bill Blaster, Fire Bar,
+lifts, bridge, Boo, Bob-omb and Dry Bones (SMM1-GIZMOS-ENEMIES-2026-11-09.md).
+
 Latest explicit selection (2026-10-27): ordinary SMW door pairs (DOORS-2026-10-27.md).
 Pipes and sub-area travel were rolled back after review and are not selected now.
 

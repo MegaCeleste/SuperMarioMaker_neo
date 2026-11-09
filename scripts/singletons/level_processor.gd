@@ -83,6 +83,15 @@ const SWE_GROUND_FRAME_TABLE = [
 	Vector2(16, 64),
 	Vector2(32, 64),
 ]
+## PLATAFORMAS objects other than semisolids: source object id to Part scene.
+## Each Part reads and writes its own row (read_platform/write_platform).
+const PLATFORM_PARTS = {
+	"obj_bullebill_base_res": "res://scenes/level/parts/bill_blaster_part.tscn",
+	"obj_firebar_res": "res://scenes/level/parts/fire_bar_part.tscn",
+	"obj_platform_res": "res://scenes/level/parts/lift_part.tscn",
+	"obj_platform_blue_res": "res://scenes/level/parts/lift_part.tscn",
+	"obj_puente_res": "res://scenes/level/parts/bridge_part.tscn",
+}
 const SWE_OBJECT_TABLE = {
 	"obj_block_res": preload("uid://k7sykscno8vb"),
 	"obj_qblock_res": preload("uid://b7i6hre4grgbn"),
@@ -99,6 +108,11 @@ const SWE_OBJECT_TABLE = {
 	"obj_donut_res": preload("res://scenes/level/parts/donut_part.tscn"),
 	"obj_noteblock_res": preload("res://scenes/level/parts/note_block_part.tscn"),
 	"obj_spring_res": preload("res://scenes/level/parts/spring_part.tscn"),
+	"obj_drybones_res": preload("res://scenes/level/parts/dry_bones_part.tscn"),
+	"obj_bobomb_res": preload("res://scenes/level/parts/bob_omb_part.tscn"),
+	"obj_boo_res": preload("res://scenes/level/parts/boo_part.tscn"),
+	"obj_pow_res": preload("res://scenes/level/parts/pow_part.tscn"),
+	"obj_pswitch_res": preload("res://scenes/level/parts/p_switch_part.tscn"),
 	# The pinned OpenWE has unfinished slopes and no endpoint save contract.
 	# Keep this explicit extension instead of misidentifying its ground objects.
 	"godotwe_slope": preload("res://scenes/level/parts/slope_part.tscn"),
@@ -558,7 +572,18 @@ func _from_swe(path: String, meta_only := false) -> Level:
 	if platforms is Array:
 		for source_index in platforms.size():
 			var entry: Variant = platforms[source_index]
-			if entry is not Dictionary or str(_get_value(entry, "ID", "object")) != "obj_semisolid_platform1":
+			if entry is not Dictionary:
+				continue
+			var platform_id := str(_get_value(entry, "ID", "object"))
+			if PLATFORM_PARTS.has(platform_id):
+				var resource: Part = load(PLATFORM_PARTS[platform_id]).instantiate()
+				resource.swe_data = entry.duplicate(true)
+				resource.swe_source_index = source_index
+				resource.read_platform(entry, platform_id)
+				sub.add_part(resource)
+				resource.owner = lvl
+				continue
+			if platform_id != "obj_semisolid_platform1":
 				continue
 			var platform := SemisolidPart.create()
 			platform.swe_data = entry.duplicate(true)

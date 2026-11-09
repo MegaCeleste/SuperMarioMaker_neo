@@ -4,6 +4,8 @@ extends Entity
 ## Ordinary SMW portable spring: source4-frame/.3-per-tick compression,
 ## a9-tick rider hold, and313.5px/s launch through the native jump states.
 
+## Throws and free motion use the shared SMM2 carry values in [PickupComponent].
+
 var active := false
 var age := 0
 var compression := 0.0
@@ -61,10 +63,10 @@ func _physics_process(delta: float) -> void:
 	if pickup.get_holder() != null or (is_instance_valid(level.hud.player) and level.hud.player.held_item == self):
 		velocity = Vector2.ZERO
 		return
-	velocity.y = minf(240, velocity.y + 540 * delta)
+	velocity.y = minf(PickupComponent.CARRY_MAX_FALL, velocity.y + PickupComponent.CARRY_GRAVITY * delta)
 	move_source_and_slide()
 	if is_on_floor():
-		velocity.x = move_toward(velocity.x, 0, 306 * delta)
+		velocity.x = move_toward(velocity.x, 0, PickupComponent.CARRY_FLOOR_FRICTION * delta)
 	if is_on_wall():
 		velocity.x = 0
 	if position.y > Player.VOID_LEVEL:
@@ -116,12 +118,7 @@ func _dropped(player: Player, release: PickupComponent.ReleaseType) -> void:
 	_surface.collision_layer = 1
 	collision_layer = 8
 	pickup.pickup_immunity_left = 0.25
-	if release == PickupComponent.ReleaseType.THROWN_UP:
-		velocity = Vector2(30 * player.direction if player.velocity.x != 0 else 0, -367.5)
-	elif release == PickupComponent.ReleaseType.DETACHED:
-		velocity = Vector2.ZERO
-	else:
-		velocity = Vector2(60 * player.direction if player.velocity.x == 0 else player.velocity.x / 2, 0)
+	velocity = PickupComponent.throw_velocity(player, release)
 
 func _bounce_actor() -> void:
 	var query := PhysicsShapeQueryParameters2D.new()
