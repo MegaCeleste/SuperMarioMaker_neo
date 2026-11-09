@@ -41,6 +41,15 @@ func _ready() -> void:
 		await finish("GIZMOS_RESULT", level)
 		return
 
+	# obj_pswitch SMW: the switch flashes through its 4 frames at 9fps.
+	var flash: AnimatedSprite2D = p_switch._sprite
+	var seen := {}
+	for tick in 30:
+		seen[flash.frame] = true
+		await ticks(1)
+	check(flash.is_playing() and seen.size() == 4 and is_equal_approx(flash.sprite_frames.get_animation_speed(flash.animation), PSwitch.FLASH_FPS),
+			"The P-switch did not flash through its 4 frames at 9fps")
+
 	# Landing on the P-switch presses it and swaps coins with plain turn blocks.
 	player.state_machine.switch(PlayerFallingState)
 	player.global_position = Vector2(p_switch.global_position.x, p_switch.top_y() - 6)
