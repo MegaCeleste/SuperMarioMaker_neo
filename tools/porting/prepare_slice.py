@@ -44,6 +44,7 @@ SOUNDS = {
     "snd_pow": ("snd_pow", "snd_pow.ogg", b"OggS"),
     "snd_SMB3_explode": ("snd_SMB3_explode", "snd_SMB3_explode.ogg", b"OggS"),
     "snd_NSMBU_boo_stop": ("snd_NSMBU_boo_stop", "snd_NSMBU_boo_stop.ogg", b"OggS"),
+    "snd_crumble": ("snd_crumble", "snd_crumble.ogg", b"OggS"),
     "snd_explode": ("snd_explode.wav", "snd_explode.wav", b"RIFF"),
 }
 for name in ["snd_kick", *[f"snd_kick{i}" for i in range(2, 8)], "snd_kick_1up"]:

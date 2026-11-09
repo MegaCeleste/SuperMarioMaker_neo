@@ -61,7 +61,8 @@ SCENES = {"slice_001": "SLICE001_RESULT PASS", "sprite_library_test": "SPRITE_LI
           "doors_test": "DOORS_RESULT PASS",
           "gizmos_test": "GIZMOS_RESULT PASS",
           "hazards_test": "HAZARDS_RESULT PASS",
-          "platforms_test": "PLATFORMS_RESULT PASS"}
+          "platforms_test": "PLATFORMS_RESULT PASS",
+          "enemies_test": "ENEMIES_RESULT PASS"}
 
 # This regression needs render frames between 60Hz physics ticks.
 FRAME_RATES = {"player_render_test": 120}

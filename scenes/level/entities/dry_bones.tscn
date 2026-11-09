@@ -1,0 +1,41 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/level/entities/enemies/dry_bones.gd" id="1"]
+[ext_resource type="Script" uid="uid://nhyxn7n2fqbr" path="res://scripts/components/gravity_component.gd" id="2"]
+[ext_resource type="Script" uid="uid://sv7f6f65t1eb" path="res://scripts/components/slide_component.gd" id="3"]
+
+[sub_resource type="RectangleShape2D" id="Shape"]
+size = Vector2(12, 24)
+
+[node name="DryBones" type="CharacterBody2D" node_paths=PackedStringArray("hitbox")]
+z_index = 30
+collision_layer = 2
+script = ExtResource("1")
+hitbox = NodePath("KillArea")
+
+[node name="CollShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -12)
+shape = SubResource("Shape")
+
+[node name="KillArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollShape" type="CollisionShape2D" parent="KillArea"]
+position = Vector2(0, -12)
+shape = SubResource("Shape")
+
+[node name="Graphics" type="Node2D" parent="."]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Graphics"]
+unique_name_in_owner = true
+
+[node name="GravityComponent" type="Node" parent="."]
+script = ExtResource("2")
+
+[node name="SlideComponent" type="Node" parent="."]
+script = ExtResource("3")
+speed = 30.0
+avoid_ledges = true
+
+[connection signal="turned" from="SlideComponent" to="." method="_turned"]

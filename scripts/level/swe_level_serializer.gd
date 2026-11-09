@@ -302,6 +302,12 @@ static func _set_alias(dict: Dictionary, modern: String, legacy: String, value: 
 static func _object_id(part: Part) -> String:
 	if part is SpringPart:
 		return "obj_spring_res"
+	if part is DryBonesPart:
+		return "obj_drybones_res"
+	if part is BobOmbPart:
+		return "obj_bobomb_res"
+	if part is BooPart:
+		return "obj_boo_res"
 	if part is PowPart:
 		return "obj_pow_res"
 	if part is PSwitchPart:
