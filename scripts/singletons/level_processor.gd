@@ -88,6 +88,9 @@ const SWE_GROUND_FRAME_TABLE = [
 const PLATFORM_PARTS = {
 	"obj_bullebill_base_res": "res://scenes/level/parts/bill_blaster_part.tscn",
 	"obj_firebar_res": "res://scenes/level/parts/fire_bar_part.tscn",
+	"obj_platform_res": "res://scenes/level/parts/lift_part.tscn",
+	"obj_platform_blue_res": "res://scenes/level/parts/lift_part.tscn",
+	"obj_puente_res": "res://scenes/level/parts/bridge_part.tscn",
 }
 const SWE_OBJECT_TABLE = {
 	"obj_block_res": preload("uid://k7sykscno8vb"),
