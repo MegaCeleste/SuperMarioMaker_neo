@@ -17,6 +17,7 @@ static func get_part_icon(_environment: SubArea) -> Texture2D:
 	if SpriteLibrary.has_sprite(&"spr_boo"):
 		var image := SpriteLibrary.get_frames(&"spr_boo").get_frame_texture(&"default", 0).get_image()
 		image.convert(Image.FORMAT_RGBA8)
+		image.flip_x()  # Enemies face left in the editor; the art faces right.
 		var size := image.get_size() * 48 / maxi(image.get_width(), image.get_height())
 		image.resize(size.x, size.y, Image.INTERPOLATE_NEAREST)
 		icon.blit_rect(image, Rect2i(Vector2i.ZERO, size), (Vector2i(60, 60) - size) / 2)
@@ -29,6 +30,8 @@ static func create() -> BooPart:
 
 func load(placed_from_editor := false) -> void:
 	super(placed_from_editor)
+	# Enemies face left in the editor; the source art faces right.
+	$Graphics/Sprite.flip_h = true
 	$Graphics/Sprite.texture = SpriteLibrary.get_frames(&"spr_boo").get_frame_texture(&"default", 0)
 
 
