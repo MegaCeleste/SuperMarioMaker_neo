@@ -324,8 +324,6 @@ func _from_swe(path: String, meta_only := false) -> Level:
 	lvl.metadata_only = meta_only
 	var wrapper: Dictionary
 	var list: Array
-	var terrain: Array
-	var objects: Array
 	
 	var _wrapper = _get_value(data, "S0", "MAIN")
 	if _wrapper is Dictionary:
@@ -342,16 +340,12 @@ func _from_swe(path: String, meta_only := false) -> Level:
 		return lvl
 	
 	var _terrain = _get_value(wrapper, "S2", "SUELO")
-	if _terrain is Array:
-		terrain = _terrain
-	else:
+	if _terrain is not Array:
 		_warn_type("Terrain", _terrain)
 		return lvl
 	
 	var _objects = _get_value(wrapper, "S4", "NIVEL")
-	if _objects is Array:
-		objects = _objects
-	else:
+	if _objects is not Array:
 		_warn_type("Objects", _objects)
 		return lvl
 	#endregion
@@ -413,8 +407,32 @@ func _from_swe(path: String, meta_only := false) -> Level:
 	
 	print("Level Metadata DONE")
 	
+	var pipe_links: Dictionary = {}
+	_load_area(lvl, lvl.current_sub_area, wrapper, map, path, meta_only, true, pipe_links)
+	if meta_only:
+		return lvl
+	# OpenWE writes an empty SUB1 and never reads it; SMMneo stores the
+	# sub-world there in the same MAIN layout, so OpenWE still opens the file.
+	var sub_world: Variant = data.get("SUB1")
+	if sub_world is Dictionary:
+		var settings: Array = _array_value(sub_world, "S1", "AJUSTES")
+		if not settings.is_empty() and settings[0] is Dictionary:
+			_load_area(lvl, lvl.ensure_sub_world(), sub_world, settings[0], path, false, false, pipe_links)
+	# smmneo_link numbers pair one pipe in each world.
+	for pair: Array in pipe_links.values():
+		if pair.size() == 2 and pair[0].sub_area != pair[1].sub_area:
+			pair[0].link = pair[1]
+			pair[1].link = pair[0]
+	
+	lvl.swe_load_complete = true
+	return lvl
+
+
+## Loads one world's environment, terrain and objects from an SWE wrapper.
+## Only the main world ([param main]) has the start ground, spawn and goal.
+static func _load_area(lvl: Level, sub: SubArea, wrapper: Dictionary, map: Dictionary, path: String,
+		meta_only: bool, main: bool, pipe_links: Dictionary = {}) -> void:
 	#region sub-area metadata
-	var sub: SubArea = lvl.current_sub_area
 	
 	var _level_theme = str(_get_value(map, "gametheme", "entorno")).to_upper()
 	_level_theme = SWE_THEME_ALIASES.get(_level_theme, _level_theme)
@@ -441,14 +459,17 @@ func _from_swe(path: String, meta_only := false) -> Level:
 	print("Sub-Area Metadata DONE")
 	
 	if meta_only:
-		return lvl
-	var starting_ground: StartingGround = sub.get_parts().get_node("StartingGround")
-	var start_height: Variant = _get_value(map, "start_y", "ground2")
-	if _is_integer(start_height):
-		starting_ground.position.y = clampf(float(start_height) - 432, -432, 0)
-	# OpenWE derives the course spawn from ground2; obj_mariostart is the
-	# course-intro overlay, not a serializable player/start marker.
-	sub.get_parts().get_node("EditorPlayer").position = Vector2(56, starting_ground.position.y - 16)
+		return
+	var terrain: Array = _array_value(wrapper, "S2", "SUELO")
+	var objects: Array = _array_value(wrapper, "S4", "NIVEL")
+	if main:
+		var starting_ground: StartingGround = sub.get_parts().get_node("StartingGround")
+		var start_height: Variant = _get_value(map, "start_y", "ground2")
+		if _is_integer(start_height):
+			starting_ground.position.y = clampf(float(start_height) - 432, -432, 0)
+		# OpenWE derives the course spawn from ground2; obj_mariostart is the
+		# course-intro overlay, not a serializable player/start marker.
+		sub.get_parts().get_node("EditorPlayer").position = Vector2(56, starting_ground.position.y - 16)
 	
 	#region sub-area terrain
 	for source_index in terrain.size():
@@ -598,34 +619,54 @@ func _from_swe(path: String, meta_only := false) -> Level:
 					_float_value(_get_value(entry, "yy", "y_pos"), 432) - 432))
 			sub.add_part(platform)
 			platform.owner = lvl
-	# Door pairs have their own source collection, like platforms. One row
-	# holds both doors, each by the middle of its 16x32 body.
-	var doors: Variant = wrapper.get("PUERTAS", [])
-	if doors is Array:
-		for source_index in doors.size():
-			var entry: Variant = doors[source_index]
-			if entry is not Dictionary or str(_get_value(entry, "ID", "object")) != "obj_door_res":
-				continue
-			var door := DoorPart.create()
-			door.swe_data = entry.duplicate(true)
-			door.swe_source_index = source_index
-			door.position = Level.snap(Vector2(_float_value(entry.get("x_pos")),
-					_float_value(entry.get("y_pos"), 432) - 448))
-			var exit := DoorPart.create()
-			exit.primary = false
-			exit.position = Level.snap(Vector2(_float_value(entry.get("door_x"), door.position.x + 16),
-					_float_value(entry.get("door_y"), door.position.y + 448) - 448))
-			door.partner = exit
-			exit.partner = door
-			for part in [door, exit]:
-				sub.add_part(part)
-				part.owner = lvl
+	# Pipes and doors have source collections of their own, like platforms.
+	var pipes: Array = _array_value(wrapper, "TUBERIAS", "TUBERIAS")
+	for source_index in pipes.size():
+		var entry: Variant = pipes[source_index]
+		# OpenWE pipe rows name no object; anything else is kept as unknown data.
+		if entry is not Dictionary or entry.has("object") or entry.has("ID"):
+			continue
+		var pipe := PipePart.create()
+		pipe.swe_data = entry.duplicate(true)
+		pipe.swe_source_index = source_index
+		_apply_pipe(pipe, entry, "")
+		sub.add_part(pipe)
+		pipe.owner = lvl
+		var link: Variant = entry.get("smmneo_link", 0)
+		if _is_integer(link) and int(link) > 0:
+			pipe_links.get_or_add(int(link), []).append(pipe)
+		# An OpenWE same-room warp keeps its exit in t_ fields. SMMneo pipes
+		# only cross worlds, so the exit loads as a plain pipe of its own.
+		if _int_value(entry.get("warp", 0)) == 1:
+			var exit := PipePart.create()
+			_apply_pipe(exit, entry, "t_")
+			sub.add_part(exit)
+			exit.owner = lvl
+	var doors: Array = _array_value(wrapper, "PUERTAS", "PUERTAS")
+	for source_index in doors.size():
+		var entry: Variant = doors[source_index]
+		if entry is not Dictionary or str(_get_value(entry, "ID", "object")) != "obj_door_res":
+			continue
+		# Source door coordinates name the middle of the 16x32 door.
+		var door := DoorPart.create()
+		door.swe_data = entry.duplicate(true)
+		door.swe_source_index = source_index
+		door.position = Level.snap(Vector2(_float_value(entry.get("x_pos")), _float_value(entry.get("y_pos"), 432) - 448))
+		var exit := DoorPart.create()
+		exit.primary = false
+		exit.position = Level.snap(Vector2(_float_value(entry.get("door_x"), door.position.x + 16),
+				_float_value(entry.get("door_y"), door.position.y + 448) - 448))
+		door.partner = exit
+		exit.partner = door
+		for part in [door, exit]:
+			sub.add_part(part)
+			part.owner = lvl
 	for id: String in unknown_ids:
 		push_warning("Unsupported SWE object '%s' (%d instance(s)) in %s" %
 				[id, unknown_ids[id], path])
 	# OpenWE normally derives its goal from the end-ground settings instead
 	# of storing the gate in NIVEL. Accept explicit gates in generated levels.
-	if not has_goal and map.has("ground3_x") and map.has("ground3_y"):
+	if main and not has_goal and map.has("ground3_x") and map.has("ground3_y"):
 		var goal := preload("res://scenes/level/parts/goal_pole_part.tscn").instantiate()
 		goal.position = Vector2(float(map.ground3_x), float(map.ground3_y) - 432 - 137)
 		sub.add_part(goal)
@@ -633,9 +674,6 @@ func _from_swe(path: String, meta_only := false) -> Level:
 	#endregion
 	
 	print("Sub-Area Objects DONE")
-	
-	lvl.swe_load_complete = true
-	return lvl
 
 
 func _run() -> void:
@@ -667,6 +705,21 @@ static func _warn_type(key: String, value: Variant) -> void:
 
 static func _get_value(dict: Dictionary, new: String, old: String) -> Variant:
 	return dict.get(new if new in dict else old)
+
+
+## Reads one pipe from a TUBERIAS row; [param prefix] "t_" reads the exit of
+## an OpenWE same-room warp. Coordinates are the pipe's top-left corner.
+static func _apply_pipe(pipe: PipePart, entry: Dictionary, prefix: String) -> void:
+	pipe.position = Level.snap(Vector2(_float_value(entry.get(prefix + "x_pos")),
+			_float_value(entry.get(prefix + "y_pos"), 432) - 432))
+	pipe.segments = clampi(_int_value(entry.get(prefix + "size")), 0, PipePart.MAX_SEGMENTS)
+	pipe.facing = clampi(_int_value(entry.get(prefix + "direct_t")), 0, 3) as PipePart.Facing
+	pipe.color = clampi(_int_value(entry.get(prefix + "color")), 0, PipePart.COLORS.size() - 1)
+
+
+static func _array_value(dict: Dictionary, new: String, old: String) -> Array:
+	var value: Variant = _get_value(dict, new, old)
+	return value if value is Array else []
 
 
 static func _is_integer(value: Variant) -> bool:

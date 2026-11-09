@@ -88,7 +88,8 @@ func set_night_mode(night: bool) -> void:
 
 ## Replaces theme and day/night together, keeping authored objects.
 func set_environment(next: Level.LevelTheme, night: bool, reset_water := true) -> void:
-	if (next == level_theme and night == night_mode) or not is_instance_valid(level) 			or level.status != Level.Status.EDITING:
+	if (next == level_theme and night == night_mode) or not is_instance_valid(level) \
+			or level.status != Level.Status.EDITING:
 		return
 	var old := level_theme
 	var had_liquid := LiquidSurface.supports(level_theme, night_mode)

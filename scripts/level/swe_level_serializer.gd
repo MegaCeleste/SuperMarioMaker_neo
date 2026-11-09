@@ -36,12 +36,6 @@ static func snapshot(level: Level, object_table: Dictionary, ground_table: Array
 		return _failure("Open the complete level before saving it.")
 	if not level.source_swe.is_empty() and not level.swe_load_complete:
 		return _failure("The original level could not be fully loaded; saving would lose data.")
-	var areas: Array[SubArea] = []
-	for child in level.get_children():
-		if child is SubArea:
-			areas.append(child)
-	if areas.size() != 1 or areas[0] != level.current_sub_area:
-		return _failure("Saving multiple playable areas is not supported yet.")
 	var data: Dictionary = level.source_swe.duplicate(true)
 	if data.is_empty():
 		data = {"MAIN": {"AJUSTES": [{}], "SUELO": [], "NIVEL": []}}
@@ -51,17 +45,12 @@ static func snapshot(level: Level, object_table: Dictionary, ground_table: Array
 		return _failure("The original level settings cannot be preserved safely.")
 	var map: Dictionary = settings[0]
 	_set_alias(map, "gamestyle", "apariencia", level.game_style)
-	_set_alias(map, "gametheme", "entorno", _theme_name(level.current_sub_area.level_theme))
 	_set_alias(map, "timer", "cronometro", level.time)
 	_set_alias(map, "label_1", "etiqueta1", int(level.tag_1) - 1)
 	_set_alias(map, "label_2", "etiqueta2", int(level.tag_2) - 1)
 	_set_alias(map, "c_conditions", "condiciones_count", level.clear_condition)
 	_set_alias(map, "desc", "description", level.description)
 	_set_alias(map, "width", "size", level.width)
-	_set_alias(map, "nightmode", "modo_noche", int(level.current_sub_area.night_mode))
-	map.water_level = level.current_sub_area.water_start_y + 432
-	map.water_level_limit = level.current_sub_area.water_limit_y + 432
-	map.water_level_speed = [0.2, 0.5, 0.8][level.current_sub_area.water_speed]
 	map.user = level.author
 	map.date = level.creation_date
 	map.time = level.creation_time
@@ -73,15 +62,78 @@ static func snapshot(level: Level, object_table: Dictionary, ground_table: Array
 		if not map.has(key):
 			map[key] = SETTING_DEFAULTS[key]
 
+	var links := _pipe_link_numbers(level)
+	var main := _write_area(level.get_main_world(), wrapper, map, object_table, ground_table, level, true, links)
+	if main.error != OK:
+		return main
+	var bindings: Array = main.bindings
+	# OpenWE writes an empty SUB1 and never reads it, so the sub-world can live
+	# there in the MAIN layout without changing how OpenWE opens the file.
+	var source_sub: Variant = data.get("SUB1")
+	if _keeps_sub_world(level, source_sub):
+		var sub_wrapper: Dictionary = source_sub if source_sub is Dictionary else {}
+		var sub_settings: Variant = sub_wrapper.get("AJUSTES", [])
+		if sub_settings is not Array or sub_settings.is_empty() or sub_settings[0] is not Dictionary:
+			sub_settings = [{}]
+			sub_wrapper.AJUSTES = sub_settings
+		for key in ["SUELO", "NIVEL", "PLATAFORMAS", "TUBERIAS", "PUERTAS"]:
+			if not sub_wrapper.has(key):
+				sub_wrapper[key] = []
+		var sub := _write_area(level.get_sub_world(), sub_wrapper, sub_settings[0], object_table, ground_table,
+				level, false, links)
+		if sub.error != OK:
+			return sub
+		bindings += sub.bindings
+		data.SUB1 = sub_wrapper
+	return {"error": OK, "message": "", "data": data, "bindings": bindings}
+
+
+## Numbers each linked pipe pair from 1; both pipes of a pair share the
+## number in their smmneo_link field.
+static func _pipe_link_numbers(level: Level) -> Dictionary:
+	var numbers := {}
+	var count := 0
+	for part in level.get_main_world().get_parts().get_children():
+		if part is PipePart and part.get_exit() != null and not numbers.has(part):
+			count += 1
+			numbers[part] = count
+			numbers[part.get_exit()] = count
+	return numbers
+
+
+## Whether the sub-world has anything to save: objects, an environment of its
+## own, or settings retained from the loaded file.
+static func _keeps_sub_world(level: Level, source: Variant) -> bool:
+	var main := level.get_main_world()
+	var sub := level.get_sub_world()
+	if sub == null:
+		return false
+	if sub.get_parts().get_child_count() > 0 or sub.level_theme != main.level_theme \
+			or sub.night_mode != main.night_mode:
+		return true
+	return source is Dictionary and source.get("AJUSTES") is Array and not source.AJUSTES.is_empty()
+
+
+## Writes one world's environment and Parts into [param wrapper]. Only the main
+## world carries the start height and goal settings.
+static func _write_area(area: SubArea, wrapper: Dictionary, map: Dictionary, object_table: Dictionary,
+		ground_table: Array, level: Level, main: bool, links: Dictionary = {}) -> Dictionary:
+	var revision := level.swe_revision
+	_set_alias(map, "gametheme", "entorno", _theme_name(area.level_theme))
+	_set_alias(map, "nightmode", "modo_noche", int(area.night_mode))
+	map.water_level = area.water_start_y + 432
+	map.water_level_limit = area.water_limit_y + 432
+	map.water_level_speed = [0.2, 0.5, 0.8][area.water_speed]
 	var object_records: Array[Dictionary] = []
 	var terrain_records: Array[Dictionary] = []
 	var platform_records: Array[Dictionary] = []
+	var pipe_records: Array[Dictionary] = []
 	var door_records: Array[Dictionary] = []
 	var has_goal := false
-	for part: Part in level.current_sub_area.get_parts().get_children():
+	for part: Part in area.get_parts().get_children():
 		if part.is_queued_for_deletion():
 			continue
-		if part.held or ((part is SlopePart or part is SemisolidPart) and part.resizing):
+		if part.held or ((part is SlopePart or part is SemisolidPart or part is PipePart) and part.resizing):
 			return _failure("Place the held object before saving.")
 		if part is EditorPlayer:
 			# The editor test cursor is not an NIVEL object in OpenWE's format.
@@ -97,6 +149,9 @@ static func snapshot(level: Level, object_table: Dictionary, ground_table: Array
 			map.ground3_y = part.position.y + 432 + 137
 			continue
 		var entry: Dictionary = part.swe_data.duplicate(true)
+		if part is PipePart:
+			pipe_records.append({"part": part, "entry": _pipe_entry(part, entry, links.get(part, 0))})
+			continue
 		if part is DoorPart:
 			# One record per pair, stored on the primary door.
 			if part.primary or part.get_exit() == null:
@@ -192,7 +247,7 @@ static func snapshot(level: Level, object_table: Dictionary, ground_table: Array
 		if part is PiranhaPart and not part.variant.fire:
 			entry.inup = part.attachment_orientation()
 		object_records.append({"part": part, "entry": entry})
-	if not has_goal:
+	if main and not has_goal:
 		map.ground3_x = level.width - 112
 		map.ground3_y = map.get("start_y", map.get("ground2", 400))
 	var terrain := _merge(
@@ -200,14 +255,14 @@ static func snapshot(level: Level, object_table: Dictionary, ground_table: Array
 		terrain_records,
 		object_table,
 		true,
-		level.swe_revision
+		revision
 	)
 	var objects := _merge(
 		wrapper.get("S4", wrapper.get("NIVEL", [])),
 		object_records,
 		object_table,
 		false,
-		level.swe_revision
+		revision
 	)
 	_set_alias(wrapper, "S2", "SUELO", terrain.entries)
 	_set_alias(wrapper, "S4", "NIVEL", objects.entries)
@@ -219,17 +274,47 @@ static func snapshot(level: Level, object_table: Dictionary, ground_table: Array
 		platform_records,
 		_platform_table(),
 		false,
-		level.swe_revision
+		revision
 	)
 	_set_alias(wrapper, "S7", "PLATAFORMAS", platforms.entries)
+	var pipe_source: Variant = wrapper.get("TUBERIAS", [])
 	var door_source: Variant = wrapper.get("PUERTAS", [])
-	if door_source is not Array:
-		return _failure("The original door collection cannot be preserved safely.")
-	# Key and P-switch door rows are not represented and stay as they were.
-	var doors := _merge(door_source, door_records, {"obj_door_res": true}, false, level.swe_revision)
+	if pipe_source is not Array or door_source is not Array:
+		return _failure("The original pipe or door collection cannot be preserved safely.")
+	# OpenWE pipe rows have no object name (the "" key), so removed pipes drop
+	# out while rows naming another object survive as unknown data.
+	var pipes := _merge(pipe_source, pipe_records, {"": true}, false, revision)
+	var doors := _merge(door_source, door_records, {"obj_door_res": true}, false, revision)
+	wrapper.TUBERIAS = pipes.entries
 	wrapper.PUERTAS = doors.entries
-	var bindings: Array = terrain.bindings + objects.bindings + platforms.bindings + doors.bindings
-	return {"error": OK, "message": "", "data": data, "bindings": bindings}
+	var bindings: Array = terrain.bindings + objects.bindings + platforms.bindings + pipes.bindings + doors.bindings
+	return {"error": OK, "message": "", "bindings": bindings}
+
+
+## One TUBERIAS row with every field OpenWE's loader reads. warp stays 0: an
+## OpenWE warp would teleport within the room, while SMMneo pairs pipes across
+## worlds through smmneo_link.
+static func _pipe_entry(pipe: PipePart, entry: Dictionary, link: int) -> Dictionary:
+	var vertical := pipe.facing in [PipePart.Facing.UP, PipePart.Facing.DOWN]
+	entry.x_pos = pipe.position.x
+	entry.y_pos = pipe.position.y + 432
+	entry.size = pipe.segments
+	entry.direct_t = int(pipe.facing)
+	entry.rotacion = [0, -90, 180, 90][pipe.facing]
+	entry.scalex = -1 if pipe.facing in [PipePart.Facing.DOWN, PipePart.Facing.LEFT] else 1
+	entry.color = pipe.color
+	entry.xscale = 1 if vertical else 1 + pipe.segments / 2.0
+	entry.yscale = 1 + pipe.segments / 2.0 if vertical else 1
+	entry.warp = 0
+	entry.smmneo_link = link
+	if not entry.has("mask"):
+		entry.mask = 0
+	var exit_defaults := {"t_x_pos": entry.x_pos + 32, "t_y_pos": entry.y_pos, "t_size": 0, "t_rotacion": 0,
+			"t_direct_t": 0, "t_s_scalex": 1, "t_color": 0, "t_xscale": 1, "t_yscale": 1}
+	for key in exit_defaults:
+		if not entry.has(key):
+			entry[key] = exit_defaults[key]
+	return entry
 
 
 ## One PUERTAS row: the door and its partner, both by the middle of the door,

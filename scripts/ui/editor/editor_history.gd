@@ -10,6 +10,10 @@ var _stroke := false
 var _action_open := false
 var _stroke_name := ""
 var _terrain_dirty := false
+# The world each committed action was made in, by UndoRedo action index.
+# Undo and redo first show that world, so they never edit a hidden one.
+var _areas: Array[SubArea] = []
+var _action_area: SubArea
 
 
 func begin_stroke(action_name: String) -> void:
@@ -24,6 +28,8 @@ func end_stroke() -> void:
 		_record_environment_updates()
 		_undo.commit_action(false)
 		_action_open = false
+		_areas.resize(_undo.get_current_action())
+		_areas.append(_action_area)
 		changed.emit()
 	_stroke = false
 
@@ -57,6 +63,41 @@ func erase_together(parts: Array) -> void:
 		erase(part)
 	if own:
 		end_stroke()
+
+
+## Pairs [param pipe] with [param exit] in the other world, or unpairs it when
+## [param exit] is null. Former partners of either pipe are unpaired too.
+func link_pipes(pipe: PipePart, exit: PipePart) -> void:
+	var touched: Array[PipePart] = [pipe]
+	for other in [pipe.link, exit, exit.link if exit != null else null]:
+		if other != null and other not in touched:
+			touched.append(other)
+	var before := {}
+	for other in touched:
+		before[other] = other.link
+	for other in touched:
+		if other.link in [pipe, exit] or other in [pipe, exit]:
+			other.link = null
+	if exit != null:
+		pipe.link = exit
+		exit.link = pipe
+	var after := {}
+	for other in touched:
+		after[other] = other.link
+	if before == after:
+		return
+	_restore_links(after)
+	end_stroke()
+	_begin("Pair pipes" if exit != null else "Unpair pipe")
+	_undo.add_do_method(_restore_links.bind(after))
+	_undo.add_undo_method(_restore_links.bind(before))
+	_commit()
+
+
+func _restore_links(links: Dictionary) -> void:
+	for pipe: PipePart in links:
+		pipe.link = links[pipe]
+		pipe.queue_redraw()
 
 
 func record_move(part: Part, before: Vector2, after: Vector2) -> void:
@@ -140,6 +181,7 @@ func _record_part_state(part: Part, before: Dictionary, after: Dictionary, actio
 func undo() -> void:
 	end_stroke()
 	if _undo.has_undo():
+		_show_area(_undo.get_current_action())
 		_undo.undo()
 		_refresh_terrain()
 		changed.emit()
@@ -156,6 +198,7 @@ func set_modifier(part: Part, id: StringName, enabled: bool) -> void:
 func redo() -> void:
 	end_stroke()
 	if _undo.has_redo():
+		_show_area(_undo.get_current_action() + 1)
 		_undo.redo()
 		_refresh_terrain()
 		changed.emit()
@@ -172,7 +215,13 @@ func can_redo() -> bool:
 func clear() -> void:
 	end_stroke()
 	_undo.clear_history()
+	_areas.clear()
 	changed.emit()
+
+
+func _show_area(action: int) -> void:
+	if action >= 0 and action < _areas.size() and is_instance_valid(_areas[action]):
+		editor.level.switch_area(_areas[action])
 
 
 func _notification(what: int) -> void:
@@ -186,6 +235,7 @@ func _begin(action_name: String) -> void:
 	if not _action_open:
 		_undo.create_action(_stroke_name if _stroke else action_name, UndoRedo.MERGE_DISABLE, true)
 		_action_open = true
+		_action_area = editor.level.current_sub_area
 
 
 func _commit() -> void:

@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://scripts/level/parts/slope_part.gd" id="14_slope"]
 [ext_resource type="Script" path="res://scripts/level/parts/gentle_slope_part.gd" id="15_gentle"]
 [ext_resource type="Script" path="res://scripts/level/parts/bridge_part.gd" id="BridgePart_script"]
+[ext_resource type="Script" path="res://scripts/level/parts/pipe_part.gd" id="17_pipe"]
 
 [sub_resource type="Resource" id="Resource_prh7l"]
 script = ExtResource("2_eebnt")
@@ -60,23 +61,9 @@ script = ExtResource("2_eebnt")
 part = ExtResource("15_gentle")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
-[sub_resource type="GDScript" id="GDScript_td1aq"]
-script/source = "extends Part
-## Pipe placeholder
-
-
-static func get_category() -> PaletteCategory:
-	return load(\"uid://wtetnd7c3nmk\")
-
-
-static func get_part_icon(_environment: SubArea) -> Texture2D:
-	return preload(\"uid://cjuqthhe8eq86\")
-"
-
 [sub_resource type="Resource" id="Resource_d7a27"]
 script = ExtResource("2_eebnt")
-part = SubResource("GDScript_td1aq")
-disabled = true
+part = ExtResource("17_pipe")
 metadata/_custom_type_script = "uid://2lamiomhq6u3"
 
 [sub_resource type="GDScript" id="GDScript_bfwuo"]

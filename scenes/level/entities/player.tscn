@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://scripts/level/entities/states/player/player_spring_state.gd" id="23_spring"]
 [ext_resource type="Script" path="res://scripts/level/entities/states/player/player_slope_slide_state.gd" id="22_slope"]
 [ext_resource type="Script" path="res://scripts/level/entities/states/player/player_swimming_state.gd" id="24_swim"]
+[ext_resource type="Script" path="res://scripts/level/entities/states/player/player_pipe_state.gd" id="25_pipe"]
 [ext_resource type="Script" path="res://scripts/level/entities/states/player/player_door_state.gd" id="26_door"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0qees"]
@@ -100,6 +101,9 @@ script = ExtResource("23_spring")
 
 [node name="Swimming" type="Node" parent="StateMachine"]
 script = ExtResource("24_swim")
+
+[node name="Pipe" type="Node" parent="StateMachine"]
+script = ExtResource("25_pipe")
 
 [node name="Door" type="Node" parent="StateMachine"]
 script = ExtResource("26_door")

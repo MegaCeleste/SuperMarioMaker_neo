@@ -51,6 +51,12 @@ var history: EditorHistory
 var _history_controls: HBoxContainer
 var _undo_button: Button
 var _redo_button: Button
+var _world_button: Button
+# Each world keeps its own editor camera and cursor position.
+var _area_views: Dictionary[SubArea, Dictionary] = {}
+# The pipe waiting for an exit pick in the other world; see begin_pipe_link().
+var _linking_pipe: PipePart
+var _link_hint: Label
 var _part_defaults: Dictionary[Script, StringName] = {}
 
 # The last calculated grid spot the mouse is on.
@@ -102,6 +108,9 @@ func _process(_delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		presses += 1
+	if _linking_pipe != null:
+		_pipe_link_input(event)
+		return
 	if event is InputEventMouseButton and not event.pressed and history != null:
 		# A contents drag also ends in Part._input on this same mouse release.
 		history.end_stroke.call_deferred()
@@ -232,12 +241,76 @@ func get_palette_icon(part: Script) -> Texture2D:
 
 
 func set_part_modifier(part: Part, id: StringName, enabled: bool) -> void:
+	if part is PipePart and id == &"link":
+		if enabled:
+			begin_pipe_link.call_deferred(part)
+		else:
+			history.link_pipes(part, null)
+		return
 	for option in part.get_modifiers():
 		if option.id == id:
 			history.set_modifier(part, id, enabled)
 			if (part is HammerBroPart or part is GrrrolPart) and id == &"large":
 				_remember_palette_variant(part)
 			return
+
+
+## Shows the other world and waits for a click on a pipe there; that pipe
+## becomes [param pipe]'s exit. Right click or Escape cancels.
+func begin_pipe_link(pipe: PipePart) -> void:
+	if not is_instance_valid(pipe) or level.status != Level.Status.EDITING or held_part != null:
+		return
+	history.end_stroke()
+	if is_instance_valid(pipe._window):
+		pipe._window.close()
+	_linking_pipe = pipe
+	switch_world()
+	part_interact = false
+	_link_hint = Label.new()
+	_link_hint.name = "PipeLinkHint"
+	_link_hint.text = tr("EDITOR_PIPE_PICK_EXIT")
+	_link_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_link_hint.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
+	_link_hint.position.y = 90
+	add_child(_link_hint)
+
+
+## Ends pairing: links to [param exit] when given, then returns to the
+## entrance pipe's world.
+func finish_pipe_link(exit: PipePart = null) -> void:
+	if _linking_pipe == null:
+		return
+	var pipe := _linking_pipe
+	_linking_pipe = null
+	if is_instance_valid(_link_hint):
+		_link_hint.queue_free()
+	part_interact = true
+	if is_instance_valid(pipe):
+		level.switch_area(pipe.sub_area)
+		if exit != null:
+			history.link_pipes(pipe, exit)
+			UISoundPlayer.stream = preload("uid://2x6kk0s4njjp")
+			UISoundPlayer.play()
+
+
+func _pipe_link_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
+		finish_pipe_link()
+	elif event is InputEventMouseButton and event.pressed:
+		if event.button_index == MOUSE_BUTTON_RIGHT:
+			finish_pipe_link()
+		elif event.button_index == MOUSE_BUTTON_LEFT:
+			var query := PhysicsPointQueryParameters2D.new()
+			query.position = level.get_global_mouse_position()
+			query.collide_with_areas = true
+			query.collision_mask = 1 << 8
+			for hit in level.get_world_2d().direct_space_state.intersect_point(query, 8):
+				if hit.collider is PipePart and hit.collider.sub_area == level.current_sub_area:
+					finish_pipe_link(hit.collider)
+					break
+	else:
+		return
+	get_viewport().set_input_as_handled()
 
 
 ## Removes an editor Part while retaining it for native UndoRedo restoration.
@@ -334,8 +407,42 @@ func load() -> void:
 	level.add_child(dark_overlay)
 	level.playing.connect(_play)
 	level.editing.connect(_edit)
-	
+	level.area_changed.connect(_area_changed)
+
 	loaded.emit()
+
+
+## Shows the other world for editing; see [method Level.switch_area].
+func switch_world() -> bool:
+	if level.status != Level.Status.EDITING or held_part != null or _saving \
+			or (not part_interact and _linking_pipe == null):
+		return false
+	history.end_stroke()
+	level.switch_area(level.get_other_world(level.current_sub_area))
+	UISoundPlayer.stream = preload("uid://2x6kk0s4njjp")
+	UISoundPlayer.play()
+	return true
+
+
+func _area_changed(old: SubArea) -> void:
+	hovered_part = null
+	if level.status == Level.Status.EDITING:
+		var cursor := level.get_editor_player()
+		_area_views[old] = {"camera": Utility.camera_position_raw,
+				"cursor": cursor.position if cursor != null else Vector2(56, -48)}
+		var view: Dictionary = _area_views.get(level.current_sub_area,
+				{"camera": Vector2(0, -get_viewport().get_visible_rect().size.y), "cursor": Vector2(56, -48)})
+		Utility.camera_position_raw = view.camera
+		if cursor != null:
+			cursor.position = view.cursor
+		refresh_theme()
+	_update_world_button()
+
+
+func _update_world_button() -> void:
+	if _world_button != null:
+		var sub := level.current_sub_area == level.get_sub_world()
+		_world_button.text = tr("EDITOR_SUB_WORLD" if sub else "EDITOR_MAIN_WORLD")
 
 
 func _create_history_controls() -> void:
@@ -343,7 +450,17 @@ func _create_history_controls() -> void:
 	_history_controls.name = "HistoryControls"
 	add_child(_history_controls)
 	_history_controls.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
-	_history_controls.position += Vector2(-132, -66)
+	_history_controls.position += Vector2(-197, -66)
+	# The world switch names the world being edited; pressing it shows the other.
+	_world_button = Button.new()
+	_world_button.theme_type_variation = &"CoursebotLevelButton"
+	_world_button.name = "World"
+	_world_button.custom_minimum_size = Vector2(126, 48)
+	_world_button.focus_mode = Control.FOCUS_NONE
+	_world_button.tooltip_text = tr("EDITOR_SWITCH_WORLD")
+	_world_button.pressed.connect(switch_world)
+	_history_controls.add_child(_world_button)
+	_update_world_button()
 	for action in ["EDITOR_UNDO", "EDITOR_REDO"]:
 		var button := Button.new()
 		button.theme_type_variation = &"CoursebotLevelButton"
@@ -380,6 +497,7 @@ func _update_history_controls() -> void:
 		return
 	_history_controls.visible = level.status == Level.Status.EDITING
 	var available := part_interact and held_part == null and not _saving
+	_world_button.disabled = not available
 	_undo_button.disabled = not available or not history.can_undo()
 	_redo_button.disabled = not available or not history.can_redo()
 
@@ -425,7 +543,8 @@ func _process_placing(process_multiplaceables: bool) -> void:
 
 
 func _play() -> void:
-	if (held_part is SlopePart or held_part is SemisolidPart) and held_part.resizing:
+	finish_pipe_link()
+	if (held_part is SlopePart or held_part is SemisolidPart or held_part is PipePart) and held_part.resizing:
 		held_part.end_resize()
 	history.end_stroke()
 	part_interact = false
