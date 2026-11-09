@@ -34,6 +34,9 @@ static func create() -> PSwitchPart:
 func load(placed_from_editor := false) -> void:
 	super(placed_from_editor)
 	$Graphics/Sprite.texture = SpriteLibrary.get_frames(&"spr_pswitch").get_frame_texture(&"default", PSwitch.SMW_FRAME)
+	# Overlap the floor outline by one pixel, like Mario and the enemies.
+	$Graphics/Sprite.position = Vector2.ZERO
+	EnemyPartPreview.align_contact(self, $Graphics/Sprite)
 
 
 func build() -> void:

@@ -17,7 +17,7 @@ func _ready() -> void:
 	_sprite.name = "Sprite"
 	_sprite.stop()
 	_sprite.frame = SMW_FRAME
-	_sprite.position = Vector2(-8, -16)
+	_sprite.position = Vector2(-8, -15)
 	add_child(_sprite)
 
 
@@ -38,7 +38,7 @@ func press() -> void:
 	flat.name = "PressedPSwitch"
 	flat.stop()
 	flat.frame = SMW_FRAME
-	flat.position = sub_area.get_foreground().to_local(global_position + Vector2(-8, -16))
+	flat.position = sub_area.get_foreground().to_local(global_position + Vector2(-8, -15))
 	flat.z_index = z_index
 	sub_area.add_deferred(flat)
 	get_tree().create_timer(FLAT_TICKS / 60.0, false, true).timeout.connect(flat.queue_free)

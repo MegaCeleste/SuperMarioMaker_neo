@@ -34,7 +34,8 @@ func _ready() -> void:
 	top.shape.size = Vector2(16, 3)
 	top.one_way_collision = true
 	top.one_way_collision_margin = 2
-	top.position.y = -14.5
+	# One pixel low, like the spring: the art overlaps the floor outline.
+	top.position.y = -13.5
 	_surface.add_child(top)
 	add_collision_exception_with(_surface)
 	_surface.add_collision_exception_with(self)
@@ -43,9 +44,10 @@ func _ready() -> void:
 	pickup.dropped.connect(_dropped)
 
 
-## Top edge in global coordinates; the node origin is the bottom centre.
+## Top edge in global coordinates; the node origin is the bottom centre and the
+## 16px art sits one pixel into the floor, so the top is 15px up.
 func top_y() -> float:
-	return global_position.y - 16
+	return global_position.y - 15
 
 
 func is_held() -> bool:

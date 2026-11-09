@@ -17,7 +17,7 @@ func _ready() -> void:
 	_sprite = AnimatedSprite2D.new()
 	_sprite.name = "Sprite"
 	add_child(_sprite)
-	SpriteLibrary.configure_sprite(_sprite, &"spr_block_pow", &"default", ANIMATION_FPS, Vector2(-8, -16))
+	SpriteLibrary.configure_sprite(_sprite, &"spr_block_pow", &"default", ANIMATION_FPS, Vector2(-8, -15))
 
 
 func _physics_process(delta: float) -> void:
