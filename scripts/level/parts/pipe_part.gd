@@ -14,12 +14,15 @@ enum Facing { UP, RIGHT, DOWN, LEFT }
 ## Longest pipe, in 16px body segments after the 32px head. SMM2's limit is
 ## not measured yet; this is a placeholder.
 const MAX_SEGMENTS := 24
-## Stable color IDs in source frame order (spr_pipes image_index).
-const COLORS = [&"green", &"red", &"blue", &"yellow"]
-## Seconds between things let out, per colour. SMM2's window marks the speed
-## with arrows (blue 1, green 2, yellow 3, red 4); the timings are not
-## measured yet, so these are placeholders in that order.
-const SPAWN_INTERVALS = [3.0, 1.2, 4.0, 2.0]
+## Stable colour IDs in spr_pipes frame order, which is also the saved colour.
+const COLORS = [&"green", &"red", &"yellow", &"blue"]
+## SMM2's window order: green, red, blue, yellow (indices into COLORS).
+const WINDOW_ORDER = [0, 1, 3, 2]
+## SMM2's window marks how fast each colour lets things out with arrows.
+const SPEED_ARROWS = [2, 4, 3, 1]
+## Seconds between things let out, per colour, in that speed order. SMM2's
+## timings are not measured yet: placeholders.
+const SPAWN_INTERVALS = [3.0, 1.2, 2.0, 4.0]
 ## At most this many let-out things are around at once (placeholder).
 const MAX_SPAWNED := 3
 ## What a pipe can hold: SMM2 takes items and walking enemies.
@@ -72,13 +75,37 @@ static func get_part_icon(_area: SubArea) -> Texture2D:
 	return icon_for(0)
 
 
-static func icon_for(color_index: int) -> Texture2D:
+static func icon_for(color_index: int, arrows := 0) -> Texture2D:
 	if not SpriteLibrary.has_sprite(&"spr_pipes"):
 		return preload("uid://cjuqthhe8eq86")
 	var image := Image.create(60, 60, false, Image.FORMAT_RGBA8)
 	var head := texture_for(color_index, Facing.UP, 0).get_image()
 	head.resize(48, 48, Image.INTERPOLATE_NEAREST)
 	image.blit_rect(head, Rect2i(0, 0, 48, 48), Vector2i(6, 6))
+	# SMM2's speed arrows: stacked white chevrons at the lower right.
+	# PLACEHOLDER art drawn in code; replace with the final icon if needed.
+	for i in arrows:
+		var tip := Vector2i(42, 50 - i * 6)
+		for row in 4:
+			for dx in range(-row, row + 1):
+				image.set_pixelv(tip + Vector2i(dx * 2, row), Color.WHITE)
+				image.set_pixelv(tip + Vector2i(dx * 2 + 1, row), Color.WHITE)
+	return ImageTexture.create_from_image(image)
+
+
+## SMM2's exit button: a green square with a white arrow, down on a pipe that
+## leads somewhere and up on an exit pipe. PLACEHOLDER art drawn in code.
+static func exit_icon(up: bool) -> Texture2D:
+	var image := Image.create(60, 60, false, Image.FORMAT_RGBA8)
+	image.fill_rect(Rect2i(6, 6, 48, 48), Color(0.72, 0.72, 0.72))
+	image.fill_rect(Rect2i(9, 9, 42, 42), Color.WHITE)
+	image.fill_rect(Rect2i(12, 12, 36, 36), Color(0.0, 0.5, 0.15))
+	var dir := -1 if up else 1
+	image.fill_rect(Rect2i(26, 18, 8, 24), Color.WHITE)
+	var tip_y := 30 + dir * 12
+	for row in 10:
+		var y := tip_y - dir * row
+		image.fill_rect(Rect2i(30 - row - 1, y, (row + 1) * 2, 1), Color.WHITE)
 	return ImageTexture.create_from_image(image)
 
 
@@ -142,6 +169,7 @@ func refresh_environment() -> void:
 	var size := get_size()
 	$Graphics.position = size / 2
 	$Graphics/Sprite.texture = texture_for(color, facing, segments)
+	_refresh_content_preview()
 	$CollShape.shape.size = size - Vector2(2, 2)
 	$CollShape.position = size / 2
 	queue_redraw()
@@ -149,6 +177,34 @@ func refresh_environment() -> void:
 
 func get_size() -> Vector2:
 	return size_for(facing, segments)
+
+
+## Area-space centre of the opening's edge.
+func opening_center() -> Vector2:
+	var mouth := mouth_rect()
+	return mouth.get_center() + axis(facing) * 8
+
+
+## SMM2's editor shows the contents behind the pipe, half out of the opening.
+func _refresh_content_preview() -> void:
+	var preview := get_node_or_null(^"ContentPreview") as Sprite2D
+	if content == null or level == null:
+		if preview != null:
+			preview.queue_free()
+		return
+	if preview == null:
+		preview = Sprite2D.new()
+		preview.name = "ContentPreview"
+		preview.z_as_relative = false
+		add_child(preview)
+		move_child(preview, 0)
+	var art := content.get_node_or_null(^"Graphics/Sprite") as Sprite2D
+	preview.texture = art.texture if art != null and art.texture != null else content.get_part_icon(sub_area)
+	preview.flip_h = art.flip_h if art != null else false
+	preview.scale = Vector2.ONE if art != null and art.texture != null else Vector2(16, 16) / preview.texture.get_size()
+	preview.z_index = $Graphics.z_index - 1
+	preview.position = opening_center() - position
+	preview.visible = level.status == Level.Status.EDITING
 
 
 ## Area-space rectangle of the opening's last 16px, which Mario passes through.
@@ -180,9 +236,14 @@ static func _placed(part: Part) -> bool:
 
 func get_variants() -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
-	for i in COLORS.size():
-		result.append({"id": COLORS[i], "label": "", "icon": icon_for(i)})
+	for i in WINDOW_ORDER:
+		result.append({"id": COLORS[i], "label": "", "icon": icon_for(i, SPEED_ARROWS[i])})
 	return result
+
+
+## SMM2 shows the colours and the exit button as one row.
+func window_single_row() -> bool:
+	return true
 
 
 func get_variant() -> StringName:
@@ -195,9 +256,9 @@ func set_variant(id: StringName) -> void:
 		refresh_environment()
 
 
-## The exit toggle; the editor turns it on through a pick in the other world.
+## The exit button; the editor then asks for the exit pipe in the other world.
 func get_modifiers() -> Array[Dictionary]:
-	return [{"id": &"link", "label": "EDITOR_PIPE_EXIT", "icon": preload("uid://cjuqthhe8eq86")}]
+	return [{"id": &"link", "label": "EDITOR_PIPE_EXIT", "icon": exit_icon(get_exit() != null and not entrance)}]
 
 
 func has_modifier(id: StringName) -> bool:
@@ -347,22 +408,18 @@ func _draw() -> void:
 	super()
 	if is_instance_valid(_overlay):
 		_overlay.queue_redraw()
+	if has_node(^"ContentPreview") != (content != null) or content != null:
+		_refresh_content_preview()
 
 
 # Markers and handles go on a child drawn over the pipe sprite.
 func _draw_overlay() -> void:
 	if level == null or level.status != Level.Status.EDITING or held:
 		return
-	# The contents peek out of the opening, as in SMM2's editor.
-	if content != null:
-		var icon := content.get_part_icon(sub_area)
-		if icon != null:
-			var at := mouth_rect().get_center() - position + axis(facing) * 16
-			_overlay.draw_texture_rect(icon, Rect2(at - Vector2(10, 10), Vector2(20, 20)), false)
-	# SMM2 marks a pair on the body: a down arrow on the end whose exit button
-	# made the pair, an up arrow on its exit.
+	# SMM2 marks a pair just inside the opening: the arrow points into the pipe
+	# on the end whose exit button made the pair and out of it on the exit.
 	if get_exit() != null:
-		_draw_pair_marker(get_size() / 2 if segments > 0 else mouth_rect().get_center() - position)
+		_draw_pair_marker(opening_center() - position - axis(facing) * 22)
 	# SMM2's opening handles: straight arrows along the pipe for its length,
 	# curved arrows to either side for turning.
 	if (_mouse_in or resizing) and level.editor != null and level.editor.erasing == Editor.EraseMode.NONE:
@@ -373,7 +430,7 @@ func _draw_pair_marker(at: Vector2) -> void:
 	var box := Rect2(at - Vector2(7, 7), Vector2(14, 14))
 	_overlay.draw_rect(box.grow(1), Color(0.95, 0.95, 0.95))
 	_overlay.draw_rect(box, Color(0.22, 0.55, 0.27))
-	var way := Vector2.DOWN if entrance else Vector2.UP
+	var way := -axis(facing) if entrance else axis(facing)
 	var side := way.orthogonal()
 	_overlay.draw_line(at - way * 4, at + way * 2, Color.WHITE, 2)
 	_overlay.draw_colored_polygon(PackedVector2Array([at + way * 5, at + way * 1 + side * 4, at + way * 1 - side * 4]),

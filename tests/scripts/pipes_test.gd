@@ -133,6 +133,43 @@ func _ready() -> void:
 		editor.switch_world()
 		await snap("editor_sub", level)
 		editor.switch_world()
+		# Views for a person to compare with SMM2: window, prompt, contents, trip.
+		Utility.camera_position = Vector2(96, -260)
+		await ticks(20)
+		# The window opens on a held Part (a long press in the editor).
+		pipe.held = true
+		pipe._create_window()
+		pipe.held = false
+		await ticks(20)
+		await snap("view_window", level)
+		if is_instance_valid(pipe._window):
+			pipe._window.close()
+		await ticks(10)
+		feeder.position = Vector2(256, -96)
+		feeder.queue_redraw()
+		await ticks(4)
+		await snap("view_content", level)
+		feeder.position = Vector2(464, -96)
+		var spare := PipePart.create()
+		spare.position = Vector2(224, -160)
+		main.add_part(spare)
+		spare.load()
+		editor.begin_pipe_link(spare)
+		await ticks(30)
+		await snap("view_prompt", level)
+		editor.finish_pipe_link()
+		await ticks(20)
+		spare.free()
+		Utility.camera_position = Vector2(96, -260)
+		await ticks(4)
+		editor.travel_through_pipe(level.get_editor_player(), Level.to_grid(pipe.position))
+		await ticks(20)
+		await snap("view_trip_in", level)
+		await ticks(90)
+		await snap("view_trip_out", level)
+		await ticks(60)
+		editor.switch_world()
+		await ticks(10)
 
 	# Signed save keeps both worlds, the pair, its markers and the contents.
 	var path := "res://.godot/porting-tests/pipes.swe"
@@ -239,7 +276,7 @@ func _ready() -> void:
 ## Saves a real frame. Editor views compare every opaque pipe pixel with the
 ## screen; transition views check the black cover and the iris hole.
 func snap(label: String, level: Level) -> void:
-	if level.status == Level.Status.EDITING:
+	if level.status == Level.Status.EDITING and not label.begins_with("view_"):
 		Utility.camera_position = Vector2(16, -300) if label == "editor_main" else Vector2(176, -230)
 		await ticks(26)
 	var sampled := []
@@ -255,7 +292,9 @@ func snap(label: String, level: Level) -> void:
 	await RenderingServer.frame_post_draw
 	var image := get_viewport().get_texture().get_image()
 	var before := Vector2i(_matches, _pixels)
-	if label == "fade":
+	if label.begins_with("view_"):
+		pass
+	elif label == "fade":
 		var corner := image.get_pixel(20, 600)
 		check(corner.r < 0.7 and not corner.is_equal_approx(Color.BLACK), "Fade %s is not part-way to black" % label)
 	elif label.begins_with("curtain"):
