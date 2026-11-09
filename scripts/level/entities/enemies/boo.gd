@@ -50,7 +50,7 @@ func _physics_process(delta: float) -> void:
 				velocity.y -= ACCELERATION * delta
 			velocity = velocity.limit_length(MAX_SPEED)
 		if velocity.x != 0:
-			sprite.flip_h = velocity.x > 0
+			sprite.flip_h = velocity.x < 0
 	if shy or player == null:
 		velocity = velocity.move_toward(Vector2.ZERO, BRAKE * delta)
 	# Frame 0 chases, frame 1 hides its face.

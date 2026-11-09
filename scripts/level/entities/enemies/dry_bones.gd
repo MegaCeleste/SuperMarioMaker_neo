@@ -83,7 +83,7 @@ func hit_by_projectile(kind: StringName, launch_direction := 0.0) -> bool:
 
 
 func _turned(direction: Vector2) -> void:
-	%Sprite.flip_h = direction == Vector2.RIGHT
+	%Sprite.flip_h = direction == Vector2.LEFT
 
 
 func get_defeat_sprite() -> StringName:

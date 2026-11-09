@@ -25,8 +25,8 @@ func _ready() -> void:
 	# configure_sprite offsets by the source origin (8, 0); this puts the 16x16
 	# art's top-left at (-8, -16), around the body.
 	sprite.position = Vector2(0, -16)
-	# The source art faces left; the 8px origin mirrors it in place.
-	sprite.flip_h = direction > 0
+	# Source draws xscale = direct: the art faces right, mirrored when flying left.
+	sprite.flip_h = direction < 0
 
 
 func _physics_process(_delta: float) -> void:

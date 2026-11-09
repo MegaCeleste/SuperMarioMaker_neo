@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 extends "res://tests/scripts/port_test.gd"
 ## Boo, Bob-omb and Dry Bones: palette entries, NIVEL save/reopen, the Boo's
-## shyness, a stomped Bob-omb's fuse and blast, and Dry Bones collapsing and
+## shyness, the stomped Bob-omb (spin kick, fuse and blast), and Dry Bones collapsing and
 ## standing up again.
 
 
@@ -65,17 +65,34 @@ func _ready() -> void:
 	check(not boo.hit_by_projectile(&"fire"), "A fireball defeated the Boo")
 	boo.queue_free()
 
-	# Stomping the Bob-omb lights it; the blast clears its surroundings.
+	# A stomp turns the Bob-omb into a still, lit, carryable bomb.
 	var galoomba: Galoomba = _first(area, Galoomba)
-	# Both walked meanwhile; set them beside the turn block before lighting.
+	# Both walked meanwhile; set them beside the turn block before stomping.
 	bomb.global_position = Vector2(428, -64)
 	galoomba.global_position = Vector2(450, -64)
-	bomb.light()
-	check(bomb.fuse == BobOmb.FUSE_TICKS and bomb.velocity.x == 0, "The Bob-omb fuse did not start")
+	galoomba.get_node("SlideComponent").process_mode = Node.PROCESS_MODE_DISABLED
+	await _drop_on(player, bomb, PlayerFallingState)
+	var held: HeldBobOmb = _first(area, HeldBobOmb)
+	check(held != null and absf(held.velocity.x) < 0.01 and player.velocity.y < 0,
+			"A stomp did not leave a still, lit Bob-omb and bounce Mario")
+	if held == null:
+		await finish("ENEMIES_RESULT", level)
+		return
+	# An ordinary landing on it does nothing; a spin jump bounces off and kicks it.
+	held.global_position = Vector2(300, -64)
+	held.velocity = Vector2.ZERO
+	await _drop_on(player, held, PlayerSpinJumpingState)
+	check(absf(absf(held.velocity.x) - HeldBobOmb.KICK_SPEED) < 40 and player.velocity.y < 0,
+			"A spin jump on the lit Bob-omb did not bounce Mario and kick it: %s" % held.velocity)
+	# The fuse runs out beside the turn block and the Galoomba.
+	held.global_position = Vector2(428, -64)
+	held.velocity = Vector2.ZERO
+	galoomba.global_position = Vector2(450, -64)
+	galoomba.velocity = Vector2.ZERO
 	_park(player, Vector2(200, -64))
-	bomb.fuse = 2
+	held.fuse = HeldBobOmb.FUSE_TICKS - 2
 	await ticks(4)
-	check(not is_instance_valid(bomb) or bomb.is_queued_for_deletion(), "The Bob-omb did not explode")
+	check(not is_instance_valid(held) or held.is_queued_for_deletion(), "The Bob-omb did not explode")
 	check(not is_instance_valid(galoomba) or galoomba.is_queued_for_deletion(), "The blast did not defeat a nearby enemy")
 	await ticks(4)
 	check(_tile_count(area) == 0, "The blast did not break the turn block")
@@ -113,6 +130,19 @@ func _add(area: SubArea, part: Part, at: Vector2) -> void:
 	part.position = at
 	area.add_part(part)
 	part.load()
+
+
+func _drop_on(player: Player, target: Node2D, state: Variant) -> void:
+	release_input()
+	player.state_machine.switch(state)
+	player.global_position = target.global_position + Vector2(0, -18)
+	player.previous_position = player.global_position + Vector2(0, -4)
+	player.velocity = Vector2(0, 150)
+	for tick in 12:
+		await ticks(1)
+		if player.velocity.y < 0:
+			break
+	await ticks(2)
 
 
 func _first(area: SubArea, type: Variant) -> Node:

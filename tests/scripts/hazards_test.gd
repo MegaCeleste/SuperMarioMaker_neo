@@ -51,6 +51,24 @@ func _ready() -> void:
 			"Reopened cannon or fire bars lost their settings: %s" % found)
 	reopened.free()
 
+	# obj_firebar_res drag: the end ball aims the bar and grows it by 2 up to 20.
+	var dragged := FireBarPart.create()
+	_add(area, dragged, Vector2(288, -288))
+	var before := dragged.get_variant_state()
+	for i in 12:
+		dragged.drag_to(Vector2(8, 8) + Vector2(0, -(dragged.length - 1) * 8 - 20))
+	check(is_equal_approx(dragged.start_angle, 90) and dragged.length == FireBarPart.MAX_LENGTH,
+			"Dragging the Fire Bar's end did not aim it up and grow it to 20: %s, %s" % [dragged.start_angle, dragged.length])
+	dragged.drag_to(Vector2(8, 8) + Vector2(-(dragged.length - 1) * 8 + 20, 0))
+	check(is_equal_approx(dragged.start_angle, 180) and dragged.length == FireBarPart.MAX_LENGTH - 2,
+			"Pulling the Fire Bar's end back did not shrink it by 2")
+	var after := dragged.get_variant_state()
+	dragged.restore_variant_state(before)
+	check(dragged.length == 4 and dragged.start_angle == 0, "Fire Bar drag state did not restore")
+	dragged.restore_variant_state(after)
+	check(dragged.length == 18, "Fire Bar drag state lost a length beyond the window's 10")
+	dragged.free()
+
 	area.get_parts().get_node("EditorPlayer").position = Vector2(224, -80)
 	level.play()
 	await ticks(4)
