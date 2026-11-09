@@ -84,7 +84,13 @@ func _ready() -> void:
 	# pipe, paired and the same colour, in one undo step, and stays there.
 	pipe.set_variant(&"red")
 	editor.begin_pipe_link(pipe)
-	check(level.current_sub_area == sub, "The exit button did not show the other world")
+	# The editor Mario goes into the pipe first (about 36 + 26 frames).
+	await ticks(20)
+	check(level.current_sub_area == main and level.get_editor_player().position.y > pipe.position.y - 16,
+			"The exit button did not send the editor Mario into the pipe first")
+	await ticks(60)
+	check(level.current_sub_area == sub and editor.get_node_or_null("PipeLinkHint") != null,
+			"The exit button did not show the other world with the prompt")
 	var exit := editor.finish_pipe_link(Vector2i(20, -6))
 	check(exit != null and exit.sub_area == sub and pipe.get_exit() == exit and exit.get_exit() == pipe,
 			"Placing the exit pipe did not pair it")
@@ -94,6 +100,9 @@ func _ready() -> void:
 	check(exit.color == pipe.color and pipe.entrance and not exit.entrance,
 			"The exit pipe lost the colour or the entrance/exit markers")
 	check(level.current_sub_area == sub, "The editor left the exit pipe's world")
+	await ticks(60)
+	check(level.get_editor_player().sub_area == sub and level.get_editor_player().position == Vector2(328, -112),
+			"The editor Mario did not come out on top of the new exit pipe: %s" % level.get_editor_player().position)
 	editor.history.undo()
 	check(exit.get_parent() == null and pipe.get_exit() == null, "One undo did not remove the exit pipe and its pair")
 	editor.history.redo()
@@ -155,7 +164,9 @@ func _ready() -> void:
 		main.add_part(spare)
 		spare.load()
 		editor.begin_pipe_link(spare)
-		await ticks(30)
+		await ticks(20)
+		await snap("view_link_dive", level)
+		await ticks(80)
 		await snap("view_prompt", level)
 		editor.finish_pipe_link()
 		await ticks(20)
@@ -213,7 +224,12 @@ func _ready() -> void:
 	check(level.get_living_player() == null, "Enemies can still target Mario inside a pipe")
 	release_input()
 	# He sinks at about 0.5px/frame, then the screen fades for 26 frames.
-	await ticks(25)
+	if capture:
+		await ticks(12)
+		await snap("view_play_entering", level)
+		await ticks(12)
+	else:
+		await ticks(25)
 	check(level.current_sub_area == main and player.visible, "Mario left or vanished before he was inside")
 	await ticks(25)
 	check(level.get_node_or_null("FadeTransition") != null, "The screen did not fade out")
