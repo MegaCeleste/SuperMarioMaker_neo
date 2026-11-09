@@ -1,19 +1,30 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 class_name PipePart
 extends Part
-## SMW pipe (source obj_tuberia_res, obj_tuberia). A solid, 32px-wide obstacle;
-## dragging its opening lengthens it, and a head-only pipe turns when the
-## opening is dragged sideways. SMMneo rule: a pipe linked to a pipe in the
-## other world carries Mario between the main world and the sub-world. An
-## unlinked pipe is only an obstacle. Same-world travel is the doors' job.
+## SMW-style pipe, following SMM2: a solid, 32px-wide pipe that may float.
+## Dragging the opening along the pipe lengthens or shortens it; dragging it
+## sideways turns the pipe a quarter about its far end. The window offers four
+## colours (how fast a pipe with contents lets them out) and the exit button,
+## which pairs the pipe with a new exit pipe placed in the other world. A pair
+## carries Mario both ways; deleting one end leaves the other a plain pipe.
 
 ## Which way the opening faces; the source direct_t values.
 enum Facing { UP, RIGHT, DOWN, LEFT }
 
-## Source size limit: body segments after the 32px head.
+## Longest pipe, in 16px body segments after the 32px head. SMM2's limit is
+## not measured yet; this is a placeholder.
 const MAX_SEGMENTS := 24
 ## Stable color IDs in source frame order (spr_pipes image_index).
 const COLORS = [&"green", &"red", &"blue", &"yellow"]
+## Seconds between things let out, per colour. SMM2's window marks the speed
+## with arrows (blue 1, green 2, yellow 3, red 4); the timings are not
+## measured yet, so these are placeholders in that order.
+const SPAWN_INTERVALS = [3.0, 1.2, 4.0, 2.0]
+## At most this many let-out things are around at once (placeholder).
+const MAX_SPAWNED := 3
+## What a pipe can hold: SMM2 takes items and walking enemies.
+const HOLDABLE = [&"MushroomPart", &"FireFlowerPart", &"StarPart", &"OneUpPart", &"GoombaPart",
+		&"KoopaPart", &"BuzzyPart", &"SpinyPart", &"BobOmbPart", &"DryBonesPart", &"MontyPart"]
 
 static var _textures: Dictionary = {}
 
@@ -23,11 +34,25 @@ var segments := 0
 var color := 0
 ## The paired pipe in the other world; see [method get_exit].
 var link: PipePart
+## Whether this end of a pair was the one whose exit button made the pair.
+## SMM2 marks it with a down arrow and its partner with an up arrow.
+var entrance := false
+## The Part this pipe lets out in play, kept out of the course; null if empty.
+var content: Part
 ## Whether an opening drag currently owns the editor's held-part slot.
 var resizing := false
 ## The runtime pipe built for play; the partner's entry hands Mario to it.
 var runtime: WarpPipe
 var _resize_before: Dictionary
+var _overlay: Node2D
+
+
+static func can_hold(part: Part) -> bool:
+	return part != null and can_hold_type(part.get_script())
+
+
+static func can_hold_type(script: Script) -> bool:
+	return script != null and script.get_global_name() in HOLDABLE
 
 
 static func create() -> PipePart:
@@ -98,6 +123,11 @@ static func size_for(way: Facing, body: int) -> Vector2:
 func _ready() -> void:
 	super()
 	$CollShape.shape = $CollShape.shape.duplicate()
+	_overlay = Node2D.new()
+	_overlay.name = "Overlay"
+	_overlay.z_index = 2
+	_overlay.draw.connect(_draw_overlay)
+	add_child(_overlay)
 	refresh_environment()
 
 
@@ -237,26 +267,44 @@ func begin_resize() -> void:
 
 
 ## Follows the mouse. Dragging the opening outward or inward changes the
-## length while the far end stays (source crecer). A head-only pipe turns in
-## place when the opening is dragged to a side (source left/right).
+## length while the far end stays. Dragging it well to one side turns the
+## pipe a quarter toward that side about its far end, as SMM2's curved arrows
+## do, keeping the length.
 func resize_to(mouse: Vector2) -> void:
-	if segments == 0:
-		var offset := mouse - (position + Vector2(16, 16))
-		if maxf(absf(offset.x), absf(offset.y)) > 24:
-			var toward: Facing = (Facing.RIGHT if offset.x > 0 else Facing.LEFT) \
-					if absf(offset.x) > absf(offset.y) else (Facing.DOWN if offset.y > 0 else Facing.UP)
-			var opposite := ((facing + 2) % 4) as Facing
-			if toward != facing and toward != opposite:
-				_set_geometry(toward, 0, position)
-				return
-	var size := get_size()
-	var length := size.dot(axis(facing).abs())
-	var base := position + size / 2 - axis(facing) * length / 2
-	var body := clampi(roundi(((mouse - base).dot(axis(facing)) - 32) / 16), 0, MAX_SEGMENTS)
+	var base := base_center()
+	var offset := mouse - base
+	var along := offset.dot(axis(facing))
+	var across := offset.dot(axis(facing).orthogonal())
+	if absf(across) > maxf(24.0, along):
+		var toward := _side_facing(across)
+		var next := size_for(toward, segments)
+		var at := (base + axis(toward) * (next.dot(axis(toward).abs()) / 2 - 16) - next / 2) \
+				.snapped(Level.GRID_SIZE)
+		_set_geometry(toward, segments, at)
+		return
+	var body := clampi(roundi((along + 16 - 32) / 16), 0, MAX_SEGMENTS)
 	var next := size_for(facing, body)
-	var at := (base + axis(facing) * next.dot(axis(facing).abs()) / 2 - next / 2).snapped(Level.GRID_SIZE)
+	var at := (base + axis(facing) * (next.dot(axis(facing).abs()) / 2 - 16) - next / 2) \
+			.snapped(Level.GRID_SIZE)
 	if body != segments:
 		_set_geometry(facing, body, at)
+
+
+## Centre of the far end's last 32x32 cell pair, which stays put while the
+## opening is dragged.
+func base_center() -> Vector2:
+	var size := get_size()
+	var length := size.dot(axis(facing).abs())
+	return position + size / 2 - axis(facing) * (length / 2 - 16)
+
+
+# The facing a quarter turn toward the side the mouse is on.
+func _side_facing(across: float) -> Facing:
+	var side := (axis(facing).orthogonal() * signf(across)).round()
+	for way in 4:
+		if axis(way as Facing) == side:
+			return way as Facing
+	return facing
 
 
 func _set_geometry(way: Facing, body: int, at: Vector2) -> void:
@@ -297,11 +345,68 @@ func _input(event: InputEvent) -> void:
 
 func _draw() -> void:
 	super()
-	# The editor marks linked pipes so pairs can be read at a glance.
-	if level != null and level.status == Level.Status.EDITING and get_exit() != null and not held:
-		var mouth := mouth_rect()
-		draw_circle(mouth.get_center() - position, 5, Color(1, 1, 1, 0.9))
-		draw_circle(mouth.get_center() - position, 3, Color(0.1, 0.6, 1.0))
+	if is_instance_valid(_overlay):
+		_overlay.queue_redraw()
+
+
+# Markers and handles go on a child drawn over the pipe sprite.
+func _draw_overlay() -> void:
+	if level == null or level.status != Level.Status.EDITING or held:
+		return
+	# The contents peek out of the opening, as in SMM2's editor.
+	if content != null:
+		var icon := content.get_part_icon(sub_area)
+		if icon != null:
+			var at := mouth_rect().get_center() - position + axis(facing) * 16
+			_overlay.draw_texture_rect(icon, Rect2(at - Vector2(10, 10), Vector2(20, 20)), false)
+	# SMM2 marks a pair on the body: a down arrow on the end whose exit button
+	# made the pair, an up arrow on its exit.
+	if get_exit() != null:
+		_draw_pair_marker(get_size() / 2 if segments > 0 else mouth_rect().get_center() - position)
+	# SMM2's opening handles: straight arrows along the pipe for its length,
+	# curved arrows to either side for turning.
+	if (_mouse_in or resizing) and level.editor != null and level.editor.erasing == Editor.EraseMode.NONE:
+		_draw_handles()
+
+
+func _draw_pair_marker(at: Vector2) -> void:
+	var box := Rect2(at - Vector2(7, 7), Vector2(14, 14))
+	_overlay.draw_rect(box.grow(1), Color(0.95, 0.95, 0.95))
+	_overlay.draw_rect(box, Color(0.22, 0.55, 0.27))
+	var way := Vector2.DOWN if entrance else Vector2.UP
+	var side := way.orthogonal()
+	_overlay.draw_line(at - way * 4, at + way * 2, Color.WHITE, 2)
+	_overlay.draw_colored_polygon(PackedVector2Array([at + way * 5, at + way * 1 + side * 4, at + way * 1 - side * 4]),
+			Color.WHITE)
+
+
+func _draw_handles() -> void:
+	var mouth := mouth_rect().get_center() - position
+	var out := axis(facing)
+	var side := out.orthogonal()
+	var yellow := Color(1.0, 0.82, 0.1)
+	var dark := Color(0.15, 0.1, 0.1, 0.85)
+	_overlay.draw_circle(mouth, 5, dark)
+	_overlay.draw_circle(mouth, 3, Color(0.75, 0.2, 0.1))
+	for way in [out, -out]:
+		var tip: Vector2 = mouth + way * 18
+		_overlay.draw_line(mouth + way * 6, tip - way * 4, yellow, 3)
+		_overlay.draw_colored_polygon(PackedVector2Array([tip, tip - way * 6 + side * 5, tip - way * 6 - side * 5]), yellow)
+	for turn in [1.0, -1.0]:
+		var points := PackedVector2Array()
+		for i in 7:
+			var angle := lerpf(0.15, 1.2, i / 6.0)
+			points.append(mouth + (out * cos(angle) + side * turn * sin(angle)) * 14)
+		_overlay.draw_polyline(points, dark, 2)
+		var end: Vector2 = points[points.size() - 1]
+		var back: Vector2 = (points[points.size() - 2] - end).normalized()
+		_overlay.draw_colored_polygon(PackedVector2Array([end - back * 3, end + back * 3 + back.orthogonal() * 3,
+				end + back * 3 - back.orthogonal() * 3]), dark)
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_PREDELETE and is_instance_valid(content) and not content.is_inside_tree():
+		content.free()
 
 
 func build() -> void:

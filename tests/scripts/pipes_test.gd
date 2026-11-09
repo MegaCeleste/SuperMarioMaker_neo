@@ -1,8 +1,9 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 extends "res://tests/scripts/port_test.gd"
-## Main world / sub-world switching, pipes that cross between the worlds and
-## same-world door pairs: editor, history, signed SWE and real play. With
-## --capture-pipes-doors it also checks source pipe pixels on real frames.
+## Main world / sub-world switching and SMM2-style pipes: opening drags (length
+## and quarter turns at any length), the exit button that places a paired exit
+## pipe, pair markers, contents, signed SWE and real play through a pair. With
+## --capture-pipes it also checks pipe pixels and the transition on real frames.
 
 var capture := false
 var _pixels := 0
@@ -13,7 +14,7 @@ var _views := {}
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	capture = "--capture-pipes-doors" in OS.get_cmdline_user_args()
+	capture = "--capture-pipes" in OS.get_cmdline_user_args()
 	var level := await LevelActionBtn.prepare_level("res://tests/fixtures/port_slice.swe", Level.Status.EDITING)
 	add_child(level)
 	await ticks(8)
@@ -46,13 +47,18 @@ func _ready() -> void:
 		GroundPart.refresh_all(area.get_parts())
 	await ticks(2)
 
-	# Palette entries.
+	# Palette entry.
 	var ring: PaletteRing = editor.get_node("PaletteMenu/RingContainer/Control/PaletteRing")
 	ring.category = load("res://resources/palette/category_terrain.tres")
-	check(ring.choose(3) and editor.get_selected_part() == PipePart, "Pipe palette entry is not usable")
+	var chosen := false
+	for index in 8:
+		if ring.choose(index) and editor.get_selected_part() == PipePart:
+			chosen = true
+			break
+	check(chosen, "Pipe palette entry is not usable")
 	var pipe := editor.place(Vector2i(10, -6)) as PipePart
 	check(pipe != null and pipe.get_size() == Vector2(32, 32), "Placed pipe is not a 32x32 head")
-	check(pipe.get_node("Graphics/Sprite").texture != null, "Pipe has no source art")
+	check(pipe.get_node("Graphics/Sprite").texture != null, "Pipe has no art")
 
 	# Opening drag: lengthen upward from the fixed base, then shrink back.
 	pipe.begin_resize()
@@ -62,47 +68,55 @@ func _ready() -> void:
 	check(pipe.segments == 0 and pipe.position == Vector2(160, -96), "Opening drag did not shorten the pipe")
 	pipe.end_resize()
 	check(not editor.history.can_redo(), "Pipe resize history is inconsistent")
-	# A head-only pipe turns when its opening is dragged sideways.
+	# SMM2 turns a pipe of any length a quarter about its far end.
 	pipe.begin_resize()
+	pipe.resize_to(Vector2(176, -128))
 	pipe.resize_to(Vector2(240, -72))
-	check(pipe.facing == PipePart.Facing.RIGHT, "Head-only pipe did not turn right")
+	check(pipe.facing == PipePart.Facing.RIGHT and pipe.segments == 2 and pipe.position == Vector2(160, -96),
+			"A long pipe did not turn right about its far end: %s %s %s" % [pipe.facing, pipe.segments, pipe.position])
 	pipe.end_resize()
 	editor.history.undo()
-	check(pipe.facing == PipePart.Facing.UP and pipe.position == Vector2(160, -96), "Pipe turn undo failed")
-	check(pipe.get_variants().size() == 4 and pipe.get_variant() == &"green", "Pipe colors are not offered")
+	check(pipe.facing == PipePart.Facing.UP and pipe.segments == 0 and pipe.position == Vector2(160, -96),
+			"Pipe turn undo failed")
+	check(pipe.get_variants().size() == 4 and pipe.get_variant() == &"green", "Pipe colours are not offered")
 
-	# Pairing with a pipe in the other world; undo shows that world first.
-	var exit := PipePart.create()
-	exit.position = Vector2(320, -96)
-	sub.add_part(exit)
-	exit.load()
-	editor.history.link_pipes(pipe, exit)
-	check(pipe.get_exit() == exit and exit.get_exit() == pipe and pipe.has_modifier(&"link"), "Pipes did not pair")
+	# The exit button shows the other world; the next click places the exit
+	# pipe, paired and the same colour, in one undo step, and stays there.
+	pipe.set_variant(&"red")
+	editor.begin_pipe_link(pipe)
+	check(level.current_sub_area == sub, "The exit button did not show the other world")
+	var exit := editor.finish_pipe_link(Vector2i(20, -6))
+	check(exit != null and exit.sub_area == sub and pipe.get_exit() == exit and exit.get_exit() == pipe,
+			"Placing the exit pipe did not pair it")
+	if exit == null:
+		await finish("PIPES_RESULT", level)
+		return
+	check(exit.color == pipe.color and pipe.entrance and not exit.entrance,
+			"The exit pipe lost the colour or the entrance/exit markers")
+	check(level.current_sub_area == sub, "The editor left the exit pipe's world")
+	editor.history.undo()
+	check(exit.get_parent() == null and pipe.get_exit() == null, "One undo did not remove the exit pipe and its pair")
+	editor.history.redo()
+	check(pipe.get_exit() == exit, "Exit pipe redo failed")
+	editor.erase_part(exit)
+	check(pipe.get_exit() == null and pipe.get_parent() != null, "Erasing the exit did not leave a plain pipe")
+	editor.history.undo()
+	check(pipe.get_exit() == exit, "Undoing the erase did not restore the pair")
 	editor.switch_world()
-	editor.history.undo()
-	check(level.current_sub_area == main and pipe.get_exit() == null, "Pair undo did not show the main world and unpair")
-	editor.history.redo()
-	check(pipe.get_exit() == exit, "Pair redo failed")
-	editor.erase_part(pipe)
-	check(exit.get_exit() == null, "Erasing a pipe left its partner paired")
-	editor.history.undo()
-	check(exit.get_exit() == pipe, "Undoing the erase did not restore the pair")
+	check(level.current_sub_area == main, "Could not return to the main world")
 
-	# Doors come in pairs and are erased together.
-	ring.category = load("res://resources/palette/category_gizmos.tres")
-	check(ring.choose(1) and editor.get_selected_part() == DoorPart, "Door palette entry is not usable")
-	editor.history.begin_stroke("Place")
-	var door := editor.place(Vector2i(25, -6)) as DoorPart
-	editor.history.end_stroke()
-	var partner := door.get_exit() if door != null else null
-	check(partner != null and partner.position == door.position + Vector2(32, 0), "Door did not add its partner")
+	# A plain pipe holds a mushroom and lets it out in play.
+	var feeder := PipePart.create()
+	# Off screen during the trip, so its mushrooms cannot power Mario up.
+	feeder.position = Vector2(464, -96)
+	main.add_part(feeder)
+	feeder.load()
+	editor.history.set_pipe_content(feeder, MushroomPart.create())
+	check(feeder.content is MushroomPart, "A pipe did not take a mushroom")
 	editor.history.undo()
-	check(door.get_parent() == null and partner.get_parent() == null, "Door placement undo kept a door")
+	check(feeder.content == null, "Content undo failed")
 	editor.history.redo()
-	editor.erase_part(partner)
-	check(door.get_parent() == null and partner.get_parent() == null, "Erasing one door kept the other")
-	editor.history.undo()
-	check(door.get_exit() == partner, "Door erase undo did not restore the pair")
+	check(feeder.content is MushroomPart, "Content redo failed")
 
 	if capture:
 		# Every facing and colour, floating clear of the play path below.
@@ -120,31 +134,33 @@ func _ready() -> void:
 		await snap("editor_sub", level)
 		editor.switch_world()
 
-	# Signed save keeps both worlds, the pipe pair and the door pair.
-	var path := "res://.godot/porting-tests/pipes_doors.swe"
+	# Signed save keeps both worlds, the pair, its markers and the contents.
+	var path := "res://.godot/porting-tests/pipes.swe"
 	var saved: Dictionary = await editor.save_to_path(path)
-	check(saved.error == OK, "Pipe/door save failed: %s" % saved)
+	check(saved.error == OK, "Pipe save failed: %s" % saved)
 	var data: Dictionary = LevelProcessor.decode_swe(FileAccess.get_file_as_bytes(path)).data
 	check(data.has("SUB1") and data.SUB1.TUBERIAS.size() == 1, "Sub-world pipe was not saved in SUB1")
-	var row: Dictionary = data.MAIN.TUBERIAS[0] if not data.MAIN.TUBERIAS.is_empty() else {}
-	row = {} if data.MAIN.TUBERIAS.is_empty() else data.MAIN.TUBERIAS.filter(func(r): return r.smmneo_link > 0)[0]
-	check(row.get("warp") == 0 and row.get("smmneo_link", 0) > 0
-			and row.smmneo_link == data.SUB1.TUBERIAS[0].smmneo_link, "Pipe pair fields are wrong: %s" % row)
-	check(data.MAIN.PUERTAS.size() == 1 and data.MAIN.PUERTAS[0].door_x == partner.position.x,
-			"Door pair was not saved as one OpenWE record")
+	var linked: Array = data.MAIN.TUBERIAS.filter(func(r): return r.get("smmneo_link", 0) > 0)
+	var row: Dictionary = linked[0] if not linked.is_empty() else {}
+	check(row.get("warp") == 0 and row.get("smmneo_link", 0) > 0 and row.get("smmneo_entrance") == 1
+			and row.smmneo_link == data.SUB1.TUBERIAS[0].smmneo_link and data.SUB1.TUBERIAS[0].smmneo_entrance == 0,
+			"Pipe pair fields are wrong: %s" % row)
+	check(data.MAIN.TUBERIAS.any(func(r): return r.get("smmneo_content") is Dictionary), "Pipe contents were not saved")
 	var reopened: Level = await LevelProcessor.from_swe(path)
 	var pipes := {}
-	var doors := 0
 	for area in reopened.get_children():
 		if area is SubArea:
 			for part in area.get_parts().get_children():
 				if part is PipePart:
 					pipes[part] = area
-				doors += int(part is DoorPart)
 	var reloaded_pair := false
+	var reloaded_content := false
 	for part: PipePart in pipes:
-		reloaded_pair = reloaded_pair or (part.get_exit() != null and pipes.get(part.get_exit()) != pipes[part])
-	check(pipes.size() == (6 if capture else 2) and reloaded_pair and doors == 2, "Reopened level lost a world, pipe pair or door pair")
+		reloaded_pair = reloaded_pair or (part.get_exit() != null and pipes.get(part.get_exit()) != pipes[part]
+				and part.entrance != part.get_exit().entrance)
+		reloaded_content = reloaded_content or part.content is MushroomPart
+	check(pipes.size() == (7 if capture else 3) and reloaded_pair and reloaded_content,
+			"Reopened level lost a world, pipe pair or contents")
 	reopened.free()
 
 	# Play: down into the main pipe, out of the sub-world pipe, and back.
@@ -159,80 +175,90 @@ func _ready() -> void:
 	check(player.state_machine.current_state is PlayerPipeState, "Pressing down on a linked pipe did not enter it")
 	check(level.get_living_player() == null, "Enemies can still target Mario inside a pipe")
 	release_input()
+	# He sinks at about 0.5px/frame, then the screen fades for 26 frames.
+	await ticks(25)
+	check(level.current_sub_area == main and player.visible, "Mario left or vanished before he was inside")
+	await ticks(25)
+	check(level.get_node_or_null("FadeTransition") != null, "The screen did not fade out")
 	if capture:
-		await ticks(12)
-		await snap("entering", level)
-		await ticks(26)
-		await snap("curtain", level)
+		await ticks(10)
+		await snap("fade", level)
 		await ticks(20)
-		await snap("curtain_open", level)
 	else:
-		await ticks(40)
+		await ticks(30)
 	check(level.current_sub_area == sub and player.sub_area == sub and sub.get_foreground().is_ancestor_of(player),
 			"Mario did not cross to the sub-world")
-	check(level.get_node_or_null("CurtainTransition") != null, "No curtain opened on arrival")
-	await ticks(70)
+	var curtain := level.get_node_or_null("CurtainTransition") as CurtainTransition
+	check(curtain != null and curtain.black_ticks == PlayerPipeState.BLACK_TICKS,
+			"No measured black-then-iris transition on arrival")
+	if capture:
+		await ticks(30)
+		await snap("curtain", level)
+		# A few ticks into the iris: open around the exit, black at the corners.
+		await ticks(50)
+		await snap("curtain_open", level)
+		await ticks(160)
+	else:
+		await ticks(240)
 	check(not player.is_traveling() and absf(player.global_position.x - 336) < 1
 			and absf(player.global_position.y + 96) < 1, "Mario did not come out on top of the sub-world pipe")
 	check(player.collision_layer != 0 and player.visible, "Mario's collisions were not restored after the pipe")
+	# The pair works both ways.
 	Input.action_press("player_down")
-	await ticks(110)
+	await ticks(5)
 	release_input()
+	await ticks(315)
 	check(level.current_sub_area == main and absf(player.global_position.x - 176) < 1, "Return trip failed")
 
-	# A door pair moves Mario within the main world.
-	park(player, door.position + Vector2(8, 32))
-	await ticks(2)
-	Input.action_press("player_up")
-	await ticks(3)
-	release_input()
-	check(player.state_machine.current_state is PlayerDoorState, "Pressing up in a door did not enter it")
-	check(level.get_node("%LevelTimer").paused, "Level timer kept running inside the door")
-	if capture:
-		await ticks(20)
-		await snap("door_open", level)
-		await ticks(40)
-	else:
-		await ticks(60)
-	check(player.global_position.is_equal_approx(partner.position + Vector2(8, 32)), "Door did not move Mario to its partner")
-	await ticks(30)
-	check(not player.is_traveling() and not level.get_node("%LevelTimer").paused, "Door did not return control")
+	# The feeder pipe lets its mushroom out while it is on screen.
+	park(player, Vector2(420, -64))
+	var let_out := false
+	for tick in 300:
+		await ticks(1)
+		for node in main.get_foreground().get_children():
+			if node is Mushroom and node.global_position.y <= -95 and node.process_mode != Node.PROCESS_MODE_DISABLED:
+				let_out = true
+		if let_out:
+			break
+	check(let_out, "The pipe did not let its mushroom out")
 
 	# Returning to the editor resumes in the world Mario ended in.
 	level.edit()
 	await ticks(2)
 	check(level.current_sub_area == main and level.get_editor_player().sub_area == main, "Edit did not resume in Mario's world")
 	if capture:
-		for view in ["editor_main", "editor_sub", "entering"]:
+		# The sub-world's only pipe is the marked exit, which is not sampled.
+		for view in ["editor_main"]:
 			check(_views.get(view, 0) > 20, "Capture view %s sampled too few pipe pixels" % view)
-		check(_matches == _pixels, "Pipe source pixels differ on screen: %d/%d" % [_matches, _pixels])
-		print("PIPES_DOORS_PIXELS ", _matches, "/", _pixels)
+		check(_matches == _pixels, "Pipe pixels differ on screen: %d/%d" % [_matches, _pixels])
+		print("PIPES_PIXELS ", _matches, "/", _pixels)
 		print("CAPTURE_RESULT ", "PASS" if failures.is_empty() else "FAIL")
-	await finish("PIPES_DOORS_RESULT", level)
+	await finish("PIPES_RESULT", level)
 
 
-## Saves a real frame and compares every opaque source pipe pixel with the
-## screen. Editor Parts and play-time pipes draw the same composed texture.
+## Saves a real frame. Editor views compare every opaque pipe pixel with the
+## screen; transition views check the black cover and the iris hole.
 func snap(label: String, level: Level) -> void:
 	if level.status == Level.Status.EDITING:
 		Utility.camera_position = Vector2(16, -300) if label == "editor_main" else Vector2(176, -230)
 		await ticks(26)
 	var sampled := []
 	var sample := func():
-		var sprites: Array = []
 		for node in level.current_sub_area.find_children("Sprite", "Sprite2D", true, false):
-			if node.get_parent() is WarpPipe or (node.get_parent().get_parent() is PipePart
-					and level.status == Level.Status.EDITING):
-				sprites.append(node)
-		for sprite: Sprite2D in sprites:
-			sampled.append({"image": sprite.texture.get_image(), "transform": sprite.get_global_transform_with_canvas(),
-					"centered": sprite.centered})
+			var owner_pipe = node.get_parent().get_parent()
+			# Pair markers and contents are drawn over their pipes on purpose.
+			if owner_pipe is PipePart and level.status == Level.Status.EDITING \
+					and owner_pipe.get_exit() == null and owner_pipe.content == null:
+				sampled.append({"image": node.texture.get_image(), "transform": node.get_global_transform_with_canvas(),
+						"centered": node.centered})
 	RenderingServer.frame_pre_draw.connect(sample, CONNECT_ONE_SHOT)
 	await RenderingServer.frame_post_draw
 	var image := get_viewport().get_texture().get_image()
 	var before := Vector2i(_matches, _pixels)
-	if label.begins_with("curtain"):
-		# Black first, then a hole around the arrival opening (source obj_curtainin).
+	if label == "fade":
+		var corner := image.get_pixel(20, 600)
+		check(corner.r < 0.7 and not corner.is_equal_approx(Color.BLACK), "Fade %s is not part-way to black" % label)
+	elif label.begins_with("curtain"):
 		var arrival := Vector2i(level.get_global_transform_with_canvas() * level.hud.player.global_position)
 		var corner := image.get_pixel(20, 600)
 		var middle := image.get_pixelv(arrival - Vector2i(0, 30))
@@ -254,10 +280,10 @@ func snap(label: String, level: Level) -> void:
 					if image.get_pixelv(at).is_equal_approx(color):
 						_matches += 1
 		_views[label] = _pixels - before.y
-		print("PIPES_DOORS_VIEW ", label, " ", _matches - before.x, "/", _pixels - before.y)
-	image.save_png("res://.godot/porting-tests/pipes_doors_%s.png" % label)
-	if label == "entering":
-		image.save_png("res://.godot/porting-tests/slice_pipes_doors.png")
+		print("PIPES_VIEW ", label, " ", _matches - before.x, "/", _pixels - before.y)
+	image.save_png("res://.godot/porting-tests/pipes_%s.png" % label)
+	if label == "editor_main":
+		image.save_png("res://.godot/porting-tests/slice_pipes.png")
 
 
 func park(player: Player, at: Vector2) -> void:

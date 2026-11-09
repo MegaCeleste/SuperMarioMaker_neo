@@ -158,6 +158,10 @@ func place(pos: Vector2i) -> Part:
 		history.set_variant(target, ContainerBlockPart.content_for(part, target))
 		part.free()
 		return target
+	var pipe := pipe_target(pos, part)
+	if pipe != null:
+		history.set_pipe_content(pipe, part)
+		return pipe
 	part.global_position = Level.from_grid(pos)
 	level.current_sub_area.add_part(part)
 	part.load(true)
@@ -176,7 +180,49 @@ func content_target(pos: Vector2i, item: Part) -> ContainerBlockPart:
 	return null
 
 
+## SMM2: dropping the editor Mario on a paired pipe takes the editor through it
+## to the other world, with Mario standing at the exit.
+func travel_through_pipe(cursor: Part, pos: Vector2i) -> bool:
+	var at := Level.from_grid(pos) + Vector2(8, 8)
+	var pipe: PipePart
+	for part in level.current_sub_area.get_parts().get_children():
+		if part is PipePart and Rect2(part.position, part.get_size()).grow(4).has_point(at):
+			pipe = part
+	if pipe == null or pipe.get_exit() == null:
+		return false
+	var exit := pipe.get_exit()
+	cursor.position = cursor._drag_start
+	history.end_stroke()
+	level.switch_area(exit.sub_area)
+	var mouth := exit.mouth_rect()
+	var stand := mouth.get_center() + PipePart.axis(exit.facing) * 16
+	cursor.position = Level.snap(stand - Vector2(8, 8))
+	cursor._grid_pos = Level.to_grid(cursor.position)
+	var size := get_viewport().get_visible_rect().size / Utility.camera_scale
+	Utility.camera_position_raw = cursor.position - size / 2
+	CurtainTransition.open(level, mouth.get_center(), 40, CurtainTransition.END_RADIUS / 35)
+	return true
+
+
+## SMM2 pipes take items and enemies dropped on them, and let them out in play.
+func pipe_target(pos: Vector2i, item: Part) -> PipePart:
+	if not PipePart.can_hold(item):
+		return null
+	var at := Level.from_grid(pos) + Vector2(8, 8)
+	for part in level.current_sub_area.get_parts().get_children():
+		if part is PipePart and part != item and Rect2(part.position, part.get_size()).has_point(at):
+			return part
+	return null
+
+
 func try_insert_content(item: Part, pos: Vector2i) -> bool:
+	var pipe := pipe_target(pos, item)
+	if pipe != null:
+		history.set_pipe_content(pipe, item, item._drag_start)
+		item._content_origin = null
+		UISoundPlayer.stream = preload("uid://2x6kk0s4njjp")
+		UISoundPlayer.play()
+		return true
 	var target := content_target(pos, item)
 	if target == null:
 		return false
@@ -255,8 +301,9 @@ func set_part_modifier(part: Part, id: StringName, enabled: bool) -> void:
 			return
 
 
-## Shows the other world and waits for a click on a pipe there; that pipe
-## becomes [param pipe]'s exit. Right click or Escape cancels.
+## SMM2's exit button: shows the other world and asks for an exit pipe there.
+## The next click places a new pipe of the same colour, paired with
+## [param pipe] in the same undo step. Right click or Escape cancels.
 func begin_pipe_link(pipe: PipePart) -> void:
 	if not is_instance_valid(pipe) or level.status != Level.Status.EDITING or held_part != null:
 		return
@@ -268,29 +315,40 @@ func begin_pipe_link(pipe: PipePart) -> void:
 	part_interact = false
 	_link_hint = Label.new()
 	_link_hint.name = "PipeLinkHint"
-	_link_hint.text = tr("EDITOR_PIPE_PICK_EXIT")
+	_link_hint.text = tr("EDITOR_PIPE_PLACE_EXIT")
 	_link_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_link_hint.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
 	_link_hint.position.y = 90
 	add_child(_link_hint)
 
 
-## Ends pairing: links to [param exit] when given, then returns to the
-## entrance pipe's world.
-func finish_pipe_link(exit: PipePart = null) -> void:
+## Ends pairing. With [param at], places the exit pipe there and stays in its
+## world, as SMM2 does; cancelling returns to the entrance pipe's world.
+func finish_pipe_link(at := Vector2i(-1, 1)) -> PipePart:
 	if _linking_pipe == null:
-		return
+		return null
 	var pipe := _linking_pipe
 	_linking_pipe = null
 	if is_instance_valid(_link_hint):
 		_link_hint.queue_free()
 	part_interact = true
-	if is_instance_valid(pipe):
+	if not is_instance_valid(pipe):
+		return null
+	if at.y > 0:
 		level.switch_area(pipe.sub_area)
-		if exit != null:
-			history.link_pipes(pipe, exit)
-			UISoundPlayer.stream = preload("uid://2x6kk0s4njjp")
-			UISoundPlayer.play()
+		return null
+	var exit := PipePart.create()
+	exit.color = pipe.color
+	exit.global_position = Level.from_grid(at)
+	history.begin_stroke("Place exit pipe")
+	level.current_sub_area.add_part(exit)
+	exit.load(true)
+	history.record_place(exit)
+	history.link_pipes(pipe, exit)
+	history.end_stroke()
+	UISoundPlayer.stream = preload("uid://2x6kk0s4njjp")
+	UISoundPlayer.play()
+	return exit
 
 
 func _pipe_link_input(event: InputEvent) -> void:
@@ -300,14 +358,10 @@ func _pipe_link_input(event: InputEvent) -> void:
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			finish_pipe_link()
 		elif event.button_index == MOUSE_BUTTON_LEFT:
-			var query := PhysicsPointQueryParameters2D.new()
-			query.position = level.get_global_mouse_position()
-			query.collide_with_areas = true
-			query.collision_mask = 1 << 8
-			for hit in level.get_world_2d().direct_space_state.intersect_point(query, 8):
-				if hit.collider is PipePart and hit.collider.sub_area == level.current_sub_area:
-					finish_pipe_link(hit.collider)
-					break
+			# The exit pipe's head is a 2x2 cell block whose top-left is under the cursor.
+			var cell := Level.to_grid(level.get_global_mouse_position())
+			if PipePart.is_placeable(cell, level.get_world_2d()) and cell.x >= 0 and cell.y <= -2:
+				finish_pipe_link(cell)
 	else:
 		return
 	get_viewport().set_input_as_handled()
@@ -531,6 +585,11 @@ func _process_placing(process_multiplaceables: bool) -> void:
 		var candidate: Part = selected.create()
 		var target := content_target(grid_pos, candidate)
 		valid = target != null and target.content_id != ContainerBlockPart.content_for(candidate, target)
+		candidate.free()
+	if not valid and PipePart.can_hold_type(selected):
+		var candidate: Part = selected.create()
+		var pipe := pipe_target(grid_pos, candidate)
+		valid = pipe != null and (pipe.content == null or pipe.content.get_script() != selected)
 		candidate.free()
 	if selected in [SlopePart, GentleSlopePart]:
 		valid = valid and grid_pos.x >= 0 and grid_pos.y >= -27 and grid_pos.y <= -2 \

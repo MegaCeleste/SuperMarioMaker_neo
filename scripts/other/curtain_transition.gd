@@ -14,12 +14,21 @@ var level: Level
 ## Arrival point in area coordinates.
 var target := Vector2.ZERO
 var radius := 0.0
+## Ticks of full black before the circle grows, and its growth per tick.
+## Doors keep the source values; SMM2 pipes pass their measured ones.
+var black_ticks := BLACK_TICKS
+var growth := GROWTH
 var _ticks := 0
 var _cover: Control
 
 
+## Whether the circle has finished opening.
+func is_done() -> bool:
+	return radius > END_RADIUS
+
+
 ## Starts a curtain for [param on], replacing one that is still opening.
-static func open(on: Level, at: Vector2) -> CurtainTransition:
+static func open(on: Level, at: Vector2, black := BLACK_TICKS, grow := GROWTH) -> CurtainTransition:
 	var old := on.get_node_or_null(^"CurtainTransition")
 	if old != null:
 		on.remove_child(old)
@@ -28,6 +37,8 @@ static func open(on: Level, at: Vector2) -> CurtainTransition:
 	curtain.name = "CurtainTransition"
 	curtain.level = on
 	curtain.target = at
+	curtain.black_ticks = black
+	curtain.growth = grow
 	on.add_child(curtain)
 	return curtain
 
@@ -45,8 +56,8 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	_ticks += 1
-	if _ticks > BLACK_TICKS:
-		radius += GROWTH
+	if _ticks > black_ticks:
+		radius += growth
 	if radius > END_RADIUS:
 		queue_free()
 

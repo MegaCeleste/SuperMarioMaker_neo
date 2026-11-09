@@ -65,8 +65,10 @@ func erase_together(parts: Array) -> void:
 		end_stroke()
 
 
-## Pairs [param pipe] with [param exit] in the other world, or unpairs it when
-## [param exit] is null. Former partners of either pipe are unpaired too.
+## Pairs [param pipe] (the entrance, marked with a down arrow) with
+## [param exit], or unpairs it when [param exit] is null. Former partners of
+## either pipe are unpaired too. Joins an open stroke, so placing an exit pipe
+## and pairing it undo together.
 func link_pipes(pipe: PipePart, exit: PipePart) -> void:
 	var touched: Array[PipePart] = [pipe]
 	for other in [pipe.link, exit, exit.link if exit != null else null]:
@@ -74,29 +76,60 @@ func link_pipes(pipe: PipePart, exit: PipePart) -> void:
 			touched.append(other)
 	var before := {}
 	for other in touched:
-		before[other] = other.link
+		before[other] = [other.link, other.entrance]
 	for other in touched:
 		if other.link in [pipe, exit] or other in [pipe, exit]:
 			other.link = null
+			other.entrance = false
 	if exit != null:
 		pipe.link = exit
 		exit.link = pipe
+		pipe.entrance = true
 	var after := {}
 	for other in touched:
-		after[other] = other.link
+		after[other] = [other.link, other.entrance]
 	if before == after:
 		return
 	_restore_links(after)
-	end_stroke()
 	_begin("Pair pipes" if exit != null else "Unpair pipe")
 	_undo.add_do_method(_restore_links.bind(after))
 	_undo.add_undo_method(_restore_links.bind(before))
 	_commit()
 
 
+## Puts [param item] into [param pipe] as what it lets out, replacing earlier
+## contents. A placed item leaves the course (and returns to
+## [param original] on undo); a palette item is never placed.
+func set_pipe_content(pipe: PipePart, item: Part, original := Vector2.INF) -> void:
+	var before := pipe.content
+	if before == item:
+		return
+	var placed := item != null and item.get_parent() != null
+	_begin("Put into pipe")
+	_undo.add_do_method(_set_pipe_content.bind(pipe, item))
+	_undo.add_undo_method(_set_pipe_content.bind(pipe, before))
+	if placed:
+		_undo.add_do_method(_set_present.bind(item, false))
+		_undo.add_undo_method(_set_present.bind(item, true))
+		if original.is_finite():
+			_move_to(item, original)
+		_set_present(item, false)
+	_set_pipe_content(pipe, item)
+	_commit()
+
+
+func _set_pipe_content(pipe: PipePart, item: Part) -> void:
+	pipe.content = item
+	if item != null:
+		item.level = pipe.level
+		item.sub_area = pipe.sub_area
+	pipe.queue_redraw()
+
+
 func _restore_links(links: Dictionary) -> void:
 	for pipe: PipePart in links:
-		pipe.link = links[pipe]
+		pipe.link = links[pipe][0]
+		pipe.entrance = links[pipe][1]
 		pipe.queue_redraw()
 
 

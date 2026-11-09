@@ -59,7 +59,7 @@ EDITOR_MAIN_WORLD,Main area,Zona principal
 EDITOR_SUB_WORLD,Sub-area,Subzona
 EDITOR_SWITCH_WORLD,Switch between the main area and the sub-area,Cambiar entre la zona principal y la subzona
 EDITOR_PIPE_EXIT,Set this pipe's exit in the other area,Elegir la salida de esta tubería en la otra zona
-EDITOR_PIPE_PICK_EXIT,Click a pipe to make it the exit (right click: cancel),Haz clic en una tubería para usarla de salida (clic derecho: cancelar)
+EDITOR_PIPE_PLACE_EXIT,Place a pipe for the exit (right click: cancel),Coloca una tubería para la salida (clic derecho: cancelar)
 EDITOR_ENEMY_GALOOMBA,Galoomba,Galoomba
 EDITOR_ENEMY_GOOMBUD,Goombud,Goombud
 EDITOR_KOOPA_GREEN,Green Koopa,Koopa verde

@@ -192,60 +192,11 @@ static func _write_area(area: SubArea, wrapper: Dictionary, map: Dictionary, obj
 			_set_alias(entry, "i", "index", index)
 			terrain_records.append({"part": part, "entry": entry})
 			continue
-		var id := _object_id(part)
-		if id.is_empty():
+		entry = object_row(part, entry)
+		if entry.is_empty():
 			return _failure(
 				"This object cannot be saved yet: %s." % part.get_script().get_global_name()
 			)
-		_set_alias(entry, "ID", "object", id)
-		for key in OBJECT_DEFAULTS:
-			if not entry.has(key):
-				entry[key] = OBJECT_DEFAULTS[key]
-		if part is ContainerBlockPart:
-			entry.sprout = {
-				&"none": 0,
-				&"coin": -1 if part is TurnBlockPart else 0,
-				&"multi_coin": -1,
-				&"mushroom": 1,
-				&"flower": 2,
-				&"progressive_flower": 2,
-				&"star": -21,
-				&"one_up": -18
-			}[part.content_id]
-			entry.progresivo = int(part.content_id == &"progressive_flower")
-		if part is FireFlowerPart:
-			entry.progresivo = int(part.progressive)
-		if part is SlopePart:
-			entry.slope_rise = part.rise
-			entry.slope_right = int(part.rises_right)
-		if (
-			part is GoombaPart
-			or part is KoopaPart
-			or part is BuzzyPart
-			or part is SpinyPart
-			or part is CheepCheepPart
-			or part is PiranhaPart
-			or part is MuncherPart
-			or part is MontyPart
-			or part is ChompPart
-		):
-			entry.wings = int(part.wings)
-			entry.paracaidas = int(part.parachute)
-		if part is MuncherPart:
-			_set_alias(entry, "xx", "x_pos", part.position.x + part.variant.source_x_offset)
-		if part is ThwompPart:
-			entry.direct_t = part.attack_direction
-			entry.wings = int(part.wings)
-			entry.paracaidas = int(part.parachute)
-		if part is HammerBroPart:
-			entry.wings = int(part.wings)
-			entry.paracaidas = int(part.parachute)
-		if part is CheepCheepPart:
-			entry.modo_water = int(part.is_in_water())
-		if part is BuzzyPart or part is SpinyPart:
-			entry.inup = int(part.is_ceiling_attached())
-		if part is PiranhaPart and not part.variant.fire:
-			entry.inup = part.attachment_orientation()
 		object_records.append({"part": part, "entry": entry})
 	if main and not has_goal:
 		map.ground3_x = level.width - 112
@@ -291,6 +242,66 @@ static func _write_area(area: SubArea, wrapper: Dictionary, map: Dictionary, obj
 	return {"error": OK, "message": "", "bindings": bindings}
 
 
+## Fills one NIVEL-style object row for [param part] into [param entry]
+## (its position already set). Returns an empty Dictionary for an object the
+## format cannot hold yet. Pipe contents are written with it too.
+static func object_row(part: Part, entry: Dictionary) -> Dictionary:
+	var id := _object_id(part)
+	if id.is_empty():
+		return {}
+	_set_alias(entry, "ID", "object", id)
+	for key in OBJECT_DEFAULTS:
+		if not entry.has(key):
+			entry[key] = OBJECT_DEFAULTS[key]
+	if part is ContainerBlockPart:
+		entry.sprout = {
+			&"none": 0,
+			&"coin": -1 if part is TurnBlockPart else 0,
+			&"multi_coin": -1,
+			&"mushroom": 1,
+			&"flower": 2,
+			&"progressive_flower": 2,
+			&"star": -21,
+			&"one_up": -18
+		}[part.content_id]
+		entry.progresivo = int(part.content_id == &"progressive_flower")
+	if part is FireFlowerPart:
+		entry.progresivo = int(part.progressive)
+	if part is SlopePart:
+		entry.slope_rise = part.rise
+		entry.slope_right = int(part.rises_right)
+	if (
+		part is GoombaPart
+		or part is KoopaPart
+		or part is BuzzyPart
+		or part is SpinyPart
+		or part is CheepCheepPart
+		or part is PiranhaPart
+		or part is MuncherPart
+		or part is MontyPart
+		or part is ChompPart
+	):
+		entry.wings = int(part.wings)
+		entry.paracaidas = int(part.parachute)
+	if part is MuncherPart:
+		_set_alias(entry, "xx", "x_pos", part.position.x + part.variant.source_x_offset)
+	if part is ThwompPart:
+		entry.direct_t = part.attack_direction
+		entry.wings = int(part.wings)
+		entry.paracaidas = int(part.parachute)
+	if part is HammerBroPart:
+		entry.wings = int(part.wings)
+		entry.paracaidas = int(part.parachute)
+	if part is CheepCheepPart and part.is_inside_tree():
+		entry.modo_water = int(part.is_in_water())
+	# Topology needs the Part in its world; stored pipe contents are not.
+	if (part is BuzzyPart or part is SpinyPart) and part.is_inside_tree():
+		entry.inup = int(part.is_ceiling_attached())
+	if part is PiranhaPart and not part.variant.fire and part.is_inside_tree():
+		entry.inup = part.attachment_orientation()
+	return entry
+
+
 ## One TUBERIAS row with every field OpenWE's loader reads. warp stays 0: an
 ## OpenWE warp would teleport within the room, while SMMneo pairs pipes across
 ## worlds through smmneo_link.
@@ -307,6 +318,17 @@ static func _pipe_entry(pipe: PipePart, entry: Dictionary, link: int) -> Diction
 	entry.yscale = 1 + pipe.segments / 2.0 if vertical else 1
 	entry.warp = 0
 	entry.smmneo_link = link
+	# Which end of the pair shows the down arrow (SMM2 entrance marker).
+	entry.smmneo_entrance = int(link > 0 and pipe.entrance)
+	# What the pipe lets out, as an NIVEL-style row OpenWE ignores.
+	entry.erase("smmneo_content")
+	if pipe.content != null:
+		var row: Dictionary = pipe.content.swe_data.duplicate(true)
+		_set_alias(row, "xx", "x_pos", pipe.position.x)
+		_set_alias(row, "yy", "y_pos", pipe.position.y + 432)
+		row = object_row(pipe.content, row)
+		if not row.is_empty():
+			entry.smmneo_content = row
 	if not entry.has("mask"):
 		entry.mask = 0
 	var exit_defaults := {"t_x_pos": entry.x_pos + 32, "t_y_pos": entry.y_pos, "t_size": 0, "t_rotacion": 0,

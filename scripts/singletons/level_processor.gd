@@ -423,6 +423,11 @@ func _from_swe(path: String, meta_only := false) -> Level:
 		if pair.size() == 2 and pair[0].sub_area != pair[1].sub_area:
 			pair[0].link = pair[1]
 			pair[1].link = pair[0]
+			# Older saves have no entrance marker: the main-world end takes it.
+			var marked := pair.filter(func(pipe): return _int_value(pipe.swe_data.get("smmneo_entrance", 0)) == 1)
+			var entrance: PipePart = marked[0] if marked.size() == 1 else (pair[0] if pair[0].sub_area == lvl.get_main_world() else pair[1])
+			pair[0].entrance = pair[0] == entrance
+			pair[1].entrance = pair[1] == entrance
 	
 	lvl.swe_load_complete = true
 	return lvl
@@ -509,76 +514,9 @@ static func _load_area(lvl: Level, sub: SubArea, wrapper: Dictionary, map: Dicti
 			if id not in SWE_OBJECT_TABLE:
 				unknown_ids[id] = int(unknown_ids.get(id, 0)) + 1
 				continue
+			var obj := part_from_row(i, id, source_index, path)
 			var xx = _int_value(_get_value(i, "xx", "x_pos"))
 			var yy = _int_value(_get_value(i, "yy", "y_pos"), 432)
-			var scn: PackedScene = SWE_OBJECT_TABLE[id]
-			var obj = scn.instantiate()
-			obj.swe_data = i.duplicate(true)
-			obj.swe_source_index = source_index
-			obj.global_position = Level.snap(Vector2(xx, yy - 432))
-			if obj is SlopePart:
-				var height: Variant = i.get("slope_rise", 1)
-				obj.rise = clampi(int(height), 1, SlopePart.MAX_RISE) if _is_integer(height) else 1
-				obj.rises_right = i.get("slope_right", 1) != 0
-			if obj is GoombaPart:
-				obj.variant = GoombaPart.variant_for_object(id)
-			if obj is KoopaPart:
-				obj.variant = KoopaPart.variant_for_object(id)
-			if obj is BuzzyPart:
-				obj.variant = BuzzyPart.variant_for_object(id)
-			if obj is SpinyPart:
-				obj.variant = SpinyPart.variant_for_object(id)
-			if obj is CheepCheepPart:
-				obj.variant = CheepCheepPart.variant_for_object(id)
-			if obj is PiranhaPart:
-				obj.variant = PiranhaPart.variant_for_object(id)
-			if obj is MuncherPart:
-				obj.variant = MuncherPart.variant_for_object(id)
-				obj.position.x -= obj.variant.source_x_offset
-			if obj is ThwompPart:
-				obj.variant = ThwompPart.variant_for_object(id)
-				obj.position = Vector2(xx, yy - 432)
-				var rolling: bool = obj.variant is GrrrolVariant
-				if rolling:
-					obj.position = Vector2(_float_value(_get_value(i, "xx", "x_pos")), _float_value(_get_value(i, "yy", "y_pos"), 432) - 432)
-				var direction_value: Variant = i.get("direct_t", 2 if rolling else 1)
-				obj.attack_direction = int(direction_value) if _is_integer(direction_value) and int(direction_value) in ([2, 3] if rolling else [1, 2, 3]) else 2 if rolling else 1
-				obj.wings = _is_integer(i.get("wings", 0)) and int(i.get("wings", 0)) == 1
-				obj.parachute = _is_integer(i.get("paracaidas", 0)) and int(i.get("paracaidas", 0)) == 1
-			if obj is MontyPart:
-				# obj_monty_res keeps its authored, usually off-grid cell origin;
-				# scr_edit_to_play adds +8 only when the runtime actor is built.
-				obj.position = Vector2(xx, yy - 432)
-			if obj is RockyPart:
-				# Same off-grid cell anchor; runtime build adds the +8 x offset.
-				obj.position = Vector2(xx, yy - 432)
-			if obj is ChompPart:
-				obj.variant = ChompPart.variant_for_object(id)
-				obj.position = Vector2(_float_value(_get_value(i, "xx", "x_pos")),
-						_float_value(_get_value(i, "yy", "y_pos"), 432) - 432)
-			if obj is HammerBroPart:
-				obj.variant = HammerBroPart.variant_for_object(id)
-				obj.position = Vector2(xx, yy - 432)
-				obj.wings = _is_integer(i.get("wings", 0)) and int(i.get("wings", 0)) == 1
-				obj.parachute = _is_integer(i.get("paracaidas", 0)) and int(i.get("paracaidas", 0)) == 1
-			if obj is GoombaPart or obj is KoopaPart or obj is BuzzyPart or obj is SpinyPart or obj is CheepCheepPart or obj is PiranhaPart or obj is MuncherPart or obj is MontyPart or obj is ChompPart:
-				obj.wings = _is_integer(i.get("wings", 0)) and int(i.get("wings", 0)) == 1
-				obj.parachute = _is_integer(i.get("paracaidas", 0)) and int(i.get("paracaidas", 0)) == 1
-			if obj is FireFlowerPart:
-				obj.progressive = _is_integer(i.get("progresivo", 0)) and int(i.get("progresivo", 0)) == 1
-			if obj is ContainerBlockPart and i.has("sprout"):
-				var sprout: Variant = i.sprout
-				if _is_integer(sprout) and int(sprout) in [0, 1, 2, -21, -18, -1]:
-					var progressive := _is_integer(i.get("progresivo", 0)) and int(i.get("progresivo", 0)) == 1
-					match int(sprout):
-						0: obj.set_variant(obj.default_content())
-						1: obj.set_variant(&"mushroom")
-						2: obj.set_variant(&"progressive_flower" if progressive else &"flower")
-						-21: obj.set_variant(&"star")
-						-18: obj.set_variant(&"one_up")
-						-1: obj.set_variant(&"none" if obj is NoteBlockPart else &"coin" if obj is HiddenBlockPart else &"multi_coin")
-				else:
-					push_warning("Unsupported SWE block content '%s' in %s" % [sprout, path])
 			if obj is GoalPolePart:
 				# Goal coordinates are not on the 16px terrain grid (137px tall).
 				obj.position = Vector2(xx, yy - 432)
@@ -632,6 +570,15 @@ static func _load_area(lvl: Level, sub: SubArea, wrapper: Dictionary, map: Dicti
 		_apply_pipe(pipe, entry, "")
 		sub.add_part(pipe)
 		pipe.owner = lvl
+		var row: Variant = entry.get("smmneo_content")
+		if row is Dictionary and str(_get_value(row, "ID", "object")) in SWE_OBJECT_TABLE:
+			pipe.content = part_from_row(row, str(_get_value(row, "ID", "object")))
+			if PipePart.can_hold(pipe.content):
+				pipe.content.level = lvl
+				pipe.content.sub_area = sub
+			else:
+				pipe.content.free()
+				pipe.content = null
 		var link: Variant = entry.get("smmneo_link", 0)
 		if _is_integer(link) and int(link) > 0:
 			pipe_links.get_or_add(int(link), []).append(pipe)
@@ -705,6 +652,82 @@ static func _warn_type(key: String, value: Variant) -> void:
 
 static func _get_value(dict: Dictionary, new: String, old: String) -> Variant:
 	return dict.get(new if new in dict else old)
+
+
+## Builds the Part for one NIVEL-style object row with the known [param id].
+## Pipe contents are stored as such a row too.
+static func part_from_row(i: Dictionary, id: String, source_index := -1, path := "") -> Part:
+	var xx = _int_value(_get_value(i, "xx", "x_pos"))
+	var yy = _int_value(_get_value(i, "yy", "y_pos"), 432)
+	var scn: PackedScene = SWE_OBJECT_TABLE[id]
+	var obj = scn.instantiate()
+	obj.swe_data = i.duplicate(true)
+	obj.swe_source_index = source_index
+	obj.global_position = Level.snap(Vector2(xx, yy - 432))
+	if obj is SlopePart:
+		var height: Variant = i.get("slope_rise", 1)
+		obj.rise = clampi(int(height), 1, SlopePart.MAX_RISE) if _is_integer(height) else 1
+		obj.rises_right = i.get("slope_right", 1) != 0
+	if obj is GoombaPart:
+		obj.variant = GoombaPart.variant_for_object(id)
+	if obj is KoopaPart:
+		obj.variant = KoopaPart.variant_for_object(id)
+	if obj is BuzzyPart:
+		obj.variant = BuzzyPart.variant_for_object(id)
+	if obj is SpinyPart:
+		obj.variant = SpinyPart.variant_for_object(id)
+	if obj is CheepCheepPart:
+		obj.variant = CheepCheepPart.variant_for_object(id)
+	if obj is PiranhaPart:
+		obj.variant = PiranhaPart.variant_for_object(id)
+	if obj is MuncherPart:
+		obj.variant = MuncherPart.variant_for_object(id)
+		obj.position.x -= obj.variant.source_x_offset
+	if obj is ThwompPart:
+		obj.variant = ThwompPart.variant_for_object(id)
+		obj.position = Vector2(xx, yy - 432)
+		var rolling: bool = obj.variant is GrrrolVariant
+		if rolling:
+			obj.position = Vector2(_float_value(_get_value(i, "xx", "x_pos")), _float_value(_get_value(i, "yy", "y_pos"), 432) - 432)
+		var direction_value: Variant = i.get("direct_t", 2 if rolling else 1)
+		obj.attack_direction = int(direction_value) if _is_integer(direction_value) and int(direction_value) in ([2, 3] if rolling else [1, 2, 3]) else 2 if rolling else 1
+		obj.wings = _is_integer(i.get("wings", 0)) and int(i.get("wings", 0)) == 1
+		obj.parachute = _is_integer(i.get("paracaidas", 0)) and int(i.get("paracaidas", 0)) == 1
+	if obj is MontyPart:
+		# obj_monty_res keeps its authored, usually off-grid cell origin;
+		# scr_edit_to_play adds +8 only when the runtime actor is built.
+		obj.position = Vector2(xx, yy - 432)
+	if obj is RockyPart:
+		# Same off-grid cell anchor; runtime build adds the +8 x offset.
+		obj.position = Vector2(xx, yy - 432)
+	if obj is ChompPart:
+		obj.variant = ChompPart.variant_for_object(id)
+		obj.position = Vector2(_float_value(_get_value(i, "xx", "x_pos")),
+				_float_value(_get_value(i, "yy", "y_pos"), 432) - 432)
+	if obj is HammerBroPart:
+		obj.variant = HammerBroPart.variant_for_object(id)
+		obj.position = Vector2(xx, yy - 432)
+		obj.wings = _is_integer(i.get("wings", 0)) and int(i.get("wings", 0)) == 1
+		obj.parachute = _is_integer(i.get("paracaidas", 0)) and int(i.get("paracaidas", 0)) == 1
+	if obj is GoombaPart or obj is KoopaPart or obj is BuzzyPart or obj is SpinyPart or obj is CheepCheepPart or obj is PiranhaPart or obj is MuncherPart or obj is MontyPart or obj is ChompPart:
+		obj.wings = _is_integer(i.get("wings", 0)) and int(i.get("wings", 0)) == 1
+		obj.parachute = _is_integer(i.get("paracaidas", 0)) and int(i.get("paracaidas", 0)) == 1
+	if obj is FireFlowerPart:
+		obj.progressive = _is_integer(i.get("progresivo", 0)) and int(i.get("progresivo", 0)) == 1
+	if obj is ContainerBlockPart and i.has("sprout"):
+		var sprout: Variant = i.sprout
+		if _is_integer(sprout) and int(sprout) in [0, 1, 2, -21, -18, -1]:
+			var progressive := _is_integer(i.get("progresivo", 0)) and int(i.get("progresivo", 0)) == 1
+			match int(sprout):
+				0: obj.set_variant(obj.default_content())
+				1: obj.set_variant(&"mushroom")
+				2: obj.set_variant(&"progressive_flower" if progressive else &"flower")
+				-21: obj.set_variant(&"star")
+				-18: obj.set_variant(&"one_up")
+				-1: obj.set_variant(&"none" if obj is NoteBlockPart else &"coin" if obj is HiddenBlockPart else &"multi_coin")
+		else:
+			push_warning("Unsupported SWE block content '%s' in %s" % [sprout, path])
+	return obj
 
 
 ## Reads one pipe from a TUBERIAS row; [param prefix] "t_" reads the exit of

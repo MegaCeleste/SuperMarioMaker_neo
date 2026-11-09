@@ -326,6 +326,9 @@ func _unhold() -> void:
 	_check_validity()
 	_stop_window_timer()
 	%Graphics.rotation = 0
+	if self is EditorPlayer and level.editor.travel_through_pipe(self, _grid_pos):
+		Cursor.down = false
+		return
 	if level.editor.try_insert_content(self, _grid_pos):
 		Cursor.down = false
 		return
@@ -392,7 +395,8 @@ func _check_validity() -> void:
 	query.position = Level.from_grid(_grid_pos) + Level.GRID_SIZE / 2
 	_valid_space = get_world_2d().direct_space_state \
 			.intersect_point(query, 1).is_empty()
-	if not _valid_space and level.editor.content_target(_grid_pos, self) != null:
+	if not _valid_space and (level.editor.content_target(_grid_pos, self) != null \
+			or level.editor.pipe_target(_grid_pos, self) != null):
 		_valid_space = true
 
 

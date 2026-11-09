@@ -1,34 +1,43 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 class_name PlayerPipeState
 extends PlayerState
-## Mario entering a linked pipe, crossing to the other world and leaving its
-## partner (source obj_player_warp and obj_tuberia alarms). Movement is
-## scripted at 1px/tick through vertical pipes and 0.6px/tick through side
-## pipes; Mario draws behind the pipe and touches nothing meanwhile.
+## Mario travelling through a linked pipe into the other world, timed from
+## SMM2 (SMW style) recordings at 60fps: he moves into the opening, the screen
+## fades to black, stays black while he crosses, an iris opens on the exit,
+## and after a short pause he moves out. Whatever he carries goes with him.
+## Mario draws behind the pipe and touches nothing meanwhile.
 
-const VERTICAL_SPEED := 60.0
-const SIDE_SPEED := 36.0
-## Source alarm[1] before the crossing: 35 ticks vertical, 45 ticks sideways.
-const ENTER_TICKS := 35
-const SIDE_ENTER_TICKS := 45
-## Source alarm[0]: the arriving Mario waits before moving out.
-const EXIT_WAIT_TICKS := 30
-## Source distances: hidden after 32px down / 24px sideways, out after
-## 32px up, 20px down or 24px sideways.
+## Measured: about 0.5px/frame through vertical openings, 1px/frame sideways.
+const VERTICAL_SPEED := 30.0
+const SIDE_SPEED := 60.0
+## Measured: the fade starts about 5 frames after Mario is fully inside a
+## vertical pipe and about 16 frames after a side pipe, then lasts 26 frames.
+const VERTICAL_FADE_DELAY := 5
+const SIDE_FADE_DELAY := 16
+const FADE_TICKS := 26
+## Measured: about 76 frames of black, then the iris takes about 35 frames.
+const BLACK_TICKS := 76
+const IRIS_TICKS := 35
+## Pause between the iris finishing and Mario moving out (side exits show it).
+const EXIT_WAIT_TICKS := 12
+## How far Mario moves out: past the opening, then normal physics takes over.
 const SIDE_TRAVEL := 24.0
 const UP_TRAVEL := 32.0
 const DOWN_TRAVEL := 20.0
 
-enum Phase { ENTER, WAIT, EXIT }
+enum Phase { ENTER, FADE, BLACK, WAIT, EXIT }
 
 var entry: WarpPipe
 var exit: WarpPipe
 var _phase := Phase.ENTER
 var _ticks := 0
+var _hidden_ticks := -1
 var _start := Vector2.ZERO
 var _layer := 0
 var _mask := 0
 var _z := 0
+var _fade: FadeTransition
+var _curtain: CurtainTransition
 
 
 func start() -> Script:
@@ -44,6 +53,7 @@ func start() -> Script:
 	player.crouching = false
 	_phase = Phase.ENTER
 	_ticks = 0
+	_hidden_ticks = -1
 	_start = player.global_position
 	player.sounds.stream = SoundLibrary.stream("snd_warp")
 	player.sounds.play()
@@ -56,6 +66,8 @@ func end() -> void:
 	player.collision_mask = _mask
 	player.z_index = _z
 	player.visible = true
+	if is_instance_valid(_fade):
+		_fade.queue_free()
 	super()
 
 
@@ -70,11 +82,21 @@ func physics_process(delta: float) -> Script:
 			var into := -PipePart.axis(entry.part.facing)
 			_step(into, delta, entry)
 			var moved := (player.global_position - _start).dot(into)
-			var hide_after := SIDE_TRAVEL if _side(entry) else (UP_TRAVEL if into == Vector2.DOWN else _height())
-			if moved >= hide_after:
+			if _hidden_ticks < 0 and moved >= _hide_distance(into):
+				_hidden_ticks = 0
 				player.visible = false
-			if _ticks >= (SIDE_ENTER_TICKS if _side(entry) else ENTER_TICKS):
+			if _hidden_ticks >= 0:
+				_hidden_ticks += 1
+				if _hidden_ticks >= (SIDE_FADE_DELAY if _side(entry) else VERTICAL_FADE_DELAY):
+					_phase = Phase.FADE
+					_fade = FadeTransition.start(player.level, FADE_TICKS)
+		Phase.FADE:
+			if not is_instance_valid(_fade) or _fade.is_done():
 				_cross()
+		Phase.BLACK:
+			if not is_instance_valid(_curtain):
+				_phase = Phase.WAIT
+				_ticks = 0
 		Phase.WAIT:
 			if _ticks >= EXIT_WAIT_TICKS:
 				_phase = Phase.EXIT
@@ -90,8 +112,8 @@ func physics_process(delta: float) -> Script:
 	return null
 
 
-## Moves Mario into the partner pipe's world, inside its opening, and starts
-## the source curtain (obj_curtainin) centred on that opening.
+## Moves Mario into the partner pipe's world, inside its opening, and opens the
+## iris on that opening behind the black screen.
 func _cross() -> void:
 	var mouth := exit.part.mouth_rect()
 	var at := mouth.get_center()
@@ -108,8 +130,11 @@ func _cross() -> void:
 			player.direction = -1
 	player.move_to_area(exit.part.sub_area, at)
 	player.visible = true
-	CurtainTransition.open(player.level, mouth.get_center())
-	_phase = Phase.WAIT
+	_curtain = CurtainTransition.open(player.level, mouth.get_center(), BLACK_TICKS,
+			CurtainTransition.END_RADIUS / IRIS_TICKS)
+	if is_instance_valid(_fade):
+		_fade.queue_free()
+	_phase = Phase.BLACK
 	_ticks = 0
 	_pose(exit)
 
@@ -117,13 +142,13 @@ func _cross() -> void:
 func _step(way: Vector2, delta: float, pipe: WarpPipe) -> void:
 	player.global_position += way * (SIDE_SPEED if _side(pipe) else VERTICAL_SPEED) * delta
 	if not _side(pipe):
-		# Source pos_center: vertical travel pulls Mario onto the pipe's centre.
+		# Vertical travel pulls Mario onto the pipe's centre line.
 		var center := pipe.part.mouth_rect().get_center().x
 		player.global_position.x += (center - player.global_position.x) * 0.4
 
 
-## Source obj_player_warp Step_2: standing pose through vertical pipes, a
-## slow walk through side pipes; held items keep their carrying pose.
+## Standing pose through vertical pipes and a slow walk through side pipes;
+## a held item keeps its carrying pose.
 func _pose(pipe: WarpPipe) -> void:
 	var holding := player.held_item != null
 	if _side(pipe):
@@ -140,6 +165,8 @@ func _side(pipe: WarpPipe) -> bool:
 	return pipe.part.facing in [PipePart.Facing.LEFT, PipePart.Facing.RIGHT]
 
 
-## Source altura: an upward entry hides Mario once his whole body is inside.
-func _height() -> float:
-	return Utility.get_bounding_box(player).size.y + 2
+## Mario is hidden once his whole body has passed the opening.
+func _hide_distance(into: Vector2) -> float:
+	if _side(entry):
+		return SIDE_TRAVEL
+	return Utility.get_bounding_box(player).size.y + 2 if into == Vector2.DOWN else UP_TRAVEL
