@@ -43,7 +43,7 @@ func _ready() -> void:
 	supported.append_array([SlopePart, GentleSlopePart])
 	supported.append(SpringPart)
 	supported.append(SemisolidPart)
-	supported.append_array([DoorPart, PSwitchPart, PowPart])
+	supported.append_array([DoorPart, PSwitchPart, PowPart, BillBlasterPart, FireBarPart])
 	for category_name in ["terrain", "items", "enemies", "gizmos"]:
 		var category: PaletteCategory = load("res://resources/palette/category_%s.tres" % category_name)
 		for page in category.pages:

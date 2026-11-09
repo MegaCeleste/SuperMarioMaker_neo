@@ -83,6 +83,12 @@ const SWE_GROUND_FRAME_TABLE = [
 	Vector2(16, 64),
 	Vector2(32, 64),
 ]
+## PLATAFORMAS objects other than semisolids: source object id to Part scene.
+## Each Part reads and writes its own row (read_platform/write_platform).
+const PLATFORM_PARTS = {
+	"obj_bullebill_base_res": "res://scenes/level/parts/bill_blaster_part.tscn",
+	"obj_firebar_res": "res://scenes/level/parts/fire_bar_part.tscn",
+}
 const SWE_OBJECT_TABLE = {
 	"obj_block_res": preload("uid://k7sykscno8vb"),
 	"obj_qblock_res": preload("uid://b7i6hre4grgbn"),
@@ -560,7 +566,18 @@ func _from_swe(path: String, meta_only := false) -> Level:
 	if platforms is Array:
 		for source_index in platforms.size():
 			var entry: Variant = platforms[source_index]
-			if entry is not Dictionary or str(_get_value(entry, "ID", "object")) != "obj_semisolid_platform1":
+			if entry is not Dictionary:
+				continue
+			var platform_id := str(_get_value(entry, "ID", "object"))
+			if PLATFORM_PARTS.has(platform_id):
+				var resource: Part = load(PLATFORM_PARTS[platform_id]).instantiate()
+				resource.swe_data = entry.duplicate(true)
+				resource.swe_source_index = source_index
+				resource.read_platform(entry, platform_id)
+				sub.add_part(resource)
+				resource.owner = lvl
+				continue
+			if platform_id != "obj_semisolid_platform1":
 				continue
 			var platform := SemisolidPart.create()
 			platform.swe_data = entry.duplicate(true)
