@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://tests/scripts/smm1_round_capture.gd" id="1"]
+
+[node name="Smm1RoundCapture" type="Node"]
+script = ExtResource("1")
