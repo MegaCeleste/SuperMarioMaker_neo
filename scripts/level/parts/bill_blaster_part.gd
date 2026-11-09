@@ -26,8 +26,9 @@ static func icon_for(cells: int) -> Texture2D:
 	var icon := Image.create(60, 60, false, Image.FORMAT_RGBA8)
 	if SpriteLibrary.has_sprite(&"spr_bullebill_base"):
 		var column := texture_for(cells).get_image()
-		var scale := 3 if cells <= 3 else 2
-		column.resize(16 * scale, mini(cells * 16 * scale, 48), Image.INTERPOLATE_NEAREST)
+		# Keep the column's proportions: fit its height in 48px.
+		var scale := minf(3.0, 48.0 / (cells * 16))
+		column.resize(roundi(16 * scale), roundi(cells * 16 * scale), Image.INTERPOLATE_NEAREST)
 		icon.blit_rect(column, Rect2i(Vector2i.ZERO, column.get_size()), Vector2i((60 - column.get_width()) / 2, 6))
 	return ImageTexture.create_from_image(icon)
 

@@ -22,6 +22,8 @@ func _ready() -> void:
 	var sprite: AnimatedSprite2D = $Graphics/Sprite
 	SpriteLibrary.configure_sprite(sprite, &"spr_boo", &"default", 0, Vector2(0, -8))
 	sprite.stop()
+	# obj_boo/Create_0: direct = -1, facing left until it first moves.
+	sprite.flip_h = true
 
 
 func uses_source_deactivation() -> bool:

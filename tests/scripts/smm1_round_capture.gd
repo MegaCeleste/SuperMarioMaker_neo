@@ -37,6 +37,9 @@ func _ready() -> void:
 	Utility.camera_position = Vector2(0, -230)
 	await ticks(30)
 	await _snap("editor")
+	Utility.camera_position = Vector2(300, -230)
+	await ticks(10)
+	await _snap("editor_enemies")
 	area.get_parts().get_node("EditorPlayer").position = Vector2(16, -80)
 	level.play()
 	await ticks(20)
@@ -47,6 +50,15 @@ func _ready() -> void:
 	Utility.camera_position = Vector2(300, -230)
 	await ticks(6)
 	await _snap("enemies")
+	for node in area.get_foreground().get_children():
+		if node is BobOmb:
+			node._stomped(level.hud.player)
+	await ticks(10)
+	Utility.camera_position = Vector2(300, -230)
+	await ticks(2)
+	await _snap("held_bomb")
+	for cells in [2, 3, 5]:
+		BillBlasterPart.icon_for(cells).get_image().save_png("res://.godot/porting-tests/smm1_round_cannon_icon_%d.png" % cells)
 	print("CAPTURE_RESULT ", "PASS" if failures.is_empty() else "FAIL")
 	await finish("SMM1_ROUND_RESULT", level)
 

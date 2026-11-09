@@ -51,6 +51,9 @@ func _ready() -> void:
 	if boo == null or bomb == null or bones == null:
 		await finish("ENEMIES_RESULT", level)
 		return
+	# The art faces right (source xscale = direct); walkers start out walking left.
+	check(bomb.get_node("%Sprite").flip_h and bones.get_node("%Sprite").flip_h and boo.get_node("Graphics/Sprite").flip_h,
+			"An enemy faced right before its first turn while moving left")
 
 	# The Boo only comes closer while Mario turns his back on it.
 	_park(player, Vector2(250, -64))
@@ -78,6 +81,8 @@ func _ready() -> void:
 	if held == null:
 		await finish("ENEMIES_RESULT", level)
 		return
+	var held_art: Texture2D = held.get_node("Graphics/Sprite").sprite_frames.get_frame_texture(&"walk", 0)
+	check(held_art != null and held_art.resource_path.contains("spr_bobomb_hold"), "The lit Bob-omb is not drawn with spr_bobomb_hold")
 	# An ordinary landing on it does nothing; a spin jump bounces off and kicks it.
 	held.global_position = Vector2(300, -64)
 	held.velocity = Vector2.ZERO

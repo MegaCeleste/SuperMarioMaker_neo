@@ -15,6 +15,8 @@ func _ready() -> void:
 	super()
 	stomp_behavior = Stompability.CUSTOM
 	SpriteLibrary.configure_sprite(%Sprite, &"spr_bobomb", &"walk", 9, Vector2(0, -16))
+	# Source direct starts at -1: face the walking direction before any turn.
+	_turned(Vector2.RIGHT if $SlideComponent.direction > 0 else Vector2.LEFT)
 
 
 func _physics_process(delta: float) -> void:

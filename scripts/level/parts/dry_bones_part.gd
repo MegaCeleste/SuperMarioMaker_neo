@@ -29,7 +29,11 @@ static func create() -> DryBonesPart:
 
 func load(placed_from_editor := false) -> void:
 	super(placed_from_editor)
-	$Graphics/Sprite.texture = SpriteLibrary.get_frames(&"spr_drybones").get_frame_texture(&"default", 0)
+	var texture := SpriteLibrary.get_frames(&"spr_drybones").get_frame_texture(&"default", 0)
+	$Graphics/Sprite.texture = texture
+	# The 32px-tall art stands on the cell's bottom edge instead of centring on it.
+	if texture != null:
+		$Graphics/Sprite.offset.y = 8 - texture.get_height() / 2.0
 
 
 func build() -> void:
