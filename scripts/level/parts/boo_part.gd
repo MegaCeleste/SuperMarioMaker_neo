@@ -33,6 +33,9 @@ func load(placed_from_editor := false) -> void:
 	# Enemies face left in the editor; the source art faces right.
 	$Graphics/Sprite.flip_h = true
 	$Graphics/Sprite.texture = SpriteLibrary.get_frames(&"spr_boo").get_frame_texture(&"default", 0)
+	# Overlap the floor outline by one pixel, like Mario and the other enemies.
+	$Graphics/Sprite.position = Vector2.ZERO
+	EnemyPartPreview.align_contact(self, $Graphics/Sprite)
 
 
 func build() -> void:
