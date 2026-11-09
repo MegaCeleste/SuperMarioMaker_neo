@@ -105,7 +105,7 @@ func _ready() -> void:
 	player.drop_item()
 	Input.action_release("player_run")
 	await ticks(2)
-	check(absf(absf(spring.velocity.x) - Spring.KICK_SPEED) < 0.5 and spring.velocity.y < 0,
+	check(absf(absf(spring.velocity.x) - PickupComponent.KICK_SPEED) < 0.5 and spring.velocity.y < 0,
 		"Standing kick lost the SMM2 2.625 px/frame throw and hop: %s" % spring.velocity)
 	release_input()
 	await ticks(60)

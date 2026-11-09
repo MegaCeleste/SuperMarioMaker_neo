@@ -11,7 +11,8 @@ var kick_immunity := 15
 ## Collision_obj_mario stomp height: 12 for obj_bobomb_hold, else 5.
 var stomp_margin := 5.0
 
-const DECEL = 630.0
+## Shared SMM2 carry-item slide.
+const DECEL = PickupComponent.CARRY_FLOOR_FRICTION
 
 
 func uses_source_deactivation() -> bool:

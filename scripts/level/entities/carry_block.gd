@@ -8,7 +8,7 @@ extends Entity
 ## Set by a throw or kick until the block first touches something.
 var thrown := false
 ## Downward acceleration in px/s²; the spring's value unless a block sets its own.
-var fall_gravity := 540.0
+var fall_gravity := PickupComponent.CARRY_GRAVITY
 var _surface: AnimatableBody2D
 var _sprite: AnimatedSprite2D
 @onready var pickup: PickupComponent = $PickupComponent
@@ -59,14 +59,14 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector2.ZERO
 		return
 	var falling := velocity.y > 0
-	velocity.y = minf(240, velocity.y + fall_gravity * delta)
+	velocity.y = minf(PickupComponent.CARRY_MAX_FALL, velocity.y + fall_gravity * delta)
 	var before_x := velocity.x
 	move_source_and_slide()
 	if thrown and ((is_on_floor() and falling) or (is_on_wall() and before_x != 0)):
 		thrown = false
 		_thrown_impact()
 	if is_on_floor():
-		velocity.x = move_toward(velocity.x, 0, 306 * delta)
+		velocity.x = move_toward(velocity.x, 0, PickupComponent.CARRY_FLOOR_FRICTION * delta)
 	if is_on_wall():
 		velocity.x = 0
 	if position.y > Player.VOID_LEVEL:
@@ -89,14 +89,8 @@ func _dropped(player: Player, release: PickupComponent.ReleaseType) -> void:
 	_surface.collision_layer = 1
 	collision_layer = 8
 	pickup.pickup_immunity_left = 0.25
-	if release == PickupComponent.ReleaseType.THROWN_UP:
-		velocity = Vector2(30 * player.direction if player.velocity.x != 0 else 0, -367.5)
-		thrown = true
-	elif release == PickupComponent.ReleaseType.KICKED:
-		velocity = Vector2(60 * player.direction if player.velocity.x == 0 else player.velocity.x / 2, 0)
-		thrown = true
-	else:
-		velocity = Vector2.ZERO
+	velocity = PickupComponent.throw_velocity(player, release)
+	thrown = release in [PickupComponent.ReleaseType.THROWN_UP, PickupComponent.ReleaseType.KICKED]
 
 
 ## Mario lands on the top this tick (falling, feet within the top edge).

@@ -14,7 +14,6 @@ const MARGIN := 20.0
 
 func _ready() -> void:
 	super()
-	fall_gravity = 720  # Source Other_14: gravity 0.2 px/tick².
 	_sprite = AnimatedSprite2D.new()
 	_sprite.name = "Sprite"
 	add_child(_sprite)

@@ -60,7 +60,7 @@ flip_v = true
 
 [node name="GravityComponent" type="Node" parent="."]
 script = ExtResource("4_p6kv4")
-gravity = Vector2(0, 720)
+gravity = Vector2(0, 675)
 max_fall_speed = 240.0
 bounce = true
 metadata/_custom_type_script = "uid://nhyxn7n2fqbr"

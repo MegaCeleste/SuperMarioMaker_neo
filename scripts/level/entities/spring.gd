@@ -4,15 +4,7 @@ extends Entity
 ## Ordinary SMW portable spring: source4-frame/.3-per-tick compression,
 ## a9-tick rider hold, and313.5px/s launch through the native jump states.
 
-## Free-motion values measured from SMM2 (SMW style) at 60 fps: 3/16 px/f^2
-## gravity, 4 px/f fall cap, and a ~10-frame slide to rest after a kick.
-const GRAVITY := 675.0
-const FLOOR_FRICTION := 900.0
-## Kick: 2.625 px/f plus Mario's speed, with a small 1.75 px/f hop.
-const KICK_SPEED := 157.5
-const KICK_HOP := -105.0
-## Up throw: 6.4 px/f straight up when Mario is standing still.
-const THROW_UP_SPEED := -384.0
+## Throws and free motion use the shared SMM2 carry values in [PickupComponent].
 
 var active := false
 var age := 0
@@ -71,10 +63,10 @@ func _physics_process(delta: float) -> void:
 	if pickup.get_holder() != null or (is_instance_valid(level.hud.player) and level.hud.player.held_item == self):
 		velocity = Vector2.ZERO
 		return
-	velocity.y = minf(240, velocity.y + GRAVITY * delta)
+	velocity.y = minf(PickupComponent.CARRY_MAX_FALL, velocity.y + PickupComponent.CARRY_GRAVITY * delta)
 	move_source_and_slide()
 	if is_on_floor():
-		velocity.x = move_toward(velocity.x, 0, FLOOR_FRICTION * delta)
+		velocity.x = move_toward(velocity.x, 0, PickupComponent.CARRY_FLOOR_FRICTION * delta)
 	if is_on_wall():
 		velocity.x = 0
 	if position.y > Player.VOID_LEVEL:
@@ -126,16 +118,7 @@ func _dropped(player: Player, release: PickupComponent.ReleaseType) -> void:
 	_surface.collision_layer = 1
 	collision_layer = 8
 	pickup.pickup_immunity_left = 0.25
-	match release:
-		PickupComponent.ReleaseType.THROWN_UP:
-			velocity = Vector2(30 * player.direction if player.velocity.x != 0 else 0, THROW_UP_SPEED)
-		PickupComponent.ReleaseType.KICKED:
-			velocity = Vector2((KICK_SPEED + absf(player.velocity.x)) * player.direction, KICK_HOP)
-		PickupComponent.ReleaseType.STUNNED:
-			velocity = Vector2(60 * player.direction, 0)
-		_:
-			# Holding Down sets the spring on the ground in front of Mario.
-			velocity = Vector2.ZERO
+	velocity = PickupComponent.throw_velocity(player, release)
 
 func _bounce_actor() -> void:
 	var query := PhysicsShapeQueryParameters2D.new()
