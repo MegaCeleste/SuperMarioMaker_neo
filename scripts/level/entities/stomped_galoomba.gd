@@ -27,6 +27,8 @@ func _ready() -> void:
 	# alarm6=15. Neither Galoomba nor its ancestors handles alarm6.
 	%PickupComponent.pickup_immunity_left = 15.0 / 60
 	%PickupComponent.stun_pickup_immunity = INF
+	# obj_holdparent/Other_12 and Step_2: every release sets inmune, alarm[3] = 15.
+	%PickupComponent.dropped.connect(func(_player, _release): kick_immunity = 15)
 	if SpriteLibrary.has_sprite(variant.held_sprite):
 		var sprite: AnimatedSprite2D = $Graphics/Sprite
 		SpriteLibrary.configure_sprite(sprite, variant.held_sprite, &"walk", 9, Vector2(0, -16))
