@@ -21,7 +21,8 @@ func _ready() -> void:
 	super()
 	hardness = 6
 	fireproof = true
-	SpriteLibrary.configure_sprite(%Sprite, &"spr_drybones", &"walk", 9, Vector2(0, -16))
+	SpriteLibrary.configure_sprite(%Sprite, &"spr_drybones", &"walk", 9,
+			Vector2(0, SpriteLibrary.contact_draw_y(&"spr_drybones")))
 	# Source direct starts at -1: face the walking direction before any turn.
 	_turned(Vector2.RIGHT if $SlideComponent.direction > 0 else Vector2.LEFT)
 
@@ -66,7 +67,8 @@ func collapse() -> void:
 	$SlideComponent.process_mode = Node.PROCESS_MODE_DISABLED
 	velocity.x = 0
 	EnemyEffect.sound_once(sub_area, SoundLibrary.path("snd_crumble"))
-	SpriteLibrary.configure_sprite(%Sprite, &"spr_drybones_crumble", &"crumble", 0, Vector2(0, -16))
+	SpriteLibrary.configure_sprite(%Sprite, &"spr_drybones_crumble", &"crumble", 0,
+			Vector2(0, SpriteLibrary.contact_draw_y(&"spr_drybones_crumble")))
 	%Sprite.stop()
 	%Sprite.frame = 0
 
@@ -75,7 +77,8 @@ func stand_up() -> void:
 	collapsed = -1
 	hardness = 6
 	$SlideComponent.process_mode = Node.PROCESS_MODE_INHERIT
-	SpriteLibrary.configure_sprite(%Sprite, &"spr_drybones", &"walk", 9, Vector2(0, -16))
+	SpriteLibrary.configure_sprite(%Sprite, &"spr_drybones", &"walk", 9,
+			Vector2(0, SpriteLibrary.contact_draw_y(&"spr_drybones")))
 
 
 func hit_by_projectile(kind: StringName, launch_direction := 0.0) -> bool:

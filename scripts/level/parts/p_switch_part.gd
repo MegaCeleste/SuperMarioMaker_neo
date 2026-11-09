@@ -13,7 +13,7 @@ static func get_part_name(_environment: SubArea) -> String:
 
 
 static func get_part_icon(_environment: SubArea) -> Texture2D:
-	return icon_from(&"spr_pswitch", PSwitch.SMW_FRAME)
+	return icon_from(&"spr_pswitch", 0)
 
 
 ## A 60px palette icon from one 16x16 source frame, scaled 3x.
@@ -33,7 +33,10 @@ static func create() -> PSwitchPart:
 
 func load(placed_from_editor := false) -> void:
 	super(placed_from_editor)
-	$Graphics/Sprite.texture = SpriteLibrary.get_frames(&"spr_pswitch").get_frame_texture(&"default", PSwitch.SMW_FRAME)
+	$Graphics/Sprite.texture = SpriteLibrary.get_frames(&"spr_pswitch").get_frame_texture(&"default", 0)
+	# Overlap the floor outline by one pixel, like Mario and the enemies.
+	$Graphics/Sprite.position = Vector2.ZERO
+	EnemyPartPreview.align_contact(self, $Graphics/Sprite)
 
 
 func build() -> void:

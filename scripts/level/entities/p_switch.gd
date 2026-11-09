@@ -5,19 +5,20 @@ extends CarryBlock
 ## presses it: the SMW press thud (scr_snd_pwarning is snd_door_close), the
 ## flattened switch for 8 ticks, and the level-wide [PSwitchTimer].
 
-## Source image_index = global.apariencia; SMW is frame 2.
+## obj_pswitch_press: image_index = global.apariencia; SMW is frame 2.
 const SMW_FRAME := 2
+## obj_pswitch/Create_0 SMW: image_speed 0.15, cycling spr_pswitch's 4
+## flashing frames at 9fps.
+const FLASH_FPS := 9.0
 ## Source obj_pswitch_press alarm[1]: the flattened switch stays 8 ticks.
 const FLAT_TICKS := 8
 
 
 func _ready() -> void:
 	super()
-	_sprite = SpriteLibrary.make_sprite(&"spr_pswitch")
+	_sprite = AnimatedSprite2D.new()
 	_sprite.name = "Sprite"
-	_sprite.stop()
-	_sprite.frame = SMW_FRAME
-	_sprite.position = Vector2(-8, -16)
+	SpriteLibrary.configure_sprite(_sprite, &"spr_pswitch", &"flash", FLASH_FPS, Vector2(-8, -15))
 	add_child(_sprite)
 
 
@@ -38,7 +39,7 @@ func press() -> void:
 	flat.name = "PressedPSwitch"
 	flat.stop()
 	flat.frame = SMW_FRAME
-	flat.position = sub_area.get_foreground().to_local(global_position + Vector2(-8, -16))
+	flat.position = sub_area.get_foreground().to_local(global_position + Vector2(-8, -15))
 	flat.z_index = z_index
 	sub_area.add_deferred(flat)
 	get_tree().create_timer(FLAT_TICKS / 60.0, false, true).timeout.connect(flat.queue_free)

@@ -23,6 +23,9 @@ static func create() -> PowPart:
 func load(placed_from_editor := false) -> void:
 	super(placed_from_editor)
 	$Graphics/Sprite.texture = SpriteLibrary.get_frames(&"spr_block_pow").get_frame_texture(&"default", 0)
+	# Overlap the floor outline by one pixel, like Mario and the enemies.
+	$Graphics/Sprite.position = Vector2.ZERO
+	EnemyPartPreview.align_contact(self, $Graphics/Sprite)
 
 
 func build() -> void:
