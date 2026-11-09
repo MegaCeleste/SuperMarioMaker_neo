@@ -72,6 +72,7 @@ func _ready() -> void:
 	Input.action_press("player_run")
 	await ticks(5)
 	check(player.held_item == spring and spring._surface.collision_layer == 0, "Run/side-contact did not carry spring or kept its solid surface")
+	check(spring.z_index + player.z_index < player.z_index + player.sprite.z_index, "Held spring is drawn over Mario")
 	if capture:
 		await ticks(24)
 		await snap("carry", level)
@@ -81,6 +82,7 @@ func _ready() -> void:
 	await ticks(3)
 	check(player.held_item == null and spring.get_parent() == level.current_sub_area.get_foreground() and spring._surface.collision_layer == 1,
 		"Releasing spring did not restore free motion/surface")
+	check(absf(spring.velocity.x) < 0.01 and spring.velocity.y >= 0, "Down release slid the spring instead of setting it down")
 	release_input()
 	await ticks(16)
 	park(player, spring.position + Vector2(-16, 0))
@@ -93,6 +95,21 @@ func _ready() -> void:
 	await ticks(2)
 	check(player.held_item == null and spring.velocity.y < -300 and spring._surface.collision_layer == 1,
 		"Upward spring throw lost its native impulse or surface")
+	release_input()
+	await ticks(80)
+	park(player, spring.position + Vector2(-16, 0))
+	Input.action_press("player_run")
+	await ticks(4)
+	check(player.held_item == spring, "Thrown-up spring could not be picked up again")
+	player.velocity = Vector2.ZERO
+	player.drop_item()
+	Input.action_release("player_run")
+	await ticks(2)
+	check(absf(absf(spring.velocity.x) - Spring.KICK_SPEED) < 0.5 and spring.velocity.y < 0,
+		"Standing kick lost the SMM2 2.625 px/frame throw and hop: %s" % spring.velocity)
+	release_input()
+	await ticks(60)
+	check(absf(spring.velocity.x) < 0.01, "Kicked spring did not slide to rest")
 	release_input()
 	spring.position = Vector2(248, -64)
 	spring.velocity = Vector2.ZERO
