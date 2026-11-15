@@ -88,7 +88,8 @@ func set_night_mode(night: bool) -> void:
 
 ## Replaces theme and day/night together, keeping authored objects.
 func set_environment(next: Level.LevelTheme, night: bool, reset_water := true) -> void:
-	if (next == level_theme and night == night_mode) or not is_instance_valid(level) 			or level.status != Level.Status.EDITING:
+	if (next == level_theme and night == night_mode) or not is_instance_valid(level) \
+			or level.status != Level.Status.EDITING:
 		return
 	var old := level_theme
 	var had_liquid := LiquidSurface.supports(level_theme, night_mode)
@@ -142,6 +143,8 @@ func _refresh_environment() -> void:
 		liquid.name = "LiquidSurface"
 		liquid.sub_area = self
 		add_child(liquid)
+	if not visible:
+		_set_layers_visible(self, false)
 
 
 func get_background() -> Node2D:
@@ -166,11 +169,22 @@ func get_parts() -> Node2D:
 func freeze() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED
 	hide()
+	_set_layers_visible(self, false)
 
 
 func unfreeze() -> void:
 	process_mode = Node.PROCESS_MODE_INHERIT
 	show()
+	_set_layers_visible(self, true)
+
+
+# CanvasLayers (the theme background) ignore their parent's visibility, so a
+# frozen world's background would otherwise draw over the shown one.
+func _set_layers_visible(node: Node, shown: bool) -> void:
+	for child in node.get_children():
+		if child is CanvasLayer:
+			child.visible = shown
+		_set_layers_visible(child, shown)
 
 
 ## Adds a node to this sub-area's foreground. If the node is an [Entity],

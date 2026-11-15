@@ -15,7 +15,9 @@ func _ready() -> void:
 		var content := VBoxContainer.new()
 		content.name = "Content"
 		add_child(content)
-		if not part.get_modifiers().is_empty():
+		# SMM2 pipes put their buttons in one row; others keep toggles above.
+		var single_row: bool = part.has_method(&"window_single_row") and part.window_single_row()
+		if not single_row and not part.get_modifiers().is_empty():
 			var attachments := HBoxContainer.new()
 			attachments.name = "Attachments"
 			content.add_child(attachments)
@@ -67,6 +69,20 @@ func _ready() -> void:
 			button.custom_minimum_size = Vector2(84, 84)
 			button.pressed.connect(select.bind(option.id))
 			options.add_child(button)
+		if single_row:
+			for option in part.get_modifiers():
+				var toggle := Button.new()
+				toggle.name = String(option.id)
+				toggle.theme_type_variation = &"CoursebotLevelButton"
+				toggle.tooltip_text = tr(option.label)
+				toggle.icon = option.icon
+				toggle.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+				toggle.add_theme_constant_override("icon_max_width", 54)
+				toggle.custom_minimum_size = Vector2(84, 84)
+				toggle.disabled = option.get("disabled", false)
+				# A press, not a toggle: SMM2's exit button acts each time.
+				toggle.pressed.connect(_modifier_pressed.bind(option.id))
+				options.add_child(toggle)
 		part.level.editor.part_interact = false
 	var from_screen := get_canvas_transform().affine_inverse()
 	var screen_target := part.get_canvas_transform() * target_position if part != null else target_position
@@ -93,6 +109,12 @@ func _modifier_toggled(enabled: bool, id: StringName) -> void:
 		part.level.editor.set_part_modifier(part, id, enabled)
 		if part.get_variant() != before:
 			close()
+
+
+func _modifier_pressed(id: StringName) -> void:
+	if not _closing and is_instance_valid(part):
+		part.level.editor.set_part_modifier(part, id, true)
+		close()
 
 
 func _take_content() -> void:

@@ -37,6 +37,8 @@ SOUNDS = {
     "snd_1up": ("snd_1up", "snd_1up.ogg", b"OggS"),
     "snd_spring": ("snd_spring", "snd_spring.ogg", b"OggS"),
     "snd_swim": ("snd_swim", "snd_swim.ogg", b"OggS"),
+    "snd_warp": ("snd_warp", "snd_warp.ogg", b"OggS"),
+    "snd_rieles": ("snd_rieles", "snd_rieles.ogg", b"OggS"),
     "snd_door": ("snd_door", "snd_door.ogg", b"OggS"),
     "snd_door_close": ("snd_door_close", "snd_door_close.ogg", b"OggS"),
     "snd_switchsong": ("snd_switchsong", "snd_switchsong.ogg", b"OggS"),
@@ -102,6 +104,7 @@ def main():
                   "spr_drybones_crumble", "spr_drybones_deads", "spr_drybones_res",
                   "spr_bobomb_hold", "spr_bobomb_hold_deads", "spr_firebar_move",
                   "spr_button_change_firebar"})
+    names.update({"spr_pipes", "spr_pipes_part", "spr_door", "spr_door_close"})
     names.update({"bg_castle", "bg_airship", *[f"bg_underground_{i}" for i in range(1, 5)],
                   *[f"bg_underwater_{i}" for i in range(1, 5)], *[f"bg_ghost_house_{i}" for i in range(1, 4)],
                   "bg_desert", "bg_snow", "bg_forest", "bg_ghost_house_night",

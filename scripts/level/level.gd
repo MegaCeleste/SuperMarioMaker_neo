@@ -11,6 +11,8 @@ signal game_style_changed(old: GameStyle)
 signal time_changed
 signal playing
 signal editing
+## Emitted after [method switch_area] shows another world.
+signal area_changed(old: SubArea)
 ## Emitted once when a living player enters the goal.
 signal completed(player: Player)
 signal completion_finished
@@ -114,6 +116,9 @@ enum Tag {
 const GRID_SIZE = Vector2(16, 16)
 ## The maximum level height in tiles.
 const LEVEL_HEIGHT = 27
+## Index of the main world in [member sub_areas]; the sub-world follows it.
+const MAIN_WORLD := 0
+const SUB_WORLD := 1
 
 ## The current status of the level.
 @export var status: Status
@@ -223,9 +228,11 @@ func _ready() -> void:
 	hud.level = self
 	add_child(hud)
 	%LevelTimer.timeout.connect(_timeout)
+	ensure_sub_world()
 	for i in get_children():
 		if i is SubArea:
-			if status == Status.EDITING and source_swe.is_empty():
+			# Only the main world has a start and a goal.
+			if status == Status.EDITING and source_swe.is_empty() and sub_areas.is_empty():
 				var has_goal := false
 				for part in i.get_parts().get_children():
 					if part is GoalPolePart:
@@ -241,6 +248,9 @@ func _ready() -> void:
 	assert(not sub_areas.is_empty(), "Level does not have any sub-areas.")
 	if current_sub_area == null:
 		current_sub_area = sub_areas[0]
+	for area in sub_areas:
+		if area != current_sub_area:
+			area.freeze()
 	if editor != null:
 		editor.level = self
 		editor.load()
@@ -251,6 +261,90 @@ func _ready() -> void:
 		_edit()
 	Utility.camera_scale = Vector2(3, 3)
 	_camera_clamp()
+
+
+## Adds the sub-world when the level has only its main world. The new world
+## starts with the main world's environment and has no start or goal.
+## Safe to call before the level enters the tree (the SWE loader does).
+func ensure_sub_world() -> SubArea:
+	var areas: Array[SubArea] = []
+	for child in get_children():
+		if child is SubArea:
+			areas.append(child)
+	if areas.size() > SUB_WORLD:
+		return areas[SUB_WORLD]
+	var world: SubArea = preload("uid://cmjolsltwwkx1").instantiate()
+	world.name = "SubArea1"
+	world.level_theme = areas[MAIN_WORLD].level_theme
+	world.night_mode = areas[MAIN_WORLD].night_mode
+	world.water_speed = WaterSpeed.SLOW
+	world.min_water_height = 1
+	world.max_water_height = 1
+	world.meteorites = false
+	world.autoscroll = Autoscroll.NONE
+	add_child(world)
+	move_child(world, areas[MAIN_WORLD].get_index() + 1)
+	return world
+
+
+func get_main_world() -> SubArea:
+	return _world(MAIN_WORLD)
+
+
+## Null only for a level that never entered the tree and has no saved sub-world.
+func get_sub_world() -> SubArea:
+	return _world(SUB_WORLD)
+
+
+# Levels saved without entering the tree have not filled sub_areas yet.
+func _world(index: int) -> SubArea:
+	if sub_areas.size() > index:
+		return sub_areas[index]
+	var found := 0
+	for child in get_children():
+		if child is SubArea:
+			if found == index:
+				return child
+			found += 1
+	return null
+
+
+## The other world of [param area]: pipes always lead there.
+func get_other_world(area: SubArea) -> SubArea:
+	return get_sub_world() if area == get_main_world() else get_main_world()
+
+
+## The editor cursor, which test-play starts from; it moves between worlds.
+func get_editor_player() -> EditorPlayer:
+	for area in sub_areas:
+		for part in area.get_parts().get_children():
+			if part is EditorPlayer:
+				return part
+	return null
+
+
+## Shows [param area] and freezes the other world. Frozen worlds keep their
+## objects and state but leave physics, picking and processing.
+func switch_area(area: SubArea) -> void:
+	if area == current_sub_area or area not in sub_areas:
+		return
+	var old := current_sub_area
+	old.freeze()
+	current_sub_area = area
+	area.unfreeze()
+	# In play each world plays its own theme's music, unless a special song
+	# (Star, P-switch) has replaced the course music.
+	if status == Status.PLAYING and MusicPlayer.stream == SMWTheme.music_for(old, false):
+		var music := SMWTheme.music_for(area, false)
+		if music != MusicPlayer.stream:
+			MusicPlayer.stream = music
+			MusicPlayer.play()
+	# Test-play starts from the cursor, and editing resumes where Mario was.
+	var cursor := get_editor_player()
+	if cursor != null and cursor.sub_area != area:
+		cursor.get_parent().remove_child(cursor)
+		area.add_part(cursor)
+	area_changed.emit(old)
 
 
 func _process(_delta: float) -> void:
@@ -311,7 +405,7 @@ func is_player_dying() -> bool:
 
 func get_living_player() -> Player:
 	var player := hud.player if is_instance_valid(hud) else null
-	# Source AI queries obj_mario; ice/death/goal/door use separate replacements.
+	# Source AI queries obj_mario; ice/death/goal/pipe/door use separate replacements.
 	return player if is_instance_valid(player) and not player.is_dead() and not player.is_frozen() \
 			and not player.is_traveling() and status == Status.PLAYING else null
 
@@ -371,6 +465,9 @@ func _clear_goal_sequence() -> void:
 func reload() -> void:
 	# :)
 	edit()
+	# A retry outside the editor restarts at the course start in the main world.
+	if editor == null:
+		switch_area(get_main_world())
 	Utility.camera_position_raw = Vector2(0, -get_viewport().get_visible_rect().size.y)
 	play()
 

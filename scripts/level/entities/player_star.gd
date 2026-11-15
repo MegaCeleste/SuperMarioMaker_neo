@@ -171,4 +171,6 @@ func cancel(restore := false) -> void:
 
 
 func _exit_tree() -> void:
+	if is_instance_valid(player) and player.transferring:
+		return
 	cancel(false)

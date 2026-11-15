@@ -144,6 +144,9 @@ var held_item: Entity:
 var extra_lives := 0
 var _p_timer := 0.0
 var _can_move_camera_up := false
+## True while [method move_to_area] moves Mario between worlds, so tree-exit
+## cleanup (such as the star) does not mistake the move for removal.
+var transferring := false
 var _held_z := 0
 var _gravity: GravityComponent
 var _sprite_mapping: Dictionary = {}
@@ -208,17 +211,20 @@ func _ready() -> void:
 	_star.player = self
 	add_child(_star)
 	
-	var f = func():
-		var query = PhysicsShapeQueryParameters2D.new()
-		query.collide_with_areas = true
-		query.collide_with_bodies = true
-		query.collision_mask = 1
-		query.shape = WorldBoundaryShape2D.new()
-		query.shape.normal = Vector2.DOWN
-		query.transform.origin = Vector2(0, -14 * Level.GRID_SIZE.y)
-		_can_move_camera_up = not get_world_2d().direct_space_state.intersect_shape(
-				query, 1).is_empty()
-	f.call_deferred()
+	_check_camera_room.call_deferred()
+
+
+## Whether this world has anything above row 14 that the camera may rise to.
+func _check_camera_room() -> void:
+	var query = PhysicsShapeQueryParameters2D.new()
+	query.collide_with_areas = true
+	query.collide_with_bodies = true
+	query.collision_mask = 1
+	query.shape = WorldBoundaryShape2D.new()
+	query.shape.normal = Vector2.DOWN
+	query.transform.origin = Vector2(0, -14 * Level.GRID_SIZE.y)
+	_can_move_camera_up = not get_world_2d().direct_space_state.intersect_shape(
+			query, 1).is_empty()
 
 
 func _physics_process(delta: float) -> void:
@@ -366,9 +372,17 @@ func is_swimming() -> bool:
 	return state_machine.current_state is PlayerSwimmingState
 
 
-## Whether a door currently moves Mario instead of physics.
+## Whether a pipe or door currently moves Mario instead of physics.
 func is_traveling() -> bool:
-	return state_machine.current_state is PlayerDoorState
+	return state_machine.current_state is PlayerPipeState or state_machine.current_state is PlayerDoorState
+
+
+## Starts the scripted trip through [param entry] to its partner pipe.
+func enter_pipe(entry: WarpPipe, exit: WarpPipe) -> void:
+	var state: PlayerPipeState = Utility.find_child_by_class(state_machine, PlayerPipeState)
+	state.entry = entry
+	state.exit = exit
+	state_machine.switch(PlayerPipeState, true)
 
 
 ## Starts the scripted trip through [param entry] to its partner door.
@@ -378,7 +392,26 @@ func enter_door(entry: WarpDoor) -> void:
 	state_machine.switch(PlayerDoorState, true)
 
 
-## Centres the camera on Mario at once, as after going through a door.
+## Moves Mario, with anything he holds, to [param at] in [param area] and shows
+## that world. Pipes use it to cross between the main world and the sub-world.
+func move_to_area(area: SubArea, at: Vector2) -> void:
+	if area != sub_area:
+		var old := sub_area
+		transferring = true
+		get_parent().remove_child(self)
+		area.add(self)
+		transferring = false
+		if held_item != null and "sub_area" in held_item:
+			held_item.sub_area = area
+		level.switch_area(area)
+		if old != area:
+			_check_camera_room()
+	global_position = at
+	previous_position = at
+	snap_camera()
+
+
+## Centres the camera on Mario at once, as after a pipe or door.
 func snap_camera() -> void:
 	var size = get_viewport().get_visible_rect().size / Utility.camera_scale
 	Utility.camera_position = global_position - size / 2

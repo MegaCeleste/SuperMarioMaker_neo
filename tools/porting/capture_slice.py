@@ -1,6 +1,6 @@
 """Render a local slice screenshot using Godot's real OpenGL renderer.
 
-Creates a temporary off-screen window, captures, and exits within 30 seconds.
+Creates a temporary off-screen window, captures, and exits within 60 seconds.
 Usage: python -I tools/porting/capture_slice.py [--godot path]
 """
 import argparse
@@ -83,6 +83,7 @@ MODES = {
     "semisolid": "verify native semisolid resize, styles, signed platform collections and one-way contacts",
     "doors": "verify door pairs, the door trip and the circle curtain on real frames",
     "smm1-round": "view the P-switch, POW, cannon, fire bar, lifts, bridge, Boo, Bob-omb and Dry Bones",
+    "pipes": "verify sub-world pipes, transitions and pipe pixels",
 }
 
 
@@ -123,6 +124,7 @@ def main():
                else "res://tests/scenes/semisolid_test.tscn" if args.mode == "semisolid"
                else "res://tests/scenes/doors_test.tscn" if args.mode == "doors"
                else "res://tests/scenes/smm1_round_capture.tscn" if args.mode == "smm1-round"
+               else "res://tests/scenes/pipes_test.tscn" if args.mode == "pipes"
                else "res://tests/scenes/bro_projectile_test.tscn" if args.mode == "bro-status"
                else "res://tests/scenes/bro_environment_test.tscn" if args.mode == "bro-environment"
                else "res://tests/scenes/rocky_environment_test.tscn" if args.mode == "rocky-environment"
@@ -148,7 +150,7 @@ def main():
     with output_path.open("w", encoding="utf-8") as output:
         try:
             result = subprocess.run(command, cwd=ROOT, stdout=output,
-                                    stderr=subprocess.STDOUT, timeout=30)
+                                    stderr=subprocess.STDOUT, timeout=60)
         except subprocess.TimeoutExpired:
             print(f"FAIL capture: timed out; see {output_path}")
             return 1

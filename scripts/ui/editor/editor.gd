@@ -51,6 +51,16 @@ var history: EditorHistory
 var _history_controls: HBoxContainer
 var _undo_button: Button
 var _redo_button: Button
+var _world_button: Button
+# Each world keeps its own editor camera and cursor position.
+var _area_views: Dictionary[SubArea, Dictionary] = {}
+# The pipe waiting for an exit pick in the other world; see begin_pipe_link().
+var _linking_pipe: PipePart
+var _link_hint: PanelContainer
+# Whether the exit-placement prompt is up (after Mario has gone into the pipe).
+var _link_ready := false
+var _trip_tween: Tween
+var _trip_cursor: Part
 var _part_defaults: Dictionary[Script, StringName] = {}
 
 # The last calculated grid spot the mouse is on.
@@ -102,6 +112,9 @@ func _process(_delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		presses += 1
+	if _linking_pipe != null:
+		_pipe_link_input(event)
+		return
 	if event is InputEventMouseButton and not event.pressed and history != null:
 		# A contents drag also ends in Part._input on this same mouse release.
 		history.end_stroke.call_deferred()
@@ -149,6 +162,10 @@ func place(pos: Vector2i) -> Part:
 		history.set_variant(target, ContainerBlockPart.content_for(part, target))
 		part.free()
 		return target
+	var pipe := pipe_target(pos, part)
+	if pipe != null:
+		history.set_pipe_content(pipe, part)
+		return pipe
 	part.global_position = Level.from_grid(pos)
 	level.current_sub_area.add_part(part)
 	part.load(true)
@@ -167,7 +184,135 @@ func content_target(pos: Vector2i, item: Part) -> ContainerBlockPart:
 	return null
 
 
+## SMM2: dropping the editor Mario on a paired pipe sends him through it as in
+## play: he lands at the opening and moves in, the screen fades, the iris
+## opens on the other end in its world, and he moves out there.
+func travel_through_pipe(cursor: Part, pos: Vector2i) -> bool:
+	var at := Level.from_grid(pos) + Vector2(8, 8)
+	var pipe: PipePart
+	for part in level.current_sub_area.get_parts().get_children():
+		if part is PipePart and Rect2(part.position, part.get_size()).grow(4).has_point(at):
+			pipe = part
+	if pipe == null or pipe.get_exit() == null:
+		return false
+	var exit := pipe.get_exit()
+	history.end_stroke()
+	part_interact = false
+	var tween := _dive(cursor, pipe)
+	tween.tween_callback(func():
+		_arrive(cursor, exit)
+		# PLACEHOLDER timing: about 40 frames of black in total were measured
+		# for the editor; the iris takes about 35 frames as in play.
+		CurtainTransition.open(level, exit.opening_center(), 14, CurtainTransition.END_RADIUS / PlayerPipeState.IRIS_TICKS))
+	tween.tween_interval((14 + PlayerPipeState.IRIS_TICKS) / 60.0)
+	_rise(tween, cursor, exit)
+	return true
+
+
+## The editor Mario steps onto [param pipe]'s opening and moves in behind it,
+## then the screen fades out. Callers add what happens inside.
+func _dive(cursor: Part, pipe: PipePart) -> Tween:
+	_stop_pipe_trip()
+	_set_pipe_trip_layers(cursor, pipe, true)
+	cursor.position = _pipe_stand(pipe)
+	var tween := create_tween()
+	_trip_tween = tween
+	_trip_cursor = cursor
+	tween.tween_property(cursor, ^"position", cursor.position - PipePart.axis(pipe.facing) * 18,
+			18.0 / _pipe_speed(pipe))
+	tween.tween_callback(func(): FadeTransition.start(level, PlayerPipeState.FADE_TICKS))
+	tween.tween_interval(PlayerPipeState.FADE_TICKS / 60.0)
+	tween.tween_callback(_set_pipe_trip_layers.bind(cursor, pipe, false))
+	return tween
+
+
+## Shows [param exit]'s world with the editor Mario just inside it.
+func _arrive(cursor: Part, exit: PipePart) -> void:
+	level.switch_area(exit.sub_area)
+	_set_pipe_trip_layers(cursor, exit, true)
+	cursor.position = _pipe_stand(exit) - PipePart.axis(exit.facing) * 18
+	var size := get_viewport().get_visible_rect().size / Utility.camera_scale
+	Utility.camera_position_raw = cursor.position + Vector2(8, 8) - size / 2
+	var fade := level.get_node_or_null(^"FadeTransition")
+	if fade != null:
+		fade.queue_free()
+
+
+## The editor Mario moves out of [param exit] and editing resumes.
+func _rise(tween: Tween, cursor: Part, exit: PipePart) -> void:
+	tween.tween_property(cursor, ^"position", _pipe_stand(exit), 18.0 / _pipe_speed(exit))
+	tween.tween_callback(func():
+		_set_pipe_trip_layers(cursor, exit, false)
+		cursor._grid_pos = Level.to_grid(cursor.position)
+		part_interact = level.status == Level.Status.EDITING and _linking_pipe == null)
+
+
+# Ends a pipe trip animation early (Play pressed), putting Mario's layers back.
+func _stop_pipe_trip() -> void:
+	if _trip_tween != null and _trip_tween.is_valid():
+		_trip_tween.kill()
+	_trip_tween = null
+	if is_instance_valid(_trip_cursor):
+		_set_pipe_trip_layers(_trip_cursor, null, false)
+		_trip_cursor.get_node("%Graphics").visible = true
+	for area in level.sub_areas:
+		for part in area.get_parts().get_children():
+			if part is PipePart:
+				part.get_node("Graphics").z_index = 0
+
+
+# While the editor Mario is inside a pipe, the pipe draws over him. Raising the
+# pipe (not lowering Mario) keeps him above the world shadows at z -1.
+func _set_pipe_trip_layers(cursor: Part, pipe: PipePart, inside: bool) -> void:
+	var sprite: Node2D = cursor.get_node_or_null("%Sprite")
+	if sprite != null:
+		if inside and not sprite.has_meta(&"trip_z"):
+			sprite.set_meta(&"trip_z", sprite.z_index)
+			sprite.z_index = 0
+		elif not inside and sprite.has_meta(&"trip_z"):
+			sprite.z_index = sprite.get_meta(&"trip_z")
+			sprite.remove_meta(&"trip_z")
+	if is_instance_valid(pipe):
+		pipe.get_node("Graphics").z_index = 1 if inside else 0
+
+
+# Top-left of the editor Mario standing at [param pipe]'s opening, outside it.
+func _pipe_stand(pipe: PipePart) -> Vector2:
+	var edge := pipe.opening_center()
+	match pipe.facing:
+		PipePart.Facing.UP:
+			return edge - Vector2(8, 16)
+		PipePart.Facing.DOWN:
+			return edge - Vector2(8, 0)
+		PipePart.Facing.RIGHT:
+			return Vector2(edge.x, pipe.mouth_rect().end.y - 16)
+		_:
+			return Vector2(edge.x - 16, pipe.mouth_rect().end.y - 16)
+
+
+func _pipe_speed(pipe: PipePart) -> float:
+	return PlayerPipeState.SIDE_SPEED if pipe.facing in [PipePart.Facing.LEFT, PipePart.Facing.RIGHT] 			else PlayerPipeState.VERTICAL_SPEED
+
+
+## SMM2 pipes take items and enemies dropped on them, and let them out in play.
+func pipe_target(pos: Vector2i, item: Part) -> PipePart:
+	if not PipePart.can_hold(item):
+		return null
+	var at := Level.from_grid(pos) + Vector2(8, 8)
+	for part in level.current_sub_area.get_parts().get_children():
+		if part is PipePart and part != item and Rect2(part.position, part.get_size()).has_point(at):
+			return part
+	return null
+
+
 func try_insert_content(item: Part, pos: Vector2i) -> bool:
+	var pipe := pipe_target(pos, item)
+	if pipe != null:
+		history.set_pipe_content(pipe, item, item._drag_start)
+		item._content_origin = null
+		UISoundPlayer.stream = preload("uid://2x6kk0s4njjp")
+		UISoundPlayer.play()
+		return true
 	var target := content_target(pos, item)
 	if target == null:
 		return false
@@ -232,12 +377,165 @@ func get_palette_icon(part: Script) -> Texture2D:
 
 
 func set_part_modifier(part: Part, id: StringName, enabled: bool) -> void:
+	if part is PipePart and id == &"link":
+		# A paired pipe's button shows its other end; an unpaired one asks for
+		# an exit pipe.
+		if not enabled:
+			history.link_pipes(part, null)
+		elif part.get_exit() != null:
+			show_pipe_partner.call_deferred(part)
+		else:
+			begin_pipe_link.call_deferred(part)
+		return
 	for option in part.get_modifiers():
 		if option.id == id:
 			history.set_modifier(part, id, enabled)
 			if (part is HammerBroPart or part is GrrrolPart) and id == &"large":
 				_remember_palette_variant(part)
 			return
+
+
+## SMM2's exit button: the editor Mario goes into [param pipe], the other
+## world fades in and a prompt asks for an exit pipe there. The next click
+## places a new pipe of the same colour, paired with [param pipe] in the same
+## undo step, and Mario comes out of it. Right click or Escape cancels.
+func begin_pipe_link(pipe: PipePart) -> void:
+	if not is_instance_valid(pipe) or level.status != Level.Status.EDITING or held_part != null 			or _linking_pipe != null:
+		return
+	history.end_stroke()
+	if is_instance_valid(pipe._window):
+		pipe._window.close()
+	_linking_pipe = pipe
+	_link_ready = false
+	part_interact = false
+	# SMM2 hides the editor's panels while this goes on.
+	_set_panels_open(false)
+	var cursor := level.get_editor_player()
+	var tween := _dive(cursor, pipe)
+	tween.tween_callback(_show_link_prompt.bind(pipe, cursor))
+
+
+func _show_link_prompt(pipe: PipePart, cursor: Part) -> void:
+	if _linking_pipe != pipe:
+		return
+	switch_world()
+	part_interact = false
+	var fade := level.get_node_or_null(^"FadeTransition")
+	if fade != null:
+		fade.queue_free()
+	# Mario stays out of sight until the exit pipe is placed.
+	cursor.get_node("%Graphics").visible = false
+	FadeTransition.start(level, 26, true)
+	_link_ready = true
+	_link_hint = PanelContainer.new()
+	_link_hint.name = "PipeLinkHint"
+	_link_hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var box := StyleBoxFlat.new()
+	box.bg_color = Color(0.1, 0.1, 0.1, 0.72)
+	box.border_color = Color(0.35, 0.35, 0.35, 0.8)
+	box.set_border_width_all(2)
+	box.set_corner_radius_all(10)
+	box.content_margin_left = 48
+	box.content_margin_right = 48
+	box.content_margin_top = 10
+	box.content_margin_bottom = 10
+	_link_hint.add_theme_stylebox_override(&"panel", box)
+	var text := Label.new()
+	text.text = tr("EDITOR_PIPE_PLACE_EXIT")
+	text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	text.add_theme_font_size_override(&"font_size", 26)
+	_link_hint.add_child(text)
+	add_child(_link_hint)
+	_link_hint.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM, Control.PRESET_MODE_MINSIZE)
+	_link_hint.position.y -= 110
+	# PLACEHOLDER: SMM2 also shows its course scroll bar (S ... G) under the
+	# prompt; SMMneo has no such bar yet.
+
+
+## SMM2: a paired pipe's exit button shows the pipe at the other end.
+func show_pipe_partner(pipe: PipePart) -> void:
+	var exit := pipe.get_exit()
+	if exit == null or level.status != Level.Status.EDITING or held_part != null:
+		return
+	history.end_stroke()
+	level.switch_area(exit.sub_area)
+	var size := get_viewport().get_visible_rect().size / Utility.camera_scale
+	Utility.camera_position_raw = exit.position + exit.get_size() / 2 - size / 2
+	FadeTransition.start(level, 26, true)
+
+
+func _set_panels_open(open: bool) -> void:
+	var state := EditorPanel.Status.OPEN if open else EditorPanel.Status.HIDDEN
+	%TopPanel.status = state
+	%LeftPanel.status = state
+	%RightPanel.status = state
+	%Clapperboard.visible = open
+
+
+## Ends pairing. With [param at], places the exit pipe there and stays in its
+## world, as SMM2 does; cancelling returns to the entrance pipe's world.
+func finish_pipe_link(at := Vector2i(-1, 1)) -> PipePart:
+	if _linking_pipe == null:
+		return null
+	var pipe := _linking_pipe
+	var ready := _link_ready
+	_linking_pipe = null
+	_link_ready = false
+	if is_instance_valid(_link_hint):
+		_link_hint.queue_free()
+	part_interact = true
+	if level.status == Level.Status.EDITING:
+		_set_panels_open(true)
+	var cursor := level.get_editor_player()
+	if cursor != null:
+		cursor.get_node("%Graphics").visible = true
+	if not is_instance_valid(pipe):
+		return null
+	if at.y > 0 or not ready:
+		# Cancelled: back out of the entrance pipe in its own world.
+		if level.current_sub_area != pipe.sub_area:
+			level.switch_area(pipe.sub_area)
+		if cursor != null and level.status == Level.Status.EDITING:
+			_stop_pipe_trip()
+			_arrive(cursor, pipe)
+			_trip_tween = create_tween()
+			_rise(_trip_tween, cursor, pipe)
+		return null
+	var exit := PipePart.create()
+	exit.color = pipe.color
+	exit.global_position = Level.from_grid(at)
+	history.begin_stroke("Place exit pipe")
+	level.current_sub_area.add_part(exit)
+	exit.load(true)
+	history.record_place(exit)
+	history.link_pipes(pipe, exit)
+	history.end_stroke()
+	UISoundPlayer.stream = preload("uid://2x6kk0s4njjp")
+	UISoundPlayer.play()
+	# Mario comes out of the new exit pipe.
+	if cursor != null:
+		part_interact = false
+		_stop_pipe_trip()
+		_arrive(cursor, exit)
+		_trip_tween = create_tween()
+		_rise(_trip_tween, cursor, exit)
+	return exit
+
+
+func _pipe_link_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
+		finish_pipe_link()
+	elif event is InputEventMouseButton and event.pressed:
+		if event.button_index == MOUSE_BUTTON_RIGHT:
+			finish_pipe_link()
+		elif event.button_index == MOUSE_BUTTON_LEFT and _link_ready:
+			# The exit pipe's head is a 2x2 cell block whose top-left is under the cursor.
+			var cell := Level.to_grid(level.get_global_mouse_position())
+			if PipePart.is_placeable(cell, level.get_world_2d()) and cell.x >= 0 and cell.y <= -2:
+				finish_pipe_link(cell)
+	else:
+		return
+	get_viewport().set_input_as_handled()
 
 
 ## Removes an editor Part while retaining it for native UndoRedo restoration.
@@ -334,8 +632,42 @@ func load() -> void:
 	level.add_child(dark_overlay)
 	level.playing.connect(_play)
 	level.editing.connect(_edit)
-	
+	level.area_changed.connect(_area_changed)
+
 	loaded.emit()
+
+
+## Shows the other world for editing; see [method Level.switch_area].
+func switch_world() -> bool:
+	if level.status != Level.Status.EDITING or held_part != null or _saving \
+			or (not part_interact and _linking_pipe == null):
+		return false
+	history.end_stroke()
+	level.switch_area(level.get_other_world(level.current_sub_area))
+	UISoundPlayer.stream = preload("uid://2x6kk0s4njjp")
+	UISoundPlayer.play()
+	return true
+
+
+func _area_changed(old: SubArea) -> void:
+	hovered_part = null
+	if level.status == Level.Status.EDITING:
+		var cursor := level.get_editor_player()
+		_area_views[old] = {"camera": Utility.camera_position_raw,
+				"cursor": cursor.position if cursor != null else Vector2(56, -48)}
+		var view: Dictionary = _area_views.get(level.current_sub_area,
+				{"camera": Vector2(0, -get_viewport().get_visible_rect().size.y), "cursor": Vector2(56, -48)})
+		Utility.camera_position_raw = view.camera
+		if cursor != null:
+			cursor.position = view.cursor
+		refresh_theme()
+	_update_world_button()
+
+
+func _update_world_button() -> void:
+	if _world_button != null:
+		var sub := level.current_sub_area == level.get_sub_world()
+		_world_button.text = tr("EDITOR_SUB_WORLD" if sub else "EDITOR_MAIN_WORLD")
 
 
 func _create_history_controls() -> void:
@@ -343,7 +675,17 @@ func _create_history_controls() -> void:
 	_history_controls.name = "HistoryControls"
 	add_child(_history_controls)
 	_history_controls.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
-	_history_controls.position += Vector2(-132, -66)
+	_history_controls.position += Vector2(-197, -66)
+	# The world switch names the world being edited; pressing it shows the other.
+	_world_button = Button.new()
+	_world_button.theme_type_variation = &"CoursebotLevelButton"
+	_world_button.name = "World"
+	_world_button.custom_minimum_size = Vector2(126, 48)
+	_world_button.focus_mode = Control.FOCUS_NONE
+	_world_button.tooltip_text = tr("EDITOR_SWITCH_WORLD")
+	_world_button.pressed.connect(switch_world)
+	_history_controls.add_child(_world_button)
+	_update_world_button()
 	for action in ["EDITOR_UNDO", "EDITOR_REDO"]:
 		var button := Button.new()
 		button.theme_type_variation = &"CoursebotLevelButton"
@@ -378,8 +720,11 @@ func refresh_theme() -> void:
 func _update_history_controls() -> void:
 	if history == null:
 		return
-	_history_controls.visible = level.status == Level.Status.EDITING
+	# SMM2 has no on-screen area/undo/redo buttons: Undodog and pipes cover
+	# them. The controls stay for keyboard shortcuts and tests, hidden.
+	_history_controls.visible = false
 	var available := part_interact and held_part == null and not _saving
+	_world_button.disabled = not available
 	_undo_button.disabled = not available or not history.can_undo()
 	_redo_button.disabled = not available or not history.can_redo()
 
@@ -414,6 +759,11 @@ func _process_placing(process_multiplaceables: bool) -> void:
 		var target := content_target(grid_pos, candidate)
 		valid = target != null and target.content_id != ContainerBlockPart.content_for(candidate, target)
 		candidate.free()
+	if not valid and PipePart.can_hold_type(selected):
+		var candidate: Part = selected.create()
+		var pipe := pipe_target(grid_pos, candidate)
+		valid = pipe != null and (pipe.content == null or pipe.content.get_script() != selected)
+		candidate.free()
 	if selected in [SlopePart, GentleSlopePart]:
 		valid = valid and grid_pos.x >= 0 and grid_pos.y >= -27 and grid_pos.y <= -2 \
 				and (grid_pos.x + (4 if selected == GentleSlopePart else 3)) * 16 <= level.width
@@ -425,7 +775,12 @@ func _process_placing(process_multiplaceables: bool) -> void:
 
 
 func _play() -> void:
-	if (held_part is SlopePart or held_part is SemisolidPart) and held_part.resizing:
+	finish_pipe_link()
+	_stop_pipe_trip()
+	for fade in [level.get_node_or_null(^"FadeTransition")]:
+		if fade != null:
+			fade.queue_free()
+	if (held_part is SlopePart or held_part is SemisolidPart or held_part is PipePart) and held_part.resizing:
 		held_part.end_resize()
 	history.end_stroke()
 	part_interact = false
